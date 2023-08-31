@@ -1,18 +1,18 @@
 import React from 'react';
 
-type Head = {
+type Header = {
   name: string;
   work: string;
 };
 
-const Head: React.FC<Head> = ({ name,work }) => (
+const Header: React.FC<Header> = ({ name,work }) => (
     <div>
     hi, {name} {work}
   </div>
 );
 
-Head.defaultProps = {
+Header.defaultProps = {
     work: '!'
 };
 
-export default Head;
+export default Header;
