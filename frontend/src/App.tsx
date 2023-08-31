@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import Head from './component/Head';
+import Header from './component/Header.jsx';
 
 const App: React.FC = () => {
   return (
     <div>
-      <Head name="kimdaun" work='test'/>
+      <Header name="kimdaun" work='test'/>
+
+      
     </div>
   );
 };
