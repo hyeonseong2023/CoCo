@@ -1,0 +1,86 @@
+#header-container {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #header-logo-box {
+    display: flex;
+    align-items: center;
+    margin-left: 2%;
+  }
+  
+  #header-white-space {
+    display: flex;
+    align-items: center;
+    width: 15%;
+    margin-left: auto; /* 오른쪽으로 정렬 */
+  }
+  
+  #header-login-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  #header-login-container > img {
+    height: 50%;
+    margin-left: 3%;
+  }
+  
+  #header-login-container > button {
+    border: 0;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+  
+  /* 모바일 화면에서 로그인 버튼 간격을 조정 */
+  @media (max-width: 380px) {
+    #header-login-container > button {
+      font-size: 0.9rem;
+    }
+  
+    /* 모바일 화면에서 "새글쓰기" 버튼 감춤 */
+    #header-write {
+      display: none;
+    }
+  
+    #header-login > img {
+      width: 50%;
+    }
+  }
+  
+  body.modal-open {
+    overflow: hidden;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0; /* 화면 상단에 배치 */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 위로 정렬 */
+    z-index: 9999;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
