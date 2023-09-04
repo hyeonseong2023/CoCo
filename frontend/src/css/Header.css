@@ -54,3 +54,12 @@
 .header-container{
     display: flex;
 }
+
+.header-buttons {
+    flex: 1; 
+    text-align: right;
+    margin: 3%
+}
+.header-logo{
+    margin: 3%;
+}

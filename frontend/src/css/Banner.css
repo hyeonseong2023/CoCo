@@ -38,6 +38,7 @@
     flex-direction: column;
     justify-content: center;
     height: 30vh;
+
   }
 
   .Banner-container>div{
@@ -48,3 +49,4 @@
     height: 30vh;
     text-align: center;
   }
+
