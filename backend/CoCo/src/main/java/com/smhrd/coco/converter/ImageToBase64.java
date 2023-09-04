@@ -15,7 +15,7 @@ public class ImageToBase64 extends ImageConverter<File, String> {
 		//파일을 문자열로 변환 
 		// 1.파일을 가지고오기 -> 바이트 배열형태로 읽기 
 		byte[] fileContent = FileUtils.readFileToByteArray(f);
-		// 2.바이트 형태를 인코딩 (base64) dfgsdfg
+		// 2.바이트 형태를 인코딩 (base64) dfgsdfg--7896789
 		String result = Base64.getEncoder().encodeToString(fileContent);
 		return result;
 	}
