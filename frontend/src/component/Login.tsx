@@ -6,14 +6,31 @@ type LoginProps = {
 
 const Login: React.FC<LoginProps> = ({ onClose }) => {
   // 로그인 관련 로직 및 UI 구현
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
 
   return (
-    <div className="popup-container">
-      <div className="popup-content">
-        <h2>로그인</h2>
-        {/* 로그인 관련 폼 및 UI 요소들을 여기에 추가 */}
-        <button onClick={onClose}>닫기</button>
-      </div>
+    <div>
+      <button onClick={openPopup}>로그인</button>
+      {isPopupOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>로그인</h2>
+            <div className="popup">
+              <button>구글</button>
+              <button>카카오</button>
+            </div>
+            <button onClick={closePopup}>닫기</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
