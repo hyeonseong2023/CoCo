@@ -47,6 +47,7 @@ public class KakaoController {
 			System.out.println("DB에있는 이메일 ");
 			data.put("CUST_ID", CUST_ID);
 			data.put("CUST_IMG", CUST_IMG);
+			System.out.println("test");
 		}
 		return data;
 	}
