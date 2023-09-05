@@ -3,7 +3,7 @@ import '../css/Main.css'
 import Header from '../component/Header'
 import Banner from '../component/Banner'
 import Contents from './Contents'
-
+//메인 페이지 컴포넌트
 type MainProps = {};
 
 const Main: React.FC<MainProps> = ({}) => {
@@ -15,6 +15,7 @@ const Main: React.FC<MainProps> = ({}) => {
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
+      <div id="main-Whitespace"/>
       <Contents />
     </div>
   );

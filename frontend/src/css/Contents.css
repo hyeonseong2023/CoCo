@@ -1,0 +1,20 @@
+#Contents-box {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  #Contents-box > div > div {
+    flex: 1;
+    height: 150px;
+    background-color: rgb(255, 243, 228);
+  }
+  
+  #Contents-box > div {
+    width: 100%; /* 한 행에 하나의 요소만 표시하도록 너비 설정 */
+    height: 150px;
+    background-color: rgb(209, 209, 209);
+    display: flex;
+    flex-direction: row; /* 요소를 가로로 정렬 */
+    justify-content: space-between; /* 요소를 좌우로 균등하게 분배 */
+  }
+  

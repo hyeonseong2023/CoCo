@@ -3,6 +3,15 @@
     height: 15vh;
     background-color: rgb(253, 238, 218);
 }
+
+.slide-image {
+  max-width: 100%; /* 이미지의 최대 너비를 부모 요소에 맞춤 */
+  height: auto; /* 이미지의 높이를 자동으로 조절하여 비율 유지 */
+  
+}
+
+/* 나머지 스타일은 유지합니다. */
+
 .slick-prev {
     z-index: 1;
     left: 30px;
@@ -37,7 +46,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 30vh;
+    height: 35vh;
 
   }
 
@@ -46,7 +55,23 @@
     justify-content: center;
     display: flex;
     background-color: rgb(236, 228, 228);
-    height: 30vh;
+    height: 35vh;
     text-align: center;
   }
+#banner-img1{
+  width: 250px;
+}
+
+#banner-box1{
+    display: flex;
+    background-color: #ffeae9;
+}
+#banner-img1{
+  width: 250px;
+}
+
+#banner-box1{
+    display: flex;
+    background-color: #ffeae9;
+}
 

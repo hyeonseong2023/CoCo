@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 type LoginProps = {
   onClose: () => void;
 };
-
+//로그인 팝업 온클릭 여부 확인후 동작구현
 const Login: React.FC<LoginProps> = ({ onClose }) => {
   // 로그인 관련 로직 및 UI 구현
   const [isPopupOpen, setIsPopupOpen] = useState(false);

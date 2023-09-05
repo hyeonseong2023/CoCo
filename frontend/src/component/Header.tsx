@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Header.css';
-
+//Header 가져올곳 지정 가능한 해더
 type HeaderProps = {
   onLoginButtonClick: () => void;
 };
@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
       <div className="header-buttons">
         <Link to="/write">글쓰기</Link>
         <button onClick={isModalOpen ? closeModal : openModal}>
-          {isModalOpen ? "닫기" : "로그인"}
+          {isModalOpen ? "로그인" : "로그인"}
         </button>
       </div>
       {isModalOpen && (
@@ -31,7 +31,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
           <div className="modal-content">
             <div className="popup">
               <h2>로그인</h2>
-              {/* 로그인 폼 및 UI 요소들을 여기에 추가 */}
               <div className="popup-buttons">
                 <button>구글</button>
                 <button>카카오</button>
