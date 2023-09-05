@@ -1,15 +1,35 @@
-import React from 'react'
+import React from 'react';
+import '../css/Contents.css';
+import TopPosts from './TopPosts';
 
-const Contents = () => {
-  return (
-    <div>
-        <div>내용 1</div>
-        <div>내용 2</div>
-        <div>내용 3</div>
-        <div>내용 4</div>
-        <div>내용 5</div>
-    </div>
-  )
+// categoryData 타입 정의
+type categoryData = {
+  // 필요한 데이터 필드들을 여기에 추가
+  id: number;
+  name: string;
+};
+
+interface ContentsProps {
+  categoryData: categoryData[]; // categoryData[] 타입으로 props 정의
 }
 
-export default Contents
+const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
+  return (
+    <div>
+      <TopPosts />
+      <div id='Contents-box'>
+        <div>
+          {categoryData.map((data, index) => (
+            <div key={index}>
+              <div>{data.name}
+              <h1>제목</h1>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Contents;

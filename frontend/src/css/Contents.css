@@ -1,0 +1,25 @@
+/* Contents.css */
+
+#Contents-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  #Contents-box > div {
+    flex-basis: calc(100%);
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-radius: 5%;
+  }
+  
+  #Contents-box > div > div {
+    height: 150px;
+    background-color: rgb(255, 243, 228);
+    border-radius: 5%;
+    margin-bottom: 20px;
+  }
+
+
+  
