@@ -23,6 +23,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
             <div key={index}>
               <div>{data.name}
               <h1>제목</h1>
+              <h3>내용 가져올 공간 </h3>
               </div>
             </div>
           ))}
