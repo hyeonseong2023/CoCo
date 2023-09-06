@@ -6,7 +6,7 @@ import logoimg from '../img/Logo.png';
 import Login from './Login';
 
 type HeaderProps = {
-  onLoginButtonClick: () => void;
+  onLoginButtonClick?: () => void;
 };
 
 const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
   return (
     <div className="header-container">
-      <div className="header-logo"><img src={logoimg} alt="" /></div>
+      <div className="header-logo"><a href='/'><img src={logoimg} alt="" /></a></div>
       <div className="header-buttons">
         <Link to="/write">글쓰기</Link>
         <button onClick={isModalOpen ? closeModal : openModal}>

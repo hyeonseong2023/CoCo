@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "google.auth.url",
+    "type": "java.lang.String",
+    "description": "A description for 'google.auth.url'"
+  },
+  {
+    "name": "google.login.url",
+    "type": "java.lang.String",
+    "description": "A description for 'google.login.url'"
+  },
+  {
+    "name": "google.redirect.url",
+    "type": "java.lang.String",
+    "description": "A description for 'google.redirect.url'"
+  },
+  {
+    "name": "google.client.id",
+    "type": "java.lang.String",
+    "description": "A description for 'google.client.id'"
+  },
+  {
+    "name": "google.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'google.secret'"
+  },
+  {
+    "name": "google.auth.url",
+    "type": "java.lang.String",
+    "description": "A description for 'google.auth.url'"
+  }
+]}
