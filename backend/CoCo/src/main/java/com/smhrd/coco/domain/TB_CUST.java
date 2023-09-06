@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class TB_CUST {
 
+
 	private String CUST_ID; 
 	private String CUST_NICK; 
 	private String CUST_CAREER; 
