@@ -6,11 +6,13 @@ type LoginProps = {
   onClose: () => void;
 };
 
-// 클라이언트 ID와 리다이렉트 URL
-const clientId = '23ddd7c45fb41d2db79ff49bd3a797c3';
-const redirectUrl = 'http://localhost:3000/auth/google/callback';
+const clientId = process.env.REACT_APP_CLIENT_ID
+const redirecturl = process.env.REACT_APP_REDIRECT_URL
+  
 
-const URL = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code`;
+const googleLoginURL = `http://localhost:8099/login/getGoogleAuthUrl`;
+
+const kakaoLoginURL = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirecturl}&response_type=code` ;
 
 const Login: React.FC<LoginProps> = ({ onClose }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -21,19 +23,17 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
 
   const closePopup = () => {
     setIsPopupOpen(false);
-    onClose(); // 로그인이 완료되면 팝업을 닫습니다.
+    onClose();
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8099/login/getGoogleAuthUrl"; 
-
+    window.location.href = googleLoginURL;
   };
 
   const handleKakaoLogin = () => {
-    window.location.href = URL;
+    window.location.href = kakaoLoginURL;
   };
 
-  // 컴포넌트가 처음 렌더링될 때 바로 팝업 열기
   useEffect(() => {
     openPopup();
   }, []);
@@ -58,7 +58,7 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
                 </div>
                 <div>
                   <button onClick={handleKakaoLogin} id='kakaologin'>
-                    <svg id="Bold" enable-background="new 0 0 24 24" width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m9.462 9.306-.692 1.951h1.383z"></path><path d="m12 1c-6.627 0-12 4.208-12 9.399 0 3.356 2.246 6.301 5.625 7.963-1.299 4.45-1.333 4.47-1.113 4.599.276.161.634-.005 5.357-3.311.692.097 1.404.148 2.131.148 6.627 0 12-4.208 12-9.399s-5.373-9.399-12-9.399zm-5.942 12.023c0 .362-.311.657-.692.657s-.692-.295-.692-.657v-4.086h-1.08c-.375 0-.679-.302-.679-.673s.303-.674.678-.674h3.545c.375 0 .679.302.679.673s-.305.674-.679.674h-1.08zm5.378.648c-.72 0-.587-.565-.919-1.195h-2.111c-.329.625-.2 1.195-.919 1.195-.693.001-.815-.421-.604-1.071l1.656-4.33c.117-.33.471-.669.922-.679.452.01.807.349.923.679 1.093 3.39 2.654 5.402 1.052 5.401zm3.939-.092h-2.221c-1.159 0-.454-1.565-.663-5.301 0-.379.317-.688.707-.688s.707.308.707.688v4.04h1.471c.366 0 .663.283.663.63-.001.348-.298.631-.664.631zm5.419-.518c-.025.181-.122.344-.269.454-.955.721-1.661-1.381-2.593-2.271l-.24.239v1.5c0 .38-.31.688-.693.688-.382 0-.692-.308-.692-.688v-4.705c0-.379.31-.688.692-.688s.692.308.692.688v1.478c1.277-.958 1.985-2.67 2.792-1.869.792.786-.848 1.474-1.527 2.422 1.604 2.212 1.909 2.267 1.838 2.752z"></path></svg>
+                    <svg id="Bold" enableBackground="new 0 0 24 24" width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m9.462 9.306-.692 1.951h1.383z"></path><path d="m12 1c-6.627 0-12 4.208-12 9.399 0 3.356 2.246 6.301 5.625 7.963-1.299 4.45-1.333 4.47-1.113 4.599.276.161.634-.005 5.357-3.311.692.097 1.404.148 2.131.148 6.627 0 12-4.208 12-9.399s-5.373-9.399-12-9.399zm-5.942 12.023c0 .362-.311.657-.692.657s-.692-.295-.692-.657v-4.086h-1.08c-.375 0-.679-.302-.679-.673s.303-.674.678-.674h3.545c.375 0 .679.302.679.673s-.305.674-.679.674h-1.08zm5.378.648c-.72 0-.587-.565-.919-1.195h-2.111c-.329.625-.2 1.195-.919 1.195-.693.001-.815-.421-.604-1.071l1.656-4.33c.117-.33.471-.669.922-.679.452.01.807.349.923.679 1.093 3.39 2.654 5.402 1.052 5.401zm3.939-.092h-2.221c-1.159 0-.454-1.565-.663-5.301 0-.379.317-.688.707-.688s.707.308.707.688v4.04h1.471c.366 0 .663.283.663.63-.001.348-.298.631-.664.631zm5.419-.518c-.025.181-.122.344-.269.454-.955.721-1.661-1.381-2.593-2.271l-.24.239v1.5c0 .38-.31.688-.693.688-.382 0-.692-.308-.692-.688v-4.705c0-.379.31-.688.692-.688s.692.308.692.688v1.478c1.277-.958 1.985-2.67 2.792-1.869.792.786-.848 1.474-1.527 2.422 1.604 2.212 1.909 2.267 1.838 2.752z"></path></svg>
                   </button>
                   Kakao 로그인
                 </div>
