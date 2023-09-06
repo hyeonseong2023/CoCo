@@ -26,7 +26,7 @@ public class BoardController {
 	
 	//작성한 게시글 정보 DB저장
 	@PostMapping("/postsaveinfor")
-	public @ResponseBody int postsaveinfor(@RequestBody Map<String, String> map) {
+	public @ResponseBody int postSaveInfor(@RequestBody Map<String, String> map) {
 		
 		System.out.println("회원 아이디 : " + map.get("CUST_ID"));
 		System.out.println("모집인원 : " + map.get("BOARD_MEMBERS"));
@@ -37,7 +37,6 @@ public class BoardController {
 		System.out.println("글내용		 : " + map.get("BOARD_CONTENT"));	
 		System.out.println("오픈톡 링크: " + map.get("BOARD_OPENTALK"));
 		System.out.println("역할구분  : " + map.get("PROJECT_ROLE"));
-		
 		System.out.println("기술스택		 : " + map.get("SKILL_ID"));
 		System.out.println("이미지		 : " + map.get("BOARD_IMG"));
 		System.out.println("프로젝트 번호	 : " + map.get("PRD_ID"));
@@ -46,24 +45,33 @@ public class BoardController {
 				map.get("BOARD_PERIOD"), map.get("BOARD_DEADLINE"), map.get("BOARD_OPENTALK"), map.get("BOARD_CONTENT"), 
 				null, null, map.get("PROJECT_ROLE"));
 		
-		TB_REQUIRED_SKILL skill = new TB_REQUIRED_SKILL(null, null, null);
+		TB_REQUIRED_SKILL skill = new TB_REQUIRED_SKILL(null, board.getBOARD_ID(), null);
 		
 		TB_BOARD_IMG img = new TB_BOARD_IMG(null, null, map.get("BOARD_IMG"));
 		
-		TB_PROJECT project = new TB_PROJECT(null, null, null, null);
+		TB_PROJECT project = new TB_PROJECT(null, null, null, board.getBOARD_ID());
 
+		//TB_BOARD 정보 저장
+		int cnt1 = service.postSaveBoard(board);
 		
-		//int cnt = service.postsaveinfor(board);
+		//TB_REQUIRED_SKILL 정보 저장
+		int cnt2 = service.postSaveSkill(skill);
+		
+		//TB_BOARD_IMG 정보저장
+		int cnt3 = service.postSaveImg(img);
+		
+		//TB_PROJECT 정보저장
+		int cnt4 = service.postSaveProject(project);
 
-//		if (cnt > 0) {
-//			System.out.println("DB 저장 성공");
-//			return 1;
-//		} else {
-//			System.out.println("DB 저장 실패");
-//			return 0;
-//		}
+		if (cnt1 > 0) {
+			System.out.println("DB 저장 성공");
+			return 1;
+		} else {
+			System.out.println("DB 저장 실패");
+			return 0;
+		}
 		
-		return 0;
+	
 		
 	}
 	
