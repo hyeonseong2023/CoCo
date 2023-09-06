@@ -18,45 +18,55 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+		<!-- Spring Boot 애플리케이션의 테스트 작성 및 실행 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
+
+		<!-- Spring 웹 애플리케이션 개발할 때 사용  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- SOAP 웹 서비스 개발할 때 (Spring Web Services지원) 사용  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.3.1</version>
-		</dependency>
 
+		<!-- 코드 변경 감지, 자동 재시작 등 빠르게 개발 할 수 있는 tool 제공 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- mybatis와 Spring 연결할 때 사용 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<!-- mybatis와 Java 애플리케이션간 연결할 때 사용하는 JDBC 드라이버 -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
+
+		<!-- Spring Boot 애플리케이션에서 JPA(Java Persistence API)를 사용하여 데이터베이스와 상호
+		작용하는 데 도움 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+
+		<!--MyBatis와 Spring Boot를 함께 사용하는 경우 테스트를 위한 부가적인 지원을 제공 -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter-test</artifactId>
@@ -64,6 +74,26 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- @annotation 사용하기 위함 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- jsonArray, jasonObject 사용하기 위함-->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<!-- Jackson 라이브러리 추가 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.5</version>
+		</dependency>
 
 		<!--ImageToBase64, fileUtil 파일 다룰 때 사용하기 위함! -->
 		<dependency>
@@ -71,14 +101,14 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-
-		<!-- jsonArray, jasonObject 사용하기 위함!-->
+		
+		<!-- Servlet API 종속성 -->
 		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
 		</dependency>
-
 
 	</dependencies>
 
