@@ -3,7 +3,6 @@ package com.smhrd.coco.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +36,9 @@ public class KakaoController {
 
 		// 이미지경로 가져오기
 		String CUST_IMG = service.img(CUST_ID);
+		
 		Map<String, Object> data = new HashMap<>();
-
+		
 		if (selectEmail == 0) { // 회원가입 : 저장되지 않은 이메일 , 이미지 "0"
 			System.out.println("DB에없는 이메일 ");
 			data.put("CUST_ID", CUST_ID);
@@ -63,7 +63,9 @@ public class KakaoController {
 
 		TB_CUST cust = new TB_CUST
 				(map.get("CUST_ID"), map.get("CUST_NICK"), map.get("CUST_CAREER"), null, null, map.get("SKILL_NAME"));
-
+		
+	
+		
 		int cnt = service.firstLogin(cust);
 
 		if (cnt > 0) {
