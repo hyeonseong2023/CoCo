@@ -17,6 +17,8 @@ import com.smhrd.coco.service.GoogleService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -114,14 +116,25 @@ public class GoogleController {
 			System.out.println("DB에없는 이메일 ");
 			data.put("CUST_ID", cust_id);
 			data.put("CUST_IMG", "0");
+			
+			String redirect_uri="http://localhost:3000";
+			
+			try {
+				response.sendRedirect(redirect_uri);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    	return data;
+			
 		} else { // 로그인 : 이메일, 이미지
 			System.out.println("DB에있는 이메일 ");
 			data.put("CUST_ID", cust_id);
 			data.put("CUST_IMG", CUST_IMG);
 			System.out.println();
+			return data;
 		}
 
-		return data;
+		
 	}
 
 }
