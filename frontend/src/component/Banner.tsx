@@ -33,7 +33,7 @@ const Banner = () => {
     },
     // 원하는 만큼 슬라이드 컨텐츠를 추가할 수 있습니다.
   ];
-
+  
   return (
     <div className='Banner-container'>
       <Slider {...settings}>
