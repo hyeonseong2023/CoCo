@@ -34,6 +34,7 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
     openPopup();
   }, []);
 
+function Login() {
   return (
     <div id='logbox'>
       {isPopupOpen && (
@@ -66,5 +67,6 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
     </div>
   );
 };
+}
 
-export default Login;
+export default Login
