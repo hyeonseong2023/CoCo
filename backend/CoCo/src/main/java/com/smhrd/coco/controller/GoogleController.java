@@ -24,6 +24,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class GoogleController {
 	
 	
