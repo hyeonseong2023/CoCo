@@ -19,10 +19,11 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
   };
 
   const handleGoogleLogin = () => {
-    // 구글 로그인 로직을 처리합니다.
-    // 로그인이 성공하면 closePopup()을 호출하여 팝업을 닫습니다.
+    // Google 로그인 로직을 처리합니다.
+    // 로그인이 성공하면 이벤트 핸들러 내에서 원하는 주소로 이동할 수 있습니다.
+    // 예: Google 로그인 후 홈 페이지로 이동
+    window.location.href = "http://localhost:8099/login/getGoogleAuthUrl"; // 변경하려는 주소로 수정하세요.
   };
-
   const handleKakaoLogin = () => {
     // 카카오 로그인 로직을 처리합니다.
     // 로그인이 성공하면 closePopup()을 호출하여 팝업을 닫습니다.
@@ -41,7 +42,7 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
           <div className="modal-content">
           <div id='logbox-container'><img src={logoimg} alt="" /><button className="close-button" onClick={closePopup}>X</button></div>
           <div id='loginbox-container'>
-          <h1>COCO에 오신 것을 환영합니다!</h1>
+          <h2>COCO에 오신 것을 환영합니다!</h2>
             <div className="popup">
               <div>
               <button onClick={handleGoogleLogin} id='googlelogin'>
