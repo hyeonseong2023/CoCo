@@ -1,1 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.coco.mapper.BoardMapper">
+
+	<!-- TB_BOARD 정보 저장 -->
+	
+	<!-- TB_REQUIRED_SKILL 정보 저장 -->
+	
+	<!-- TB_BOARD_IMG 정보저장 -->
+	
+	<!-- TB_PROJECT 정보저장 -->
+
+</mapper>
