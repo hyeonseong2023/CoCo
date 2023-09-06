@@ -16,7 +16,7 @@ const App: React.FC = () => {
           <Route path="/write" element={<Write />} />
           <Route path="/" element={<Main />} /> {/* 기본 경로 */}
           <Route path="/Mypage" element={<Mypage />} /> {/* 마이페이지 경로 */}
-          
+          <Route path="/callback/*" element={<Main />} /> {/* 기본 경로 */}
           {/* 카카오 로그인과 관련된 라우트 추가 */}
 
           <Route path='/auth/kakao/callback' element={<KakaoCallback />} />
