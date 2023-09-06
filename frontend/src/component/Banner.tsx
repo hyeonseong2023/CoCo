@@ -8,10 +8,11 @@ const Banner = () => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 200,
+    speed: 800,
     fade: true,
     cssEase: 'linear',
     autoplay: true,
+    draggable: false, 
     autoplaySpeed: 3000,
   };
 
