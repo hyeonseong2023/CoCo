@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Axios 라이브러리를 임포트
 import '../css/Login.css';
 import logoimg from '../img/Logo.png';
 
@@ -26,17 +25,8 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
   };
 
   const handleGoogleLogin = () => {
-    // 백엔드로 요청을 보내는 부분
-    axios.get('http://localhost:8099/login/getGoogleAuthUrl')
-      .then((response) => {
-        // 백엔드에서 받은 응답을 이용하여 원하는 작업을 수행
-        console.log('백엔드 응답 데이터:', response.data);
+    window.location.href = "http://localhost:8099/login/getGoogleAuthUrl"; 
 
-        // 이후 작업 수행 (예: 페이지 리디렉션 등)
-      })
-      .catch((error) => {
-        console.error('에러 발생:', error);
-      });
   };
 
   const handleKakaoLogin = () => {
