@@ -1,5 +1,4 @@
-// CategoryBox.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../css/Category.css'; // CSS 파일을 import 합니다.
 
 interface CategoryBoxProps {
@@ -9,7 +8,10 @@ interface CategoryBoxProps {
 const CategoryBox: React.FC<CategoryBoxProps> = ({ onUpdateData }) => {
   const categoryData: string[] = ["Category 1", "Category 2", "Category 3"];
 
-  onUpdateData(categoryData);
+  // 컴포넌트가 마운트될 때 한 번 호출합니다.
+  useEffect(() => {
+    onUpdateData(categoryData);
+  }, []); // 빈 배열을 전달하여 컴포넌트가 마운트될 때만 호출하도록 합니다.
 
   return (
     <div>
