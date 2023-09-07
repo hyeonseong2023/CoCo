@@ -20,6 +20,13 @@ public class TB_CUST {
 	private String CUST_IMG;
 	private String CUST_GIT; 
 	private String CUST_ROLE; 
+	
+	public void TB__CUST(String CUST_NICK , String CUST_CAREER,  String CUST_GIT , String CUST_ROLE) {
+		this.CUST_NICK = CUST_NICK; 
+		this.CUST_CAREER = CUST_CAREER; 
+		this.CUST_GIT = CUST_GIT;
+		this.CUST_ROLE = CUST_ROLE; 
+	}
 
 	
 }

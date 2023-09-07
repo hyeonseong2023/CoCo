@@ -40,11 +40,12 @@ public class KakaoController {
 		Map<String, Object> data = new HashMap<>();
 		
 		if (selectEmail == 0) { // 회원가입 : 저장되지 않은 이메일 , 이미지 "0"
-			System.out.println("DB에없는 이메일 ");
+			System.out.println("DB에 없는 이메일");
 			data.put("CUST_ID", CUST_ID);
 			data.put("CUST_IMG", "0");
+			System.out.println();
 		} else { // 로그인 : 이메일, 이미지
-			System.out.println("DB에있는 이메일 ");
+			System.out.println("DB에 있는 이메일");
 			data.put("CUST_ID", CUST_ID);
 			data.put("CUST_IMG", CUST_IMG);
 			System.out.println();
@@ -63,8 +64,6 @@ public class KakaoController {
 
 		TB_CUST cust = new TB_CUST
 				(map.get("CUST_ID"), map.get("CUST_NICK"), map.get("CUST_CAREER"), null, null, map.get("SKILL_NAME"));
-		
-	
 		
 		int cnt = service.firstLogin(cust);
 
