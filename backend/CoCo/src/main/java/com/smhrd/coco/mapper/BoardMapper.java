@@ -17,8 +17,5 @@ public interface BoardMapper {
 	
 	//TB_BOARD_IMG 정보저장
 	public int postSaveImg(TB_BOARD_IMG img);
-	
-	//TB_PROJECT 정보저장
-	//public int postSaveProject(TB_PROJECT project);
 
 }

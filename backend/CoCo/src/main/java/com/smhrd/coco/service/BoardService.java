@@ -3,11 +3,7 @@ package com.smhrd.coco.service;
 
 
 import org.springframework.stereotype.Service;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_IMG;
 
@@ -37,9 +33,5 @@ public class BoardService {
 		return mapper.postSaveImg(img);
 	}
 	
-	//TB_PROJECT 정보저장
-//	public int postSaveProject(TB_PROJECT project) {
-//		return mapper.postSaveProject(project);
-//	}
 
 }
