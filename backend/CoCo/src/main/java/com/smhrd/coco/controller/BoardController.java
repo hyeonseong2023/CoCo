@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_IMG;
 import com.smhrd.coco.domain.TB_CUST;
-import com.smhrd.coco.domain.TB_PROJECT;
 import com.smhrd.coco.domain.TB_REQUIRED_SKILL;
 import com.smhrd.coco.service.BoardService;
 
@@ -40,15 +39,17 @@ public class BoardController {
 		System.out.println("이미지		 : " + map.get("BOARD_IMG"));
 		System.out.println("프로젝트 번호	 : " + map.get("PRD_ID"));
 
-		TB_BOARD board = new TB_BOARD(null, map.get("CUST_ID"), null, map.get("BOARD_TITLE"), map.get("BOARD_MEMBERS"), 
+		TB_BOARD board = new TB_BOARD(null, map.get("CUST_ID"), null, map.get("BOARD_MEMBERS"), 
 				map.get("BOARD_PERIOD"), map.get("BOARD_DEADLINE"), map.get("BOARD_OPENTALK"), map.get("BOARD_CONTENT"), 
-				null, null, map.get("PROJECT_ROLE"));
+				null, null, map.get("PROJECT_ROLE"), null, null, null);
 		
 		TB_REQUIRED_SKILL skill = new TB_REQUIRED_SKILL(null, board.getBOARD_ID(), null);
 		
 		TB_BOARD_IMG img = new TB_BOARD_IMG(null, null, map.get("BOARD_IMG"));
 		
-		TB_PROJECT project = new TB_PROJECT(null, null, null, board.getBOARD_ID());
+
+		//TB_PROJECT project = new TB_PROJECT(null, null, null, null);
+
 
 		//TB_BOARD 정보 저장
 		int cnt1 = service.postSaveBoard(board);
@@ -60,17 +61,17 @@ public class BoardController {
 		int cnt3 = service.postSaveImg(img);
 		
 		//TB_PROJECT 정보저장
-		int cnt4 = service.postSaveProject(project);
+		//int cnt4 = service.postSaveProject(project);
 
-		if (cnt1>0 && cnt2>0 && cnt3>0 && cnt4>0) {
-			System.out.println("DB 저장 성공");
-			return 1;
-		} else {
-			System.out.println("DB 저장 실패");
-			return 0;
-		}
-		
-	
+//		if (cnt1>0 && cnt2>0 && cnt3>0 && cnt4>0) {
+//			System.out.println("DB 저장 성공");
+//			return 1;
+//		} else {
+//			System.out.println("DB 저장 실패");
+//			return 0;
+//		}
+//		
+	return 0; 
 		
 	}
 	

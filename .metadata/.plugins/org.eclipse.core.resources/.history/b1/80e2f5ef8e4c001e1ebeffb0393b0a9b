@@ -1,0 +1,41 @@
+package com.smhrd.coco.controller;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@RestController // 데이터를 반환하는 컨트롤러 
+@CrossOrigin("http://localhost:3000")
+public class CustController {
+
+	// 프론트에서 아이디(CUST_ID)를 받아오면 
+	@PostMapping("/mypage")
+	public @ResponseBody void myPage (@)
+	
+	// 회원 테이블(TB_CUST) 에서 아이디(CUST_ID)에 맞는  
+	// 닉네임(CUST_NICK), 경력(CUST_CAREER), 깃허브링크(CUST_GIT), 직군 포지션(CUST_ROLE) 가져오고 
+	
+	
+	
+	// 포트폴리오 테이블(TB_PF)에서 아이디(CUST_ID)에 맞는   
+	// 포트폴리오 제목(PF_TITLE), 파일경로(PF_PATH) 가져오고 
+	
+	
+	
+	// 응모 테이블(TB_APPLY)에서 아이디(CUST_ID)  수락여부(APPROVE_YN)가 Y인 것만 게시글 번호(BOARD_ID) 가져오기  
+	// 프로젝트 테이블(TB_PROJECT)에서 게시글번호(BOARD_ID)에 맞는 
+	// 프로젝트 제목(PRO_TITLE), 사진경로(PRO_PHOTO)-> 화상회의링크(PRO_LINK)에 대체해서 넣어보기
+	
+	
+	// 한 곳에 담아 보내기
+	// 닉네임(CUST_NICK), 경력(CUST_CAREER), 깃허브링크(CUST_GIT), 직군 포지션(CUST_ROLE)
+	// 포트폴리오 제목(PF_TITLE), 파일경로(PF_PATH), 포트폴리오 제목(PF_TITLE), 파일경로(PF_PATH)
+	// 프로젝트 제목(PRO_TITLE), 사진경로(PRO_PHOTO) 
+	 
+	
+	
+	
+	
+	
+}

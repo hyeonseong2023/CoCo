@@ -1,0 +1,10 @@
+package com.smhrd.coco.controller;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController // 데이터를 반환하는 컨트롤러 
+@CrossOrigin("http://localhost:3000")
+public class CustController {
+
+}
