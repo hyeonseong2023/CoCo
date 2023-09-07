@@ -1,0 +1,6 @@
+package com.smhrd.coco.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+public class CustController {
+
+}
