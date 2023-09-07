@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Main from './component/Main';
 import Write from './component/Write';
 import Mypage from './component/Mypage';
+import Check from './component/Check';
 
 import KakaoCallback from './component/Kakao/KakaoCallback';
 import KakaoJoin from './component/Kakao/KakaoJoin';
@@ -17,8 +18,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Main />} /> {/* 기본 경로 */}
           <Route path="/Mypage" element={<Mypage />} /> {/* 마이페이지 경로 */}
           <Route path="/callback/*" element={<Main />} /> {/* 기본 경로 */}
-          {/* 카카오 로그인과 관련된 라우트 추가 */}
-
+          <Route path='/Check' element={<Check />} />
           <Route path='/auth/kakao/callback' element={<KakaoCallback />} />
           <Route path='/join' element={<KakaoJoin />} />
         </Routes>

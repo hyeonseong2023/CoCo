@@ -11,17 +11,14 @@ const KakaoCallback = () => {
     const fetchData = async () => {
         try {
             const res = await axios.get(`http://localhost:8099/kakaologin?code=${code}`);
-            console.log(res.data);
-            console.log(res.data.CUST_ID);
-            console.log(res.data.CUST_IMG);
 
             cookies.save('CUST_ID', res.data.CUST_ID);
             cookies.save('CUST_IMG', res.data.CUST_IMG);
 
-            if (res.data.CUST_IMG === "0") { // 회원가입
-                navigator('/'); // 메인 페이지로 이동
+            if (res.data.CUST_IMG === null) { // 회원가입
+                navigator('/Check'); // 메인 페이지로 이동
             } else { // 로그인
-                navigator('/'); // 메인 페이지로 이동
+                navigator('/Check'); // 메인 페이지로 이동
             }
 
         } catch (error) {

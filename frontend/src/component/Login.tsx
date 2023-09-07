@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import '../css/Login.css';
 import logoimg from '../img/Logo.png';
+import axios from 'axios'; // Axios 추가
 
 type LoginProps = {
   onClose: () => void;
 };
 
-const clientId = process.env.REACT_APP_CLIENT_ID
-const redirecturl = process.env.REACT_APP_REDIRECT_URL
-  
+const clientId = process.env.REACT_APP_CLIENT_ID;
+const redirectUrl = process.env.REACT_APP_REDIRECT_URL;
+const googleLoginURL = `/login/getGoogleAuthUrl`;
 
-const googleLoginURL = `http://localhost:8099/login/getGoogleAuthUrl`;
-
-const kakaoLoginURL = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirecturl}&response_type=code` ;
+const kakaoLoginURL = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code`;
 
 const Login: React.FC<LoginProps> = ({ onClose }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -26,17 +25,32 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
     onClose();
   };
 
+  
   const handleGoogleLogin = () => {
-    window.location.href = googleLoginURL;
+    // Axios를 사용하여 구글 OAuth 2.0 로그인 요청을 보냅니다.
+    axios.get(googleLoginURL)
+      .then((response) => {
+        // 리다이렉션
+        window.location.href = response.data.redirectUrl; // 서버에서 받은 리다이렉션 URL로 이동
+      })
+      .catch((error) => {
+        console.error('Google 로그인 에러:', error);
+      });
   };
-
   const handleKakaoLogin = () => {
+    // Kakao OAuth 2.0 로그인 요청을 보냅니다.
     window.location.href = kakaoLoginURL;
   };
 
   useEffect(() => {
     openPopup();
   }, []);
+
+  // 페이지 이동 후 뒤로 가기 버튼을 사용하여 이전 페이지로 이동할 수 있도록 브라우저 기록에 현재 페이지를 추가
+  const handlePageNavigation = () => {
+    window.history.pushState(null, '', '/'); // '/'에는 이전 페이지의 URL을 넣어야 합니다.
+  };
+
 
   return (
     <div id='logbox'>

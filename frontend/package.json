@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.5.0",
+    "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-cookie": "^6.1.0",
     "react-cookies": "^0.1.1",
@@ -49,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-cookies": "^0.1.0",
     "@types/react-modal": "^3.16.0",
     "@types/react-slick": "^0.23.10"
   }
