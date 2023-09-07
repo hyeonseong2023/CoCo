@@ -32,7 +32,6 @@ public class BoardController {
 		System.out.println("모집인원 : " + map.get("BOARD_MEMBERS"));
 		System.out.println("진행기간	 : " + map.get("BOARD_PERIOD"));
 		System.out.println("시작일	 : " + map.get("BOARD_DEADLINE"));
-		System.out.println("포지션	 : " + map.get("PROJECT_ROLE"));
 		System.out.println("글제목	 : " + map.get("BOARD_TITLE"));
 		System.out.println("글내용		 : " + map.get("BOARD_CONTENT"));	
 		System.out.println("오픈톡 링크: " + map.get("BOARD_OPENTALK"));
@@ -63,7 +62,7 @@ public class BoardController {
 		//TB_PROJECT 정보저장
 		int cnt4 = service.postSaveProject(project);
 
-		if (cnt1 > 0) {
+		if (cnt1>0 && cnt2>0 && cnt3>0 && cnt4>0) {
 			System.out.println("DB 저장 성공");
 			return 1;
 		} else {
