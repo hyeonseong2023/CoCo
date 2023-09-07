@@ -117,23 +117,14 @@ public class GoogleController {
          data.put("CUST_ID", cust_id);
          data.put("CUST_IMG", "0");
          
-         String redirect_uri="http://localhost:3000";
-         
-         try {
-            response.sendRedirect(redirect_uri);
-         } catch (IOException e) {
-            e.printStackTrace();
-         }
-          return data;
-         
       } else { // 로그인 : 이메일, 이미지
          System.out.println("DB에있는 이메일 ");
          data.put("CUST_ID", cust_id);
          data.put("CUST_IMG", CUST_IMG);
-         System.out.println();
          
-         return data;
       }
+      
+      return data;
 
       
    }
