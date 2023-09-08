@@ -13,8 +13,8 @@ import lombok.ToString;
 @ToString
 public class TB_BOOKMARK {
 
-	private int BMK_ID;	// 북마크 순번 
+	private Long BMK_ID;	
 	private String CUST_ID; // 회원 아이디	
-	private int BOARD_ID; // 게시글 번호
+	private Long BOARD_ID; // 게시글 번호
 
 }

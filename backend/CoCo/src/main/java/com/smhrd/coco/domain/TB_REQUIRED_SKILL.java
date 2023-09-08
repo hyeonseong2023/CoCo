@@ -11,9 +11,9 @@ import lombok.ToString;
 @Getter //Get
 @Setter //Set 
 @ToString
-public class TB_BOARD_SKILL {
+public class TB_REQUIRED_SKILL {
 
-	private Integer BOARD_SKILL_SEQ; //게시판 스킬 구분 번호
-    private Integer BOARD_ID; // 게시글 번호    
-    private String SKILL_NAME ; // 스킬 이름 
+	private Long REQUIRED_SKILL_SEQ;  
+    private Long BOARD_ID; // 게시글 번호    
+    private Long SKILL_ID; // 기술스택 번호
 }

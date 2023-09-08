@@ -13,7 +13,7 @@ import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_IMG;
 import com.smhrd.coco.domain.TB_BOOKMARK;
 import com.smhrd.coco.domain.TB_CUST;
-import com.smhrd.coco.domain.TB_BOARD_SKILL;
+import com.smhrd.coco.domain.TB_REQUIRED_SKILL;
 import com.smhrd.coco.service.BoardService;
 
 @RestController
