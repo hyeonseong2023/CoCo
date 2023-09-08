@@ -29,12 +29,25 @@ public class TB_BOARD {
     private String PRO_IMG; //프로젝트 이미지 경로 
     
     
-	public TB_BOARD(String pRO_TITLE, String pRO_IMG) {
+	public TB_BOARD(String cUST_ID, String bOARD_TITLE, String bOARD_MEMBERS, String bOARD_PERIOD,
+			String bOARD_DEADLINE, String bOARD_OPENTALK, String bOARD_CONTENT, Integer bOARD_VIEWS,
+			String pROJECT_ROLE, String pRO_TITLE, String pRO_LINK, String pRO_IMG) {
 		super();
+		CUST_ID = cUST_ID;
+		BOARD_TITLE = bOARD_TITLE;
+		BOARD_MEMBERS = bOARD_MEMBERS;
+		BOARD_PERIOD = bOARD_PERIOD;
+		BOARD_DEADLINE = bOARD_DEADLINE;
+		BOARD_OPENTALK = bOARD_OPENTALK;
+		BOARD_CONTENT = bOARD_CONTENT;
+		BOARD_VIEWS = bOARD_VIEWS;
+		PROJECT_ROLE = pROJECT_ROLE;
 		PRO_TITLE = pRO_TITLE;
+		PRO_LINK = pRO_LINK;
 		PRO_IMG = pRO_IMG;
 	}
-
     
+    
+
   
 }

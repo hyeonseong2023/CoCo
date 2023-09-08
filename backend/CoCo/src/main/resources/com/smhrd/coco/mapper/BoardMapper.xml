@@ -5,11 +5,16 @@
 <mapper namespace="com.smhrd.coco.mapper.BoardMapper">
 
 	<!-- TB_BOARD 정보 저장 -->
-	
+	<insert id="postSaveBoard" parameterType="com.smhrd.coco.domain.TB_BOARD">
+		INSERT INTO TB_BOARD (CUST_ID, BOARD_TITLE, BOARD_MEMBERS, BOARD_PERIOD, BOARD_DEADLINE,
+							  BOARD_OPENTALK, BOARD_CONTENT, BOARD_VIEWS, PROJECT_ROLE, PRO_TITLE, PRO_LINK, PRO_IMG)
+					  VALUES (#{CUST_ID},#{BOARD_TITLE},#{BOARD_MEMBERS},#{BOARD_PERIOD},#{BOARD_DEADLINE},#{BOARD_OPENTALK},#{BOARD_CONTENT},
+					          #{BOARD_VIEWS},#{PROJECT_ROLE},#{PRO_TITLE},#{PRO_LINK},#{PRO_IMG});
+	</insert>
+
 	<!-- TB_REQUIRED_SKILL 정보 저장 -->
-	
+
 	<!-- TB_BOARD_IMG 정보저장 -->
-	
-	<!-- TB_PROJECT 정보저장 -->
+
 
 </mapper>
