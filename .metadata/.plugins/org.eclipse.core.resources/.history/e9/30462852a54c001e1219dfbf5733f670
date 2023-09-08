@@ -1,0 +1,18 @@
+package com.smhrd.coco.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.smhrd.coco.mapper.CustMapper;
+
+@Service
+public class CustService {
+
+	@Autowired
+	private CustMapper mapper;
+	
+	// 회원 테이블(TB_CUST) 에서 아이디(CUST_ID)에 맞는  
+	// 닉네임(CUST_NICK), 경력(CUST_CAREER), 깃허브링크(CUST_GIT), 직군 포지션(CUST_ROLE) 가져오고 
+	public TB_CUST mypageCust(TB_CUST)
+	
+}

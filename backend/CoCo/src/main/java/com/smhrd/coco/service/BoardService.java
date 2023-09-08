@@ -1,14 +1,15 @@
 
 package com.smhrd.coco.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_IMG;
-import com.smhrd.coco.domain.TB_PROJECT;
+
 import com.smhrd.coco.domain.TB_REQUIRED_SKILL;
 import com.smhrd.coco.mapper.BoardMapper;
+
 
 
 @Service
@@ -32,9 +33,5 @@ public class BoardService {
 		return mapper.postSaveImg(img);
 	}
 	
-	//TB_PROJECT 정보저장
-	public int postSaveProject(TB_PROJECT project) {
-		return mapper.postSaveProject(project);
-	}
 
 }

@@ -1,0 +1,13 @@
+package com.smhrd.coco.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CustService {
+
+	@Autowired
+	private CustMapper mapper;
+	
+	
+}
