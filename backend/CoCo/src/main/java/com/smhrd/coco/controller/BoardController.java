@@ -1,5 +1,7 @@
 package com.smhrd.coco.controller;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,31 @@ public class BoardController {
 		System.out.println("기술스택 : " + map.get("SKILL_ID"));
 		System.out.println("이미지 : " + map.get("BOARD_IMG"));
 		
+		//진행기간 일수로 바꿔서 저장하기
+		String period = map.get("BOARD_PERIOD");
+		String[] day = period.split("~");
 		
-	
+		String firstDate = day[0];
+		String secondDate = day[1];
+		
+		String[] start = firstDate.split("/");
+		int year1 = Integer.parseInt(start[0]);
+		int month1 = Integer.parseInt(start[1]);
+		int day1 = Integer.parseInt(start[2]);
+		
+		String[] end = secondDate.split("/");
+		int year2 = Integer.parseInt(end[0]);
+		int month2 = Integer.parseInt(end[1]);
+		int day2 = Integer.parseInt(end[2]);
+		
+		LocalDate startDate = LocalDate.of(year1, month1, day1);
+		LocalDate endDate = LocalDate.of(year2, month2, day2);
+
+		Period per = Period.between(startDate, endDate);
+		System.out.println(per.getDays());
+		String d_day = per.getDays()+"";
+		
+		map.put("BOARD_PERIOD", d_day);
 
 		TB_BOARD board = new TB_BOARD(map.get("CUST_ID"), map.get("BOARD_TITLE"), map.get("BOARD_MEMBERS"), map.get("BOARD_PERIOD"), 
 				map.get("BOARD_DEADLINE"), map.get("BOARD_OPENTALK"), map.get("BOARD_CONTENT"), 0, map.get("PROJECT_ROLE"), 
@@ -51,6 +76,8 @@ public class BoardController {
 		
 		//TB_BOARD 정보 저장
 		int cnt1 = service.postSaveBoard(board);
+		
+		System.out.println("asdfsadfas  "+board.getBOARD_PERIOD());
 		
 		//TB_REQUIRED_SKILL 보드에 스킬이름을 가지고 스킬번호 찾아오기
 		
@@ -74,6 +101,8 @@ public class BoardController {
 			System.out.println("DB 저장 실패");
 			return 0;
 		}
+		
+		
 		
 		
 	}
