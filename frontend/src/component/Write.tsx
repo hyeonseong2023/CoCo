@@ -5,6 +5,14 @@ const Write = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(''); // 선택한 카테고리
+  const [recruitmentInfo, setRecruitmentInfo] = useState({
+    recruitmentCount: 0,
+    techStack: '',
+    duration: '',
+    position: '',
+    startDate: '',
+    openTalkLink: '',
+  });
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -18,6 +26,14 @@ const Write = () => {
     setSelectedCategory(category);
   };
 
+  const handleRecruitmentInfoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setRecruitmentInfo({
+      ...recruitmentInfo,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -25,6 +41,7 @@ const Write = () => {
       title,
       content,
       selectedCategory,
+      recruitmentInfo, // 모집 정보도 전송
       // 이곳에 이미지 파일 업로드 관련 정보를 추가할 수 있습니다.
     };
 
@@ -33,6 +50,14 @@ const Write = () => {
     setTitle('');
     setContent('');
     setSelectedCategory('');
+    setRecruitmentInfo({
+      recruitmentCount: 0,
+      techStack: '',
+      duration: '',
+      position: '',
+      startDate: '',
+      openTalkLink: '',
+    });
   };
 
   return (
@@ -63,28 +88,69 @@ const Write = () => {
         </div>
         <div>
           <h3>카테고리 선택</h3>
+          {/* 이하 카테고리 선택 부분 */}
+        </div>
+        <div>
+          <h3>모집 정보</h3>
           <div>
-            <button
-              type="button"
-              onClick={() => handleCategoryChange('카테고리1')}
-              className={selectedCategory === '카테고리1' ? 'selected' : ''}
-            >
-              카테고리1
-            </button>
-            <button
-              type="button"
-              onClick={() => handleCategoryChange('카테고리2')}
-              className={selectedCategory === '카테고리2' ? 'selected' : ''}
-            >
-              카테고리2
-            </button>
-            <button
-              type="button"
-              onClick={() => handleCategoryChange('카테고리3')}
-              className={selectedCategory === '카테고리3' ? 'selected' : ''}
-            >
-              카테고리3
-            </button>
+            <label htmlFor="recruitmentCount">모집 인원:</label>
+            <input
+              type="number"
+              id="recruitmentCount"
+              name="recruitmentCount"
+              value={recruitmentInfo.recruitmentCount}
+              onChange={handleRecruitmentInfoChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="techStack">기술 스택:</label>
+            <input
+              type="text"
+              id="techStack"
+              name="techStack"
+              value={recruitmentInfo.techStack}
+              onChange={handleRecruitmentInfoChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="duration">진행 기간:</label>
+            <input
+              type="text"
+              id="duration"
+              name="duration"
+              value={recruitmentInfo.duration}
+              onChange={handleRecruitmentInfoChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="position">포지션:</label>
+            <input
+              type="text"
+              id="position"
+              name="position"
+              value={recruitmentInfo.position}
+              onChange={handleRecruitmentInfoChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="startDate">시작일:</label>
+            <input
+              type="text"
+              id="startDate"
+              name="startDate"
+              value={recruitmentInfo.startDate}
+              onChange={handleRecruitmentInfoChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="openTalkLink">오픈톡 링크:</label>
+            <input
+              type="text"
+              id="openTalkLink"
+              name="openTalkLink"
+              value={recruitmentInfo.openTalkLink}
+              onChange={handleRecruitmentInfoChange}
+            />
           </div>
         </div>
         <div>
