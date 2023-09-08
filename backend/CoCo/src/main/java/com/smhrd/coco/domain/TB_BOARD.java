@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class TB_BOARD {
 
+
 	private Integer BOARD_ID; // 게시글 번호
 	private String CUST_ID; // 회원 아이디
 	private String BOARD_TITLE; // 게시글 제목
