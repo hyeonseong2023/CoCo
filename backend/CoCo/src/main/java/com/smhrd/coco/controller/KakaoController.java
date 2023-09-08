@@ -55,7 +55,7 @@ public class KakaoController {
 
 	// 첫 로그인 기본 정보 DB에 저장
 	@PostMapping("/firstlogin")
-	public @ResponseBody int firstLogin(@RequestBody Map<String, String> map) {
+	public int firstLogin(@RequestBody Map<String, String> map) {
 
 		System.out.println("아이디 : " + map.get("CUST_ID"));
 		System.out.println("닉네임 : " + map.get("CUST_NICK"));
