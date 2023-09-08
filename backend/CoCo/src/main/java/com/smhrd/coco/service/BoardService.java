@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_IMG;
 
-import com.smhrd.coco.domain.TB_REQUIRED_SKILL;
+import com.smhrd.coco.domain.TB_BOARD_SKILL;
 import com.smhrd.coco.mapper.BoardMapper;
 
 
@@ -24,7 +24,7 @@ public class BoardService {
 	}
 	
 	//TB_REQUIRED_SKILL 정보 저장
-	public int postSaveSkill(TB_REQUIRED_SKILL skill) {
+	public int postSaveSkill(TB_BOARD_SKILL skill) {
 		return mapper.postSaveSkill(skill);
 	}
 	
