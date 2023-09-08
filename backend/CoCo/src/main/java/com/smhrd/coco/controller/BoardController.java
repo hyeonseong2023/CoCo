@@ -28,19 +28,21 @@ public class BoardController {
 	@PostMapping("/postsaveinfor")
 	public @ResponseBody int postSaveInfor(@RequestBody Map<String, String> map) {
 		
-		System.out.println("회원 아이디 : " + map.get("CUST_ID"));
-		System.out.println("모집인원 : " + map.get("BOARD_MEMBERS"));
-		System.out.println("진행기간	 : " + map.get("BOARD_PERIOD"));
-		System.out.println("시작일	 : " + map.get("BOARD_DEADLINE"));
-		System.out.println("글제목	 : " + map.get("BOARD_TITLE"));
-		System.out.println("글내용		 : " + map.get("BOARD_CONTENT"));	
+		System.out.println("회원 아이디: " + map.get("CUST_ID"));
+		System.out.println("모집인원: " + map.get("BOARD_MEMBERS"));
+		System.out.println("진행기간: " + map.get("BOARD_PERIOD"));
+		System.out.println("시작일: " + map.get("BOARD_DEADLINE"));
+		System.out.println("글제목: " + map.get("BOARD_TITLE"));
+		System.out.println("글내용: " + map.get("BOARD_CONTENT"));	
 		System.out.println("오픈톡 링크: " + map.get("BOARD_OPENTALK"));
-		System.out.println("역할구분  : " + map.get("PROJECT_ROLE"));
+		System.out.println("역할구분 : " + map.get("PROJECT_ROLE"));
 		System.out.println("프로젝트 제목 : " + map.get("PRO_TITLE"));	
 		System.out.println("화상회의 링크 : " + map.get("PRO_LINK"));
 		System.out.println("프로젝트 이미지 : " + map.get("PRO_IMG"));
 		System.out.println("기술스택 : " + map.get("SKILL_ID"));
 		System.out.println("이미지 : " + map.get("BOARD_IMG"));
+		
+		
 	
 
 		TB_BOARD board = new TB_BOARD(map.get("CUST_ID"), map.get("BOARD_TITLE"), map.get("BOARD_MEMBERS"), map.get("BOARD_PERIOD"), 
