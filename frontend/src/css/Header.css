@@ -78,3 +78,56 @@
 .header-buttons > a{
   margin: 3%;
 }
+
+/* Join 모달 스타일 */
+.join-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 80%;
+  max-width: 400px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.join-modal h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.join-modal label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.join-modal input[type="text"],
+.join-modal input[type="email"],
+.join-modal select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.join-modal select {
+  height: 36px; /* 선택 상자의 높이 설정 */
+}
+
+.join-modal button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.join-modal button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+

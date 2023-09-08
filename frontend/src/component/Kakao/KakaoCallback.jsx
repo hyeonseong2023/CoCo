@@ -14,7 +14,6 @@ const KakaoCallback = () => {
 
             cookies.save('CUST_ID', res.data.CUST_ID);
             cookies.save('CUST_IMG', res.data.CUST_IMG);
-
             if (res.data.CUST_IMG === null) { // 회원가입
                 navigator('/Check'); // 메인 페이지로 이동
             } else { // 로그인

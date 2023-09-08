@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import Join from './Join'; // 조인 모달 컴포넌트를 import
+import axios from 'axios';
 
 const Check: React.FC = () => {
   const cookies = new Cookies();
   const custId = cookies.get('CUST_ID');
   const custImg = cookies.get('CUST_IMG');
-  const navigate = useNavigate();
-
-  const [showJoinModal, setShowJoinModal] = useState(false); // 모달 표시 여부 상태 변수
-
+  
   useEffect(() => {
-    console.log('CUST_ID:', custId);
-    console.log('CUST_IMG:', custImg);
 
-    if (custImg === '0') {
-      // 이미지 값이 '0'인 경우, 모달을 표시하도록 상태 변수를 업데이트합니다.
-      setShowJoinModal(true);
-    }
-  }, [custId, custImg]);
+    // 서버에서 받은 데이터를 사용하여 쿠키 업데이트
+    axios.get('/api/getUserData', { withCredentials: true })
+      .then((response) => {
+        const userData = response.data;
+      
+        // userData.CUST_ID와 userData.CUST_IMG를 사용하여 쿠키 업데이트
+        cookies.set('CUST_ID', userData.CUST_ID, { path: '/' });
+        cookies.set('CUST_IMG', userData.CUST_IMG, { path: '/' });
+        
+        // 업데이트된 쿠키 값을 사용하여 필요한 동작 수행
+      })
+      .catch((error) => {
+        console.error('데이터 가져오기 오류:', error);
+      });
+  }, []);
 
-  useEffect(() => {
-    console.log("확인완료");
+  return (
+    <div>
 
-    // 원하는 조건에 따라 리디렉션
-    if (!showJoinModal) {
-      navigate('/');
-    }
-  }, [navigate, showJoinModal]);
-
-  return null; // 리턴 부분은 필요하지 않습니다.
+    </div>
+  );
 };
 
 export default Check;

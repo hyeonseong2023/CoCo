@@ -1,6 +1,6 @@
-import { createProxyMiddleware } from 'http-proxy-middleware';
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const setupProxy = (app: any) => {
+module.exports = function (app) {
   app.use(
     '/api', // 프론트엔드에서 요청하는 URL에 /api를 붙여서 백엔드로 보냅니다.
     createProxyMiddleware({
@@ -9,5 +9,3 @@ const setupProxy = (app: any) => {
     })
   );
 };
-
-export default setupProxy;

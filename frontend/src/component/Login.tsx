@@ -9,7 +9,7 @@ type LoginProps = {
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 const redirectUrl = process.env.REACT_APP_REDIRECT_URL;
-const googleLoginURL = `/login/getGoogleAuthUrl`;
+const googleLoginURL = `http://localhost:8099/login/getGoogleAuthUrl`;
 
 const kakaoLoginURL = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code`;
 
@@ -27,18 +27,11 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
 
   
   const handleGoogleLogin = () => {
-    // Axios를 사용하여 구글 OAuth 2.0 로그인 요청을 보냅니다.
-    axios.get(googleLoginURL)
-      .then((response) => {
-        // 리다이렉션
-        window.location.href = response.data.redirectUrl; // 서버에서 받은 리다이렉션 URL로 이동
-      })
-      .catch((error) => {
-        console.error('Google 로그인 에러:', error);
-      });
+    document.cookie = 'coin=on; path=/';
+    window.location.href = googleLoginURL;
   };
   const handleKakaoLogin = () => {
-    // Kakao OAuth 2.0 로그인 요청을 보냅니다.
+    document.cookie = 'coin=on; path=/';
     window.location.href = kakaoLoginURL;
   };
 
