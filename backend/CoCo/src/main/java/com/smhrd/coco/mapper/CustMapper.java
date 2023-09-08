@@ -12,18 +12,19 @@ import com.smhrd.coco.domain.TB_PF;
 @Mapper
 public interface CustMapper {
 	
-	// 회원 테이블(TB_CUST) 에서 아이디(CUST_ID)에 맞는  
-	// 닉네임(CUST_NICK), 경력(CUST_CAREER), 깃허브링크(CUST_GIT), 직군 포지션(CUST_ROLE) 가져오고 
+	// 마이페이지(기본정보)
 	public List<TB_CUST> mypageCust(String CUST_ID); 
 	
-	// 포트폴리오 테이블(TB_PF)에서 아이디(CUST_ID)에 맞는
-	// 포트폴리오 제목(PF_TITLE), 파일경로(PF_PATH) 가져오고
+	// 마이페이지(포트폴리오)
 	public List<TB_PF> mypagePf(String CUST_ID); 
 	
-	// 조인 조건 : 게시글 번호(BOARD_ID) 
-	// 응모 테이블(TB_APPLY)에서 아이디(CUST_ID) 수락여부(APPROVE_YN)가 Y인 것 중에서 
-	// 게시글 테이블(TB_BOARD)와 프로젝트제목(PRO_TITLE)과 사진경로(PRO_IMG) 가져오기
-    public List<TB_BOARD> mypageApply(String CUST_ID); 
+	// 마이페이지(프로젝트)
+    public List<TB_BOARD> mypageProject(String CUST_ID); 
 	
+	// 마이페이지(연필 버튼)
+	public TB_CUST updatePage(String CUST_ID); 
+	
+	// 마이페이지(수정하기 버튼)
+	public int update(TB_CUST cust); 
 	
 }

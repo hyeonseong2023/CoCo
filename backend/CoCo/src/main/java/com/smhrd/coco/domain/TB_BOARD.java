@@ -27,5 +27,14 @@ public class TB_BOARD {
     private String PRO_TITLE; // 프로젝트 제목 
     private String PRO_LINK; // 화상회의 링크 
     private String PRO_IMG; //프로젝트 이미지 경로 
+    
+    
+	public TB_BOARD(String pRO_TITLE, String pRO_IMG) {
+		super();
+		PRO_TITLE = pRO_TITLE;
+		PRO_IMG = pRO_IMG;
+	}
 
+    
+  
 }
