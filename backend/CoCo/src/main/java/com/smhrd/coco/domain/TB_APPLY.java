@@ -13,9 +13,9 @@ import lombok.ToString;
 @ToString
 public class TB_APPLY {
 
-	private Long APPLY_ID;	
-	private Long BOARD_ID; // 게시글 번호	
+	private Integer APPLY_ID; // 응모 순번 
+	private Integer BOARD_ID; // 게시글 번호	
 	private String CUST_ID; // 회원 아이디
-	private String APPROVE_YN;
+	private String APPROVE_YN; // 수락여부 (Default : N) 
 
 }
