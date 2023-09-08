@@ -17,7 +17,6 @@ import com.smhrd.coco.service.GoogleService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.net.URI;
@@ -71,7 +70,7 @@ public class GoogleController {
    
    // 구글에서 리다이렉션 후 로그인
    @GetMapping("/login/oauth2/code/google")
-   public void oauth_google_check(HttpServletRequest request,
+   public Map<String, Object> oauth_google_check(HttpServletRequest request,
          @RequestParam(value = "code") String authCode, HttpServletResponse response) throws Exception {
       
       // 2.구글에 등록된 코코 설정정보를 보내어 약속된 토큰을 받위한 객체 생성
@@ -111,50 +110,23 @@ public class GoogleController {
 
       // 이미지경로 가져오기
       String CUST_IMG = service.img(cust_id);
-
-      HttpSession session = request.getSession();
+      Map<String, Object> data = new HashMap<>();
 
       if (selectEmail == 0) { // 회원가입 : 저장되지 않은 이메일 , 이미지 "0"
          System.out.println("DB에없는 이메일 ");
-         
-         //회원가입이 안된 회원이면 세션에 데이터 저장후 가입폼 작성창으로 리다이렉트
-          session.setAttribute("CUST_ID", cust_id);
-          session.setAttribute("CUST_IMG", "0");
-         
-         String redirect_uri="http://localhost:3000/Check";
-         
-         try {
-            response.sendRedirect(redirect_uri);
-         } catch (IOException e) {
-            e.printStackTrace();
-         }
+         data.put("CUST_ID", cust_id);
+         data.put("CUST_IMG", "0");
          
       } else { // 로그인 : 이메일, 이미지
-         
-         //회원가입된 회원이면 세션에 데이터 저장
          System.out.println("DB에있는 이메일 ");
-         session.setAttribute("CUST_ID", cust_id);
-         session.setAttribute("CUST_IMG", CUST_IMG);
+         data.put("CUST_ID", cust_id);
+         data.put("CUST_IMG", CUST_IMG);
+         
       }
+      
+      return data;
 
       
    }
-   
-   
-   //세션에 저장된 값 보내주기
-   @GetMapping("/api/getUserData")
-   public Map<String, Object> getUserData(HttpServletRequest request) {
-       HttpSession session = request.getSession();
-       String custId = (String) session.getAttribute("CUST_ID");
-       String custImg = (String) session.getAttribute("CUST_IMG");
-
-       Map<String, Object> data = new HashMap<>();
-       data.put("CUST_ID", custId);
-       data.put("CUST_IMG", custImg);
-
-       return data;
-   }
-   
-   
 
 }
