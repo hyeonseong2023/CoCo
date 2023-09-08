@@ -11,12 +11,11 @@ import lombok.ToString;
 @Getter // Get
 @Setter // Set
 @ToString
-public class TB_NOTICE {
-
+public class TB_SKILL {
 	
-    private Long NOTICE_ID;  // 알림 번호   
-    private String CUST_ID; // 알림을 받는 회원아이디   
-    private String NOTICE_CONTENT; // 알림 내용   
-    private String NOTICE_DT; // 알림 전송 일시
-    private Long BOARD_ID;
+	 
+    private Long SKILL_ID; // 기술스택 번호
+    private String SKILL_TYPE;    
+    private String SKILL_NAME; // 기술스택 명
+
 }

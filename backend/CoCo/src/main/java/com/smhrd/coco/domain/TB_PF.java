@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class TB_PF {
 
-	private Integer PF_ID; // 포트폴리오 번호	
+	private Long PF_ID; // 포트폴리오 번호	
 	private String CUST_ID; // 회원 아이디	
 	private String PF_TITLE; // 포트폴리오 제목	
 	private String PF_PATH; // 파일 경로

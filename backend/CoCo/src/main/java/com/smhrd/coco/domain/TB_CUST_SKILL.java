@@ -13,8 +13,8 @@ import lombok.ToString;
 @ToString
 public class TB_CUST_SKILL {
 
-	private Integer SKILL_SEQ;	
+	private Long SKILL_SEQ;	
 	private String CUST_ID; // 회원 아이디	
-	private String SKILL_NAME; // 스킬 이름 
+	private Long SKILL_ID; // 기술스택
 
 }
