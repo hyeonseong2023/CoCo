@@ -18,8 +18,9 @@ public class TB_BOARD_SKILL {
     private String SKILL_NAME ; // 스킬 이름 
     
     
-	public TB_BOARD_SKILL(String sKILL_NAME) {
+	public TB_BOARD_SKILL(Integer bOARD_ID, String sKILL_NAME) {
 		super();
+		BOARD_ID = bOARD_ID;
 		SKILL_NAME = sKILL_NAME;
 	}
     

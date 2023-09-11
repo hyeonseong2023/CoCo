@@ -24,7 +24,7 @@ public class TB_BOARD {
 	private String BOARD_CONTENT; // 게시글 내용
 	private String BOARD_DT; // 게시글 등록 일시
 	private Integer BOARD_VIEWS; // 조회수
-	private String[] BOARD_POSITION; // 포지션 (다수선택) 
+	private String BOARD_POSITION; // 포지션 (다수선택) 
 	private String PRO_TITLE; // 프로젝트 제목
 	private String PRO_IMG; // 프로젝트 이미지 경로
 	private String PRO_LINK; // 화상회의 링크
@@ -33,7 +33,7 @@ public class TB_BOARD {
 	
 	public TB_BOARD(String cUST_ID, String bOARD_TITLE, String bOARD_MEMBERS, String bOARD_PERIOD,
 			String bOARD_DEADLINE, String bOARD_OPENTALK, String bOARD_CONTENT, Integer bOARD_VIEWS,
-			String[] bOARD_POSITION, String pRO_TITLE, String pRO_IMG, String pRO_LINK) {
+			String bOARD_POSITION, String pRO_TITLE, String pRO_IMG, String pRO_LINK) {
 		super();
 		CUST_ID = cUST_ID;
 		BOARD_TITLE = bOARD_TITLE;

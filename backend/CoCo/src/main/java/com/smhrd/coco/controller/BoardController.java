@@ -31,9 +31,7 @@ public class BoardController {
 	//작성한 게시글 정보 DB저장
 	@PostMapping("/postsaveinfor")
 	public @ResponseBody int postSaveInfor(@ModelAttribute TB_BOARD board, TB_BOARD_SKILL skill, TB_BOARD_IMG img) {
-		
-		String[] position;
-		
+
 		System.out.println("회원 아이디: " + board.getCUST_ID());
 		System.out.println("모집인원: " + board.getBOARD_MEMBERS());
 		System.out.println("진행기간: " + board.getBOARD_PERIOD());
@@ -82,26 +80,34 @@ public class BoardController {
 		
 		//TB_BOARD 정보 저장
 		int cnt1 = service.postSaveBoard(saveBoard);
-	
+		
 		
 		
 		//TB_BOARD_SKILL테이블에 for문 돌려서 스킬 저장하기
+		String skillPeriod = skill.getSKILL_NAME();
+		String[] skillArray = skillPeriod.split(",");
 		
+		TB_BOARD_SKILL SaveSkill = null;
 		
+		System.out.println("보드번호 : "+saveBoard.getBOARD_ID());
 		
-//		TB_REQUIRED_SKILL skill = new TB_REQUIRED_SKILL(null, board.getBOARD_ID(), null);
+		int cnt2=0;
+		
+		for(int i=0; i<skillArray.length; i++) {
+			
+			SaveSkill = new TB_BOARD_SKILL(saveBoard.getBOARD_ID(), skillArray[i]);
+			System.out.println(skillArray[i] );
+			
+			cnt2 = service.postSaveSkill(SaveSkill);
+		}
+		
+
 		
 //    	TB_BOARD_IMG img = new TB_BOARD_IMG(null, null, map.get("BOARD_IMG"));
 
-		
-		
-		//TB_REQUIRED_SKILL 정보 저장
-//		int cnt2 = service.postSaveSkill(skill);
-		
-		//TB_BOARD_IMG 정보저장
-//		int cnt3 = service.postSaveImg(img);
 
-		if (cnt1>0) {
+
+		if (cnt1>0 && cnt2>0) {
 			System.out.println("DB 저장 성공");
 			return 1;
 		} else {
