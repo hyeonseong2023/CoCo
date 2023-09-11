@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import '../css/Login.css';
 import logoimg from '../img/Logo.png';
+import axios from 'axios'; // Axios 추가
 
 type LoginProps = {
   onClose: () => void;
 };
 
-const clientId = process.env.REACT_APP_CLIENT_ID
-const redirecturl = process.env.REACT_APP_REDIRECT_URL
-  
-
+const clientId = process.env.REACT_APP_CLIENT_ID;
+const redirectUrl = process.env.REACT_APP_REDIRECT_URL;
 const googleLoginURL = `http://localhost:8099/login/getGoogleAuthUrl`;
 
-const kakaoLoginURL = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirecturl}&response_type=code` ;
+const kakaoLoginURL = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code`;
 
 const Login: React.FC<LoginProps> = ({ onClose }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -26,17 +25,25 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
     onClose();
   };
 
+  
   const handleGoogleLogin = () => {
+    document.cookie = 'coin=on; path=/';
     window.location.href = googleLoginURL;
   };
-
   const handleKakaoLogin = () => {
+    document.cookie = 'coin=on; path=/';
     window.location.href = kakaoLoginURL;
   };
 
   useEffect(() => {
     openPopup();
   }, []);
+
+  // 페이지 이동 후 뒤로 가기 버튼을 사용하여 이전 페이지로 이동할 수 있도록 브라우저 기록에 현재 페이지를 추가
+  const handlePageNavigation = () => {
+    window.history.pushState(null, '', '/'); // '/'에는 이전 페이지의 URL을 넣어야 합니다.
+  };
+
 
   return (
     <div id='logbox'>

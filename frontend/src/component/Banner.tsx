@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../css/Banner.css';
-
+import Bimg from '../img/imgB.png'
 const Banner = () => {
   const settings = {
     dots: true,
@@ -18,9 +18,9 @@ const Banner = () => {
 
   const slideContents = [
     {
-      image: 'https://cdn.imweb.me/upload/a7c97c29da69a.png',
+      image: `${Bimg}`,
       altText: '이미지 1',
-      caption: '이미지 1 설명',
+      caption: '',
       link: 'https://www.musinsa.com/app/', // 슬라이드 1에 대한 링크 설정 (원하는 URL로 변경)
     },
     {
