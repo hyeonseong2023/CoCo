@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Header from './Header';
 import '../css/Write.css';
-
+import Cookies from 'js-cookie';
 const Write = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -34,14 +34,14 @@ const Write = () => {
     e.preventDefault();
 
     const postData = {
-      CUST_ID: '123', // Replace with actual user ID
+      CUST_ID: Cookies.get('CUST_ID'), // Replace with actual user ID
       BOARD_MEMBERS: recruitmentInfo.recruitmentCount,
       BOARD_PERIOD: recruitmentInfo.duration,
       BOARD_DEADLINE: recruitmentInfo.startDate,
       BOARD_TITLE: title,
       BOARD_CONTENT: content, // 컨텐츠 내용 추가
       BOARD_OPENTALK: recruitmentInfo.openTalkLink,
-      PROJECT_ROLE: recruitmentInfo.position,
+      BOARD_POSITION: recruitmentInfo.position,
       PRO_TITLE: 'Project Title', 
       PRO_LINK: recruitmentInfo.openTalkLink,
       PRO_IMG: 'project-image.jpg', 
@@ -50,7 +50,7 @@ const Write = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/postsaveinfor', {
+      const response = await fetch('http://localhost:8099/postsaveinfor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

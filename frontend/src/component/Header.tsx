@@ -47,7 +47,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
       // 이미 로그인되어 있으면 글쓰기 페이지로 이동
       navigate('/write');
     } else {
-      // 로그인되어 있지 않으면 로그인 모달 띄우기
       openModal();
     }
   };

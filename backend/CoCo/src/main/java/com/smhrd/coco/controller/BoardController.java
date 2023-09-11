@@ -27,7 +27,7 @@ public class BoardController {
 	//작성한 게시글 정보 DB저장
 	@PostMapping("/postsaveinfor")
 	public @ResponseBody int postSaveInfor(@RequestBody Map<String, String> map) {
-		
+		System.out.println("postsaveinfor");
 		System.out.println("회원 아이디: " + map.get("CUST_ID"));
 		System.out.println("모집인원: " + map.get("BOARD_MEMBERS"));
 		System.out.println("진행기간: " + map.get("BOARD_PERIOD"));
