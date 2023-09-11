@@ -24,29 +24,34 @@ public class TB_BOARD {
 	private String BOARD_CONTENT; // 게시글 내용
 	private String BOARD_DT; // 게시글 등록 일시
 	private Integer BOARD_VIEWS; // 조회수
-	private Integer BOARD_POSITION; // 포지션 (다수선택) 
+	private String BOARD_POSITION; // 포지션 (다수선택) 
 	private String PRO_TITLE; // 프로젝트 제목
 	private String PRO_IMG; // 프로젝트 이미지 경로
 	private String PRO_LINK; // 화상회의 링크
-
-
-	public TB_BOARD(String CUST_ID, String BOARD_TITLE, String BOARD_MEMBERS, String BOARD_PERIOD,
-			String BOARD_DEADLINE, String BOARD_OPENTALK, String BOARD_CONTENT, Integer BOARD_VIEWS,
-			String BOARD_POSITION, String PRO_TITLE, String PRO_LINK, String PRO_IMG) {
+	
+	
+	
+	public TB_BOARD(String cUST_ID, String bOARD_TITLE, String bOARD_MEMBERS, String bOARD_PERIOD,
+			String bOARD_DEADLINE, String bOARD_OPENTALK, String bOARD_CONTENT, Integer bOARD_VIEWS,
+			String bOARD_POSITION, String pRO_TITLE, String pRO_IMG, String pRO_LINK) {
 		super();
-		CUST_ID = CUST_ID;
-		BOARD_TITLE = BOARD_TITLE;
-		BOARD_MEMBERS = BOARD_MEMBERS ;
-		BOARD_PERIOD = BOARD_PERIOD;
-		BOARD_DEADLINE = BOARD_DEADLINE;
-		BOARD_OPENTALK = BOARD_OPENTALK;
-		BOARD_CONTENT = BOARD_CONTENT;
-		BOARD_VIEWS = BOARD_VIEWS;
-		BOARD_POSITION = BOARD_POSITION;
-		PRO_TITLE = PRO_TITLE;
-		PRO_LINK = PRO_LINK;
-		PRO_IMG = PRO_IMG;
+		CUST_ID = cUST_ID;
+		BOARD_TITLE = bOARD_TITLE;
+		BOARD_MEMBERS = bOARD_MEMBERS;
+		BOARD_PERIOD = bOARD_PERIOD;
+		BOARD_DEADLINE = bOARD_DEADLINE;
+		BOARD_OPENTALK = bOARD_OPENTALK;
+		BOARD_CONTENT = bOARD_CONTENT;
+		BOARD_VIEWS = bOARD_VIEWS;
+		BOARD_POSITION = bOARD_POSITION;
+		PRO_TITLE = pRO_TITLE;
+		PRO_IMG = pRO_IMG;
+		PRO_LINK = pRO_LINK;
 	}
+	
+	
+
+	
     
     
 

@@ -23,7 +23,7 @@ public class BoardService {
 		return mapper.postSaveBoard(board);
 	}
 	
-	//TB_REQUIRED_SKILL 정보 저장
+	//TB_BOARD_SKILL 정보 저장
 	public int postSaveSkill(TB_BOARD_SKILL skill) {
 		return mapper.postSaveSkill(skill);
 	}
