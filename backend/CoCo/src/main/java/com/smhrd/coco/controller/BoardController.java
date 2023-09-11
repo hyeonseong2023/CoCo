@@ -26,6 +26,7 @@ public class BoardController {
 	
 	//작성한 게시글 정보 DB저장
 	@PostMapping("/postsaveinfor")
+<<<<<<< Updated upstream
 	public @ResponseBody int postSaveInfor(@RequestBody Map<String, String> map) {
 		System.out.println("postsaveinfor");
 		System.out.println("회원 아이디: " + map.get("CUST_ID"));
@@ -48,6 +49,58 @@ public class BoardController {
 		TB_BOARD board = new TB_BOARD(map.get("CUST_ID"), map.get("BOARD_TITLE"), map.get("BOARD_MEMBERS"), map.get("BOARD_PERIOD"), 
 				map.get("BOARD_DEADLINE"), map.get("BOARD_OPENTALK"), map.get("BOARD_CONTENT"), 0, map.get("PROJECT_ROLE"), 
 				map.get("PRO_TITLE"), map.get("PRO_LINK"), map.get("PRO_IMG"));
+=======
+	public @ResponseBody int postSaveInfor(@ModelAttribute TB_BOARD board, TB_BOARD_SKILL skill, TB_BOARD_IMG img) {
+		System.out.println(board);
+		System.out.println(skill);
+		System.out.println(img);
+		System.out.println("회원 아이디: " + board.getCUST_ID());
+		System.out.println("모집인원: " + board.getBOARD_MEMBERS());
+		System.out.println("진행기간: " + board.getBOARD_PERIOD());
+		System.out.println("시작일: " + board.getBOARD_DEADLINE());
+		System.out.println("글제목: " + board.getBOARD_TITLE());
+		System.out.println("글내용: " + board.getBOARD_CONTENT());	
+		System.out.println("오픈톡 링크: " + board.getBOARD_OPENTALK());
+			System.out.println("포지션 : " + board.getBOARD_POSITION());
+			System.out.println("프로젝트 제목 : " + board.getPRO_TITLE());	
+		System.out.println("화상회의 링크 : " + board.getPRO_LINK());
+		System.out.println("프로젝트 이미지 : " + board.getPRO_IMG());
+		System.out.println("기술스택 : " + skill.getSKILL_NAME());
+		System.out.println("이미지 : " + img.getBOARD_IMG());
+		System.out.println("뷰 : " + board.getBOARD_VIEWS()	);
+
+		
+		//진행기간 일수로 바꿔서 저장하기
+		String period = board.getBOARD_PERIOD();
+		String[] day = period.split("~");
+		
+		String firstDate = day[0];
+		String secondDate = day[1];
+		
+		String[] start = firstDate.split("/");
+		int year1 = Integer.parseInt(start[0]);
+		int month1 = Integer.parseInt(start[1]);
+		int day1 = Integer.parseInt(start[2]);
+		
+		String[] end = secondDate.split("/");
+		int year2 = Integer.parseInt(end[0]);
+		int month2 = Integer.parseInt(end[1]);
+		int day2 = Integer.parseInt(end[2]);
+		
+		LocalDate startDate = LocalDate.of(year1, month1, day1);
+		LocalDate endDate = LocalDate.of(year2, month2, day2);
+
+		Period per = Period.between(startDate, endDate);
+		System.out.println(per.getDays());
+		String d_day = per.getDays()+"";
+		board.setBOARD_PERIOD(d_day);
+		//진행기간 일수로 바꿔서 저장하기 --끝--
+
+		
+		TB_BOARD saveBoard = new TB_BOARD(board.getCUST_ID(), board.getBOARD_TITLE(), board.getBOARD_MEMBERS(), board.getBOARD_PERIOD(), 
+				board.getBOARD_DEADLINE(), board.getBOARD_OPENTALK(), board.getBOARD_CONTENT(), board.getBOARD_VIEWS(), board.getBOARD_POSITION(),
+				board.getPRO_TITLE(), board.getPRO_IMG(), board.getPRO_LINK());
+>>>>>>> Stashed changes
 		
 		//TB_BOARD 정보 저장
 		int cnt1 = service.postSaveBoard(board);

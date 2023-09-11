@@ -2,60 +2,32 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Header from './Header';
 import '../css/Write.css';
 import Cookies from 'js-cookie';
+import axios from 'axios';
+
 const Write = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [recruitmentInfo, setRecruitmentInfo] = useState({
-    recruitmentCount: 0,
-    techStack: '',
-    duration: '',
-    position: '',
-    startDate: '',
-    openTalkLink: '',
-  });
+  const [formData, setFormData] = useState(new FormData());
 
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
-
-  const handleRecruitmentInfoChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setRecruitmentInfo({
-      ...recruitmentInfo,
-      [name]: value,
-    });
+
+    if (name.includes("recruitmentInfo")) {
+      // 모집 정보 입력 필드의 경우
+      const [parentName, childName] = name.split(".");
+      formData.append(name, value);
+    } else {
+      // 다른 입력 필드의 경우
+      formData.append(name, value);
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const postData = {
-      CUST_ID: Cookies.get('CUST_ID'), // Replace with actual user ID
-      BOARD_MEMBERS: recruitmentInfo.recruitmentCount,
-      BOARD_PERIOD: recruitmentInfo.duration,
-      BOARD_DEADLINE: recruitmentInfo.startDate,
-      BOARD_TITLE: title,
-      BOARD_CONTENT: content, // 컨텐츠 내용 추가
-      BOARD_OPENTALK: recruitmentInfo.openTalkLink,
-      BOARD_POSITION: recruitmentInfo.position,
-      PRO_TITLE: 'Project Title', 
-      PRO_LINK: recruitmentInfo.openTalkLink,
-      PRO_IMG: 'project-image.jpg', 
-      SKILL_ID: '1', // Replace with actual skill ID
-      BOARD_IMG: 'board-image.jpg', // Replace with actual image
-    };
-
     try {
-      const response = await fetch('http://localhost:8099/postsaveinfor', {
-        method: 'POST',
+      const response = await axios.post('http://localhost:8099/postsaveinfor', formData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
-        body: JSON.stringify(postData),
       });
 
       if (response.status === 200) {
@@ -66,17 +38,6 @@ const Write = () => {
     } catch (error) {
       console.error('오류 발생: ', error);
     }
-
-    setTitle('');
-    setContent('');
-    setRecruitmentInfo({
-      recruitmentCount: 0,
-      techStack: '',
-      duration: '',
-      position: '',
-      startDate: '',
-      openTalkLink: '',
-    });
   };
 
   return (
@@ -87,7 +48,7 @@ const Write = () => {
         <div className='write-submitSet'>
           <h2>게시글 작성</h2>
           <button type="submit" className="submit-button">
-          작성
+            작성
           </button>
         </div>
 
@@ -96,8 +57,9 @@ const Write = () => {
           <input
             type="text"
             id="title"
-            value={title}
-            onChange={handleTitleChange}
+            name="title"
+            value={formData.get("title") as string}
+            onChange={handleInputChange}
             required
             className="input-field"
           />
@@ -109,9 +71,9 @@ const Write = () => {
             <input
               type="number"
               id="recruitmentCount"
-              name="recruitmentCount"
-              value={recruitmentInfo.recruitmentCount}
-              onChange={handleRecruitmentInfoChange}
+              name="recruitmentInfo.recruitmentCount"
+              value={formData.get("recruitmentInfo.recruitmentCount") as string}
+              onChange={handleInputChange}
               className="input-field"
             />
           </div>
@@ -120,9 +82,9 @@ const Write = () => {
             <input
               type="text"
               id="techStack"
-              name="techStack"
-              value={recruitmentInfo.techStack}
-              onChange={handleRecruitmentInfoChange}
+              name="recruitmentInfo.techStack"
+              value={formData.get("recruitmentInfo.techStack") as string}
+              onChange={handleInputChange}
               className="input-field"
             />
           </div>
@@ -131,9 +93,9 @@ const Write = () => {
             <input
               type="text"
               id="duration"
-              name="duration"
-              value={recruitmentInfo.duration}
-              onChange={handleRecruitmentInfoChange}
+              name="recruitmentInfo.duration"
+              value={formData.get("recruitmentInfo.duration") as string}
+              onChange={handleInputChange}
               className="input-field"
             />
           </div>
@@ -142,9 +104,9 @@ const Write = () => {
             <input
               type="text"
               id="position"
-              name="position"
-              value={recruitmentInfo.position}
-              onChange={handleRecruitmentInfoChange}
+              name="recruitmentInfo.position"
+              value={formData.get("recruitmentInfo.position") as string}
+              onChange={handleInputChange}
               className="input-field"
             />
           </div>
@@ -153,9 +115,9 @@ const Write = () => {
             <input
               type="text"
               id="startDate"
-              name="startDate"
-              value={recruitmentInfo.startDate}
-              onChange={handleRecruitmentInfoChange}
+              name="recruitmentInfo.startDate"
+              value={formData.get("recruitmentInfo.startDate") as string}
+              onChange={handleInputChange}
               className="input-field"
             />
           </div>
@@ -164,21 +126,22 @@ const Write = () => {
             <input
               type="text"
               id="openTalkLink"
-              name="openTalkLink"
-              value={recruitmentInfo.openTalkLink}
-              onChange={handleRecruitmentInfoChange}
+              name="recruitmentInfo.openTalkLink"
+              value={formData.get("recruitmentInfo.openTalkLink") as string}
+              onChange={handleInputChange}
               className="input-field"
             />
           </div>
-        <br/>
-        <br/>
+          <br />
+          <br />
           <div className="form-subgroup"></div>
           <div className="form-group">
             <label htmlFor="content">내용:</label>
             <textarea
               id="content"
-              value={content}
-              onChange={handleContentChange}
+              name="content"
+              value={formData.get("content") as string}
+              onChange={handleInputChange}
               required
               className="textarea-field"
             />
