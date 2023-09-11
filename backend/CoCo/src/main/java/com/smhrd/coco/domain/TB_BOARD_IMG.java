@@ -17,6 +17,15 @@ public class TB_BOARD_IMG {
     private Integer BOARD_IMG_ID; // 이미지 구분 번호    
     private Integer BOARD_ID; // 게시글 번호    
     private String BOARD_IMG; // 게시글 이미지 경로
+    
+    
+	public TB_BOARD_IMG(Integer bOARD_ID, String bOARD_IMG) {
+		super();
+		BOARD_ID = bOARD_ID;
+		BOARD_IMG = bOARD_IMG;
+	}
+    
+    
 
 
 }
