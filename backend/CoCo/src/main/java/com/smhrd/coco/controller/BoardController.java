@@ -38,8 +38,26 @@ public class BoardController {
 	
 	//작성한 게시글 정보 DB저장
 	@PostMapping("/postsaveinfor")
-	public int postSaveInfor(@RequestPart("BOARD_IMG") MultipartFile file, @ModelAttribute TB_BOARD board, @ModelAttribute TB_BOARD_SKILL skill) {
-	
+	public @ResponseBody int postSaveInfor(@ModelAttribute TB_BOARD board, TB_BOARD_SKILL skill, TB_BOARD_IMG img) {
+		System.out.println(board);
+		System.out.println(skill);
+		System.out.println(img);
+		System.out.println("회원 아이디: " + board.getCUST_ID());
+		System.out.println("모집인원: " + board.getBOARD_MEMBERS());
+		System.out.println("진행기간: " + board.getBOARD_PERIOD());
+		System.out.println("시작일: " + board.getBOARD_DEADLINE());
+		System.out.println("글제목: " + board.getBOARD_TITLE());
+		System.out.println("글내용: " + board.getBOARD_CONTENT());	
+		System.out.println("오픈톡 링크: " + board.getBOARD_OPENTALK());
+			System.out.println("포지션 : " + board.getBOARD_POSITION());
+			System.out.println("프로젝트 제목 : " + board.getPRO_TITLE());	
+		System.out.println("화상회의 링크 : " + board.getPRO_LINK());
+		System.out.println("프로젝트 이미지 : " + board.getPRO_IMG());
+		System.out.println("기술스택 : " + skill.getSKILL_NAME());
+		System.out.println("이미지 : " + img.getBOARD_IMG());
+		System.out.println("뷰 : " + board.getBOARD_VIEWS()	);
+
+		
 		//진행기간 일수로 바꿔서 저장하기
 		String period = board.getBOARD_PERIOD();
 		String[] day = period.split("~");
