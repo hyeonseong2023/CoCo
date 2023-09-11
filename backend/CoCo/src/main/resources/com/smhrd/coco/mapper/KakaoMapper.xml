@@ -19,9 +19,8 @@
 	<!-- 첫 로그인 기본 정보 DB에 저장 -->
 	<insert id="firstLogin"
 		parameterType="com.smhrd.coco.domain.TB_CUST">
-		INSERT INTO TB_CUST (CUST_ID, CUST_NICK, CUST_CAREER, CUST_IMG, CUST_GIT,
-		CUST_POSITION)
-		VALUES (#{CUST_ID}, #{CUST_NICK}, #{CUST_CAREER}, #{CUST_IMG}, #{CUST_GIT},
-		#{CUST_POSITION})
+		insert into TB_CUST values( #{CUST_ID}, #{CUST_NICK},
+		#{CUST_CAREER},
+		#{CUST_IMG}, #{CUST_GIT}, #{CUST_POSITION})
 	</insert>
 </mapper>

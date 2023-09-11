@@ -61,12 +61,9 @@ public class KakaoController {
 		System.out.println("닉네임 : " + map.get("CUST_NICK"));
 		System.out.println("경력 : " + map.get("CUST_CAREER"));
 		System.out.println("기술 : " + map.get("SKILL_NAME"));
-		String CUST_POSITION = map.get("SKILL_NAME");
-		String CUST_IMG = "1";
-		
+
 		TB_CUST cust = new TB_CUST
-				(map.get("CUST_ID"), map.get("CUST_NICK"), map.get("CUST_CAREER"), CUST_POSITION, CUST_IMG, "test") ;
-		
+				(map.get("CUST_ID"), map.get("CUST_NICK"), map.get("CUST_CAREER"), "sad", "sdsad", map.get("SKILL_NAME"));
 		
 		int cnt = service.firstLogin(cust);
 

@@ -19,7 +19,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    
   };
 
   const openModal = () => {
@@ -45,6 +44,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
   const handleWriteClick = () => {
     if (isLoggedIn) {
+      // 이미 로그인되어 있으면 글쓰기 페이지로 이동
       navigate('/write');
     } else {
       openModal();

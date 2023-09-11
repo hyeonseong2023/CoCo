@@ -9,7 +9,6 @@ type FormData = {
   interests: string;
 };
 
-
 type JoinModelProps = {
   onClose: () => void;
 };
@@ -20,7 +19,6 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
     job: '',
     experience: '',
     interests: '',
-
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -30,13 +28,7 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
       [name]: value,
     }));
   };
-  const handleClose = () => {
 
-    Cookies.remove('CUST_ID');
-    Cookies.remove('CUST_IMG');
-    Cookies.remove('coin');
-    onClose();
-  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -62,8 +54,8 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
     } catch (error) {
       console.error('데이터를 서버로 전송하는 중 오류가 발생했습니다.', error);
     }
-    Cookies.remove('CUST_ID');
-    Cookies.remove('CUST_IMG');
+
+    Cookies.remove('coin');
     onClose(); // 모달 닫기
   };
 
@@ -141,9 +133,9 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
           </label>
           <br />
 
-          <button type="submit" onClick={handleSubmit}>가입하기</button>
+          <button type="submit">가입하기</button>
         </form>
-        <button className="close-button" onClick={handleClose}>X</button>
+        <button className="close-button" onClick={onClose}>X</button>
       </div>
     </div>
   );
