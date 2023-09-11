@@ -1,20 +1,23 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Header from './Header';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'; 
+import 'react-datepicker/dist/react-datepicker.css';
 import '../css/Write.css';
 import Cookies from 'js-cookie';
 
 const Write = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [images, setImages] = useState<File[]>([]); // 이미지 파일들을 배열로 관리
+  const [previewImages, setPreviewImages] = useState<string[]>([]); // 미리 보기 이미지들의 URL을 배열로 관리
+
   const [recruitmentInfo, setRecruitmentInfo] = useState({
     recruitmentCount: 0,
     techStack: '',
     duration: '',
     position: '',
-    startDate: new Date(), // 시작일 기본값 설정
-    endDate: new Date(),   // 종료일 기본값 설정
+    startDate: new Date(),
+    endDate: new Date(),
     openTalkLink: '',
   });
 
@@ -34,6 +37,26 @@ const Write = () => {
     });
   };
 
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const selectedImages = Array.from(files);
+      setImages([...images, ...selectedImages]);
+      const imageUrls = selectedImages.map((file) => URL.createObjectURL(file));
+      setPreviewImages([...previewImages, ...imageUrls]);
+    }
+  };
+
+  const handleImageRemove = (index: number) => {
+    const updatedImages = [...images];
+    updatedImages.splice(index, 1);
+    setImages(updatedImages);
+
+    const updatedPreviewImages = [...previewImages];
+    updatedPreviewImages.splice(index, 1);
+    setPreviewImages(updatedPreviewImages);
+  };
+
   const handleStartDateChange = (date: Date) => {
     setRecruitmentInfo({
       ...recruitmentInfo,
@@ -51,26 +74,30 @@ const Write = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // startDate와 endDate 합치기
     const startDateStr = recruitmentInfo.startDate.toISOString().split('T')[0];
     const endDateStr = recruitmentInfo.endDate.toISOString().split('T')[0];
     const period = `${startDateStr}~${endDateStr}`;
 
     const formData = new FormData();
-    formData.append('CUST_ID', Cookies.get('CUST_ID') || ""); // Replace with actual user ID
-    formData.append('BOARD_MEMBERS', String(recruitmentInfo.recruitmentCount)); // 숫자를 문자열로 변환
-    formData.append('BOARD_PERIOD', period); // 시작일과 종료일 합친 문자열
+    formData.append('CUST_ID', Cookies.get('CUST_ID') || "");
+    formData.append('BOARD_MEMBERS', String(recruitmentInfo.recruitmentCount));
+    formData.append('BOARD_PERIOD', period);
     formData.append('BOARD_TITLE', title);
-    formData.append('BOARD_CONTENT', content); // 컨텐츠 내용 추가
+    formData.append('BOARD_CONTENT', content);
     formData.append('BOARD_OPENTALK', recruitmentInfo.openTalkLink);
     formData.append('BOARD_POSITION', recruitmentInfo.position);
     formData.append('PRO_TITLE', 'Project Title');
     formData.append('PRO_LINK', recruitmentInfo.openTalkLink);
-    formData.append('PRO_IMG', 'project-image.jpg');
-    formData.append('SKILL_ID', '1'); // Replace with actual skill ID
+    formData.append('SKILL_ID', '1');
     formData.append('BOARD_DEADLINE', `${startDateStr}`)
     formData.append('BOARD_VIEWS', '0');
     formData.append('SKILL_NAME', recruitmentInfo.techStack);
+
+    // 선택된 이미지들 업로드 처리
+    images.forEach((file) => {
+      formData.append('BOARD_IMG', file);
+    });
+
     try {
       const response = await fetch('http://localhost:8099/postsaveinfor', {
         method: 'POST',
@@ -97,6 +124,8 @@ const Write = () => {
       endDate: new Date(),
       openTalkLink: '',
     });
+    setImages([]);
+    setPreviewImages([]); // 이미지 미리 보기 초기화
   };
 
   return (
@@ -148,7 +177,7 @@ const Write = () => {
           </div>
           <div className="form-subgroup">
             <label htmlFor="startDate">시작일:</label>
-            <DatePicker // 시작일을 선택할 수 있는 달력
+            <DatePicker
               selected={recruitmentInfo.startDate}
               onChange={handleStartDateChange}
               dateFormat="yyyy-MM-dd"
@@ -158,7 +187,7 @@ const Write = () => {
           </div>
           <div className="form-subgroup">
             <label htmlFor="endDate">종료일:</label>
-            <DatePicker // 종료일을 선택할 수 있는 달력
+            <DatePicker
               selected={recruitmentInfo.endDate}
               onChange={handleEndDateChange}
               dateFormat="yyyy-MM-dd"
@@ -177,19 +206,40 @@ const Write = () => {
               className="input-field"
             />
           </div>
-        <br/>
-        <br/>
-          <div className="form-subgroup"></div>
-          <div className="form-group">
-            <label htmlFor="content">내용:</label>
-            <textarea
-              id="content"
-              value={content}
-              onChange={handleContentChange}
-              required
-              className="textarea-field"
-            />
+        </div>
+
+        <div className="form-subgroup">
+          <label htmlFor="image">이미지 업로드:</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            onChange={handleImageChange}
+            accept="image/*"
+            className="input-field"
+            multiple // 다중 파일 선택을 가능하게 함
+          />
+        </div>
+        {previewImages.length > 0 && (
+          <div className="image-preview">
+            {previewImages.map((imageUrl, index) => (
+              <div key={index} className="image-preview-item">
+                <img className='testimg' src={imageUrl} alt={`미리 보기 ${index}`} />
+                <button onClick={() => handleImageRemove(index)}>삭제</button>
+              </div>
+            ))}
           </div>
+        )}
+
+        <div className="form-group">
+          <label htmlFor="content">내용:</label>
+          <textarea
+            id="content"
+            value={content}
+            onChange={handleContentChange}
+            required
+            className="textarea-field"
+          />
         </div>
       </form>
     </div>

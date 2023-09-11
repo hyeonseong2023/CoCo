@@ -21,6 +21,12 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
     interests: '',
   });
 
+  // 모달을 닫는 함수
+  const closeModal = () => {
+    Cookies.remove('coin');
+    onClose();
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -56,7 +62,7 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
     }
 
     Cookies.remove('coin');
-    onClose(); // 모달 닫기
+    closeModal(); // 모달 닫기
   };
 
   return (
@@ -135,7 +141,7 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
 
           <button type="submit">가입하기</button>
         </form>
-        <button className="close-button" onClick={onClose}>X</button>
+        <button className="close-button" onClick={closeModal}>X</button>
       </div>
     </div>
   );

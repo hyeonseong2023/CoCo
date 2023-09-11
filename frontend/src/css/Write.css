@@ -59,3 +59,8 @@ label {
 .write-submitSet{
     display: flex;
 }
+
+.testimg{
+    width: auto;
+    max-height: 250px;
+}
