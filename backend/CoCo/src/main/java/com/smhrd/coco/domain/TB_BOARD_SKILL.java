@@ -16,4 +16,12 @@ public class TB_BOARD_SKILL {
 	private Integer BOARD_SKILL_SEQ; //게시판 스킬 구분 번호
     private Integer BOARD_ID; // 게시글 번호    
     private String SKILL_NAME ; // 스킬 이름 
+    
+    
+	public TB_BOARD_SKILL(String sKILL_NAME) {
+		super();
+		SKILL_NAME = sKILL_NAME;
+	}
+    
+    
 }

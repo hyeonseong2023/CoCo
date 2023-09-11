@@ -2,10 +2,12 @@ package com.smhrd.coco.controller;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,24 +30,27 @@ public class BoardController {
 	
 	//작성한 게시글 정보 DB저장
 	@PostMapping("/postsaveinfor")
-	public @ResponseBody int postSaveInfor(@RequestBody Map<String, String> map) {
+	public @ResponseBody int postSaveInfor(@ModelAttribute TB_BOARD board, TB_BOARD_SKILL skill, TB_BOARD_IMG img) {
 		
-		System.out.println("회원 아이디: " + map.get("CUST_ID"));
-		System.out.println("모집인원: " + map.get("BOARD_MEMBERS"));
-		System.out.println("진행기간: " + map.get("BOARD_PERIOD"));
-		System.out.println("시작일: " + map.get("BOARD_DEADLINE"));
-		System.out.println("글제목: " + map.get("BOARD_TITLE"));
-		System.out.println("글내용: " + map.get("BOARD_CONTENT"));	
-		System.out.println("오픈톡 링크: " + map.get("BOARD_OPENTALK"));
-		System.out.println("역할구분 : " + map.get("PROJECT_ROLE"));
-		System.out.println("프로젝트 제목 : " + map.get("PRO_TITLE"));	
-		System.out.println("화상회의 링크 : " + map.get("PRO_LINK"));
-		System.out.println("프로젝트 이미지 : " + map.get("PRO_IMG"));
-		System.out.println("기술스택 : " + map.get("SKILL_ID"));
-		System.out.println("이미지 : " + map.get("BOARD_IMG"));
+		String[] position;
+		
+		System.out.println("회원 아이디: " + board.getCUST_ID());
+		System.out.println("모집인원: " + board.getBOARD_MEMBERS());
+		System.out.println("진행기간: " + board.getBOARD_PERIOD());
+		System.out.println("시작일: " + board.getBOARD_DEADLINE());
+		System.out.println("글제목: " + board.getBOARD_TITLE());
+		System.out.println("글내용: " + board.getBOARD_CONTENT());	
+		System.out.println("오픈톡 링크: " + board.getBOARD_OPENTALK());
+		System.out.println("포지션 : " + board.getBOARD_POSITION());
+		System.out.println("프로젝트 제목 : " + board.getPRO_TITLE());	
+		System.out.println("화상회의 링크 : " + board.getPRO_LINK());
+		System.out.println("프로젝트 이미지 : " + board.getPRO_IMG());
+		System.out.println("기술스택 : " + skill.getSKILL_NAME());
+		System.out.println("이미지 : " + img.getBOARD_IMG());
+		System.out.println("뷰 : " + board.getBOARD_VIEWS());
 		
 		//진행기간 일수로 바꿔서 저장하기
-		String period = map.get("BOARD_PERIOD");
+		String period = board.getBOARD_PERIOD();
 		String[] day = period.split("~");
 		
 		String firstDate = day[0];
@@ -67,19 +72,21 @@ public class BoardController {
 		Period per = Period.between(startDate, endDate);
 		System.out.println(per.getDays());
 		String d_day = per.getDays()+"";
-		
-		map.put("BOARD_PERIOD", d_day);
+		board.setBOARD_PERIOD(d_day);
+		//진행기간 일수로 바꿔서 저장하기 --끝--
 
-		TB_BOARD board = new TB_BOARD(map.get("CUST_ID"), map.get("BOARD_TITLE"), map.get("BOARD_MEMBERS"), map.get("BOARD_PERIOD"), 
-				map.get("BOARD_DEADLINE"), map.get("BOARD_OPENTALK"), map.get("BOARD_CONTENT"), 0, map.get("PROJECT_ROLE"), 
-				map.get("PRO_TITLE"), map.get("PRO_LINK"), map.get("PRO_IMG"));
+		
+		TB_BOARD saveBoard = new TB_BOARD(board.getCUST_ID(), board.getBOARD_TITLE(), board.getBOARD_MEMBERS(), board.getBOARD_PERIOD(), 
+				board.getBOARD_DEADLINE(), board.getBOARD_OPENTALK(), board.getBOARD_CONTENT(), board.getBOARD_VIEWS(), board.getBOARD_POSITION(),
+				board.getPRO_TITLE(), board.getPRO_IMG(), board.getPRO_LINK());
 		
 		//TB_BOARD 정보 저장
-		int cnt1 = service.postSaveBoard(board);
+		int cnt1 = service.postSaveBoard(saveBoard);
+	
 		
-		System.out.println("asdfsadfas  "+board.getBOARD_PERIOD());
 		
-		//TB_REQUIRED_SKILL 보드에 스킬이름을 가지고 스킬번호 찾아오기
+		//TB_BOARD_SKILL테이블에 for문 돌려서 스킬 저장하기
+		
 		
 		
 //		TB_REQUIRED_SKILL skill = new TB_REQUIRED_SKILL(null, board.getBOARD_ID(), null);
