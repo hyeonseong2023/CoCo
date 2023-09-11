@@ -19,6 +19,10 @@
 	</insert>
 
 	<!-- TB_BOARD_IMG 정보저장 -->
+	<insert id="postSaveImg" parameterType="com.smhrd.coco.domain.TB_BOARD_IMG">
+			INSERT INTO TB_BOARD_IMG (BOARD_ID, BOARD_IMG)
+							VALUES (#{BOARD_ID}, #{BOARD_IMG});
+	</insert>
 
 
 </mapper>
