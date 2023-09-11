@@ -63,7 +63,7 @@ public class KakaoController {
 		System.out.println("기술 : " + map.get("SKILL_NAME"));
 
 		TB_CUST cust = new TB_CUST
-				(map.get("CUST_ID"), map.get("CUST_NICK"), map.get("CUST_CAREER"), null, null, map.get("SKILL_NAME"));
+				(map.get("CUST_ID"), map.get("CUST_NICK"), map.get("CUST_CAREER"), "sad", "sdsad", map.get("SKILL_NAME"));
 		
 		int cnt = service.firstLogin(cust);
 

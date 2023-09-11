@@ -47,7 +47,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
       // 이미 로그인되어 있으면 글쓰기 페이지로 이동
       navigate('/write');
     } else {
-      // 로그인되어 있지 않으면 로그인 모달 띄우기
       openModal();
     }
   };
@@ -56,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
     <div className="header-container">
       <div className="header-logo"><a href='/'><img src={logoimg} alt="" /></a></div>
       <div className="header-buttons">
-        <button onClick={handleWriteClick}>글쓰기</button>
+        <button className='writeButton' onClick={handleWriteClick}>글쓰기</button>
         {isLoggedIn ? (
           <button onClick={handleLogout}>로그아웃</button>
         ) : (

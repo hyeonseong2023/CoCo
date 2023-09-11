@@ -98,14 +98,12 @@ public class CustController {
 	// 마이페이지(수정하기 버튼)
 	@PostMapping("/update")
 	public int update(@RequestBody Map<String, String> map) {
-
 		String CUST_ID = map.get("cust_ID");
 		String CUST_NICK = map.get("cust_NICK");
 		String CUST_CAREER = map.get("cust_CAREER");
 		String CUST_IMG = map.get("cust_IMG");
 		String CUST_GIT = map.get("cust_GIT");
 		String CUST_ROLE = map.get("cust_ROLE");
-
 		TB_CUST cust = new TB_CUST(CUST_ID, CUST_NICK, CUST_CAREER, CUST_IMG, CUST_GIT, CUST_ROLE);
 		System.out.println(cust.getCUST_GIT());
 		int update = service.update(cust);
