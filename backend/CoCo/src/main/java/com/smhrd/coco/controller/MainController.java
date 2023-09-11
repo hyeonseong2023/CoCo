@@ -3,6 +3,7 @@ package com.smhrd.coco.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,55 +23,57 @@ public class MainController {
 	@Autowired
 	MainService service;
 
-	// 조회수 증가 
+	// 조회수 증가
 	@GetMapping("/views")
-	public int views(@RequestParam("boardid") int BOARD_ID) {
-
-		int increaseViews = service.increaseViews(BOARD_ID);
-
-		if (increaseViews > 0) {
-			return 1; // 성공
-		} else {
-			return 0; // 실패
-		}
-
+	public void views(@RequestParam("boardid") int board_id) {
+		int increaseViews = service.increaseViews(board_id);
 	}
-	
+
 	// 인기글(조회수기반) 가져오기
-	@PostMapping("/main")
-	public JSONObject main() {
-		
-		List<TB_BOARD> popularBoard = service.popularBoard(); 
-		
-		// 한 곳에 담아 보내기
-		JSONObject obj = new JSONObject();
-		obj.put("popularBoard", popularBoard);
-		
-		return obj; 
+	@GetMapping("/popularlist")
+	public JSONArray main() {
+		return service.popularList();
 	}
-	
-	// 북마크 저장 
+
+	// 북마크 저장
 	@PostMapping("/bookmarkcheck")
-	public void bookmarkCheck(@RequestBody TB_BOOKMARK book) {  // VO 타입으로 가져올때는 필드명이 대문자 이면 안됨! 
-		int bookmarkCheck = service.bookmarkCheck(book); 
+	public void bookmarkCheck(@RequestBody TB_BOOKMARK book) { // VO 타입으로 가져올때는 필드명이 대문자 이면 안됨!
+		int bookmarkCheck = service.bookmarkCheck(book);
+	}
+
+	// 북마크된 게시글만 불러오기
+	@GetMapping("/bookmark")
+	public JSONArray bookmarkList(@RequestParam("cust_id") String cust_id) {
+		return service.bookmarkList(cust_id);
+	}
+
+	// 최신순 게시글 6개씩 가져오기 
+	@GetMapping("/recent") 
+	public JSONArray recentList(@RequestParam("endpoint") int endpoint) {
+		return service.recentList(endpoint); 
 	}
 	
-	// 북마크된 게시글만 불러오기 (회원아이디) 
-	@PostMapping("/bookmark")
-	public void bookmark() {
-		
+	// 스킬에 맞는 최신순 게시글 가져오기
+	@GetMapping("/skill")
+	public JSONArray skillList(@RequestParam("skillname") String skillname , @RequestParam("endpoint") int endpoint) {
+		return service.skillList(skillname, endpoint); 
 	}
-	
-	
-	// 최신순(게시글등록일시) 6개씩 가져오기 (int 앤드포인트) 
-	
-	// 기술스택에 맞는 최신순 게시글 가져오기 
 	
 	// 포지션에 맞는 최신순 게시글 가져오기 
+	@PostMapping("/position")
+	public JSONArray positionList(@RequestParam("board_position") String board_position, @RequestParam("endpoint") int endpoint) {
+		return service.positionList(board_position, endpoint); 
+	}
 	
-
+	// 지원한 게시글 보기 
+	@GetMapping("/apply")
+	public JSONArray applyList(@RequestParam("cust_id") String cust_id) {
+		return service.applyList(cust_id); 
+	}
 	
-	
-	
-	
+	// 내가 작성한 글 보기 
+	@GetMapping("/writelist")
+	public JSONArray writelist(@RequestParam("cust_id") String cust_id) {
+		return service.writeList(cust_id); 
+	}
 }

@@ -21,6 +21,6 @@
 		parameterType="com.smhrd.coco.domain.TB_CUST">
 		insert into TB_CUST values( #{CUST_ID}, #{CUST_NICK},
 		#{CUST_CAREER},
-		#{CUST_IMG}, #{CUST_GIT}, #{CUST_ROLE})
+		#{CUST_IMG}, #{CUST_GIT}, #{CUST_POSITION})
 	</insert>
 </mapper>
