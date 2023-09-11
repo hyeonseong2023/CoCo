@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
     <div className="header-container">
       <div className="header-logo"><a href='/'><img src={logoimg} alt="" /></a></div>
       <div className="header-buttons">
-        <button onClick={handleWriteClick}>글쓰기</button>
+        <button className='writeButton' onClick={handleWriteClick}>글쓰기</button>
         {isLoggedIn ? (
           <button onClick={handleLogout}>로그아웃</button>
         ) : (
