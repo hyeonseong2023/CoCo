@@ -24,7 +24,7 @@ public class TB_BOARD {
 	private String BOARD_CONTENT; // 게시글 내용
 	private String BOARD_DT; // 게시글 등록 일시
 	private Integer BOARD_VIEWS; // 조회수
-	private Integer BOARD_POSITION; // 포지션 (다수선택) 
+	private String BOARD_POSITION; // 포지션 (다수선택) 
 	private String PRO_TITLE; // 프로젝트 제목
 	private String PRO_IMG; // 프로젝트 이미지 경로
 	private String PRO_LINK; // 화상회의 링크

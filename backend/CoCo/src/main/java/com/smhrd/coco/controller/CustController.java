@@ -27,7 +27,7 @@ public class CustController {
 	// 마이페이지(기본정보, 포트폴리오)
 	@PostMapping("/mypage")
 	public JSONArray myPage(@RequestBody Map<String, String> map) {
-
+		
 		// 프론트에서 아이디(CUST_ID)를 받아오기
 		String CUST_ID = map.get("CUST_ID");
 

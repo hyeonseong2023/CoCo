@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.coco.mapper.MainMapper">
+
+	<!-- 조회수 증가 -->
+	<update id="increaseViews">
+		update TB_BOARD set BOARD_VIEWS = BOARD_VIEWS + 1
+		where BOARD_ID =
+		#{BOARD_ID};
+	</update>
+
+	<!-- 인기글(조회수기반) 가져오기 -->
+	<select id="popularBoard">
+		select * from TB_BOARD
+		order by BOARD_VIEWS
+		desc LIMIT 6 ;
+	</select>
+	
+	<!-- 북마크 저장 -->
+	<insert id="bookmarkCheck" parameterType ="com.smhrd.coco.domain.TB_BOOKMARK">
+	    insert into TB_BOOKMARK (CUST_ID, BOARD_ID) 
+	    values (#{CUST_ID}, #{BOARD_ID});
+	</insert>
+	
+</mapper>
