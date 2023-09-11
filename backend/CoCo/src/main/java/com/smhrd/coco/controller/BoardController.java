@@ -46,6 +46,7 @@ public class BoardController {
 		System.out.println("기술스택 : " + skill.getSKILL_NAME());
 		System.out.println("이미지 : " + img.getBOARD_IMG());
 		System.out.println("뷰 : " + board.getBOARD_VIEWS());
+
 		
 		//진행기간 일수로 바꿔서 저장하기
 		String period = board.getBOARD_PERIOD();
