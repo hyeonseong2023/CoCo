@@ -135,6 +135,8 @@ public class GoogleController {
          System.out.println("DB에있는 이메일 ");
          session.setAttribute("CUST_ID", cust_id);
          session.setAttribute("CUST_IMG", CUST_IMG);
+         String redirect_uri="http://localhost:3000/Check";
+         response.sendRedirect(redirect_uri);
       }
 
       

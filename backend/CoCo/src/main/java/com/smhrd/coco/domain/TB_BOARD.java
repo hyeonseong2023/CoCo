@@ -6,13 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@AllArgsConstructor//전부 초기화 시켜주는 생성자
-@NoArgsConstructor//기본생성자 
-@Getter //Get
-@Setter //Set 
+@AllArgsConstructor // 전부 초기화 시켜주는 생성자
+@NoArgsConstructor // 기본생성자
+@Getter // Get
+@Setter // Set
 @ToString
 public class TB_BOARD {
-
 
 	private Integer board_id; // 게시글 번호
 	private String cust_id; // 회원 아이디
@@ -24,31 +23,27 @@ public class TB_BOARD {
 	private String board_content; // 게시글 내용
 	private String board_dt; // 게시글 등록 일시
 	private Integer board_views; // 조회수
-	private String board_position; // 포지션 (다수선택) 
+	private String board_position; // 포지션 (다수선택)
 	private String pro_title; // 프로젝트 제목
 	private String pro_img; // 프로젝트 이미지 경로
 	private String pro_link; // 화상회의 링크
 
-
-	public TB_BOARD(String CUST_ID, String BOARD_TITLE, String BOARD_MEMBERS, String BOARD_PERIOD,
-			String BOARD_DEADLINE, String BOARD_OPENTALK, String BOARD_CONTENT, Integer BOARD_VIEWS,
-			String BOARD_POSITION, String PRO_TITLE, String PRO_LINK, String PRO_IMG) {
+	public TB_BOARD(String cust_id, String board_title, String board_members, String board_period,
+			String board_deadline, String board_openlink, String board_content, Integer board_views,
+			String board_position, String pro_title, String pro_img, String pro_link) {
 		super();
-		CUST_ID = CUST_ID;
-		BOARD_TITLE = BOARD_TITLE;
-		BOARD_MEMBERS = BOARD_MEMBERS ;
-		BOARD_PERIOD = BOARD_PERIOD;
-		BOARD_DEADLINE = BOARD_DEADLINE;
-		BOARD_OPENTALK = BOARD_OPENTALK;
-		BOARD_CONTENT = BOARD_CONTENT;
-		BOARD_VIEWS = BOARD_VIEWS;
-		BOARD_POSITION = BOARD_POSITION;
-		PRO_TITLE = PRO_TITLE;
-		PRO_LINK = PRO_LINK;
-		PRO_IMG = PRO_IMG;
+		this.cust_id = cust_id;
+		this.board_title = board_title;
+		this.board_members = board_members;
+		this.board_period = board_period;
+		this.board_deadline = board_deadline;
+		this.board_openlink = board_openlink;
+		this.board_content = board_content;
+		this.board_views = board_views;
+		this.board_position = board_position;
+		this.pro_title = pro_title;
+		this.pro_img = pro_img;
+		this.pro_link = pro_link;
 	}
-    
-    
 
-  
 }
