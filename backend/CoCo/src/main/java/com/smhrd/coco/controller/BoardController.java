@@ -8,9 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -41,7 +45,7 @@ public class BoardController {
 	public @ResponseBody int postSaveInfor(@RequestPart("BOARD_IMG") MultipartFile file, @ModelAttribute TB_BOARD board, TB_BOARD_SKILL skill) {
 		
 		//진행기간 일수로 바꿔서 저장하기
-		String period = board.getBOARD_PERIOD();
+		String period = board.getBoard_period();
 		String[] day = period.split("~");
 		
 		String firstDate = day[0];
@@ -62,13 +66,13 @@ public class BoardController {
 
 		Period per = Period.between(startDate, endDate);
 		String d_day = per.getDays()+"";
-		board.setBOARD_PERIOD(d_day);
+		board.setBoard_period(d_day);
 		//진행기간 일수로 바꿔서 저장하기 --끝--
 
 		
-		TB_BOARD saveBoard = new TB_BOARD(board.getCUST_ID(), board.getBOARD_TITLE(), board.getBOARD_MEMBERS(), board.getBOARD_PERIOD(), 
-				board.getBOARD_DEADLINE(), board.getBOARD_OPENTALK(), board.getBOARD_CONTENT(), board.getBOARD_VIEWS(), board.getBOARD_POSITION(),
-				board.getPRO_TITLE(), board.getPRO_IMG(), board.getPRO_LINK());
+		TB_BOARD saveBoard = new TB_BOARD(board.getCust_id(), board.getBoard_title(), board.getBoard_members(), board.getBoard_period(), 
+				board.getBoard_deadline(), board.getBoard_openlink(), board.getBoard_content(), board.getBoard_views(), board.getBoard_position(),
+				board.getBoard_title(), board.getPro_img(), board.getPro_link());
 		
 		//TB_BOARD 정보 저장
 		int cnt1 = service.postSaveBoard(saveBoard);		
@@ -82,7 +86,7 @@ public class BoardController {
 		int cnt2=0;
 		
 		for(int i=0; i<skillArray.length; i++) {			
-			SaveSkill = new TB_BOARD_SKILL(saveBoard.getBOARD_ID(), skillArray[i]);			
+			SaveSkill = new TB_BOARD_SKILL(saveBoard.getBoard_id(), skillArray[i]);			
 			cnt2 = service.postSaveSkill(SaveSkill);
 		}
 		
@@ -100,7 +104,7 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		img.setBOARD_IMG(newFileName);
-		img.setBOARD_ID(saveBoard.getBOARD_ID());
+		img.setBOARD_ID(saveBoard.getBoard_id());
 		
 		int cnt3 = service.postSaveImg(img);
 		
@@ -115,9 +119,16 @@ public class BoardController {
 	}
 	
 	
-	
-	
 	//선택한 게시글 내용 보내기
+	@GetMapping("/selectpostviews/{board_id}/{cust_id}")
+	public JSONArray selectPostViews(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
+		
+		return service.selectPostViews(board_id, cust_id);
+		
+	}
+	
+	//게시글 수정하기
+	
 	
 
 	
