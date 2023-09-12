@@ -8,10 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -115,9 +120,19 @@ public class BoardController {
    }
    
    
-   
-   
    //선택한 게시글 내용 보내기
+   @GetMapping("/selectpostviews/{board_id}/{cust_id}")
+   public JSONArray selectPostViews(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
+      
+      return service.selectPostViews(board_id, cust_id);
+      
+   }
+   
+   //게시글 수정하기
+   //@PutMapping("/updatepost/{board_id}")
+   
+   
+   
    
 
    

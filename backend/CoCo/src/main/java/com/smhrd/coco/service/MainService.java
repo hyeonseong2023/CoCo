@@ -2,9 +2,12 @@ package com.smhrd.coco.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
+import com.smhrd.coco.domain.SkillImgList;
 import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_SKILL;
 import com.smhrd.coco.domain.TB_BOOKMARK;
@@ -25,9 +29,6 @@ public class MainService {
 	@Autowired
 	private MainMapper mapper;
 
-	@Autowired //특정 경로에 있는 파일을 가지고 오기 
-	private ResourceLoader resourceLoader;
-
 	// 조회수 증가
 	public int increaseViews(int board_id) {
 		return mapper.increaseViews(board_id);
@@ -35,49 +36,8 @@ public class MainService {
 
 	// 인기글(조회수기반) 가져오기
 	public JSONArray popularList() {
-
 		List<TB_BOARD> list = mapper.popularList();
-
-		JSONArray jsonArray = new JSONArray();
-		
-		int[] board_ids = new int[list.size()];
-		int index = 0; 
-		
-		for (TB_BOARD popularList : list) {
-			// 인기글 정보 가져오기
-			JSONObject obj = new JSONObject();
-			obj.put("popularList", popularList);
-			jsonArray.add(obj);
-			
-			board_ids[index] = popularList.getBoard_id();
-			index ++; 
-		}
-
-		
-		for (int i = 0; i < board_ids.length; i++) {
-
-		    List<TB_BOARD_SKILL> skillList = mapper.boardIdList(board_ids[i]);
-
-		    if (!skillList.isEmpty()) { // skillList가 비어있지 않다면 실행
-		        ImageConverter<File, String> converter = new ImageToBase64();
-		        String filePath = "classpath:/static/img/" + skillList.get(i).getSKILL_NAME() + ".svg"; // 첫 번째 요소 사용
-		        Resource resource = resourceLoader.getResource(filePath);
-
-		        String fileStringValue = null;
-		        try {
-		            fileStringValue = converter.convert(resource.getFile());
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-		       
-
-		    }
-		    
-	        JSONObject img = new JSONObject();
-	        jsonArray.add(img);
-		}
-		
-		return jsonArray;
+		return boardList(list);
 	}
 
 	// 북마크 저장
@@ -92,30 +52,15 @@ public class MainService {
 
 	// 북마크된 게시글만 불러오기
 	public JSONArray bookmarkList(String cust_id) {
+		List<TB_BOARD> list = mapper.bookmarkList(cust_id);
+		return boardList(list); 
 
-		List<TB_BOOKMARK> list = mapper.bookmarkList(cust_id);
-
-		JSONArray jsonArray = new JSONArray();
-		for (TB_BOOKMARK bookList : list) {
-			JSONObject obj = new JSONObject();
-			obj.put("bookList", bookList);
-			jsonArray.add(obj);
-		}
-		return jsonArray;
 	}
-
+	
 	// 최신순 게시글 6개씩 가져오기
 	public JSONArray recentList(int endpoint) {
-
 		List<TB_BOARD> list = mapper.recentList(endpoint);
-
-		JSONArray jsonArray = new JSONArray();
-		for (TB_BOARD recentList : list) {
-			JSONObject obj = new JSONObject();
-			obj.put("recentList", recentList);
-			jsonArray.add(obj);
-		}
-		return jsonArray;
+		return boardList(list); 
 	}
 
 	// 스킬에 맞는 최신순 게시글 가져오기
@@ -125,14 +70,7 @@ public class MainService {
 		int endpoint = (int) map.get("endpoint");
 
 		List<TB_BOARD> list = mapper.skillList(skill_name, endpoint);
-
-		JSONArray jsonArray = new JSONArray();
-		for (TB_BOARD skillList : list) {
-			JSONObject obj = new JSONObject();
-			obj.put("skillList", skillList);
-			jsonArray.add(obj);
-		}
-		return jsonArray;
+		return boardList(list); 
 	}
 
 	// 포지션에 맞는 최신순 게시글 가져오기
@@ -142,48 +80,60 @@ public class MainService {
 		int endpoint = (int) map.get("endpoint");
 
 		List<TB_BOARD> list = mapper.positionList(board_position, endpoint);
-
-		JSONArray jsonArray = new JSONArray();
-		for (TB_BOARD positionList : list) {
-			JSONObject obj = new JSONObject();
-			obj.put("positionList", positionList);
-			jsonArray.add(obj);
-
-		}
-		return jsonArray;
-
+		return boardList(list); 
 	}
 
 	// 지원한 게시글 보기
 	public JSONArray applyList(String cust_id) {
 
 		List<TB_BOARD> list = mapper.applyList(cust_id);
-
-		JSONArray jsonArray = new JSONArray();
-		for (TB_BOARD applyList : list) {
-			JSONObject obj = new JSONObject();
-			obj.put("applyList", applyList);
-			jsonArray.add(obj);
-
-		}
-		return jsonArray;
-
+		return boardList(list); 
 	}
 
 	// 내가 작성한 글 보기
 	public JSONArray writeList(String cust_id) {
 
 		List<TB_BOARD> list = mapper.writeList(cust_id);
+		return boardList(list); 
+	}
+	
+	
+	// 각 게시글의 스킬리스트 + 게시글 정보를 보여주는 메서드 
+	public JSONArray boardList ( List<TB_BOARD> list) {
+		
+	JSONArray jsonArray = new JSONArray();
+		
+		for (TB_BOARD pb : list) {
 
-		JSONArray jsonArray = new JSONArray();
-		for (TB_BOARD writeList : list) {
-			JSONObject obj = new JSONObject();
-			obj.put("writeList", writeList);
-			jsonArray.add(obj);
+			HashMap<String, Object> map = new HashMap<String, Object>();
 
+			map.put("board_id", pb.getBoard_id());
+			map.put("cust_id", pb.getCust_id());
+			map.put("board_title", pb.getBoard_title());
+			map.put("board_period", pb.getBoard_period());
+			map.put("board_deadline", pb.getBoard_deadline());
+			map.put("board_openlink", pb.getBoard_openlink());
+			map.put("board_content", pb.getBoard_content());
+			map.put("board_dt", pb.getBoard_dt());
+			map.put("board_views", pb.getBoard_views());
+			map.put("board_position", pb.getBoard_position());
+			map.put("pro_title", pb.getPro_title());
+			map.put("pro_img", pb.getPro_img());
+			map.put("pro_link", pb.getPro_link());
+
+			// 해당게시글의 스킬리스트 가져오기 
+			List<TB_BOARD_SKILL> skillList = mapper.boardIdList(pb.getBoard_id());
+			List<String> skillNames = new ArrayList<>();
+
+			for (TB_BOARD_SKILL sk : skillList) {
+				skillNames.add(sk.getSKILL_NAME());
+			}
+			
+			map.put("skill_names", skillNames);
+			jsonArray.add(new JSONObject(map));
 		}
-		return jsonArray;
-
+		
+		return jsonArray; 
 	}
 
 }

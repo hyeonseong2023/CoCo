@@ -29,7 +29,7 @@ public interface MainMapper {
 	public int unBookmark(String cust_id, Integer board_id); 
 	
 	// 북마크된 게시글만 불러오기 
-	public List<TB_BOOKMARK> bookmarkList(String cust_id);
+	public List<TB_BOARD> bookmarkList(String cust_id);
 		
 	// 최신순 게시글 6개씩 가져오기 
 	public List<TB_BOARD> recentList(int endpoint); 
