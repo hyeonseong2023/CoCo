@@ -1,0 +1,66 @@
+/* Write.css */
+
+/* 전체 페이지 컨테이너 스타일링 */
+.write-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 폼 컨테이너 스타일링 */
+.write-content {
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* 폼 그룹 스타일링 */
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+}
+
+/* 입력 필드 스타일링 */
+.input-field,
+.textarea-field {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* 하위 폼 그룹 스타일링 */
+.form-subgroup {
+    margin-top: 5px;
+}
+
+/* 오픈톡 링크 레이블 스타일링 */
+.openTalkLink-label {
+    margin-right: 10px; /* 오픈톡 링크 레이블 오른쪽에 공백 추가 */
+}
+
+/* 제출 버튼 스타일링 */
+.submit-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.write-submitSet{
+    display: flex;
+}
+
+.testimg{
+    width: auto;
+    max-height: 250px;
+}
