@@ -11,11 +11,14 @@ import lombok.ToString;
 @Getter // Get
 @Setter // Set
 @ToString
-public class TB_BOOKMARK {
-
-	private int bmk_id;	// 북마크 순번 
-	private String cust_id; // 회원 아이디	
-	private int board_id; // 게시글 번호
-
+public class SkillImgList {
 	
+	private Integer board_id; 
+	private String skillImg;
+	
+	public SkillImgList(String skillImg) {
+		super();
+		this.skillImg = skillImg;
+	}
+
 }

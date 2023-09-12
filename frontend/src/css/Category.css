@@ -1,16 +1,16 @@
 /* Category.css */
 #category-select {
-  /* 카테고리 선택 요소에 대한 스타일 */
-  background-color: #f0f0f0;
-  padding: 5px;
-  border: 1px solid #ccc;
-}
-
-.tool-select {
-  /* 선텍 툴 선택 요소에 대한 스타일 */
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #ddd;
-}
-
-/* 추가적인 스타일 정의 가능 */
+    /* 카테고리 선택 요소에 대한 스타일 */
+    background-color: #f0f0f0;
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .tool-select {
+    /* 선텍 툴 선택 요소에 대한 스타일 */
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  /* 추가적인 스타일 정의 가능 */
