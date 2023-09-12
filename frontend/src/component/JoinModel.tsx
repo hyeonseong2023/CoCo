@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import '../css/JoinModel.css';
 
 type FormData = {
-  username: string;
-  email: string;
   nickname: string;
   job: string;
   experience: string;
@@ -17,8 +15,6 @@ type JoinModelProps = {
 
 const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
   const [formData, setFormData] = useState<FormData>({
-    username: '',
-    email: '',
     nickname: '',
     job: '',
     experience: '',
@@ -32,13 +28,34 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
       [name]: value,
     }));
   };
-  Cookies.remove('coin');
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    Cookies.remove('CUST_ID');
-    Cookies.remove('CUST_IMG');
+    try {
+      const response = await fetch('http://localhost:8099/firstlogin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          CUST_ID: Cookies.get('CUST_ID'),
+          CUST_NICK: formData.nickname,
+          CUST_CAREER: formData.experience,
+          SKILL_NAME: formData.interests,
+        }),
+      });
 
+      if (response.ok) {
+        console.log('데이터가 서버에 성공적으로 전송되었습니다.');
+      } else {
+        console.error('데이터를 서버로 전송하는 중 문제가 발생했습니다.');
+      }
+    } catch (error) {
+      console.error('데이터를 서버로 전송하는 중 오류가 발생했습니다.', error);
+    }
+
+    Cookies.remove('coin');
     onClose(); // 모달 닫기
   };
 
@@ -46,16 +63,9 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <form onSubmit={handleSubmit}>
-
-          {/* 이메일 입력란 */}
-          <label>
-            이메일: {Cookies.get('CUST_ID')}
-          </label>
-          <br />
-
           {/* 닉네임 입력란 */}
           <label>
-            닉네임: 
+            닉네임:
             <input
               name="nickname"
               className="select-field"
@@ -67,7 +77,7 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
 
           {/* 직무 선택 */}
           <label>
-            직무: 
+            직무:
             <select
               name="job"
               className="select-field"
@@ -82,14 +92,13 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
               <option value="데브옵스">데브옵스</option>
               <option value="PM<">PM</option>
               <option value="기획자">기획자</option>
-              {/* 다른 직무 옵션들 추가 */}
             </select>
           </label>
           <br />
 
           {/* 경력 선택 */}
           <label>
-            경력: 
+            경력:
             <select
               name="experience"
               className="select-field"
@@ -102,14 +111,13 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
               <option value="3년">3년</option>
               <option value="4년">4년</option>
               <option value="10년">5년 이상</option>
-              {/* 다른 경력 옵션들 추가 */}
             </select>
           </label>
           <br />
 
           {/* 관심 스택 선택 */}
           <label>
-            관심스택: 
+            관심스택:
             <select
               name="interests"
               className="select-field"

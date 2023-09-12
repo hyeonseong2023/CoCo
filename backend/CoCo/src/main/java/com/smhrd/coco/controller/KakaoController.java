@@ -54,8 +54,7 @@ public class KakaoController {
 	@PostMapping("/firstlogin")
 	public int firstLogin(@RequestBody Map<String, String> map) {
 
-		TB_CUST cust = new TB_CUST(map.get("CUST_ID"), map.get("CUST_NICK"), map.get("CUST_CAREER"), null, null,
-				map.get("SKILL_NAME"));
+		TB_CUST cust = new TB_CUST(map.get("cust_id"), map.get("cust_nick"), map.get("cust_career"), map.get("cust_position"));
 
 		int cnt = service.firstLogin(cust);
 

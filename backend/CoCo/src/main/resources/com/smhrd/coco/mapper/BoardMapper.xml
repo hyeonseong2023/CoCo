@@ -5,16 +5,24 @@
 <mapper namespace="com.smhrd.coco.mapper.BoardMapper">
 
 	<!-- TB_BOARD 정보 저장 -->
-	<insert id="postSaveBoard" parameterType="com.smhrd.coco.domain.TB_BOARD">
-		INSERT INTO TB_BOARD (CUST_ID, BOARD_TITLE, BOARD_MEMBERS, BOARD_PERIOD, BOARD_DEADLINE,
-							  BOARD_OPENTALK, BOARD_CONTENT, BOARD_VIEWS, PROJECT_ROLE, PRO_TITLE, PRO_LINK, PRO_IMG)
-					  VALUES (#{CUST_ID},#{BOARD_TITLE},#{BOARD_MEMBERS},#{BOARD_PERIOD},#{BOARD_DEADLINE},#{BOARD_OPENTALK},#{BOARD_CONTENT},
-					          #{BOARD_VIEWS},#{PROJECT_ROLE},#{PRO_TITLE},#{PRO_LINK},#{PRO_IMG});
+	<insert id="postSaveBoard" parameterType="com.smhrd.coco.domain.TB_BOARD" useGeneratedKeys="true" keyProperty="BOARD_ID">
+		   INSERT INTO TB_BOARD (CUST_ID, BOARD_TITLE, BOARD_MEMBERS, BOARD_PERIOD, BOARD_DEADLINE,
+                       BOARD_OPENTALK, BOARD_CONTENT, BOARD_VIEWS, BOARD_POSITION, PRO_TITLE, PRO_IMG, PRO_LINK)
+                 VALUES (#{CUST_ID},#{BOARD_TITLE},#{BOARD_MEMBERS},#{BOARD_PERIOD},#{BOARD_DEADLINE},#{BOARD_OPENTALK},#{BOARD_CONTENT},
+                         #{BOARD_VIEWS},#{BOARD_POSITION},#{PRO_TITLE},#{PRO_IMG},#{PRO_LINK});
 	</insert>
 
-	<!-- TB_REQUIRED_SKILL 정보 저장 -->
+	<!-- TB_BOARD_SKILL 정보 저장 -->
+	<insert id="postSaveSkill" parameterType="com.smhrd.coco.domain.TB_BOARD_SKILL">
+			INSERT INTO TB_BOARD_SKILL (BOARD_ID, SKILL_NAME)
+								VALUES (#{BOARD_ID}, #{SKILL_NAME});
+	</insert>
 
 	<!-- TB_BOARD_IMG 정보저장 -->
+	<insert id="postSaveImg" parameterType="com.smhrd.coco.domain.TB_BOARD_IMG">
+			INSERT INTO TB_BOARD_IMG (BOARD_ID, BOARD_IMG)
+							VALUES (#{BOARD_ID}, #{BOARD_IMG});
+	</insert>
 
 
 </mapper>

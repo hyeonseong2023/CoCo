@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.smhrd.coco.domain.TB_BOARD;
+import com.smhrd.coco.domain.TB_BOARD_SKILL;
 import com.smhrd.coco.domain.TB_BOOKMARK;
 
 @Mapper
@@ -18,8 +19,14 @@ public interface MainMapper {
 	// 인기글(조회수기반) 가져오기
 	public List<TB_BOARD> popularList(); 
 	
+	// 해당게시글 스킬 리스트 가져오기 
+	public List<TB_BOARD_SKILL> boardIdList(int board_id); 
+
 	// 북마크 저장 
 	public int bookmarkCheck(String cust_id , Integer board_id);
+	
+	// 북마크 해제 
+	public int unBookmark(String cust_id, Integer board_id); 
 	
 	// 북마크된 게시글만 불러오기 
 	public List<TB_BOOKMARK> bookmarkList(String cust_id);
@@ -28,7 +35,7 @@ public interface MainMapper {
 	public List<TB_BOARD> recentList(int endpoint); 
 	
 	// 스킬에 맞는 최신순 게시글 가져오기
-	public List<TB_BOARD> skillList(String skillname, int endpoint );
+	public List<TB_BOARD> skillList(String skill_name, int endpoint );
 	
 	// 포지션에 맞는 최신순 게시글 가져오기 
 	public List<TB_BOARD> positionList(String board_position, int endpoint); 
