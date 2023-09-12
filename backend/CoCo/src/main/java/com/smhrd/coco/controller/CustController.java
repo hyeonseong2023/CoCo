@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import com.smhrd.coco.domain.TB_PF;
 import com.smhrd.coco.service.CustService;
 
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 
 @RestController // 데이터를 반환하는 컨트롤러
@@ -29,21 +31,21 @@ public class CustController {
 	private CustService service;
 
 	// 마이페이지(기본정보, 포트폴리오)
-	@PostMapping("/mypage")
-	public JSONArray myPage(@RequestBody Map<String, String> map) {
-		return service.myPage(map);
+	@GetMapping("/mypage")
+	public JSONArray myPage(@RequestParam("cust_id") String cust_id) {
+		return service.myPage(cust_id);
 	}
 
 	// 마이페이지(프로젝트)
-	@PostMapping("/project")
-	public JSONArray project(@RequestBody Map<String, String> map) {
-		return service.mypageProject(map);
+	@GetMapping("/project")
+	public JSONArray project(@RequestParam("cust_id") String cust_id) {
+		return service.mypageProject(cust_id);
 	}
 
 	// 마이페이지(수정하기 페이지로 이동)
 	@PutMapping("/updatepage")
-	public JSONObject updatePage(@RequestBody Map<String, String> map) {
-		return service.updatePage(map);
+	public JSONObject updatePage(@RequestParam("cust_id") String cust_id) {
+		return service.updatePage(cust_id);
 	}
 
 	// 마이페이지(수정하기)

@@ -16,6 +16,13 @@
 		desc LIMIT
 		6 ;
 	</select>
+	
+    <!-- 해당게시글 스킬 리스트 가져오기 -->
+    <select id="boardIdList" resultType="com.smhrd.coco.domain.TB_BOARD_SKILL">
+        select * from TB_BOARD_SKILL 
+        where BOARD_ID = #{board_id}; 
+    </select>
+	
 
 	<!-- 북마크 저장 -->
 	<insert id="bookmarkCheck"
@@ -24,10 +31,15 @@
 		values
 		(#{cust_id}, #{board_id});
 	</insert>
+	
+	<!-- 북마크 해제 -->
+	<delete id = "unBookmark" parameterType="java.util.Map">
+	delete from TB_BOOKMARK where CUST_ID = #{cust_id} and BOARD_ID = #{board_id} ;
+	</delete>
 
 	<!-- 북마크 게시글 불러오기 -->
 	<select id="bookmarkList"
-		parameterType="com.smhrd.coco.domain.TB_BOOKMARK">
+		parameterType="com.smhrd.coco.domain.TB_BOARD">
 		select * from TB_BOARD
 		where BOARD_ID IN ( select
 		BOARD_ID
@@ -48,7 +60,7 @@
 		resultType="com.smhrd.coco.domain.TB_BOARD">
 		select * from TB_BOARD
 		where BOARD_ID IN ( select BOARD_ID
-		from TB_BOARD_SKILL where SKILL_NAME = #{skillname} )
+		from TB_BOARD_SKILL where SKILL_NAME = #{skill_name} )
 		order by BOARD_DT
 		limit
 		#{endpoint}, 6;

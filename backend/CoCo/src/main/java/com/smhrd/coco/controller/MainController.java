@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,11 +22,11 @@ import com.smhrd.coco.service.MainService;
 public class MainController {
 
 	@Autowired
-	MainService service;
+	private MainService service;
 
 	// 조회수 증가
 	@GetMapping("/views")
-	public void views(@RequestParam("boardid") int board_id) {
+	public void views(@RequestParam("board_id") int board_id) {
 		int increaseViews = service.increaseViews(board_id);
 	}
 
@@ -40,6 +41,12 @@ public class MainController {
 	public void bookmarkCheck(@RequestBody TB_BOOKMARK book) { // VO 타입으로 가져올때는 필드명이 대문자 이면 안됨!
 		int bookmarkCheck = service.bookmarkCheck(book);
 	}
+	
+	// 북마크 해제
+	@DeleteMapping("/unbookmark")
+	public void unBookmark(@RequestBody TB_BOOKMARK book) {
+		int unBookmark = service.unBookmark(book);
+	}
 
 	// 북마크된 게시글만 불러오기
 	@GetMapping("/bookmark")
@@ -47,33 +54,33 @@ public class MainController {
 		return service.bookmarkList(cust_id);
 	}
 
-	// 최신순 게시글 6개씩 가져오기 
-	@GetMapping("/recent") 
+	// 최신순 게시글 6개씩 가져오기
+	@GetMapping("/recent")
 	public JSONArray recentList(@RequestParam("endpoint") int endpoint) {
-		return service.recentList(endpoint); 
+		return service.recentList(endpoint);
 	}
-	
+
 	// 스킬에 맞는 최신순 게시글 가져오기
 	@GetMapping("/skill")
-	public JSONArray skillList(@RequestParam("skillname") String skillname , @RequestParam("endpoint") int endpoint) {
-		return service.skillList(skillname, endpoint); 
+	public JSONArray skillList(@RequestBody Map<String, Object> map) {
+		return service.skillList(map);
 	}
-	
-	// 포지션에 맞는 최신순 게시글 가져오기 
-	@PostMapping("/position")
-	public JSONArray positionList(@RequestParam("board_position") String board_position, @RequestParam("endpoint") int endpoint) {
-		return service.positionList(board_position, endpoint); 
+
+	// 포지션에 맞는 최신순 게시글 가져오기
+	@GetMapping("/position")
+	public JSONArray positionList(@RequestBody Map<String, Object> map) {
+		return service.positionList(map);
 	}
-	
-	// 지원한 게시글 보기 
+
+	// 지원한 게시글 보기
 	@GetMapping("/apply")
 	public JSONArray applyList(@RequestParam("cust_id") String cust_id) {
-		return service.applyList(cust_id); 
+		return service.applyList(cust_id);
 	}
-	
-	// 내가 작성한 글 보기 
+
+	// 내가 작성한 글 보기
 	@GetMapping("/writelist")
 	public JSONArray writelist(@RequestParam("cust_id") String cust_id) {
-		return service.writeList(cust_id); 
+		return service.writeList(cust_id);
 	}
 }

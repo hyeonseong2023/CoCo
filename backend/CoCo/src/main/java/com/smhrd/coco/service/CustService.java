@@ -27,10 +27,8 @@ public class CustService {
 
 
 	//마이페이지 (기본정보, 포트폴리오) 
-	public JSONArray myPage(Map<String, String> map) {
+	public JSONArray myPage(String cust_id) {
 		
-		String cust_id = map.get("cust_id");
-
 		// 회원 테이블(TB_CUST)
 		List<TB_CUST> cust = mapper.mypageCust(cust_id);
 
@@ -49,11 +47,8 @@ public class CustService {
 	}
 	
 	// 마이페이지(프로젝트)
-	public JSONArray mypageProject(Map<String, String> map) {
+	public JSONArray mypageProject(String cust_id) {
 		
-		// 프론트에서 아이디(CUST_ID)를 받아오기
-		String cust_id = map.get("cust_id");
-
 		// 조인 조건 : 게시글 번호(BOARD_ID)
 		// 응모 테이블(TB_APPLY) & 게시글 테이블(TB_BOARD)
 		List<TB_BOARD> project = mapper.mypageProject(cust_id);
@@ -70,10 +65,8 @@ public class CustService {
 	}
 
 	// 마이페이지(수정하기 페이지로 이동)
-	public JSONObject updatePage(Map<String, String> map) {
+	public JSONObject updatePage(String cust_id) {
 		
-		String cust_id = map.get("cust_id");
-
 		// 회원 테이블(TB_CUST) 에서 아이디(CUST_ID)에 맞는 정보 가져오기
 		TB_CUST cust = mapper.updatePage(cust_id);
 
