@@ -47,18 +47,17 @@ public class BoardController {
 		
 		//진행기간 일수로 바꿔서 저장하기
 		String period = board.getBoard_period();
-		System.out.println("period !!!!!!"+period);
 		String[] day = period.split("~");
 		
 		String firstDate = day[0];
 		String secondDate = day[1];
 		
-		String[] start = firstDate.split("/");
+		String[] start = firstDate.split("-");
 		int year1 = Integer.parseInt(start[0]);
 		int month1 = Integer.parseInt(start[1]);
 		int day1 = Integer.parseInt(start[2]);
 		
-		String[] end = secondDate.split("/");
+		String[] end = secondDate.split("-");
 		int year2 = Integer.parseInt(end[0]);
 		int month2 = Integer.parseInt(end[1]);
 		int day2 = Integer.parseInt(end[2]);
