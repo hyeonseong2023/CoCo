@@ -12,7 +12,13 @@ import lombok.ToString;
 @Setter // Set
 @ToString
 public class SkillImgList {
-	
-	private String skillImg;
+   
+   private Integer board_id; 
+   private String skillImg;
+   
+   public SkillImgList(String skillImg) {
+      super();
+      this.skillImg = skillImg;
+   }
 
 }

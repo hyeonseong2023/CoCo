@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,17 +47,18 @@ public class BoardController {
 		
 		//진행기간 일수로 바꿔서 저장하기
 		String period = board.getBoard_period();
+		System.out.println("period !!!!!!"+period);
 		String[] day = period.split("~");
 		
 		String firstDate = day[0];
 		String secondDate = day[1];
 		
-		String[] start = firstDate.split("-");
+		String[] start = firstDate.split("/");
 		int year1 = Integer.parseInt(start[0]);
 		int month1 = Integer.parseInt(start[1]);
 		int day1 = Integer.parseInt(start[2]);
 		
-		String[] end = secondDate.split("-");
+		String[] end = secondDate.split("/");
 		int year2 = Integer.parseInt(end[0]);
 		int month2 = Integer.parseInt(end[1]);
 		int day2 = Integer.parseInt(end[2]);
@@ -104,7 +106,7 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		img.setBOARD_IMG(newFileName);
-		img.setBOARD_ID(saveBoard.getBoard_id());
+		img.setBoard_id(saveBoard.getBoard_id());
 		
 		int cnt3 = service.postSaveImg(img);
 		
@@ -127,7 +129,11 @@ public class BoardController {
 		
 	}
 	
-	//게시글 수정하기
+	//게시글 수정된 정보 업데이트 하기
+	//@PutMapping("/updatepost/{board_id}/{cust_id}")
+	//public 
+	
+	
 	
 	
 
