@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const custId = Cookies.get('CUST_ID');
   const custImg = Cookies.get('CUST_IMG');
-  const [isLoggedIn, setIsLoggedIn] = useState(!!(custId && custImg !== "0"));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!(custId && custImg !== "0" && custImg !== null));
   const navigate = useNavigate();
 
   const handleCloseModal = () => {
