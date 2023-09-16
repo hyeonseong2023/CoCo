@@ -5,22 +5,59 @@
 <mapper namespace="com.smhrd.coco.mapper.BoardMapper">
 
 	<!-- TB_BOARD 정보 저장 -->
-
-	<insert id="postSaveBoard" parameterType="com.smhrd.coco.domain.TB_BOARD" useGeneratedKeys="true" keyProperty="BOARD_ID">
+	<insert id="postSaveBoard" parameterType="com.smhrd.coco.domain.TB_BOARD" useGeneratedKeys="true" keyProperty="board_id">
 		   INSERT INTO TB_BOARD (CUST_ID, BOARD_TITLE, BOARD_MEMBERS, BOARD_PERIOD, BOARD_DEADLINE,
-                       BOARD_OPENTALK, BOARD_CONTENT, BOARD_VIEWS, BOARD_POSITION, PRO_TITLE, PRO_IMG, PRO_LINK)
-                 VALUES (#{CUST_ID},#{BOARD_TITLE},#{BOARD_MEMBERS},#{BOARD_PERIOD},#{BOARD_DEADLINE},#{BOARD_OPENTALK},#{BOARD_CONTENT},
-                         #{BOARD_VIEWS},#{BOARD_POSITION},#{PRO_TITLE},#{PRO_IMG},#{PRO_LINK});
-
+                       BOARD_OPENLINK, BOARD_CONTENT, BOARD_VIEWS, BOARD_POSITION, PRO_TITLE, PRO_IMG, PRO_LINK)
+                 VALUES (#{cust_id},#{board_title},#{board_members},#{board_period},#{board_deadline},#{board_openlink},#{board_content},
+                         #{board_views},#{board_position},#{pro_title},#{pro_img},#{pro_link});
 	</insert>
 
 	<!-- TB_BOARD_SKILL 정보 저장 -->
 	<insert id="postSaveSkill" parameterType="com.smhrd.coco.domain.TB_BOARD_SKILL">
 			INSERT INTO TB_BOARD_SKILL (BOARD_ID, SKILL_NAME)
-								VALUES (#{BOARD_ID}, #{SKILL_NAME});
+								VALUES (#{board_id}, #{SKILL_NAME});
 	</insert>
 
 	<!-- TB_BOARD_IMG 정보저장 -->
+	<insert id="postSaveImg" parameterType="com.smhrd.coco.domain.TB_BOARD_IMG">
+			INSERT INTO TB_BOARD_IMG (BOARD_ID, BOARD_IMG)
+							VALUES (#{board_id}, #{BOARD_IMG});
+	</insert>
+	
+	<!-- 선택한 게시물 board 테이블에서 정보가져오기 -->
+	<select id="selectPostBoard" resultType="com.smhrd.coco.domain.TB_BOARD" >
+			SELECT BOARD_ID, CUST_ID, BOARD_TITLE, BOARD_MEMBERS, BOARD_PERIOD, BOARD_DEADLINE, BOARD_OPENLINK, 
+					BOARD_CONTENT, BOARD_DT, BOARD_VIEWS, BOARD_POSITION 
+			FROM TB_BOARD WHERE BOARD_ID = #{board_id}
+	</select>
+	
+	<!-- 선택한 게시물 skill 테이블에서 정보가져오기 -->
+	<select id="selectPostCust" resultType="com.smhrd.coco.domain.TB_CUST" >
+			SELECT CUST_ID, CUST_NICK, CUST_IMG FROM TB_CUST WHERE CUST_ID=#{cust_id}
+	</select>
+	
+	<!-- 선택한 게시물 skill 테이블에서 정보가져오기 -->
+	<select id="selectPostSkill" resultType="com.smhrd.coco.domain.TB_BOARD_SKILL" >
+			SELECT BOARD_ID, SKILL_NAME FROM TB_BOARD_SKILL WHERE BOARD_ID = #{board_id}
+	</select>
+	
+	<!-- 선택한 게시물 board_img 테이블에서 정보가져오기 -->
+	<select id="selectPostImag" resultType="com.smhrd.coco.domain.TB_BOARD_IMG" >
+			SELECT BOARD_ID, BOARD_IMG FROM TB_BOARD_IMG WHERE BOARD_ID = #{board_id}
+	</select>
+	
+	<!-- 선택한 게시물 bookmark 여부 -->
+	<select id="selectPostBmk">
+			SELECT COUNT(*) FROM TB_BOOKMARK WHERE BOARD_ID=#{board_id} AND CUST_ID=#{cust_id}
+	</select>
+	
+	<!-- 선택한 게시물 응모 여부 -->
+	<select id="selectPostApply">
+			SELECT COUNT(*) FROM TB_APPLY WHERE BOARD_ID=#{board_id} AND CUST_ID=#{cust_id}
+	</select>
+	
+	
+	
 
 
 </mapper>
