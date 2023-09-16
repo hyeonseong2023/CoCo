@@ -14,29 +14,27 @@ const Banner = () => {
     draggable: false,
     autoplaySpeed: 3000,
   };
-  
 
   const slideContents = [
     {
       image: `${Bimg}`,
       altText: '이미지 1',
       caption: '',
-      link: 'https://www.musinsa.com/app/', // 슬라이드 1에 대한 링크 설정 (원하는 URL로 변경)
+      link: 'https://www.musinsa.com/app/',
     },
     {
       image:
         'https://lh3.googleusercontent.com/-WLUHtnzZL_dHATAmOgjvKyl0ZhTEu4edNBC8u6EB4i0TilKAQbN60CWXwLkg3ZrcUs=w895-rwa',
       altText: '이미지 2',
       caption: '이미지 2 설명',
-      link: 'https://www.notion.so/ko-kr', // 슬라이드 2에 대한 링크 설정 (원하는 URL로 변경)
+      link: 'https://www.notion.so/ko-kr',
     },
     {
       image: 'https://static-cse.canva.com/blob/649373/createbanners.jpg',
       altText: '이미지 3',
       caption: '이미지 3 설명',
-      link: '', // 슬라이드 3에 대한 링크 설정 (원하는 URL로 변경)
+      link: '', 
     },
-    // 원하는 만큼 슬라이드 컨텐츠를 추가할 수 있습니다.
   ];
 
   return (

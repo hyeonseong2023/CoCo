@@ -39,9 +39,8 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
     openPopup();
   }, []);
 
-  // 페이지 이동 후 뒤로 가기 버튼을 사용하여 이전 페이지로 이동할 수 있도록 브라우저 기록에 현재 페이지를 추가
   const handlePageNavigation = () => {
-    window.history.pushState(null, '', '/'); // '/'에는 이전 페이지의 URL을 넣어야 합니다.
+    window.history.pushState(null, '', '/');
   };
 
 

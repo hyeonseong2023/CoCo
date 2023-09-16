@@ -61,6 +61,16 @@ label {
 }
 
 .testimg{
-    width: auto;
+    max-width: 250px;
     max-height: 250px;
+}
+
+.write-form>div>div{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.write-submitSet{
+    margin-top: 2%;
+    margin-bottom: 2%;
 }

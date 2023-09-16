@@ -44,13 +44,16 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
   const handleWriteClick = () => {
     if (isLoggedIn) {
-      // 이미 로그인되어 있으면 글쓰기 페이지로 이동
       navigate('/write');
     } else {
       openModal();
     }
   };
 
+  useEffect(() => {
+
+  }, []);
+  
   return (
     <div className="header-container">
       <div className="header-logo"><a href='/'><img src={logoimg} alt="" /></a></div>

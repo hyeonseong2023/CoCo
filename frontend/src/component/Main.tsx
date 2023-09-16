@@ -5,7 +5,6 @@ import Banner from './Banner'
 import Contents from './Contents'
 import CategoryBox from './CategoryBox'
 import { useLocation } from 'react-router-dom';
-import Check from './Check';
 
 type MainProps = {};
 
@@ -57,13 +56,11 @@ const Main: React.FC<MainProps> = ({}) => {
 
   return (
     <div>
-      <Check/>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
       <div id="main-Whitespace"/>
       <CategoryBox onUpdateData={updateCategoryData} />
       <Contents categoryData={initialCategoryData} />
-
     </div>
   );
 };

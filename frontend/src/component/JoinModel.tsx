@@ -62,14 +62,13 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
     }
 
     Cookies.remove('coin');
-    closeModal(); // 모달 닫기
-  };
+    closeModal();
+  }
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <form onSubmit={handleSubmit}>
-          {/* 닉네임 입력란 */}
           <label>
             닉네임:
             <input
@@ -81,7 +80,6 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
           </label>
           <br />
 
-          {/* 직무 선택 */}
           <label>
             직무:
             <select
@@ -102,7 +100,6 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
           </label>
           <br />
 
-          {/* 경력 선택 */}
           <label>
             경력:
             <select
@@ -121,7 +118,6 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
           </label>
           <br />
 
-          {/* 관심 스택 선택 */}
           <label>
             관심스택:
             <select

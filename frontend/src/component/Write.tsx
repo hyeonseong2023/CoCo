@@ -8,8 +8,8 @@ import Cookies from 'js-cookie';
 const Write = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [images, setImages] = useState<File[]>([]); // 이미지 파일들을 배열로 관리
-  const [previewImages, setPreviewImages] = useState<string[]>([]); // 미리 보기 이미지들의 URL을 배열로 관리
+  const [images, setImages] = useState<File[]>([]);
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const [recruitmentInfo, setRecruitmentInfo] = useState({
     recruitmentCount: 0,
@@ -93,7 +93,6 @@ const Write = () => {
     formData.append('BOARD_VIEWS', '0');
     formData.append('SKILL_NAME', recruitmentInfo.techStack);
 
-    // 선택된 이미지들 업로드 처리
     images.forEach((file) => {
       formData.append('BOARD_IMG', file);
     });
@@ -125,7 +124,7 @@ const Write = () => {
       openTalkLink: '',
     });
     setImages([]);
-    setPreviewImages([]); // 이미지 미리 보기 초기화
+    setPreviewImages([]);
   };
 
   return (
@@ -135,12 +134,9 @@ const Write = () => {
       <form className="write-form" onSubmit={handleSubmit}>
         <div className='write-submitSet'>
           <h2>게시글 작성</h2>
-          <button type="submit" className="submit-button">
-            작성
-          </button>
         </div>
 
-        <div className="form-group">
+        <div className="form-group form-group-spacing">
           <label htmlFor="title">제목:</label>
           <input
             type="text"
@@ -151,9 +147,9 @@ const Write = () => {
             className="input-field"
           />
         </div>
-        <div className="form-group">
+        <div className="form-group form-group-spacing">
           <h3>모집 정보</h3>
-          <div className="form-subgroup">
+          <div className="form-subgroup form-subgroup-spacing">
             <label htmlFor="recruitmentCount">모집 인원:</label>
             <input
               type="number"
@@ -164,7 +160,7 @@ const Write = () => {
               className="input-field"
             />
           </div>
-          <div className="form-subgroup">
+          <div className="form-subgroup form-subgroup-spacing">
             <label htmlFor="techStack">기술 스택:</label>
             <input
               type="text"
@@ -175,7 +171,7 @@ const Write = () => {
               className="input-field"
             />
           </div>
-          <div className="form-subgroup">
+          <div className="form-subgroup form-subgroup-spacing">
             <label htmlFor="startDate">시작일:</label>
             <DatePicker
               selected={recruitmentInfo.startDate}
@@ -185,7 +181,7 @@ const Write = () => {
               className="input-field"
             />
           </div>
-          <div className="form-subgroup">
+          <div className="form-subgroup form-subgroup-spacing">
             <label htmlFor="endDate">종료일:</label>
             <DatePicker
               selected={recruitmentInfo.endDate}
@@ -195,7 +191,7 @@ const Write = () => {
               className="input-field"
             />
           </div>
-          <div className="form-subgroup">
+          <div className="form-subgroup form-subgroup-spacing">
             <label htmlFor="openTalkLink">오픈톡 링크:</label>
             <input
               type="text"
@@ -208,7 +204,7 @@ const Write = () => {
           </div>
         </div>
 
-        <div className="form-subgroup">
+        <div className="form-subgroup form-subgroup-spacing">
           <label htmlFor="image">이미지 업로드:</label>
           <input
             type="file"
@@ -217,11 +213,11 @@ const Write = () => {
             onChange={handleImageChange}
             accept="image/*"
             className="input-field"
-            multiple // 다중 파일 선택을 가능하게 함
+            multiple
           />
         </div>
         {previewImages.length > 0 && (
-          <div className="image-preview">
+          <div className="image-preview form-group-spacing">
             {previewImages.map((imageUrl, index) => (
               <div key={index} className="image-preview-item">
                 <img className='testimg' src={imageUrl} alt={`미리 보기 ${index}`} />
@@ -231,7 +227,7 @@ const Write = () => {
           </div>
         )}
 
-        <div className="form-group">
+        <div className="form-group form-group-spacing">
           <label htmlFor="content">내용:</label>
           <textarea
             id="content"
@@ -241,6 +237,10 @@ const Write = () => {
             className="textarea-field"
           />
         </div>
+        
+        <button type="submit" className="submit-button">
+          작성
+        </button>
       </form>
     </div>
   );
