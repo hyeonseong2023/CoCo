@@ -1,6 +1,22 @@
-div.test-block {
+div.text-block-container {
   width: 100%;
   max-width: 756px;
   margin-top: 2px;
   margin-bottom: 1px;
+}
+
+[contenteditable="true"]:empty:before {
+  content: attr(placeholder);
+}
+
+div.text-block {
+  max-width: 100%;
+  width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  caret-color: rgb(55, 53, 47);
+  padding: 3px 2px;
+  min-height: 1em;
+  color: rgb(55, 53, 47);
+  -webkit-text-fill-color: rgba(55, 53, 47, 0.5);
 }

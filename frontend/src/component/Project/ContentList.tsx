@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { PageContext } from "./context/PageContext";
 import Content from "./Content";
 
@@ -8,6 +8,7 @@ const ContentList = () => {
     throw new Error("PageContext must be used within a PageProvider");
   }
   const contentsList = context.contents.contents;
+
   return (
     <div>
       {contentsList.map((element, index) => (

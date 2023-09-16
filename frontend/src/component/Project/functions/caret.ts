@@ -1,9 +1,9 @@
-// 클릭시 마우스 위치로 caret 이동
-const setCaretPosition = (
+// click한 위치로 caret 이동
+function setCaretClick(
   ref: React.RefObject<any>,
   clickPosition: { x: number; y: number }
-) => {
-  ref.current.focus();
+) {
+  // ref.current.focus();
   const editorDiv = ref.current;
   const range = document.createRange();
   const selection = window.getSelection();
@@ -16,9 +16,9 @@ const setCaretPosition = (
     clickPosition.y
   );
   selection!.collapse(node, offset);
-};
+}
 
-// node와 caret 위치 구하기
+// click한 node와 caret 위치 구하기
 const getTextNodeAtPosition = (x: number, y: number) => {
   const range = document.caretRangeFromPoint(x, y);
   const node = range!.startContainer;
@@ -26,5 +26,21 @@ const getTextNodeAtPosition = (x: number, y: number) => {
 
   return { node, offset };
 };
+//ref: React.RefObject<any>,
+function setCaretPosition(caret: number) {
+  const selection = window.getSelection();
+  if (!selection) return;
+  const r = selection.getRangeAt(0);
+  const node = r.startContainer;
+  const nodeLength = node.textContent!.length;
+  nodeLength < caret
+    ? selection.collapse(node, nodeLength)
+    : selection.collapse(node, caret);
+}
 
-export { setCaretPosition };
+function getCaretPosition(): number {
+  const selection = window.getSelection();
+  return selection!.anchorOffset;
+}
+
+export { setCaretClick, setCaretPosition, getCaretPosition };

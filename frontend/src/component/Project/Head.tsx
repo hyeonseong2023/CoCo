@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { updateText } from "./functions/firebaseCRUD";
 import { PageContext } from "./context/PageContext";
-import { setCaretPosition } from "./functions/caret";
+import { setCaretClick } from "./functions/caret";
+import "../../css/ProjectContents.css";
 
 const Head = () => {
   const [editable, setEditable] = useState(false);
@@ -14,7 +15,7 @@ const Head = () => {
   const contents = context.contents;
 
   useEffect(() => {
-    setCaretPosition(headRef, clickPosition);
+    setCaretClick(headRef, clickPosition);
   }, [editable]);
 
   const onInput = (e: React.ChangeEvent<HTMLHeadingElement>) => {
@@ -32,25 +33,30 @@ const Head = () => {
     setClickPosition({ x: e.clientX, y: e.clientY });
   };
   return (
-    <div>
-      <h1
-        style={{
-          display: editable ? "block" : "none",
-        }}
-        ref={headRef}
-        contentEditable={true}
-        onInput={onInput}
-        onBlur={onBlur}
-      ></h1>
-      <h1
-        style={{
-          display: editable ? "none" : "block",
-        }}
-        onClick={onClick}
-      >
-        {contents.head.text}
-      </h1>
-    </div>
+    <h1>
+      <div className="text-block-container">
+        <div
+          className="text-block"
+          style={{
+            display: editable ? "block" : "none",
+          }}
+          placeholder="제목없음"
+          ref={headRef}
+          contentEditable={true}
+          onInput={onInput}
+          onBlur={onBlur}
+        ></div>
+        <div
+          className="text-block"
+          style={{
+            display: editable ? "none" : "block",
+          }}
+          onClick={onClick}
+        >
+          {contents.head.text === "" ? "제목없음" : contents.head.text}
+        </div>
+      </div>
+    </h1>
   );
 };
 
