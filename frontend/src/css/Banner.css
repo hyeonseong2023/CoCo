@@ -1,7 +1,9 @@
 .slide-image {
   width: 100%;
-  max-height: 330px;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
+  min-width: 100%; /* 이미지를 최소 너비로 유지 */
+  min-height: 100%; /* 이미지를 최소 높이로 유지 */
 }
 
 .slick-prev {
@@ -36,7 +38,7 @@ li.slick-active button:before {
 }
 
 .Banner-container {
-  width: 100%;
+  width: 90%;
   height: 480px;
   background-color: rgb(253, 238, 218);
 }
@@ -57,4 +59,8 @@ li.slick-active button:before {
     max-height: 330px;
     min-height: 330px;
   }
+}
+
+.Banner-main{
+  display: flex;
 }

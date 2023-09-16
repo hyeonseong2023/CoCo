@@ -54,6 +54,8 @@ const Main: React.FC<MainProps> = ({}) => {
 
   const [isJoinModalOpen, setJoinModalOpen] = useState(false);
 
+  console.log();
+  
   return (
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />

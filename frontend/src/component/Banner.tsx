@@ -38,24 +38,26 @@ const Banner = () => {
   ];
 
   return (
-    <div className="Banner-container">
-      <Slider {...settings}>
-        {slideContents.map((content, index) => (
-          <div className="slide-content" key={index}>
-            <a href={content.link} target="_blank" rel="noopener noreferrer">
-              <img
-                src={content.image}
-                alt={content.altText}
-                className="slide-image"
-              />
-            </a>
-            <div className="slide-caption">
-              <p>{content.caption}</p>
-            </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+      <div className='Banner-main'>
+        <div className="Banner-container">
+          <Slider {...settings}>
+            {slideContents.map((content, index) => (
+              <div className="slide-content" key={index}>
+                <a href={content.link} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={content.image}
+                    alt={content.altText}
+                    className="slide-image"
+                  />
+                </a>
+                <div className="slide-caption">
+                  <p>{content.caption}</p>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      </div>
   );
 };
 

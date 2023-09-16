@@ -6,7 +6,6 @@ import Mypage from './component/Mypage';
 import Check from './component/Check';
 
 import KakaoCallback from './component/Kakao/KakaoCallback';
-import KakaoJoin from './component/Kakao/KakaoJoin';
 import './App.css';
 
 const App: React.FC = () => {
@@ -20,7 +19,6 @@ const App: React.FC = () => {
           <Route path="/callback/*" element={<Main />} /> {/* 기본 경로 */}
           <Route path='/Check' element={<Check />} />
           <Route path='/auth/kakao/callback' element={<KakaoCallback />} />
-          <Route path='/join' element={<KakaoJoin />} />
         </Routes>
       </div>
     </Router>

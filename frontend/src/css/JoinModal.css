@@ -1,0 +1,169 @@
+/* 모달 창 스타일 */
+.modal-content {
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 641px;
+  height: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column; /* 내부 요소들을 세로로 배치 */
+  align-items: center; /* 요소들을 가운데 정렬 */
+}
+
+/* 모달 내부 요소 스타일 */
+.modal-content label,
+.modal-content select,
+.modal-content button,
+.modal-content .modal-input {
+  display: flex; /* 요소들을 가로로 배치 */
+  flex-direction: row; /* 요소들을 가로로 배치 */
+  align-items: center; /* 세로 중앙 정렬 */
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 5px;
+  width: 180px; /* 부모의 절반 너비로 설정 */
+}
+
+
+.close-button {
+  width: 25%;
+}
+.modal-content label {
+  font-size: 18px;
+}
+
+.modal-content select,
+.modal-content .modal-input {
+  background: #fff;
+  color: #000;
+  flex: 1; /* 입력 필드가 레이블보다 넓도록 설정 */
+}
+
+.modal-content button {
+  background: #4598FF;
+  color: #fff;
+  cursor: pointer;
+  flex: 2; /* 버튼도 입력 필드와 같은 너비로 설정 */
+}
+
+/* 모달 닫기 버튼 스타일 */
+.close-button {
+  color: #ff6565;
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #75b3fe;
+}
+
+/* 추가된 스타일 */
+.welcome-message {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+/* 닉네임 입력 상자 스타일 */
+.modal-content .modal-input {
+  border: 1px solid #000;
+}
+
+.close-button {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.butjoin {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  width: 100%;
+}
+
+/* 반응형 스타일 */
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: 80%;
+  }
+}
+
+.close-button{
+  width: 100px!important;
+}
+
+.Login-modal-content{
+  background-color: #ffffff;
+}
+
+
+/* Join 모달 스타일 */
+.join-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 80%;
+  max-width: 400px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.join-modal h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.join-modal label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.join-modal input[type="text"],
+.join-modal input[type="email"],
+.join-modal select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.join-modal select {
+  height: 36px; /* 선택 상자의 높이 설정 */
+}
+
+.join-modal button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.join-modal button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.join-h3C{
+  margin: 5%;
+}
+
+.butjoin:hover{
+  background-color: rgb(191, 220, 254);
+}
