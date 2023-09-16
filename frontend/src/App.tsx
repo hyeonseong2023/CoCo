@@ -8,6 +8,7 @@ import Check from './component/Check';
 import KakaoCallback from './component/Kakao/KakaoCallback';
 import KakaoJoin from './component/Kakao/KakaoJoin';
 import './App.css';
+import ProjectPage from './component/Project/ProjectPage';
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
           <Route path='/Check' element={<Main />} />
           <Route path='/auth/kakao/callback' element={<KakaoCallback />} />
           <Route path='/join' element={<KakaoJoin />} />
+          <Route path='/pp' element={<ProjectPage />}/>
         </Routes>
       </div>
     </Router>
