@@ -5,15 +5,28 @@ import Banner from './Banner'
 import Contents from './Contents'
 import CategoryBox from './CategoryBox'
 import { useLocation } from 'react-router-dom';
-import Check from './Check';
+import axios from 'axios';
 
 type MainProps = {};
 
 const Main: React.FC<MainProps> = ({}) => {
   const [categoryData, setCategoryData] = useState<any[]>([]);
   const prevCategoryDataRef = useRef<any[]>();
-  let a;
-  // 카테고리 테스트 데이터
+
+  const fetchData = async () => {
+    try {
+        const res = await axios.post(`/recent`);
+        console.log(res);
+        
+
+    } catch (error) {
+        console.error(error);
+    }
+  }
+  useEffect(() => {
+    fetchData();
+  } , []);
+
   const initialCategoryData = [
     {
       id: 1,
@@ -33,11 +46,7 @@ const Main: React.FC<MainProps> = ({}) => {
     prevCategoryDataRef.current = categoryData;
   };
 
-  useEffect(() => {
-  }, [categoryData]);
-
   const handleLoginButtonClick = () => {
-    console.log('로그인 버튼이 클릭되었습니다.');
   };
 
   const location = useLocation();
@@ -55,15 +64,15 @@ const Main: React.FC<MainProps> = ({}) => {
 
   const [isJoinModalOpen, setJoinModalOpen] = useState(false);
 
+  console.log();
+  
   return (
     <div>
-      <Check/>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
       <div id="main-Whitespace"/>
       <CategoryBox onUpdateData={updateCategoryData} />
       <Contents categoryData={initialCategoryData} />
-
     </div>
   );
 };

@@ -21,6 +21,15 @@ public class TB_CUST {
 	private String CUST_IMG; // 회원 프로필 사진 이미지 경로 
 	private String CUST_GIT; // 회원 깃허브 링크 
 	
+	
+	
+	public TB_CUST(String cUST_ID, String cUST_NICK, String cUST_IMG) {
+		super();
+		CUST_ID = cUST_ID;
+		CUST_NICK = cUST_NICK;
+		CUST_IMG = cUST_IMG;
+	}
+	
 
 	
 }
