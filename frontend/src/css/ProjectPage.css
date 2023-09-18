@@ -1,8 +1,0 @@
-div.pp-container {
-  display: flex;
-  flex-direction: row;
-}
-
-[contenteditable="true"]:empty:before {
-  content: attr(placeholder);
-}
