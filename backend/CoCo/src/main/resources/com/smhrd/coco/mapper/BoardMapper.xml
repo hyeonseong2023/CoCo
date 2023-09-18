@@ -38,7 +38,7 @@
 	
 	<!-- 선택한 게시물 skill 테이블에서 정보가져오기 -->
 	<select id="selectPostSkill" resultType="com.smhrd.coco.domain.TB_BOARD_SKILL" >
-			SELECT BOARD_ID, SKILL_NAME FROM TB_BOARD_SKILL WHERE BOARD_ID = #{board_id}
+			SELECT BOARD_ID, SKILL_NAME FROM TB_BOARD_SKILL WHERE BOARD_ID = #{CUST_ID}
 	</select>
 	
 	<!-- 선택한 게시물 board_img 테이블에서 정보가져오기 -->
