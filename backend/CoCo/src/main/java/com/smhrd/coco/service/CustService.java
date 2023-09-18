@@ -52,7 +52,7 @@ public class CustService {
 		// 응모 테이블(TB_APPLY) & 게시글 테이블(TB_BOARD)
 		List<TB_BOARD> project = mapper.mypageProject(cust_id);
 		for(TB_BOARD pjItem : project) {
-			obj.put("BOARD_ID", pjItem.getBOARD_ID());
+			obj.put("BOARD_ID", pjItem.getBoard_id());
 		}
 		
 //		JSONArray skillArray = new JSONArray();		

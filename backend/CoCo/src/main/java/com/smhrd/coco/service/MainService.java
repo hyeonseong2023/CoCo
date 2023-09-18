@@ -96,22 +96,22 @@ public class MainService {
 
 			HashMap<String, Object> map = new HashMap<String, Object>();
 
-			map.put("board_id", pb.getBOARD_ID());
-			map.put("cust_id", pb.getCUST_ID());
-			map.put("board_title", pb.getBOARD_TITLE());
-			map.put("board_period", pb.getBOARD_PERIOD());
-			map.put("board_deadline", pb.getBOARD_DEADLINE());
-			map.put("board_openlink", pb.getBOARD_OPENTALK());
-			map.put("board_content", pb.getBOARD_CONTENT());
-			map.put("board_dt", pb.getBOARD_DT());
-			map.put("board_views", pb.getBOARD_VIEWS());
-			map.put("board_position", pb.getBOARD_POSITION());
-			map.put("pro_title", pb.getPRO_TITLE());
-			map.put("pro_img", pb.getPRO_IMG());
-			map.put("pro_link", pb.getPRO_LINK());
+			map.put("board_id", pb.getBoard_id());
+			map.put("cust_id", pb.getCust_id());
+			map.put("board_title", pb.getBoard_title());
+			map.put("board_period", pb.getBoard_period());
+			map.put("board_deadline", pb.getBoard_deadline());
+			map.put("board_openlink", pb.getBoard_openlink());
+			map.put("board_content", pb.getBoard_content());
+			map.put("board_dt", pb.getBoard_dt());
+			map.put("board_views", pb.getBoard_views());
+			map.put("board_position", pb.getBoard_position());
+			map.put("pro_title", pb.getPro_title());
+			map.put("pro_img", pb.getPro_img());
+			map.put("pro_link", pb.getPro_link());
 
 			// 해당게시글의 스킬리스트 가져오기
-			List<TB_BOARD_SKILL> skillList = mapper.boardIdList(pb.getBOARD_ID());
+			List<TB_BOARD_SKILL> skillList = mapper.boardIdList(pb.getBoard_id());
 			List<String> skillNames = new ArrayList<>();
 
 			for (TB_BOARD_SKILL sk : skillList) {
