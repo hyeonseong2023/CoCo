@@ -39,7 +39,7 @@ public class MainService {
 
 	// 북마크 저장	
 	public int bookmarkCheck(TB_BOOKMARK book) {	
-		return mapper.bookmarkCheck(book.getCust_id(), book.getBoard_id());	
+		return mapper.bookmarkCheck(book.getCUST_ID(), book.getBOARD_ID());	
 	}	
 
 	// 북마크된 게시글만 불러오기	
