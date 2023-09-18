@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../css/Header.css';
 import logoimg from '../img/Logo.png';
 import Login from './Login';
-import JoinModel from './JoinModel';
+import JoinModel from './JoinModal';
 import Cookies from 'js-cookie';
 
 type HeaderProps = {
@@ -44,7 +44,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
   const handleWriteClick = () => {
     if (isLoggedIn) {
-      // 이미 로그인되어 있으면 글쓰기 페이지로 이동
       navigate('/write');
     } else {
       openModal();
