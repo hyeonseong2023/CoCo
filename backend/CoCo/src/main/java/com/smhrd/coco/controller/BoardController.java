@@ -45,32 +45,6 @@ public class BoardController {
 	@PostMapping("/postsaveinfor")
 	public @ResponseBody int postSaveInfor(@RequestPart("BOARD_IMG") MultipartFile file, @ModelAttribute TB_BOARD board, TB_BOARD_SKILL skill) {
 		
-		//진행기간 일수로 바꿔서 저장하기
-		String period = board.getBoard_period();
-		String[] day = period.split("~");
-		
-		String firstDate = day[0];
-		String secondDate = day[1];
-		
-		String[] start = firstDate.split("-");
-		int year1 = Integer.parseInt(start[0]);
-		int month1 = Integer.parseInt(start[1]);
-		int day1 = Integer.parseInt(start[2]);
-		
-		String[] end = secondDate.split("-");
-		int year2 = Integer.parseInt(end[0]);
-		int month2 = Integer.parseInt(end[1]);
-		int day2 = Integer.parseInt(end[2]);
-		
-		LocalDate startDate = LocalDate.of(year1, month1, day1);
-		LocalDate endDate = LocalDate.of(year2, month2, day2);
-
-		Period per = Period.between(startDate, endDate);
-		String d_day = per.getDays()+"";
-		board.setBoard_period(d_day);
-		//진행기간 일수로 바꿔서 저장하기 --끝--
-
-		
 		TB_BOARD saveBoard = new TB_BOARD(board.getCust_id(), board.getBoard_title(), board.getBoard_members(), board.getBoard_period(), 
 				board.getBoard_deadline(), board.getBoard_openlink(), board.getBoard_content(), board.getBoard_views(), board.getBoard_position(),
 				board.getBoard_title(), board.getPro_img(), board.getPro_link());
@@ -88,7 +62,9 @@ public class BoardController {
 		
 		for(int i=0; i<skillArray.length; i++) {			
 			SaveSkill = new TB_BOARD_SKILL(saveBoard.getBoard_id(), skillArray[i]);			
-			cnt2 = service.postSaveSkill(SaveSkill);
+			int result = service.postSaveSkill(SaveSkill);
+			if (result>0) {cnt2++;}
+			
 		}
 		
 		
