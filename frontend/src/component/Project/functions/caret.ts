@@ -43,4 +43,30 @@ function getCaretPosition(): number {
   return selection!.anchorOffset;
 }
 
+// function getCaretPoint() {
+//   const selection = getSelection();
+//   const r = selection!.getRangeAt(0);
+//   let rect;
+//   let r2;
+//   const node = r.startContainer;
+//   const offset = r.startOffset;
+//   if (offset > 0) {
+//     r2 = document.createRange();
+//     r2.setStart(node, offset - 1);
+//     r2.setEnd(node, offset);
+//     rect = r2.getBoundingClientRect();
+//   } else if (offset < node.textContent!.length) {
+//     r2 = document.createRange();
+//     r2.setStart(node, offset);
+//     r2.setEnd(node, offset + 1);
+//     rect = r2.getBoundingClientRect();
+//   } else {
+//     rect = node.getBoundingClientRect();
+//   }
+//   return {
+//     left: rect.left,
+//     top: rect.top <= 254.8 ? rect.top + 254.8 : rect.top,
+//   };
+// }
+
 export { setCaretClick, setCaretPosition, getCaretPosition };

@@ -3,6 +3,7 @@ import {
   CaretContext,
   ContentInterface,
   EditableContext,
+  OverlayContext,
   PageContext,
 } from "./context/PageContext";
 import {
@@ -32,12 +33,14 @@ const Content = ({
   const pageContext = useContext(PageContext);
   const editableContext = useContext(EditableContext);
   const caretContext = useContext(CaretContext);
-  if (!pageContext || !editableContext || !caretContext) {
+  const overlayContext = useContext(OverlayContext);
+  if (!pageContext || !editableContext || !caretContext || !overlayContext) {
     throw new Error("Context must be used within a PageProvider");
   }
   const contents = pageContext.contents.contents;
   const { editable, setEditable } = editableContext;
   const { caret, setCaret } = caretContext;
+  const {} = overlayContext;
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const tagRef = useRef<HTMLDivElement>(null);
 
@@ -106,6 +109,8 @@ const Content = ({
         setEditable(downwardEditable(editable, index));
         setCaret(getCaretPosition());
         break;
+      case 119: // "F8"
+        e.preventDefault();
     }
   };
 
