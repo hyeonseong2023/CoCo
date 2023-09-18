@@ -66,21 +66,4 @@
 .header-buttons {
     flex: 1; 
     text-align: right;
-    margin: 3%
-}
-.header-logo{
-    margin-top: 50px;
-    margin-left: 50px;
-}
-
-.header-buttons > a{
-  margin: 3%;
-}
-
-.header-buttons > button{
-  margin-left: 5%;
-}
-
-.header-buttons > button{
-  font-size: 25px;
 }

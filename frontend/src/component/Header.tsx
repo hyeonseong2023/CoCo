@@ -50,10 +50,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
     }
   };
 
-  useEffect(() => {
-
-  }, []);
-  
   return (
     <div className="header-container">
       <div className="header-logo"><a href='/'><img src={logoimg} alt="" /></a></div>

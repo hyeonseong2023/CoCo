@@ -76,7 +76,7 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
     }
 
     Cookies.remove('coin');
-    closeModal();
+    window.location.replace("/")
   };
 
   return (
