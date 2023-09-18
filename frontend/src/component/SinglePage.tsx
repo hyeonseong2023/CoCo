@@ -1,5 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import Header from './Header';
+const handleLoginButtonClick = () => {
+};
 
 const SinglePage = () => {
   const location = useLocation();
@@ -7,6 +10,7 @@ const SinglePage = () => {
 
   return (
     <div>
+      <Header onLoginButtonClick={handleLoginButtonClick} />
       <h1>Single Page Content for ID {data.id}</h1>
       <p>Title: {data.title}</p>
       <p>Content: {data.content}</p>
