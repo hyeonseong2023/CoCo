@@ -5,6 +5,7 @@ import Banner from './Banner'
 import Contents from './Contents'
 import CategoryBox from './CategoryBox'
 import axios from 'axios';
+import TopPosts from './TopPosts';
 
 type MainProps = {};
 
@@ -57,6 +58,7 @@ const Main: React.FC<MainProps> = ({}) => {
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
+      <TopPosts />
       <div id="main-Whitespace"/>
       <CategoryBox onUpdateData={updateCategoryData} />
       <Contents categoryData={newData} />

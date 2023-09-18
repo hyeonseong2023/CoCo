@@ -5,7 +5,8 @@ import logoimg from '../img/Logo.png';
 import Login from './Login';
 import JoinModel from './JoinModal';
 import Cookies from 'js-cookie';
-
+import img from '../img/normal.png'
+import write from '../img/writeA.png'
 type HeaderProps = {
   onLoginButtonClick?: () => void;
 };
@@ -54,9 +55,13 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
     <div className="header-container">
       <div className="header-logo"><a href='/'><img src={logoimg} alt="" /></a></div>
       <div className="header-buttons">
-        <button className='writeButton' onClick={handleWriteClick}>글쓰기</button>
+      <Link to="/write">
+    <img src={write} alt="" className='profileimage' />
+  </Link>
         {isLoggedIn ? (
-          <button onClick={handleLogout}>로그아웃</button>
+    <Link to="/mypage">
+    <img src={img} alt="" className='profileimage' />
+  </Link>
         ) : (
           <button id="login-button" onClick={isModalOpen ? closeModal : openModal}>
             로그인

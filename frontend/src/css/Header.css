@@ -9,7 +9,7 @@
 /* 미디어 쿼리: 화면 너비가 768px 이상인 경우 */
 @media (min-width: 768px) {
   .header-container {
-    height: 125px; /* 화면 너비가 768px 이상일 때 높이 설정 */
+    height: 60px; /* 화면 너비가 768px 이상일 때 높이 설정 */
     font-size: 20px; /* 화면 너비가 768px 이상일 때 폰트 크기 조절 */
   }
 }
@@ -66,4 +66,8 @@
 .header-buttons {
     flex: 1; 
     text-align: right;
+}
+
+.profileimage{
+  height: 40px;
 }

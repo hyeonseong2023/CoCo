@@ -1,16 +1,40 @@
 /* Category.css */
-#category-select {
-  /* 카테고리 선택 요소에 대한 스타일 */
-  background-color: #f0f0f0;
-  padding: 5px;
-  border: 1px solid #ccc;
+
+/* 첫 번째 select 요소 스타일 */
+#lang1 {
+  background-color: #fff; /* 배경색을 흰색으로 지정 */
+  border: 1px solid #ccc; /* 경계선 스타일 지정 */
+  padding: 5px; /* 내부 여백 설정 */
+  font-size: 16px; /* 폰트 크기 설정 */
+  border-radius: 5px; /* 둥근 모서리 만듦 */
 }
 
-.tool-select {
-  /* 선텍 툴 선택 요소에 대한 스타일 */
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #ddd;
+/* 두 번째 select 요소 스타일 */
+#lang2 {
+  background-color: #fff; /* 배경색을 흰색으로 지정 */
+  border: 1px solid #ccc; /* 경계선 스타일 지정 */
+  padding: 5px; /* 내부 여백 설정 */
+  font-size: 16px; /* 폰트 크기 설정 */
+  border-radius: 5px; /* 둥근 모서리 만듦 */
 }
 
-/* 추가적인 스타일 정의 가능 */
+/* 선택된 옵션 스타일 */
+select option:checked {
+  background-color: #007bff; /* 선택된 옵션의 배경색을 파란색으로 지정 */
+  color: #fff; /* 선택된 옵션의 텍스트 색상을 흰색으로 지정 */
+}
+
+
+.category{
+  display: flex;
+  
+}
+
+.categoryA{
+  width: 20%;
+  margin-left: 10%;
+}
+
+.category{
+  height: 100px;
+}

@@ -1,9 +1,9 @@
 import React from 'react'
-
+import '../css/TopPosts.css'
 const TopPosts = () => {
   return (
-    <div>
-        <h1>인기글 목록 디자인</h1>
+    <div className='TopPostsC'>
+        <h3>인기글</h3>
     </div>
   )
 }
