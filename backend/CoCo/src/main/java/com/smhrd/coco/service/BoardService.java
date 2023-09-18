@@ -60,13 +60,12 @@ public class BoardService {
 
 		TB_BOARD board = mapper.selectPostBoard(board_id);
 		String createId = board.getCust_id();
-		//TB_CUST cust = mapper.selectPostCust(cust_id);
 		List<TB_BOARD_SKILL> skill = mapper.selectPostSkill(board_id);
 		TB_BOARD_IMG img = mapper.selectPostImag(board_id);
 		int bmk = mapper.selectPostBmk(board_id, cust_id);
 		int apply = mapper.selectPostApply(board_id, cust_id);
-//		TB_CUST createCust = mapper.selectPostCust(board.getCust_id());
-//		System.out.println(createCust.getCUST_ID());
+		TB_CUST createCust = mapper.selectPostCust(board.getCust_id());
+		System.out.println(createCust.getCUST_ID());
 
 		
 		// 게시글 등록일시 시간 빼서 저장하기
@@ -130,6 +129,20 @@ public class BoardService {
 		}
 		System.out.println(file);
 		img.setBOARD_IMG(fileStringValue);
+		
+		//회원 프로필 사진 찾아서 바이트 형태로 변환하기
+		File file2 = new File("c:\\cocoImage\\" + createCust.getCUST_IMG());
+
+		String fileStringValue2 = null;
+		try {
+			fileStringValue2 = converter.convert(file2);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(file2);
+		createCust.setCUST_IMG(fileStringValue2);
+		
 
 		// JSONArray 에 모두 담기
 		JSONArray jsonArray = new JSONArray();
@@ -141,7 +154,7 @@ public class BoardService {
 		obj.put("TB_BOOKMARK", bmk);
 		obj.put("TB_APPLY", apply);
 		obj.put("D_day", dDay);
-		//obj.put("createCust", createCust);
+		obj.put("createCust", createCust);
 
 		jsonArray.add(obj);
 		return jsonArray;
