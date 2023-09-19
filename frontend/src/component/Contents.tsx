@@ -2,7 +2,6 @@
 
 import React from 'react';
 import '../css/Contents.css';
-import TopPosts from './TopPosts';
 import { Link } from 'react-router-dom';
 
 interface CategoryData {
@@ -29,18 +28,29 @@ interface ContentsProps {
 
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
-  console.log(categoryData);
+
   return (
     <div>
-      <TopPosts />
       <div id='Contents-box'>
         <div>
           {categoryData.map((data, index) => (
             <div key={index}>
               <Link to={`/Contents/${data.id}`} key={index} state={data}>
-                <div>{data.title}</div>
-                <h1>{data.content}</h1>
-                <h3>{data.name}</h3>
+                <div className='Contentsbox'>
+                  <div className='Ctitle'>
+                  {data.board_members}
+                  </div>
+                  <div className='Ccontents'>
+                  {data.title}
+                  <br/>
+                  {data.content}
+                  </div>
+                  <div  className='Cbookmark'>
+                  {data.board_deadline}
+                  <br/>
+                  {data.board_views}
+                  </div>
+                </div>
               </Link>
             </div>
           ))}

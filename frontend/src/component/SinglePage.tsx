@@ -1,9 +1,11 @@
 import { useLocation } from 'react-router-dom';
+
 import Post from './BoardComponent/Post';
 import '../css/Board.css';
 import axios from "axios";
 import { useEffect, useState } from 'react';
 import Header from './Header';
+
 
 const SinglePage: React.FC = () => {
   const location = useLocation();
@@ -34,10 +36,12 @@ const SinglePage: React.FC = () => {
 
   return (
     <div>
+
     <Header onLoginButtonClick={handleLoginButtonClick} />
     <div className="board">
     {boardData && <Post data={data} boardData={boardData}></Post>}
     </div>
+
     </div>
   );
 };

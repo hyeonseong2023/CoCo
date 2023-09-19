@@ -5,6 +5,7 @@ import Banner from './Banner'
 import Contents from './Contents'
 import CategoryBox from './CategoryBox'
 import axios from 'axios';
+import TopPosts from './TopPosts';
 
 type MainProps = {};
 
@@ -18,7 +19,6 @@ const Main: React.FC<MainProps> = ({}) => {
       try {
         const response = await axios.get("http://localhost:8099/recent?endpoint=1");
   
-        // 받아온 데이터를 저장할 배열
         const fetchedData = response.data.map((item: { recentList: any }) => {
           const recentListData = item.recentList;
           return {
@@ -58,6 +58,7 @@ const Main: React.FC<MainProps> = ({}) => {
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
+      <TopPosts />
       <div id="main-Whitespace"/>
       <CategoryBox onUpdateData={updateCategoryData} />
       <Contents categoryData={newData} />
