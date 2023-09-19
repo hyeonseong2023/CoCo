@@ -27,9 +27,6 @@ public interface CustMapper {
 	// 마이페이지(회원스킬) 
 	public List<TB_CUST_SKILL> custSkill(String cust_id); 
 
-	// 마이페이지(수정하기 페이지로 이동)
-	// public TB_CUST updatePage(String cust_id);
-
 	// 마이페이지(수정하기)
 	public int userInfoUpdate(TB_CUST cust);
 

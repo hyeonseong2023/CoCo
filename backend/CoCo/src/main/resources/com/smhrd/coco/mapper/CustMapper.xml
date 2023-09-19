@@ -10,7 +10,7 @@
 
 	<!-- 마이페이지(포트폴리오) -->
 	<select id="mypagePf" resultType="com.smhrd.coco.domain.TB_PF">
-		select PF_TITLE, PF_PATH from
+		select * from
 		TB_PF where CUST_ID = #{CUST_ID};
 	</select>
 
@@ -36,22 +36,6 @@
 
 	<!--마이페이지(연필 버튼) <select id="updatePage" resultType="com.smhrd.coco.domain.TB_CUST"> 
 		select * from TB_CUST where CUST_ID = ${CUST_ID}; </select> -->
-
-	<!--마이페이지(수정하기 버튼) -->
-	<update id="update"
-		parameterType="com.smhrd.coco.domain.TB_CUST">
-		update TB_CUST set
-		CUST_NICK = #{CUST_NICK},
-		CUST_CAREER =
-		#{CUST_CAREER},
-		CUST_IMG =
-		#{CUST_IMG},
-		CUST_GIT = #{CUST_GIT},
-		CUST_ROLE
-		= #{CUST_ROLE}
-		where
-		CUST_ID = #{CUST_ID};
-	</update>
 
 	<!--마이페이지(수정하기 버튼) -->
 	<update id="userInfoUpdate"
