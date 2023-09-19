@@ -3,17 +3,21 @@ import '../../css/Board.css';
 import Table from './Table';
 import Toast from './Toast';
 import ProfileModal from './ProfileModal';
-import bookmark from '../img/bookmark.png';
-import blueBookmark from '../img/blueBookmark.png';
-import applyButton from '../img/applyButton.png';
-import deadline from '../img/deadline.png';
-import notApply from '../img/notApply.png';
-import profileImg from '../img/profilePicture.png';
-import viewsIcon from '../img/viewsIcon.png';
+import bookmark from '../../img/bookmark.png';
+import blueBookmark from '../../img/blueBookmark.png';
+import applyButton from '../../img/applyButton.png';
+import deadline from '../../img/deadline.png';
+import notApply from '../../img/notApply.png';
+import profileImg from '../../img/profilePicture.png';
+import viewsIcon from '../../img/viewsIcon.png';
+import deleteBtn from '../../img/deleteBtn.png';
+import modifyBtn from '../../img/modifyBtn.png';
+import Cookies from 'js-cookie';
 
 
 
-const Post = ({data}) => {
+
+const Post = ({data, boardData}) => {
 
     
     const [isEmptyBmk, setIsEmptyBmk] = useState(true);
@@ -28,28 +32,28 @@ const Post = ({data}) => {
     const [boardImg, setBoardImg] = useState("");
     const [custNick, setCustNick] = useState("");
     const [custImg, setCustImg] =useState("");
+    const boardCreateId = data.cust_id;
+    const loginUserId = Cookies.get('CUST_ID');
 
 
 
     const fetchData = async() => {
-        await console.log("post",data);
-        setTitle(data.TB_BOARD.board_title);
-        setViews(data.TB_BOARD.board_views);
-        setDate(data.TB_BOARD.board_dt);
-        setDday(data.D_day);
-        setContent(data.TB_BOARD.board_content)
-        setBoardImg(data.TB_BOARD_IMG.board_IMG)
-        setCustNick(data.createCust.cust_NICK);
-        setCustImg(data.createCust.cust_IMG);
+        await console.log("post",boardData);
+        setTitle(data.title);
+        setViews(data.board_views);
+        setDate(boardData.TB_BOARD.board_dt);
+        setDday(boardData.D_day);
+        setContent(data.content)
+        setBoardImg(boardData.TB_BOARD_IMG.board_IMG)
+        setCustNick(boardData.createCust.cust_NICK);
+        setCustImg(boardData.createCust.cust_IMG);
     }
 
     useEffect(()=>{
         fetchData()
     }, [])
 
-
-
-    const toggleImage = ()=>{
+    const toggleBmk = ()=>{
         setIsEmptyBmk(!isEmptyBmk);
         setBmkImgClicked(true);
     }
@@ -66,11 +70,11 @@ const Post = ({data}) => {
   return (
     <div className='post'>
 
-        {madalOpen && <ProfileModal setModalOpen={setModalOpen}></ProfileModal>}
+        {madalOpen && <ProfileModal setModalOpen={setModalOpen} boardData={boardData}></ProfileModal>}
         {/* 게시글 제목 부분 */}
         <div className='postTitle'>
             {/* 북마크 이미지 클릭시 토스트 생성 */}
-        {bmkImgClicked && <Toast setBmkImgClicked={setBmkImgClicked} isEmptyBmk={isEmptyBmk} />}
+        {bmkImgClicked && <Toast setBmkImgClicked={setBmkImgClicked} isEmptyBmk={isEmptyBmk} data={data} />}
 
             {/* 상단 모집기간 남은일수 */}
             <div className="image-container">
@@ -98,8 +102,10 @@ const Post = ({data}) => {
                     {/* 지원하기 버튼, 북마크 */}
                      {/* style={{display: loginId === postUserId ? "none" : "block"}} */}
                     <div className='rightTop'>
-                        <img className='bmkImg' src={isEmptyBmk ? bookmark : blueBookmark} onClick={toggleImage}  alt="bmkImg"/>
-                        <img className='applybtn' src={isApply? applyButton : notApply} onClick={toggleApply} alt="applyButton"/>
+                        <img className='modifyBtn' src={modifyBtn} style={{display: boardCreateId === loginUserId ? "block" : "none"}} />
+                        <img className='deleteBtn' src={deleteBtn} style={{display: boardCreateId === loginUserId ? "block" : "none"}} />
+                        <img className='bmkImg' src={isEmptyBmk ? bookmark : blueBookmark} onClick={toggleBmk} style={{display: boardCreateId !== loginUserId ? "block" : "none"}}  alt="bmkImg"/>
+                        <img className='applybtn' src={isApply? applyButton : notApply} onClick={toggleApply}  style={{display: boardCreateId !== loginUserId ? "block" : "none"}} alt="applyButton"/>
                     </div>
 
 
@@ -112,13 +118,14 @@ const Post = ({data}) => {
 
                 </div>
             </div>
-            <hr></hr>
+            
         </div>
+        <hr></hr>
 
 
         {/* 게시글 중간 모집상세내용 부분 */}
         <div className='postInfo'>
-            {data&&<Table data={data}></Table>}
+            {boardData&&<Table data={data} boardData={boardData}></Table>}
 
         </div>
 

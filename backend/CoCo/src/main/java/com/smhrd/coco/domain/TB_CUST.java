@@ -23,11 +23,11 @@ public class TB_CUST {
 	
 	
 	
-	public TB_CUST(String cUST_ID, String cUST_NICK, String cUST_IMG) {
+	public TB_CUST(String CUST_ID, String CUST_NICK, String CUST_IMG) {
 		super();
-		CUST_ID = cUST_ID;
-		CUST_NICK = cUST_NICK;
-		CUST_IMG = cUST_IMG;
+		this.CUST_ID = CUST_ID;
+		this.CUST_NICK = CUST_NICK;
+		this.CUST_IMG = CUST_IMG;
 	}
 	
 

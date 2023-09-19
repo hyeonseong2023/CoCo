@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import '../../css/Board.css';
-import linkIcon from '../img/linkIcon.png';
+import linkIcon from '../../img/linkIcon.png';
 
-const Table = ({data}) => {
-
-    const spring = '/skillImg/spring.svg';
-    const java = '/skillImg/java.svg';
-    const aws = '/skillImg/aws.svg';
-    const mysql = '/skillImg/mysql.svg';
+const Table = ({data, boardData}) => {
 
     const [member, setMember] = useState();
     const [deadLine, setDeadLine] = useState();
     const [position, setPosition] = useState();
     const [period, setPeriod] = useState("");
+    const [skillName, setSkillName] = useState([]);
 
-    
+    console.log("스킬네임", skillName);
+
     const fetchData = async() => {
       console.log("Table",data); 
-      setMember(data.TB_BOARD.board_members);
-      setPeriod(data.TB_BOARD.board_period);
-      setDeadLine(data.TB_BOARD.board_deadline);
-      setPosition(data.TB_BOARD.board_position);
-  
+      setMember(data.board_members);
+      setPeriod(data.board_period);
+      setDeadLine(boardData.TB_BOARD.board_deadline);
+      setPosition(data.board_position);
+      setSkillName(boardData.TB_BOARD_SKILL);
     }
+
 
     useEffect(()=>{
         fetchData()
@@ -52,10 +50,11 @@ const Table = ({data}) => {
       <tr>
         <th >필요스킬</th>
         <td className='skillImg'>
-            <img src={process.env.PUBLIC_URL + spring} alt="spring"/>
-            <img src={process.env.PUBLIC_URL + java} alt="java"/>
-            <img src={process.env.PUBLIC_URL + aws} alt="aws"/>
-            <img src={process.env.PUBLIC_URL + mysql} alt="mysql"/>
+          {skillName.map((skill)=>(
+            // console.log(process.env.PUBLIC_URL +`/src/img/skillImg/${skill}.svg`)
+            <img src={process.env.PUBLIC_URL +`/skillImg/${skill}.svg`}/>
+          ))}
+              
         </td>
         <th>연락방법</th>
         <td><a href='https://open.kakao.com/o/sb93t0Gf' style={linkStyle}>오픈톡</a>

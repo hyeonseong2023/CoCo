@@ -78,43 +78,43 @@ public class CustController {
 	}
 
 	// 마이페이지(연필 버튼)
-	@PostMapping("/updatepage")
-	public JSONObject updatePage(@RequestBody Map<String, String> map) {
+//	@PostMapping("/updatepage")
+//	public JSONObject updatePage(@RequestBody Map<String, String> map) {
+//
+//		// 프론트에서 아이디(CUST_ID)를 받아오기
+//		String CUST_ID = map.get("CUST_ID");
+//		System.out.println("CUST_ID : " + map.get("CUST_ID"));
 
-		// 프론트에서 아이디(CUST_ID)를 받아오기
-		String CUST_ID = map.get("CUST_ID");
-		System.out.println("CUST_ID : " + map.get("CUST_ID"));
+//		// 회원 테이블(TB_CUST) 에서 아이디(CUST_ID)에 맞는 정보 가져오기
+//		TB_CUST cust = service.updatePage(CUST_ID);
 
-		// 회원 테이블(TB_CUST) 에서 아이디(CUST_ID)에 맞는 정보 가져오기
-		TB_CUST cust = service.updatePage(CUST_ID);
+//		// 한 곳에 담아 보내기
+//		JSONObject obj = new JSONObject();
+//		obj.put("CUST", cust);
 
-		// 한 곳에 담아 보내기
-		JSONObject obj = new JSONObject();
-		obj.put("CUST", cust);
+		//return obj;
 
-		return obj;
-
-	}
+//	}
 
 	// 마이페이지(수정하기 버튼)
-	@PostMapping("/update")
-	public int update(@RequestBody Map<String, String> map) {
-		String CUST_ID = map.get("cust_ID");
-		String CUST_NICK = map.get("cust_NICK");
-		String CUST_CAREER = map.get("cust_CAREER");
-		String CUST_IMG = map.get("cust_IMG");
-		String CUST_GIT = map.get("cust_GIT");
-		String CUST_ROLE = map.get("cust_ROLE");
-		TB_CUST cust = new TB_CUST(CUST_ID, CUST_NICK, CUST_CAREER, CUST_IMG, CUST_GIT, CUST_ROLE);
-		System.out.println(cust.getCUST_GIT());
-		int update = service.update(cust);
-
-		if (update > 0) { // DB 저장 성공 
-			return 1;
-		} else {
-			return 0;
-		}
-
-	}
+//	@PostMapping("/update")
+//	public int update(@RequestBody Map<String, String> map) {
+//		String CUST_ID = map.get("cust_ID");
+//		String CUST_NICK = map.get("cust_NICK");
+//		String CUST_CAREER = map.get("cust_CAREER");
+//		String CUST_IMG = map.get("cust_IMG");
+//		String CUST_GIT = map.get("cust_GIT");
+//		String CUST_ROLE = map.get("cust_ROLE");
+//		TB_CUST cust = new TB_CUST(CUST_ID, CUST_NICK, CUST_CAREER, CUST_IMG, CUST_GIT, CUST_ROLE);
+//		System.out.println(cust.getCUST_GIT());
+//		int update = service.update(cust);
+//
+//		if (update > 0) { // DB 저장 성공 
+//			return 1;
+//		} else {
+//			return 0;
+//		}
+//
+//	}
 
 }

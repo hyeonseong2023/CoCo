@@ -27,7 +27,9 @@ interface ContentsProps {
   categoryData: CategoryData[];
 }
 
+
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
+  console.log(categoryData);
   return (
     <div>
       <TopPosts />

@@ -45,5 +45,6 @@ public class TB_BOARD {
 		this.pro_img = pro_img;
 		this.pro_link = pro_link;
 	}
+	
 
 }

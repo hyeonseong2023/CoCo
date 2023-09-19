@@ -32,14 +32,14 @@ public class CustService {
 		return mapper.mypageProject(CUST_ID);
 	}
 
-	// 마이페이지(연필 버튼)
-	public TB_CUST updatePage(String CUST_ID) {
-		return mapper.updatePage(CUST_ID);
-	}
+//	// 마이페이지(연필 버튼)
+//	public TB_CUST updatePage(String CUST_ID) {
+//		return mapper.updatePage(CUST_ID);
+//	}
 
-	// 마이페이지(수정하기 버튼)
-	public int update(TB_CUST cust) {
-		return mapper.update(cust);
-	}
+//	// 마이페이지(수정하기 버튼)
+//	public int update(TB_CUST cust) {
+//		return mapper.update(cust);
+//	}
 
 }
