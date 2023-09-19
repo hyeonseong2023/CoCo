@@ -22,6 +22,7 @@ public class TB_CUST {
 	private String cust_git; // 회원 깃허브 링크 
 	
 	
+
 	public TB_CUST(String cust_id, String cust_nick, String cust_img) {
 		super();
 		this.cust_id = cust_id;
@@ -35,6 +36,7 @@ public class TB_CUST {
 		this.cust_position = cust_position;
 		this.cust_img = null;
 		this.cust_git = cust_git;
+
 	}
 
 

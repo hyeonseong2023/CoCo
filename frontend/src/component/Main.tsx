@@ -43,7 +43,8 @@ const Main: React.FC<MainProps> = ({}) => {
       } catch (error) {
       }
     };
-  
+    console.log(newData);
+    
     fetchData();
   }, []);
   const updateCategoryData = (data: any[]) => {

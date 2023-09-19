@@ -1,16 +1,20 @@
 package com.smhrd.coco.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_CUST;
+import com.smhrd.coco.domain.TB_CUST_SKILL;
 import com.smhrd.coco.domain.TB_PF;
 
 @Mapper
 public interface CustMapper {
+
 	
 	// 마이페이지(기본정보)
 	public List<TB_CUST> mypageCust(String CUST_ID); 
