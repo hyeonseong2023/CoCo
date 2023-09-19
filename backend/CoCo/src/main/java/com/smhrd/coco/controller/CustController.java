@@ -1,22 +1,29 @@
 package com.smhrd.coco.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
-import java.util.List;
+import java.util.UUID;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_CUST;
 import com.smhrd.coco.domain.TB_PF;
 import com.smhrd.coco.service.CustService;
 
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController // 데이터를 반환하는 컨트롤러
 @CrossOrigin("http://localhost:3000")
@@ -25,96 +32,85 @@ public class CustController {
 	@Autowired
 	private CustService service;
 
-	// 마이페이지(기본정보, 포트폴리오)
+	// 마이페이지(유저정보, 포트폴리오, 프로젝트 )
 	@GetMapping("/mypage")
-	public JSONArray myPage(@RequestBody Map<String, String> map) {
-
-		// 프론트에서 아이디(CUST_ID)를 받아오기
-		String CUST_ID = map.get("CUST_ID");
-
-		// 회원 테이블(TB_CUST) 에서 아이디(CUST_ID)에 맞는
-		// 닉네임(CUST_NICK), 경력(CUST_CAREER), 깃허브링크(CUST_GIT), 직군 포지션(CUST_ROLE) 가져오고
-		List<TB_CUST> cust = service.mypageCust(CUST_ID);
-
-		// 포트폴리오 테이블(TB_PF)에서 아이디(CUST_ID)에 맞는
-		// 포트폴리오 제목(PF_TITLE), 파일경로(PF_PATH) 가져오고
-		List<TB_PF> pf = service.mypagePf(CUST_ID);
-
-		// 한 곳에 담아 보내기
-		JSONArray jsonArray = new JSONArray();
-
-		JSONObject obj = new JSONObject();
-		obj.put("TB_CUST", cust);
-		obj.put("TB_PF", pf);
-
-		jsonArray.add(obj);
-
-		return jsonArray;
-
+	public JSONObject myPage(@RequestParam("cust_id") String cust_id) {
+		return service.myPage(cust_id);
 	}
 
-	// 마이페이지(프로젝트)
-	@PostMapping("/project")
-	public JSONArray project(@RequestBody Map<String, String> map) {
-
-		// 프론트에서 아이디(CUST_ID)를 받아오기
-		String CUST_ID = map.get("CUST_ID");
-
-		// 조인 조건 : 게시글 번호(BOARD_ID)
-		// 응모 테이블(TB_APPLY)에서 아이디(CUST_ID) 수락여부(APPROVE_YN)가 Y인 것 중에서
-		// 게시글 테이블(TB_BOARD)와 프로젝트제목(PRO_TITLE)과 사진경로(PRO_IMG) 가져오기
-		List<TB_BOARD> project = service.mypageProject(CUST_ID);
-
-		// 한 곳에 담아 보내기
-		JSONArray jsonArray = new JSONArray();
-
-		JSONObject obj = new JSONObject();
-		obj.put("PROJECT", project);
-
-		jsonArray.add(obj);
-
-		return jsonArray;
-
-	}
-
-	// 마이페이지(연필 버튼)
-	@PostMapping("/updatepage")
-	public JSONObject updatePage(@RequestBody Map<String, String> map) {
-
-		// 프론트에서 아이디(CUST_ID)를 받아오기
-		String CUST_ID = map.get("CUST_ID");
-		System.out.println("CUST_ID : " + map.get("CUST_ID"));
-
-		// 회원 테이블(TB_CUST) 에서 아이디(CUST_ID)에 맞는 정보 가져오기
-		TB_CUST cust = service.updatePage(CUST_ID);
-
-		// 한 곳에 담아 보내기
-		JSONObject obj = new JSONObject();
-		obj.put("CUST", cust);
-
-		return obj;
-
-	}
-
-	// 마이페이지(수정하기 버튼)
-	@PostMapping("/update")
-	public int update(@RequestBody Map<String, String> map) {
-		String CUST_ID = map.get("cust_ID");
-		String CUST_NICK = map.get("cust_NICK");
-		String CUST_CAREER = map.get("cust_CAREER");
-		String CUST_IMG = map.get("cust_IMG");
-		String CUST_GIT = map.get("cust_GIT");
-		String CUST_ROLE = map.get("cust_ROLE");
-		TB_CUST cust = new TB_CUST(CUST_ID, CUST_NICK, CUST_CAREER, CUST_IMG, CUST_GIT, CUST_ROLE);
-		System.out.println(cust.getCUST_GIT());
-		int update = service.update(cust);
-
-		if (update > 0) { // DB 저장 성공 
+	// 마이페이지(수정하기)
+	@PutMapping("/userinfoupdate") // form-data
+	public @ResponseBody int userInfoUpdate(@RequestPart("cust_img1") MultipartFile file, @ModelAttribute TB_CUST cust , Map<String, Object> map ) {
+			
+		//이미지 이름 저장 
+		String newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
+		cust.setCust_img(newFileName);
+		
+		try {
+			// 이미지 file -> 저장(지정된 경로에)
+			file.transferTo(new File(newFileName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// 이미지 기본정보 저장 
+		int update = service.userInfoUpdate(cust);
+		
+		
+		if(update>0) {
+			System.out.println("마이페이지 기본정보 수정 - DB저장성공");
 			return 1;
-		} else {
+		}else {
+			System.out.println("마이페이지 기본정보 수정 - DB저장실패");
 			return 0;
 		}
+		
 
 	}
+	
 
+	// 포트폴리오 추가하기
+	@PostMapping("/pfadd")
+	public int pfAdd(@RequestParam("file") MultipartFile file, @ModelAttribute TB_PF pf ) {
+		
+		//PDF file 기본정보 저장 
+		String newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
+	    pf.setPf_path(newFileName);
+	    
+	    
+		try {
+			// PDF file -> 저장(지정된 경로에)
+			file.transferTo(new File(newFileName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	    
+		
+		// 포트폴리오 정보 저장 
+		int pfAdd = service.pfAdd(pf);
+	    
+		if(pfAdd>0) {
+			System.out.println("DB저장성공");
+			return 1;
+		}else {
+			System.out.println("실패");
+			return 0;
+		}		
+	
+	}
+
+	// 포트폴리오 title 수정
+	@PutMapping("/pftitle")
+	public void pfTitle(@RequestBody Map<String, Object> map) {
+		int pfTitle = service.pfTitle(map);
+	}
+
+	// 포트폴리오 삭제하기
+	@DeleteMapping("/pfdelete")
+	public void pfDelete(@RequestBody Map<String, Object> map) {
+		int pfDelete = service.pfDelete(map);
+	}
 }

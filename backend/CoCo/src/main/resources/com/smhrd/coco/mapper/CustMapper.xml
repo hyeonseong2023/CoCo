@@ -3,41 +3,72 @@
 <mapper namespace="com.smhrd.coco.mapper.CustMapper">
 
 	<!-- 마이페이지(기본정보) -->
-	<select id="mypageCust" resultType="com.smhrd.coco.domain.TB_CUST">
+	<select id="mypageCust"
+		resultType="com.smhrd.coco.domain.TB_CUST">
 		select * from TB_CUST where CUST_ID = #{CUST_ID};
 	</select>
 
 	<!-- 마이페이지(포트폴리오) -->
 	<select id="mypagePf" resultType="com.smhrd.coco.domain.TB_PF">
-		select PF_TITLE, PF_PATH from TB_PF where CUST_ID = #{CUST_ID};
+		select * from
+		TB_PF where CUST_ID = #{CUST_ID};
 	</select>
 
-	<!--마이페이지(프로젝트) 조인 조건 : 게시글 번호(BOARD_ID) 
-		응모 테이블(TB_APPLY)에서 아이디(CUST_ID) 수락여부(APPROVE_YN)가 Y인 것 중에서  
-		게시글 테이블(TB_BOARD)와 프로젝트제목(PRO_TITLE)과 사진경로(PRO_IMG) 가져오기  
-		select B.PRO_TITLE, B.PRO_IMG -->
-	<select id="mypageProject" resultType="com.smhrd.coco.domain.TB_BOARD">
+	<!--마이페이지(프로젝트) 조인 조건 : 게시글 번호(BOARD_ID) 응모 테이블(TB_APPLY)에서 아이디(CUST_ID) 
+		수락여부(APPROVE_YN)가 Y인 것 중에서 게시글 테이블(TB_BOARD)와 프로젝트제목(PRO_TITLE)과 사진경로(PRO_IMG) 
+		가져오기 select B.PRO_TITLE, B.PRO_IMG -->
+	<select id="mypageProject"
+		resultType="com.smhrd.coco.domain.TB_BOARD">
 		select *
 		from TB_BOARD B JOIN TB_APPLY A
-		ON B.BOARD_ID = A.BOARD_ID
+		ON B.BOARD_ID =
+		A.BOARD_ID
 		where A.CUST_ID = #{CUST_ID}
 		and A.APPROVE_YN ='Y' ;
 	</select>
 
-	<!--마이페이지(연필 버튼) -->
-	<select id="updatePage" resultType="com.smhrd.coco.domain.TB_CUST">
-		select * from TB_CUST where CUST_ID = ${CUST_ID};
+	<!-- 마이페이지(회원스킬) -->
+	<select id="custSkill"
+		resultType="com.smhrd.coco.domain.TB_CUST_SKILL">
+		select * from TB_CUST_SKILL where CUST_ID = #{CUST_ID};
 	</select>
 
+
+	<!--마이페이지(연필 버튼) <select id="updatePage" resultType="com.smhrd.coco.domain.TB_CUST"> 
+		select * from TB_CUST where CUST_ID = ${CUST_ID}; </select> -->
+
 	<!--마이페이지(수정하기 버튼) -->
-	<update id="update" parameterType="com.smhrd.coco.domain.TB_CUST" >
+	<update id="userInfoUpdate"
+		parameterType="com.smhrd.coco.domain.TB_CUST">
 		update TB_CUST set
-		CUST_NICK = #{CUST_NICK},
-		CUST_CAREER = #{CUST_CAREER},
-		CUST_IMG = #{CUST_IMG},
-		CUST_GIT = #{CUST_GIT},
-		CUST_ROLE = #{CUST_ROLE}
-		where CUST_ID = #{CUST_ID};
+		CUST_NICK = #{cust_nick},
+		CUST_CAREER =
+		#{cust_career},
+		CUST_IMG =
+		#{cust_img},
+		CUST_GIT = #{cust_git},
+		CUST_POSITION = #{cust_position}
+		where CUST_ID = #{cust_id};
 	</update>
+
+	<!--포트폴리오 추가하기 -->
+	<insert id="pfAdd" parameterType="com.smhrd.coco.domain.TB_PF">
+		insert into TB_PF (CUST_ID,
+		PF_TITLE, PF_PATH) values (#{cust_id},
+		#{pf_title}, #{pf_path});
+	</insert>
+
+	<!--포트폴리오 제목 수정 -->
+	<update id="pfTitle" parameterType="com.smhrd.coco.domain.TB_PF">
+		update TB_PF set PF_TITLE =
+		#{pf_title} where PF_ID = #{pf_id} AND CUST_ID
+		=#{cust_id};
+	</update>
+
+	<!--포트폴리오 삭제 -->
+	<delete id="pfDelete" parameterType="Integer">
+		delete from TB_PF where
+		PF_ID = #{PF_ID} ;
+	</delete>
 
 </mapper>

@@ -27,4 +27,19 @@ public interface CustMapper {
 	// 마이페이지(수정하기 버튼)
 	public int update(TB_CUST cust); 
 	
+	// 마이페이지(회원스킬) 
+	public List<TB_CUST_SKILL> custSkill(String cust_id); 
+
+	// 마이페이지(수정하기)
+	public int userInfoUpdate(TB_CUST cust);
+
+	// 포트폴리오 추가하기
+	public int pfAdd(TB_PF pf);
+
+	// 포트폴리오 title 수정
+	public int pfTitle(TB_PF pf);
+
+	// 포트폴리오 삭제하기
+	public int pfDelete(Integer pf_id);
+
 }
