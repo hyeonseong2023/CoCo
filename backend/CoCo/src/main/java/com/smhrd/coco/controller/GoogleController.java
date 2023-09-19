@@ -148,7 +148,6 @@ public class GoogleController {
        HttpSession session = request.getSession();
        String custId = (String) session.getAttribute("CUST_ID");
        String custImg = (String) session.getAttribute("CUST_IMG");
-
        Map<String, Object> data = new HashMap<>();
        data.put("CUST_ID", custId);
        data.put("CUST_IMG", custImg);
