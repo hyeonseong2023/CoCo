@@ -9,16 +9,16 @@ import TopPosts from './TopPosts';
 
 type MainProps = {};
 
-const Main: React.FC<MainProps> = ({}) => {
+const Main: React.FC<MainProps> = ({ }) => {
   const [categoryData, setCategoryData] = useState<any[]>([]);
   const prevCategoryDataRef = useRef<any[]>([]);
   const [newData, setNewData] = useState<any[]>([]); // 사용할 데이터 상태
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:8099/recent?endpoint=1");
-  
+
         const fetchedData = response.data.map((item: { recentList: any }) => {
           const recentListData = item.recentList;
           return {
@@ -43,7 +43,7 @@ const Main: React.FC<MainProps> = ({}) => {
       } catch (error) {
       }
     };
-  
+
     fetchData();
   }, []);
   const updateCategoryData = (data: any[]) => {
@@ -53,12 +53,35 @@ const Main: React.FC<MainProps> = ({}) => {
   const handleLoginButtonClick = () => {
   };
 
+  //@@@@@@@@@@@@ webrtc 시작
+
+  const handleClick = async () => {
+    // 임의의 방 이름과 사용자 이름 설정
+    const roomName = "room1";
+    const userName = "user1";
+
+    // Node.js 서버에 데이터 저장 요청
+    const response = await axios.post('http://localhost:4000/saveData', {
+      roomName,
+      userName,
+    });
+
+    if (response.status === 200) {
+      window.location.href = 'http://localhost:4000/';
+    } else {
+      console.error("Failed to save data");
+    }
+  };
+
+  //@@@@@@@@@@@@ webrtc 끝
+
   return (
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
+      <button onClick={handleClick}>webrtc</button>
       <TopPosts />
-      <div id="main-Whitespace"/>
+      <div id="main-Whitespace" />
       <CategoryBox onUpdateData={updateCategoryData} />
       <Contents categoryData={newData} />
     </div>

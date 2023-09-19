@@ -109,6 +109,19 @@ public class BoardController {
 	//public 
 	
 	
+	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
+	@PostMapping("/aa")
+	public String getOrCreateProLink() {
+		
+		return "a";
+	}
+	
+	//프로젝트 링크 삭제
+	@PostMapping("/bb")
+	public int deleteProLink() {
+		return 0;
+	}
+	
 	
 	
 
