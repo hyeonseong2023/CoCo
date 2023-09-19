@@ -66,7 +66,7 @@ public class BoardService {
 		int bmk = mapper.selectPostBmk(board_id, board.getCust_id());
 		int apply = mapper.selectPostApply(board_id, board.getCust_id());
 		TB_CUST createCust = mapper.selectPostCust(board.getCust_id());
-		System.out.println(createCust.getCUST_ID());
+		System.out.println(createCust.getCust_id());
 
 		
 		// 게시글 등록일시 시간 빼서 저장하기
@@ -137,7 +137,7 @@ public class BoardService {
 		
 				
 		//회원 프로필 사진 찾아서 바이트 형태로 변환하기
-		File file2 = new File("c:\\cocoImage\\" + createCust.getCUST_IMG());
+		File file2 = new File("c:\\cocoImage\\" + createCust.getCust_img());
 
 		String fileStringValue2 = null;
 		try {
@@ -147,7 +147,7 @@ public class BoardService {
 			e.printStackTrace();
 		}
 		System.out.println(file2);
-		createCust.setCUST_IMG(fileStringValue2);
+		createCust.setCust_img(fileStringValue2);
 		
 
 		// JSONArray 에 모두 담기

@@ -22,7 +22,7 @@ public class TB_CUST {
 	private String cust_git; // 회원 깃허브 링크 
 	
 	
-<<<<<<<<< Temporary merge branch 1
+
 	public TB_CUST(String cust_id, String cust_nick, String cust_img) {
 		super();
 		this.cust_id = cust_id;
