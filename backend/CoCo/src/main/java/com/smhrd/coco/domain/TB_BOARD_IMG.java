@@ -24,6 +24,11 @@ public class TB_BOARD_IMG {
 		board_id = bOARD_ID;
 		BOARD_IMG = bOARD_IMG;
 	}
+	
+	public TB_BOARD_IMG(Integer bOARD_ID) {
+		super();
+		board_id = bOARD_ID;
+	}
     
     
 

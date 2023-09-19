@@ -86,18 +86,17 @@ const Write = () => {
     const period = `${startDateStr}~${endDateStr}`;
 
     const formData = new FormData();
-    formData.append('CUST_ID', Cookies.get('CUST_ID') || '');
-    formData.append('BOARD_MEMBERS', recruitmentInfo.recruitmentCount);
-    formData.append('BOARD_PERIOD', period);
-    formData.append('BOARD_TITLE', title);
-    formData.append('BOARD_CONTENT', content);
-    formData.append('BOARD_OPENTALK', recruitmentInfo.openTalkLink);
-    formData.append('BOARD_POSITION', recruitmentInfo.position);
-    formData.append('PRO_TITLE', 'Project Title');
-    formData.append('PRO_LINK', recruitmentInfo.openTalkLink);
-    formData.append('SKILL_ID', '1');
-    formData.append('BOARD_DEADLINE', recruitmentInfo.deadline);
-    formData.append('BOARD_VIEWS', '0');
+    formData.append('cust_id', Cookies.get('CUST_ID') || '');
+    formData.append('board_members', recruitmentInfo.recruitmentCount);
+    formData.append('board_period', period);
+    formData.append('board_title', title);
+    formData.append('board_content', content);
+    formData.append('board_openlink', recruitmentInfo.openTalkLink);
+    formData.append('board_position', recruitmentInfo.position);
+    formData.append('pro_title', 'Project Title');
+    formData.append('pro_link', recruitmentInfo.openTalkLink);
+    formData.append('board_deadline', recruitmentInfo.deadline);
+    formData.append('board_views', '0');
     formData.append('SKILL_NAME', recruitmentInfo.techStack.join(', '));
 
     images.forEach((file) => {

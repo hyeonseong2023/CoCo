@@ -30,8 +30,9 @@ interface ContentsProps {
   categoryData: CategoryData[];
 }
 
+
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
-  
+
   return (
     <div>
       <div id='Contents-box'>
