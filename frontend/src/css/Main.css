@@ -2,4 +2,9 @@
 #main-Whitespace{
     height: 8vh;
     background-color: rgb(255, 255, 255);
+    padding: 20px;
+}
+
+.main-div{
+    padding: 3.5%;
 }

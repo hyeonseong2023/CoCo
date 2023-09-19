@@ -27,12 +27,6 @@ select option:checked {
 
 .category{
   display: flex;
-  
-}
-
-.categoryA{
-  width: 20%;
-  margin-left: 10%;
 }
 
 .category{

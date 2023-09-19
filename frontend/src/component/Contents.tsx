@@ -27,7 +27,6 @@ interface ContentsProps {
 }
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
-  console.log(categoryData);
   
   return (
     <div>

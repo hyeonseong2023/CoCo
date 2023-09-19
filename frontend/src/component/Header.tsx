@@ -7,6 +7,9 @@ import JoinModel from './JoinModal';
 import Cookies from 'js-cookie';
 import img from '../img/normal.png'
 import write from '../img/writeA.png'
+
+import login from '../img/Login.png'
+
 type HeaderProps = {
   onLoginButtonClick?: () => void;
 };
@@ -55,21 +58,24 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
     <div className="header-container">
       <div className="header-logo"><a href='/'><img src={logoimg} alt="" /></a></div>
       <div className="header-buttons">
-      <Link to="/write">
-    <img src={write} alt="" className='profileimage' />
-  </Link>
-        {isLoggedIn ? (
-    <Link to="/mypage">
-    <img src={img} alt="" className='profileimage' />
-  </Link>
-        ) : (
-          <button id="login-button" onClick={isModalOpen ? closeModal : openModal}>
-            로그인
-          </button>
-        )}
-        {custImg === "0" && Cookies.get('coin') === "on" && (
-          <JoinModel onClose={handleJoinModelClose} />
-        )}
+        <div className='header-buttons-div'>
+          <Link to="/write" className='writeicon'>
+            <img src={write} alt="" className='profileimage' />
+          </Link>
+          {isLoggedIn ? (
+            <Link to="/mypage" className='mypageicon'>
+              <img src={img} alt="" className='profileimage' />
+            </Link>
+          ) : (
+            <button id="login-button" onClick={isModalOpen ? closeModal : openModal}>
+              <img src={login} alt="" className='profileimage' />
+            </button>
+
+          )}
+          {custImg === "0" && Cookies.get('coin') === "on" && (
+            <JoinModel onClose={handleJoinModelClose} />
+          )}
+        </div>
       </div>
       {isModalOpen && (
         <Login onClose={closeModal} />

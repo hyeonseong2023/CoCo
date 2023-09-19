@@ -19,7 +19,6 @@ const Main: React.FC<MainProps> = ({}) => {
       try {
         const response = await axios.get("http://localhost:8099/recent?endpoint=1");
   
-        // 받아온 데이터를 저장할 배열
         const fetchedData = response.data.map((item: { recentList: any }) => {
           const recentListData = item.recentList;
           return {
