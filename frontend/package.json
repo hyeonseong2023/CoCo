@@ -16,9 +16,6 @@
 
     "bootstrap": "^5.3.2",
     "firebase": "^10.4.0",
-=========
-    "firebase": "^10.3.1",
->>>>>>>>> Temporary merge branch 2
     "http-proxy-middleware": "^2.0.6",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
