@@ -1,6 +1,4 @@
-/* Write.css */
 
-/* 전체 페이지 컨테이너 스타일링 */
 .write-container {
 
     margin: 0 auto;
@@ -9,7 +7,6 @@
     align-items: center;
   }
   
-  /* 폼 컨테이너 스타일링 */
   .write-content {
     background-color: #f7f7f7;
     border: 1px solid #ccc;
@@ -19,20 +16,17 @@
     box-sizing: border-box;
   }
   
-  /* 폼 그룹 스타일링 */
   .form-group {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
   }
   
-  /* 레이블 스타일링 */
   label {
     font-weight: bold;
     margin-bottom: 5px;
   }
   
-  /* 입력 필드 스타일링 */
   .input-field,
   .select-field {
     width: 100%;
@@ -43,13 +37,10 @@
     margin-top: 5px;
   }
   
-  /* 오픈톡 링크 레이블 스타일링 */
   .openTalkLink-label {
     margin-right: 10px;
-    /* 오픈톡 링크 레이블 오른쪽에 공백 추가 */
   }
   
-  /* 제출 버튼 스타일링 */
   .submit-button {
     background-color: #007bff;
     color: #fff;
@@ -61,7 +52,6 @@
     margin-top: 20px;
   }
   
-  /* 이미지 미리보기 및 삭제 버튼 스타일링 */
   .image-preview-item {
     display: flex;
     align-items: center;
@@ -84,20 +74,18 @@
     font-size: 14px;
   }
   
-  /* 열의 수를 조정하는 스타일 */
   .form-group-form-groups {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
     gap: 10px; 
   }
   
-  /* 반응형 스타일링 */
   @media screen and (max-width: 600px) {
 
     .input-field,
   .select-field {
     font-size: 14px;
-    padding: 8px 16px; /* 패딩을 조절하여 더 작은 화면에서도 적절한 디자인을 유지 */
+    padding: 8px 16px;
   }
     .form-group {
       margin-bottom: 10px;
@@ -126,20 +114,42 @@
     margin-top: 5px;
     height: 43.64px;
   }
-  
-  /* 반응형 스타일 */
   @media screen and (max-width: 600px) {
     .custom-select .css-b62m3t-container {
-      /* 화면 크기가 작을 때의 스타일을 추가합니다. */
       font-size: 14px;
       padding: 8px 16px;
     }
   }
   .custom-select .css-b62m3t-container {
-    /* 여기에 스타일을 추가합니다. */
     font-size: 14px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
 
+  .cancel-submit-buttons {
+    margin-top: 30px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .cancel-button {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .cancel-button:hover {
+  background-color: #999; /* 호버 시 배경색 변경 */
+  color: #fff; /* 호버 시 글자색 변경 */
+}
+
+.submit-button:hover{
+  background-color: #003cb5; /* 호버 시 배경색 변경 */
+}

@@ -1,11 +1,12 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Header from './Header';
-import 'react-datepicker/dist/react-datepicker.css';
-import Select, { components } from 'react-select';
+import Select from 'react-select';
 import '../css/Write.css';
 import Cookies from 'js-cookie';
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Quill 스타일 임포트
+import { Link } from 'react-router-dom';
+
 const Write = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -14,7 +15,7 @@ const Write = () => {
 
   const [recruitmentInfo, setRecruitmentInfo] = useState({
     recruitmentCount: '1',
-    techStack: [] as string[], // 초기값을 빈 문자열 배열로 설정
+    techStack: [] as string[],
     duration: '1',
     position: '',
     startDate: new Date(),
@@ -22,19 +23,22 @@ const Write = () => {
     openTalkLink: '',
     deadline: '',
   });
+
   const modules = {
     toolbar: {
       container: [
-        ["image"],
+        ['image'],
         [{ header: [1, 2, 3, 4, 5, false] }],
-        ["bold", "underline"],
+        ['bold', 'underline'],
       ],
     },
   };
+
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
-  const handleContentChange = (value: string, delta: DeltaStatic, source: Sources, editor: UnprivilegedEditor) => {
+
+  const handleContentChange = (value: string) => {
     setContent(value);
   };
 
@@ -109,7 +113,7 @@ const Write = () => {
       if (response.status === 200) {
         console.log('게시글이 성공적으로 저장되었습니다.');
       } else {
-        alert("게시글 작성 실패")
+        alert('게시글 작성 실패');
       }
     } catch (error) {
       console.error('오류 발생: ', error);
@@ -138,13 +142,10 @@ const Write = () => {
     { value: 'Spring', label: 'Spring' },
     { value: 'C', label: 'C' },
   ];
-  const limitedTechStackOptions = techStackOptions.slice(0, 3);
 
   return (
-
     <div className="write-container">
       <Header />
-
       <form className="write-form" onSubmit={handleSubmit}>
         <div className="write-container-box">
           <div className="write-submitSet">
@@ -198,7 +199,7 @@ const Write = () => {
                     );
                   }
                 }}
-                className="custom-select" // 커스텀 클래스 이름을 추가합니다.
+                className="custom-select"
               />
             </div>
             <div className="form-subgroup form-subgroup-spacing">
@@ -230,8 +231,20 @@ const Write = () => {
                 className="input-field"
               />
             </div>
-            <div className="form-subgroup form-subgroup-spacing">
+            <div className="form-subgroupform-subgroup-spacing">
               <label htmlFor="openTalkLink">오픈톡 링크</label>
+              <input
+                type="text"
+                id="openTalkLink"
+                name="openTalkLink"
+                value={recruitmentInfo.openTalkLink}
+                onChange={(e) => handleRecruitmentInfoChange(e.target.name, e.target.value)}
+                className="input-field"
+              />
+            </div>
+
+            <div className="form-subgroupform-subgroup-spacing">
+              <label htmlFor="openTalkLink"> 모집 구분</label>
               <input
                 type="text"
                 id="openTalkLink"
@@ -244,7 +257,7 @@ const Write = () => {
           </div>
 
           <div className="form-subgroup form-subgroup-spacing">
-            <label htmlFor="image">이미지 업로드</label>
+            <label htmlFor="image">파일 업로드</label>
             <input
               type="file"
               id="image"
@@ -265,27 +278,29 @@ const Write = () => {
               ))}
             </div>
           )}
-<ReactQuill
-  style={{ width: "800px", height: "600px" }}
-  modules={modules}
-  value={content}
-  onChange={handleContentChange}
-/>
+
 
           <div className="form-group form-group-spacing">
             <label htmlFor="content">내용</label>
-            <textarea
-              id="content"
+            <ReactQuill
+              style={{ width: '800px', height: '600px' }}
+              modules={modules}
               value={content}
               onChange={handleContentChange}
-              required
-              className="textarea-field"
             />
           </div>
 
-          <button type="submit" className="submit-button">
-            작성
-          </button>
+          <div className="cancel-submit-buttons">
+            <Link to={'/'}>
+            <button type="button" className="cancel-button">
+              작성 취소
+            </button>
+            </Link>
+            <button type="submit" className="submit-button">
+              작성
+            </button>
+          </div>
+
         </div>
       </form>
     </div>

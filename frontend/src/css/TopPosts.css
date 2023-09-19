@@ -47,3 +47,10 @@
     margin-right: 1%;
 }
 
+.top-posts-slide-content{
+    font-size: 13px;
+}
+
+.top-posts-slide-content.expired {
+    border-color: red; /* 붉은색 테두리 스타일 추가 */
+  }

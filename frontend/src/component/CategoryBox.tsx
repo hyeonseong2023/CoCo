@@ -1,3 +1,4 @@
+// CategoryBox.tsx
 import React, { useState } from 'react';
 import Select from 'react-select';
 import '../css/Category.css';
@@ -14,9 +15,9 @@ interface CategoryBoxProps {
 const CategoryBox: React.FC<CategoryBoxProps> = ({ onUpdateData }) => {
   // 각 셀렉트 박스에 대한 별도의 상태와 옵션 배열 생성
   const [selectedCategory1, setSelectedCategory1] = useState<CategoryOption>({ value: "전체", label: "전체" });
-  const [selectedCategory2, setSelectedCategory2] = useState<CategoryOption>({ value: "전체", label: "전체" });
-  const [selectedCategory3, setSelectedCategory3] = useState<CategoryOption>({ value: "전체", label: "전체" });
-  const [selectedCategory4, setSelectedCategory4] = useState<CategoryOption>({ value: "전체", label: "전체" });
+  const [selectedCategory2, setSelectedCategory2] = useState<CategoryOption>({ value: "언어옵션", label: "언어옵션" });
+  const [selectedCategory3, setSelectedCategory3] = useState<CategoryOption>({ value: "포지션", label: "포지션" });
+  const [selectedCategory4, setSelectedCategory4] = useState<CategoryOption>({ value: "진행방식", label: "진행방식" });
 
   // 각 셀렉트 박스에 대한 카테고리 옵션 배열 생성
   const categoryOptions1: CategoryOption[] = [
@@ -26,19 +27,19 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ onUpdateData }) => {
   ];
 
   const categoryOptions2: CategoryOption[] = [
-    { value: "전체", label: "전체" },
+    { value: "언어옵션", label: "전체" },
     { value: "옵션1", label: "옵션1" },
     { value: "옵션2", label: "옵션2" },
   ];
 
   const categoryOptions3: CategoryOption[] = [
-    { value: "전체", label: "전체" },
+    { value: "포지션", label: "포지션" },
     { value: "카테고리1", label: "카테고리1" },
     { value: "카테고리2", label: "카테고리2" },
   ];
 
   const categoryOptions4: CategoryOption[] = [
-    { value: "전체", label: "전체" },
+    { value: "진행방식", label: "진행방식" },
     { value: "카테고리1", label: "카테고리1" },
     { value: "카테고리2", label: "카테고리2" },
   ];
@@ -93,27 +94,28 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ onUpdateData }) => {
               options={categoryOptions2}
               value={selectedCategory2}
               onChange={(selectedOption) => handleSelectChange2(selectedOption)}
+              className="select-box" // 추가: 커스텀 스타일을 적용하기 위한 클래스
             />
           </div>
         </div>
-        <div className='category_main'>
           <div className='category'>
             <div className='categoryA'>
               <Select
                 options={categoryOptions3}
                 value={selectedCategory3}
                 onChange={(selectedOption) => handleSelectChange3(selectedOption)}
+                className="select-box" // 추가: 커스텀 스타일을 적용하기 위한 클래스
               />
             </div>
-          </div>
+            </div>
           <div className='category'>
             <div className='categoryA'>
               <Select
                 options={categoryOptions4}
                 value={selectedCategory4}
                 onChange={(selectedOption) => handleSelectChange4(selectedOption)}
+                className="select-box" // 추가: 커스텀 스타일을 적용하기 위한 클래스
               />
-            </div>
           </div>
         </div>
         <div className='category'>

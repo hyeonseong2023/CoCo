@@ -33,7 +33,7 @@ const TopPosts = () => {
         board_deadline: item.popularList.board_deadline,
         board_position: item.popularList.board_position,
       }));
-
+      
       setSlideContents(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -57,10 +57,13 @@ const TopPosts = () => {
     slidesPerRow: 1,
   };
 
+  // 현재 날짜 가져오기
+  const today = new Date();
+
   return (
     <div className='TopPostsC'>
       <div className='TopPostsCo'>
-        <div className='TopPostsCon'> 주간인기글 </div>
+        <div className='TopPostsCon'> <h2>인기글</h2><br/><br/><br/> </div>
         <div className='TopPostsConi'>
           <button onClick={previousSlide}>이전</button>
           <button onClick={nextSlide}>다음</button>
@@ -68,15 +71,33 @@ const TopPosts = () => {
       </div>
       <div className="data-container">
         <Slider ref={sliderRef} {...settings}>
-          {slideContents.map((data, index) => (
-            <Link to={`/Contents/${data.id}`} key={index} state={data}>
-              <div className="top-posts-slide-content" key={index}>
-                <div>{data.board_deadline}</div>
-                <div>{data.title}</div>
-                <div>{data.board_position}</div>
-              </div>
-            </Link>
-          ))}
+          {slideContents.map((data, index) => {
+            // 마감일을 Date 객체로 변환
+            const deadlineDate = new Date(data.board_deadline);
+            
+            // 현재 날짜를 밀리초로 변환
+            const todayMillis = today.getTime();
+            // 마감일을 밀리초로 변환
+            const deadlineMillis = deadlineDate.getTime();
+            // 밀리초를 일로 변환
+            const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
+            const isExpired = daysDifference < 0;
+            const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
+
+            return (
+              <Link to={`/Contents/${data.id}`} key={index} state={data}>
+                <div className={contentClassName} key={index}>
+                  <div className='toptitle'>{data.title}</div>
+                  <div>{data.board_position}</div>
+                  {isExpired ? (
+                    <div>모집 종료</div>
+                  ) : (
+                    <div>남은 일 수: {daysDifference}일</div>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
         </Slider>
       </div>
     </div>

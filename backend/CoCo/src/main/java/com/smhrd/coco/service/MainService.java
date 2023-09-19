@@ -39,7 +39,7 @@ public class MainService {
 
 	// 북마크 저장	
 	public int bookmarkCheck(TB_BOOKMARK book) {	
-		return mapper.bookmarkCheck(book.getCUST_ID(), book.getBOARD_ID());	
+		return mapper.bookmarkCheck(book.getCUST_ID(), book.get);	
 	}	
 
 	// 북마크된 게시글만 불러오기	
@@ -130,6 +130,6 @@ public class MainService {
 		}	
 		return jsonArray;	
 
-	}	
+	}
 
 }

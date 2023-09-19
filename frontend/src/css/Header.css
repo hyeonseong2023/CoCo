@@ -65,7 +65,7 @@
   text-align: right;
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* 오른쪽 끝에 세로 중앙 정렬 */
+  justify-content: flex-end;
 }
 
 .mypageicon > img {
@@ -77,12 +77,12 @@
   align-items: center;
 }
 
-/* 이미지를 감싸는 컨테이너에 둥근 마스크를 적용합니다. */
+
 .mypageicon {
-  width: 50px; /* 이미지 컨테이너의 너비를 조절하세요. */
+  width: 50px; 
   min-width: 50px;
   min-height: 50px;
-  height: 50px; /* 이미지 컨테이너의 높이를 조절하세요. */
+  height: 50px; 
   overflow: hidden;
   border-radius: 40%;
   border: solid #4598FF 4px;
@@ -95,10 +95,24 @@
   
 }
 
-.writeicon{
-  margin-right: 5%;
+
+.writeicon >button{
+  width: auto;
+  height: auto;
+}
+
+.header-buttons-div> a{
+  margin: 5%;
+}
+
+.header-buttons-div > a> button{
+  white-space : nowrap;
+}
+
+.header-buttons-div button, .header-buttons-div img {
+  margin-right: 3% 
 }
 
 .header-buttons-div{
-  width: 25%;
+  margin-right: 3%;
 }

@@ -51,10 +51,15 @@ select option:checked {
 }
 
 .category_main > div {
-  margin-left: 3%; 
+  margin-left: 1%; 
 }
 
 .category{
   display: flex; 
   align-items: center; 
+  width: 140PX;
+}
+
+.category_main > div >div >div{
+  width : 100%;
 }

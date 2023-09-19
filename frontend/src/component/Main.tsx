@@ -46,7 +46,6 @@ const Main: React.FC<MainProps> = ({}) => {
   };
 
   useEffect(() => {
-    // 페이지 로딩 시 기본 카테고리로 데이터 가져오기
     fetchData(selectedCategory);
   }, [selectedCategory]);
 
@@ -55,12 +54,13 @@ const Main: React.FC<MainProps> = ({}) => {
   };
 
   function handleLoginButtonClick(): void {
-    // 로그인 버튼 클릭 처리
   }
-
+  console.log(selectedCategory);
+  
   return (
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
+      <hr className='main-hr'/>
       <Banner />
       <TopPosts />
       <CategoryBox onUpdateData={updateCategoryData} />

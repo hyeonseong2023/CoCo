@@ -3,7 +3,10 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../css/Banner.css';
-import Bimg from '../img/imgB.png';
+import imgA from '../img/Banner_A.png';
+import imgB from '../img/Banner_B.png';
+import imgC from '../img/Banner_C.png';
+
 
 const Banner = () => {
   const settings = {
@@ -20,20 +23,21 @@ const Banner = () => {
 
   const slideContents = [
     {
-      image: `${Bimg}`,
+      image: `${imgA}`,
       altText: '이미지 1',
       caption: '',
       link: 'https://www.musinsa.com/app/',
     },
     {
       image:
-        'https://lh3.googleusercontent.com/-WLUHtnzZL_dHATAmOgjvKyl0ZhTEu4edNBC8u6EB4i0TilKAQbN60CWXwLkg3ZrcUs=w895-rwa',
+        `${imgB}`,
       altText: '이미지 2',
       caption: '',
       link: 'https://www.notion.so/ko-kr',
     },
     {
-      image: 'https://static-cse.canva.com/blob/649373/createbanners.jpg',
+      image:
+        `${imgC}`,
       altText: '이미지 3',
       caption: '',
       link: '',
