@@ -4,7 +4,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select, { components } from 'react-select';
 import '../css/Write.css';
 import Cookies from 'js-cookie';
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 const Write = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -21,13 +22,20 @@ const Write = () => {
     openTalkLink: '',
     deadline: '',
   });
-
+  const modules = {
+    toolbar: {
+      container: [
+        ["image"],
+        [{ header: [1, 2, 3, 4, 5, false] }],
+        ["bold", "underline"],
+      ],
+    },
+  };
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
-
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+  const handleContentChange = (value: string, delta: DeltaStatic, source: Sources, editor: UnprivilegedEditor) => {
+    setContent(value);
   };
 
   const handleRecruitmentInfoChange = (name: string, value: any) => {
@@ -72,7 +80,7 @@ const Write = () => {
     const startDateStr = recruitmentInfo.startDate.toISOString().split('T')[0];
     const endDateStr = recruitmentInfo.endDate.toISOString().split('T')[0];
     const period = `${startDateStr}~${endDateStr}`;
-    
+
     const formData = new FormData();
     formData.append('CUST_ID', Cookies.get('CUST_ID') || '');
     formData.append('BOARD_MEMBERS', recruitmentInfo.recruitmentCount);
@@ -131,9 +139,9 @@ const Write = () => {
     { value: 'C', label: 'C' },
   ];
   const limitedTechStackOptions = techStackOptions.slice(0, 3);
-  
+
   return (
-    
+
     <div className="write-container">
       <Header />
 
@@ -174,25 +182,25 @@ const Write = () => {
               </select>
             </div>
             <div className="form-subgroup form-subgroup-spacing">
-          <label htmlFor="techStack">기술 스택</label>
-          <Select
-  id="techStack"
-  name="techStack"
-  options={techStackOptions}
-  isMulti
-  value={techStackOptions.filter((option) =>
-    selectedTechStack.includes(option.value)
-  )}
-  onChange={(selectedOptions: any) => {
-    if (selectedOptions.length <= 3) {
-      setSelectedTechStack(
-        selectedOptions.map((option: any) => option.value)
-      );
-    }
-  }}
-  className="custom-select" // 커스텀 클래스 이름을 추가합니다.
-/>
-        </div>
+              <label htmlFor="techStack">기술 스택</label>
+              <Select
+                id="techStack"
+                name="techStack"
+                options={techStackOptions}
+                isMulti
+                value={techStackOptions.filter((option) =>
+                  selectedTechStack.includes(option.value)
+                )}
+                onChange={(selectedOptions: any) => {
+                  if (selectedOptions.length <= 3) {
+                    setSelectedTechStack(
+                      selectedOptions.map((option: any) => option.value)
+                    );
+                  }
+                }}
+                className="custom-select" // 커스텀 클래스 이름을 추가합니다.
+              />
+            </div>
             <div className="form-subgroup form-subgroup-spacing">
               <label htmlFor="duration">진행 기간</label>
               <select
@@ -257,6 +265,12 @@ const Write = () => {
               ))}
             </div>
           )}
+<ReactQuill
+  style={{ width: "800px", height: "600px" }}
+  modules={modules}
+  value={content}
+  onChange={handleContentChange}
+/>
 
           <div className="form-group form-group-spacing">
             <label htmlFor="content">내용</label>

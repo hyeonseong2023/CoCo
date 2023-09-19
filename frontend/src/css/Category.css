@@ -32,3 +32,29 @@ select option:checked {
 .category{
   height: 100px;
 }
+
+.studyOrProject_category{
+  display: flex;
+}
+
+
+.studyOrProject_category > div {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 3%;
+}
+
+.category_main {
+  display: flex; /* 자식 요소들을 가로로 배치하는 flex 컨테이너로 설정 */
+  align-items: center; 
+}
+
+.category_main > div {
+  margin-left: 3%; 
+}
+
+.category{
+  display: flex; 
+  align-items: center; 
+}
