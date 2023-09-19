@@ -1,7 +1,56 @@
-.TopPostsC{
-    margin-left: 10%;
+.top-posts-slide-content {
+    border-radius: 20px;
+    border: 2px solid rgb(209, 209, 209);
+    background: rgb(255, 255, 255);
+    height: 140px;
+    margin-right: 20px; /* 오른쪽 간격 설정 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    padding: 10%;
+    width: 60%;
+  }
+
+
+.top-posts-slide-content > div{
+    height: 33%;
 }
 
-.data-container{
+.TopPostsPopularPosts{
+    margin: 3%;
+}
+.slick-prev, .slick-next {
+    display: none !important;
+  }
+
+.custom-prev-arrow, .custom-next-arrow{
+    display: none !important;
+}
+
+.TopPostsCo{
     display: flex;
 }
+
+.TopPostsCon{
+    display: flex;
+}
+
+.TopPostsConi{
+    flex: 1; 
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 2%;
+}
+
+.TopPostsConi > button{
+    margin-right: 1%;
+}
+
+.top-posts-slide-content{
+    font-size: 13px;
+}
+
+.top-posts-slide-content.expired {
+    border-color: red; /* 붉은색 테두리 스타일 추가 */
+  }

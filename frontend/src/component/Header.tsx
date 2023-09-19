@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
       <div className="header-buttons">
         <div className='header-buttons-div'>
           <Link to="/write" className='writeicon'>
-            <img src={write} alt="" className='profileimage' />
+              <button>모집글 작성</button>
           </Link>
           {isLoggedIn ? (
             <Link to="/mypage" className='mypageicon'>
