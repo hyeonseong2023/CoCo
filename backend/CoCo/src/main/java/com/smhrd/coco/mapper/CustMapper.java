@@ -14,6 +14,7 @@ import com.smhrd.coco.domain.TB_PF;
 
 @Mapper
 public interface CustMapper {
+<<<<<<<<< Temporary merge branch 1
 	
 	// 마이페이지(기본정보)
 	public List<TB_CUST> mypageCust(String CUST_ID); 

@@ -28,7 +28,6 @@ interface ContentsProps {
 
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
-  
   return (
     <div>
       <div id='Contents-box'>

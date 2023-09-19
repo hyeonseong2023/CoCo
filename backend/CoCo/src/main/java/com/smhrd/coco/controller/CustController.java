@@ -38,6 +38,7 @@ public class CustController {
 		return service.myPage(cust_id);
 	}
 
+<<<<<<<<< Temporary merge branch 1
 	// 마이페이지(수정하기)
 	@PutMapping("/userinfoupdate") // form-data
 	public @ResponseBody int userInfoUpdate(@RequestPart("cust_img1") MultipartFile file, @ModelAttribute TB_CUST cust , Map<String, Object> map ) {
@@ -107,6 +108,7 @@ public class CustController {
 	public void pfTitle(@RequestBody Map<String, Object> map) {
 		int pfTitle = service.pfTitle(map);
 	}
+
 
 	// 포트폴리오 삭제하기
 	@DeleteMapping("/pfdelete")
