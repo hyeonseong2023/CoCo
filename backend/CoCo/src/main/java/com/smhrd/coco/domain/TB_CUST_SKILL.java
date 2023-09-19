@@ -13,8 +13,15 @@ import lombok.ToString;
 @ToString
 public class TB_CUST_SKILL {
 
-	private Integer SKILL_SEQ;	
-	private String CUST_ID; // 회원 아이디	
-	private String SKILL_NAME; // 스킬 이름 
+	private Integer skill_seq;	
+	private String cust_id; // 회원 아이디	
+	private String skill_name; // 스킬 이름 
+	
+	
+	public TB_CUST_SKILL(String cust_id, String skill_name) {
+		super();
+		this.cust_id = cust_id;
+		this.skill_name = skill_name;
+	}
 
 }

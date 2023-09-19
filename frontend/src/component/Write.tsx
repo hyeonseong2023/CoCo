@@ -1,8 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Header from './Header';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Select, { components } from 'react-select'; // react-select 추가
+import Select, { components } from 'react-select';
 import '../css/Write.css';
 import Cookies from 'js-cookie';
 
@@ -73,7 +72,7 @@ const Write = () => {
     const startDateStr = recruitmentInfo.startDate.toISOString().split('T')[0];
     const endDateStr = recruitmentInfo.endDate.toISOString().split('T')[0];
     const period = `${startDateStr}~${endDateStr}`;
-
+    
     const formData = new FormData();
     formData.append('cust_id', Cookies.get('CUST_ID') || '');
     formData.append('board_members', recruitmentInfo.recruitmentCount);
@@ -101,7 +100,7 @@ const Write = () => {
       if (response.status === 200) {
         console.log('게시글이 성공적으로 저장되었습니다.');
       } else {
-        console.error('게시글 저장 실패');
+        alert("게시글 작성 실패")
       }
     } catch (error) {
       console.error('오류 발생: ', error);
@@ -131,7 +130,9 @@ const Write = () => {
     { value: 'C', label: 'C' },
   ];
   const limitedTechStackOptions = techStackOptions.slice(0, 3);
+  
   return (
+    
     <div className="write-container">
       <Header />
 

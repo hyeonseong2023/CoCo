@@ -14,22 +14,30 @@ import lombok.ToString;
 public class TB_CUST {
 
 
-	private String CUST_ID; //회원 아이디 
-	private String CUST_NICK; // 회원 닉네임
-	private String CUST_CAREER; // 회원 경력
-	private String CUST_POSITION; // 회원 포지션 (한개 선택) 
-	private String CUST_IMG; // 회원 프로필 사진 이미지 경로 
-	private String CUST_GIT; // 회원 깃허브 링크 
+	private String cust_id; //회원 아이디 
+	private String cust_nick; // 회원 닉네임
+	private String cust_career; // 회원 경력
+	private String cust_position; // 회원 포지션 (한개 선택) 
+	private String cust_img; // 회원 프로필 사진 이미지 경로 
+	private String cust_git; // 회원 깃허브 링크 
 	
 	
-	
-	public TB_CUST(String CUST_ID, String CUST_NICK, String CUST_IMG) {
+	public TB_CUST(String cust_id, String cust_nick, String cust_img) {
 		super();
-		this.CUST_ID = CUST_ID;
-		this.CUST_NICK = CUST_NICK;
-		this.CUST_IMG = CUST_IMG;
+		this.cust_id = cust_id;
+		this.cust_nick = cust_nick;
+		this.cust_img = cust_img;
 	}
-	
+	public TB_CUST(String cust_id, String cust_nick, String cust_career, String cust_position, String cust_git) {
+		this.cust_id = cust_id;
+		this.cust_nick = cust_nick;
+		this.cust_career = cust_career; // 회원 경력
+		this.cust_position = cust_position;
+		this.cust_img = null;
+		this.cust_git = cust_git;
+	}
 
+
+	
 	
 }
