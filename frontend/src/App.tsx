@@ -4,10 +4,10 @@ import Main from "./component/Main";
 import Write from "./component/Write";
 import Mypage from "./component/Mypage";
 import Check from "./component/Check";
-import KakaoCallback from './component/Kakao/KakaoCallback';
-import './App.css';
-import ProjectPage from './component/Project/ProjectPage';
-import SinglePage from './component/SinglePage';
+import KakaoCallback from "./component/Kakao/KakaoCallback";
+import "./App.css";
+import ProjectPage from "./component/Project/ProjectPage";
+import SinglePage from "./component/SinglePage";
 
 const App: React.FC = () => {
   return (
@@ -18,12 +18,14 @@ const App: React.FC = () => {
           <Route path="/" element={<Main />} /> {/* 기본 경로 */}
           <Route path="/Mypage" element={<Mypage />} /> {/* 마이페이지 경로 */}
           <Route path="/callback/*" element={<Main />} /> {/* 기본 경로 */}
-          <Route path='/Check' element={<Check />} />
-          <Route path='/auth/kakao/callback' element={<KakaoCallback />} />
-          <Route path='/pp' element={<ProjectPage />} />
+          <Route path="/Check" element={<Check />} />
+          <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
           <Route path="/Contents/:id" element={<SinglePage />} />
         </Routes>
       </div>
+      <Routes>
+        <Route path="/pp" element={<ProjectPage />} />
+      </Routes>
     </Router>
   );
 };

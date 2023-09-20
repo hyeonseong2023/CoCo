@@ -119,6 +119,10 @@ const removePlanner = (path: string) => {
   remove(ref(db, path));
 };
 
+const updatePlanner = (path: string, data: any) => {
+  update(ref(db, path), data);
+};
+
 export {
   getContents,
   addOnValue,
@@ -128,4 +132,5 @@ export {
   getPlanner,
   addPlanner,
   removePlanner,
+  updatePlanner,
 };
