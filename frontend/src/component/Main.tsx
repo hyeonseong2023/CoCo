@@ -55,23 +55,54 @@ const Main: React.FC<MainProps> = ({ }) => {
 
   //@@@@@@@@@@@@ webrtc 시작
 
+  // 임시로 board_id 설정
+  const BOARD_ID = 2;
+
+  // 제출 버튼 클릭 시 board_id Back으로 전송
   const handleClick = async () => {
-    // 임의의 방 이름과 사용자 이름 설정
-    const roomName = "room1";
-    const userName = "user1";
-
-    // Node.js 서버에 데이터 저장 요청
-    const response = await axios.post('http://localhost:4000/saveData', {
-      roomName,
-      userName,
-    });
-
-    if (response.status === 200) {
-      window.location.href = 'http://localhost:4000/';
-    } else {
-      console.error("Failed to save data");
-    }
+    // http://localhost:8099/webrtc 로 요청
+    // 보낼 때 board_id도 같이 보내야 함
+    axios.get('http://localhost:8099/webrtc', { params: { board_id: BOARD_ID } })
+      .then(async (res) => {
+        // res.data : 프로젝트 링크 uuid
+        const roomName = res.data;
+        // 임시 유저 이름, 후에 세션의 닉네임 받아서 넣어야 함
+        const userName = "user1";
+        const response = await axios.post('http://localhost:4000/saveData', {
+          roomName,
+          userName,
+        });
+        // 클라이언트 측에서 서버로부터 받은 HTTP 응답의 상태 코드를 확인하는 부분
+        // 200 : 성공
+        if (response.status === 200) {
+          window.location.href = 'http://localhost:4000/';
+        } else {
+          console.error("Failed to save data");
+        }
+      })
+      .catch((error) => {
+        console.log('' + error);
+      });
   };
+
+  // ### 노드와 연결 ###
+  // const handleClick = async () => {
+  //   // 임의의 방 이름과 사용자 이름 설정
+  //   const roomName = "room1";
+  //   const userName = "user1";
+
+  //   // Node.js 서버에 데이터 저장 요청
+  //   const response = await axios.post('http://localhost:4000/saveData', {
+  //     roomName,
+  //     userName,
+  //   });
+
+  //   if (response.status === 200) {
+  //     window.location.href = 'http://localhost:4000/';
+  //   } else {
+  //     console.error("Failed to save data");
+  //   }
+  // };
 
   //@@@@@@@@@@@@ webrtc 끝
 

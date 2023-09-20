@@ -57,29 +57,14 @@
 	</select>
 	
 	<!-- 프로젝트 링크 보내기(없는지 확인하여 있다면 생성) -->
-	<select id="getOrCreateProLink">
-			DELIMITER //
-			CREATE PROCEDURE GetOrCreateProLink(IN board_id INT)
-			BEGIN
-  				DECLARE v_PRO_LINK VARCHAR(255);
-
-  				SELECT PRO_LINK INTO v_PRO_LINK FROM TB_BOARD WHERE BOARD_ID = #{board_id};
-
-  				IF v_PRO_LINK IS NULL OR v_PRO_LINK = '' THEN
-    				SET v_PRO_LINK = UUID();
-
-    				UPDATE TB_BOARD 
-    				SET PRO_LINK = v_PRO_LINK 
-		    		WHERE BOARD_ID = #{board_id};
-  				END IF;
-
-  				SELECT PRO_LINK FROM TB_BOARD WHERE BOARD_ID = #{board_id};
-			END //
-			DELIMITER ;
+	<select id="getOrCreateProLink" resultType="string">
+			{call GetOrCreateProLink(#{board_id,jdbcType=INTEGER})}
 	</select>
 	
 	<!-- 프로젝트 링크 삭제 -->
-	
+	<delete id="deleteProLink">
+			DELETE FROM TB_BOARD WHERE PRO_LINK=#{pro_link}
+	</delete>
 	
 
 
