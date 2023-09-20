@@ -1,10 +1,9 @@
 package com.smhrd.coco.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOOKMARK;
 import com.smhrd.coco.service.MainService;
 
@@ -41,7 +39,7 @@ public class MainController {
 	public void bookmarkCheck(@RequestBody TB_BOOKMARK book) { // VO 타입으로 가져올때는 필드명이 대문자 이면 안됨!
 		int bookmarkCheck = service.bookmarkCheck(book);
 	}
-	
+
 	// 북마크 해제
 	@DeleteMapping("/unbookmark")
 	public void unBookmark(@RequestBody TB_BOOKMARK book) {
@@ -54,22 +52,13 @@ public class MainController {
 		return service.bookmarkList(cust_id);
 	}
 
-	// 최신순 게시글 6개씩 가져오기
-	@GetMapping("/recent")
-	public JSONArray recentList(@RequestParam("endpoint") int endpoint) {
-		return service.recentList(endpoint);
-	}
-
-	// 스킬에 맞는 최신순 게시글 가져오기
-	@GetMapping("/skill")
-	public JSONArray skillList(@RequestBody Map<String, Object> map) {
-		return service.skillList(map);
-	}
-
-	// 포지션에 맞는 최신순 게시글 가져오기
-	@GetMapping("/position")
-	public JSONArray positionList(@RequestBody Map<String, Object> map) {
-		return service.positionList(map);
+	// 기술스택명 = null 포지션 = null 엔드포인트 : 1 최신순 게시글 가져오기
+	// 기술스택명 = React 포지션 = null 엔드포인트 : 1 기술스택명에 맞는 최신순 게시글 가져오기
+	// 기술스택명 = null, 포지션 = 백엔드 엔드포인트 : 1 포지션에 맞는 최신순 게시글 가져오기
+	// 기술스택명 = React 포지션 = 백엔드 엔드포인트 : 1 기술스택과 포지션에 맞는 최신순 게시글 가져오기
+	@PostMapping("/select")
+	public JSONArray selectList(@RequestBody Map<String, Object> map) {
+		return service.selectList(map);
 	}
 
 	// 지원한 게시글 보기
