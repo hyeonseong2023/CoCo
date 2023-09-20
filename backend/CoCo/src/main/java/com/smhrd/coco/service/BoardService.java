@@ -170,10 +170,6 @@ public class BoardService {
 	public String getOrCreateProLink(int board_id) {
 		return mapper.getOrCreateProLink(board_id);
 	}
-	
-	//프로젝트 링크 삭제
-	public String deleteProLink(TB_BOARD board_id) {
-		return mapper.deleteProLink(board_id);
-	}
+
 
 }

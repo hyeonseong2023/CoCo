@@ -60,12 +60,6 @@
 	<select id="getOrCreateProLink" resultType="string">
 			{call GetOrCreateProLink(#{board_id,jdbcType=INTEGER})}
 	</select>
-	
-	<!-- 프로젝트 링크 삭제 -->
-	<delete id="deleteProLink">
-			DELETE FROM TB_BOARD WHERE PRO_LINK=#{pro_link}
-	</delete>
-	
 
 
 </mapper>

@@ -117,16 +117,5 @@ public class BoardController {
 		return service.getOrCreateProLink(board_id);
 	}
 	
-	//프로젝트 링크 삭제
-	@PostMapping("/bb")
-	public int deleteProLink() {
-		
-		return 0;
-	}
-	
-	
-	
-
-	
 	
 }
