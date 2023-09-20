@@ -42,6 +42,7 @@ public class CustService {
 		JSONObject obj = new JSONObject();
 
 		for (TB_CUST custItem : cust) {
+			obj.put("CUST_ID", custItem.getCust_id());
 			obj.put("CUST_NICK", custItem.getCust_nick());
 			obj.put("CUST_CAREER", custItem.getCust_career());
 			obj.put("CUST_POSITION", custItem.getCust_position());
