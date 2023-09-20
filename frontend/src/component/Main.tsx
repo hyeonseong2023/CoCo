@@ -17,25 +17,25 @@ const Main: React.FC<MainProps> = ({}) => {
   const fetchData = async (category: string) => {
     try {
       const response = await axios.get(`http://localhost:8099/recent?endpoint=1`);
-
-      const fetchedData = response.data.map((item: { recentList: any }) => {
-        const recentListData = item.recentList;
+       
+      const fetchedData = response.data.map((item: any) => {
+        
         return {
-          id: recentListData.board_id,
-          name: recentListData.board_title,
-          title: recentListData.board_title,
-          content: recentListData.board_content,
-          board_deadline: recentListData.board_deadline,
-          board_dt: recentListData.board_dt,
-          board_members: recentListData.board_members,
-          board_openlink: recentListData.board_openlink,
-          board_period: recentListData.board_period,
-          board_position: recentListData.board_position,
-          board_views: recentListData.board_views,
-          cust_id: recentListData.cust_id,
-          pro_img: recentListData.pro_img,
-          pro_link: recentListData.pro_link,
-          pro_title: recentListData.pro_title,
+          id: item.board_id,
+          name: item.board_title,
+          title: item.board_title,
+          content: item.board_content,
+          board_deadline: item.board_deadline,
+          board_dt: item.board_dt,
+          board_members: item.board_members,
+          board_openlink: item.board_openlink,
+          board_period: item.board_period,
+          board_position: item.board_position,
+          board_views: item.board_views,
+          cust_id: item.cust_id,
+          pro_img: item.pro_img,
+          pro_link: item.pro_link,
+          pro_title: item.pro_title,
         };
       });
 

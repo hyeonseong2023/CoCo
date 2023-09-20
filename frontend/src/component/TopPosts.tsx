@@ -26,12 +26,11 @@ const TopPosts = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:8099/popularlist");
-
       const fetchedData: PostData[] = response.data.map((item: any) => ({
-        id: item.popularList.board_id,
-        title: item.popularList.board_title,
-        board_deadline: item.popularList.board_deadline,
-        board_position: item.popularList.board_position,
+        id: item.board_id,
+        title: item.board_title,
+        board_deadline: item.board_deadline,
+        board_position: item.board_position,
       }));
       
       setSlideContents(fetchedData);
