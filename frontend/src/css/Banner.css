@@ -39,8 +39,7 @@ li.slick-active button:before {
 
 .Banner-container {
   width: 100%;
-
-  height: 380px;
+  height: 250px;
   background-color: rgb(253, 238, 218);
 }
 
@@ -49,7 +48,7 @@ li.slick-active button:before {
   justify-content: center;
   display: flex;
   background-color: rgb(255, 255, 255);
-  height: 380px;
+  height: px;
   text-align: center;
 }
 
@@ -62,4 +61,6 @@ li.slick-active button:before {
   }
 }
 
-
+.slick-dots{
+  bottom: 10px;
+}

@@ -116,3 +116,12 @@
 .header-buttons-div{
   margin-right: 3%;
 }
+.main-hr{
+  height: 2.5px; /* 기본 높이 */
+  background-color: #88b1ff; /* 라인의 색상을 지정하세요 */
+  border: none; /* 기본 테두리 제거 */
+}
+
+.header-containerH{
+  width: 100%;
+}

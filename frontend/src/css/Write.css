@@ -153,3 +153,16 @@
 .submit-button:hover{
   background-color: #003cb5; /* 호버 시 배경색 변경 */
 }
+.element.style{
+  height: 600px;
+}
+
+.ql-container{
+  height: 90% !important;
+}
+
+.file-space{
+  width: auto;
+  height: 100px;
+  overflow : auto ;
+}

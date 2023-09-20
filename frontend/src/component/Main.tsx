@@ -60,7 +60,6 @@ const Main: React.FC<MainProps> = ({}) => {
   return (
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
-      <hr className='main-hr'/>
       <Banner />
       <TopPosts />
       <CategoryBox onUpdateData={updateCategoryData} />

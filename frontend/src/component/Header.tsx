@@ -55,6 +55,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   };
 
   return (
+    <div  className="header-containerH">
     <div className="header-container">
       <div className="header-logo"><a href='/'><img src={logoimg} alt="" /></a></div>
       <div className="header-buttons">
@@ -75,11 +76,15 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
           {custImg === "0" && Cookies.get('coin') === "on" && (
             <JoinModel onClose={handleJoinModelClose} />
           )}
+          
         </div>
       </div>
       {isModalOpen && (
         <Login onClose={closeModal} />
       )}
+
+    </div>
+    <hr className='main-hr'/>
     </div>
   );
 };

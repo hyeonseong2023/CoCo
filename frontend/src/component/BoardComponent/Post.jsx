@@ -39,19 +39,24 @@ const Post = ({data, boardData}) => {
 
     const fetchData = async() => {
         await console.log("post",boardData);
+        console.log("데이터!",data);
+         console.log("커스트 이미지!!:",boardData);
         setTitle(data.title);
-        setViews(data.board_views);
+        setViews(boardData.TB_BOARD.board_views);
         setDate(boardData.TB_BOARD.board_dt);
         setDday(boardData.D_day);
-        setContent(data.content)
+        setContent(boardData.TB_BOARD.board_content)
         setBoardImg(boardData.TB_BOARD_IMG.board_IMG)
-        setCustNick(boardData.createCust.cust_NICK);
-        setCustImg(boardData.createCust.cust_IMG);
+        setCustNick(boardData.createCust.cust_nick);
+        setCustImg(boardData.createCust.cust_img);
+        
     }
 
     useEffect(()=>{
         fetchData()
     }, [])
+
+   
 
     const toggleBmk = ()=>{
         setIsEmptyBmk(!isEmptyBmk);
@@ -104,8 +109,8 @@ const Post = ({data, boardData}) => {
                     <div className='rightTop'>
                         <img className='modifyBtn' src={modifyBtn} style={{display: boardCreateId === loginUserId ? "block" : "none"}} />
                         <img className='deleteBtn' src={deleteBtn} style={{display: boardCreateId === loginUserId ? "block" : "none"}} />
-                        <img className='bmkImg' src={isEmptyBmk ? bookmark : blueBookmark} onClick={toggleBmk} style={{display: boardCreateId !== loginUserId ? "block" : "none"}}  alt="bmkImg"/>
-                        <img className='applybtn' src={isApply? applyButton : notApply} onClick={toggleApply}  style={{display: boardCreateId !== loginUserId ? "block" : "none"}} alt="applyButton"/>
+                        <img className='bmkImg' src={isEmptyBmk ? bookmark : blueBookmark} onClick={toggleBmk} style={{display: loginUserId && boardCreateId !== loginUserId ? "block" : "none"}}  alt="bmkImg"/>
+                        <img className='applybtn' src={isApply? applyButton : notApply} onClick={toggleApply}  style={{display: loginUserId && boardCreateId !== loginUserId ? "block" : "none"}} alt="applyButton"/>
                     </div>
 
 
@@ -134,7 +139,7 @@ const Post = ({data, boardData}) => {
             <h2>프로젝트 소개</h2>
             <hr></hr>
             <br></br>
-            <p>{content}!</p>   
+            <p>{content}</p>   
             <div className='boardImgContainer'>
                 
             <img src={boardImg && "data:image/;base64,"+boardImg} className='boardImg'></img>
