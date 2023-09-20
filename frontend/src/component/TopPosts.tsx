@@ -62,7 +62,7 @@ const TopPosts = () => {
   return (
     <div className='TopPostsC'>
       <div className='TopPostsCo'>
-        <div className='TopPostsCon'> <h2>인기글</h2><br/><br/><br/> </div>
+        <div className='TopPostsCon'> <h2>인기글<br/>인기 게시글</h2><br/><br/> </div>
         <div className='TopPostsConi'>
           <button onClick={previousSlide}>이전</button>
           <button onClick={nextSlide}>다음</button>
