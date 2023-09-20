@@ -86,13 +86,13 @@ const TopPosts = () => {
             return (
               <Link to={`/Contents/${data.id}`} key={index} state={data}>
                 <div className={contentClassName} key={index}>
-                  <div className='toptitle'>{data.title}</div>
-                  <div>{data.board_position}</div>
-                  {isExpired ? (
+                {isExpired ? (
                     <div>모집 종료</div>
                   ) : (
                     <div>남은 일 수: {daysDifference}일</div>
                   )}
+                  <div className='toptitle'>{data.title}</div>
+                  <div>{data.board_position}</div>
                 </div>
               </Link>
             );
