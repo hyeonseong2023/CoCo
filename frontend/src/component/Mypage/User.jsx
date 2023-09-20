@@ -77,6 +77,7 @@ const User = ({ data }) => {
         { value: "데브옵스", name: "데브옵스" },
         { value: "PM", name: "PM" },
         { value: "기획자", name: "기획자" }
+        //포지션 종류 참고하세요 
     ]
 
     // 선택한 포지션 
