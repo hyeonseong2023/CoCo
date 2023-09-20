@@ -43,6 +43,8 @@ public class CustController {
 	@PutMapping("/userinfoupdate") // form-data
 	public @ResponseBody int userInfoUpdate(@RequestPart("cust_img1") MultipartFile file, @ModelAttribute TB_CUST cust , Map<String, Object> map ) {
 			
+		System.out.println("파일" + file);
+		
 		//이미지 이름 저장 
 		String newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
 		cust.setCust_img(newFileName);
