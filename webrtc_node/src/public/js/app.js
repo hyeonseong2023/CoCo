@@ -13,6 +13,7 @@ const screenIcon = shareScreenBtn.querySelector(".screenIcon");
 const unScreenIcon = shareScreenBtn.querySelector(".unscreenIcon");
 const call = document.querySelector("#call");
 const welcome = document.querySelector("#welcome");
+const fileInput = document.querySelector("#fileInput");
 
 const HIDDEN_CN = "hidden";
 
@@ -257,17 +258,53 @@ function handleChatSubmit(event) { // 채팅 메세지 제출
   event.preventDefault();
   const chatInput = chatForm.querySelector("input");
   const message = chatInput.value;
+  if (fileInput.files.length > 0) { // 파일 첨부가 있는 경우
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onloadend = (event) => {
+      const arrayBuffer = event.target.result;
+      console.log("Sending file:", file.name)
+      socket.emit("chat_file", arrayBuffer, file.name, roomName);
+
+      socket.emit("chat", `${nickname}: You sent a file: ${file.name}`, roomName);
+
+      const blobUrl = URL.createObjectURL(file);
+
+      writeChat(`You: <a href="${blobUrl}" download="${file.name}">You sent a file: ${file.name}</a>`, MYCHAT_CN);
+    };
+    reader.readAsArrayBuffer(file);
+
+    fileInput.value = "";
+  } else { // 파일 첨부가 없는 경우 (일반 메세지)
+    socket.emit("chat", `${nickname}: ${message}`, roomName);
+    writeChat(`You: ${message}`, MYCHAT_CN);
+  }
+
   chatInput.value = "";
-  socket.emit("chat", `${nickname}: ${message}`, roomName);
-  writeChat(`You: ${message}`, MYCHAT_CN);
 }
 
 function writeChat(message, className = null) { // 채팅 메세지를 화면에 표시
   const li = document.createElement("li");
-  const span = document.createElement("span");
-  span.innerText = message;
-  li.appendChild(span);
-  li.classList.add(className);
+  if (className) {
+    li.classList.add(className);
+  }
+
+  const isFileMessageRegex = /You sent a file: (.+)/;
+
+  console.log('Message:', message); // Add this line for debugging.
+
+  if (isFileMessageRegex.test(message)) {
+    const [, fileName] = message.match(isFileMessageRegex);
+
+    // 실질적으로 채팅창에 표시되는 내용
+    li.innerHTML = `<a href="${fileName}" download="${fileName}">"${fileName}"</a>`;
+
+    console.log('Processed message:', li.innerHTML); // Add this line for debugging.
+
+  } else {
+    li.textContent = message;
+  }
+
   chatBox.prepend(li);
 }
 

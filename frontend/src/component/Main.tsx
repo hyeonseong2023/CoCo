@@ -68,7 +68,7 @@ const Main: React.FC<MainProps> = ({ }) => {
         // res.data : 프로젝트 링크 uuid
         const roomName = res.data;
         // 임시 유저 이름, 후에 세션의 닉네임 받아서 넣어야 함
-        const userName = "user2";
+        const userName = "user1";
         const response = await axios.post(`${wrUrl}saveData`, {
           roomName,
           userName,

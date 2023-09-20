@@ -119,6 +119,11 @@ wsServer.on("connection", (socket) => {
     socket.to(roomName).emit("chat", message);
   });
 
+  socket.on("chat_file", (arrayBuffer, fileName, roomName) => {
+    // Just emit the arrayBuffer and fileName to other clients.
+    socket.to(roomName).emit("chat_file", arrayBuffer, fileName);
+  });
+
   socket.on("disconnecting", () => {
     socket.to(myRoomName).emit("leave_room", socket.id, myNickname);
 

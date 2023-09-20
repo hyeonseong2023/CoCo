@@ -30,8 +30,8 @@ html(lang="en")
                                     i(class="fas fa-video fa-2x cameraIcon")
                                     i(class="fas fa-video-slash fa-2x unCameraIcon")
                                 button#shareScreen 
-                                    i(class="fas fa-video fa-2x screenIcon")
-                                    i(class="fas fa-video-slash fa-2x unscreenIcon")
+                                    i(class="fas fa-laptop-medical fa-2x screenIcon")
+                                    i(class="fas fa-laptop fa-2x unscreenIcon")
                         div#controlers__column
                             button#chat 
                                 i(class="fas fa-comments fa-2x messageIcon")
@@ -41,6 +41,7 @@ html(lang="en")
                     form#chatForm
                         input(required, type="text", placeholder="메세지를 입력하세요")
                         button 전송
+                        input(type='file', id='fileInput')
         aside.modal.hidden
             div.modal__box
                 h2.modal__text
