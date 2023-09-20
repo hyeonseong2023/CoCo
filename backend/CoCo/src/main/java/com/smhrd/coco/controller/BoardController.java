@@ -35,7 +35,8 @@ import com.smhrd.coco.converter.ImageConverter;
 import com.smhrd.coco.converter.ImageToBase64;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("https://09f7-222-102-68-9.ngrok-free.app")
 public class BoardController {
 	
 	@Autowired

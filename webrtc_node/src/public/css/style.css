@@ -5,7 +5,7 @@
 
   --header-background-color: hsl(0, 0%, 100%);
   --main-background-color: hsl(0, 0%, 16%);
-  --chatBox-background-color: #37474f;
+  --chatBox-background-color: #ededed;
   --controler-background-color: #29434e;
 
   --green-icon-color: #23c552;
@@ -25,15 +25,10 @@ body {
   color: var(--black-color);
 }
 
-header {
-  width: 100%;
-  height: 5vh;
-
-  color: wheat;
-  background-color: var(--header-background-color);
-
-  display: flex;
-  align-items: center;
+#imgTitle {
+  position: absolute;
+  top: 0px;
+  left: -18px;
 }
 
 header i {
@@ -174,7 +169,6 @@ main {
   background: none;
   border: 1px solid rgba(0, 0, 0, 0.4);
 
-  box-shadow: var(--header-background-color) 0px 7px 29px 0px;
 }
 
 #streamBox #controlers #buttons button {
@@ -309,6 +303,12 @@ main {
 #chatRoom #chatForm input:focus {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+input[type='file'] {
+  position: absolute;
+  top: -890px;
+  left: 0px;
 }
 
 #chatRoom #chatForm button {

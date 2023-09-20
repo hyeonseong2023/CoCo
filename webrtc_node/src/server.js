@@ -29,7 +29,8 @@ app.get("/", (req, res) => {
   if (savedData) {
     const { userName, roomName } = savedData;
     console.log(userName, roomName);
-    res.render("home", { userName: JSON.stringify(userName), roomName: JSON.stringify(roomName) });
+    res.render("home", { userName: userName, roomName: roomName });
+
   } else {
     res.send('No data available');
   }

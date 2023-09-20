@@ -16,7 +16,8 @@ import com.smhrd.coco.domain.TB_BOOKMARK;
 import com.smhrd.coco.service.MainService;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("https://09f7-222-102-68-9.ngrok-free.app")
 public class MainController {
 
 	@Autowired
