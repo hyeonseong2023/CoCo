@@ -1,10 +1,20 @@
-import { ref, child, get, onValue, update } from "firebase/database";
+import {
+  ref,
+  child,
+  get,
+  onValue,
+  update,
+  set,
+  remove,
+} from "firebase/database";
 import { db } from "./firebase";
 import {
   ContentInterface,
   EditableContextInterface,
   PageContextInterface,
 } from "../context/PageContext";
+import { DateSelectArg, EventAddArg, EventInput } from "@fullcalendar/core";
+import uuid from "react-uuid";
 
 const getContents = (
   path: string,
@@ -66,6 +76,56 @@ const updateContent = (path: string, contents: ContentInterface[]) => {
   update(ref(db, path), { contents: contents });
 };
 
-// const removeContent = ()
+const getPlanner = (path: string, setData: (data: any) => void) => {
+  const dbRef = ref(db);
+  get(child(dbRef, path))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        let data: EventInput[] = snapshot.val();
+        let newList: EventInput[] = [];
 
-export { getContents, addOnValue, updateText, updateContent };
+        for (let objKey in data) {
+          if (data.hasOwnProperty(objKey)) {
+            newList.push(data[objKey]);
+          }
+        }
+        setData(newList);
+      } else {
+        console.log("data doesn't exist");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+const addPlanner = (path: string, data: any) => {
+  set(ref(db, path + `/${data.id}`), data);
+};
+
+const onValuePlanner = (path: string, setData: (data: any) => void) => {
+  onValue(ref(db, path), (snapshot) => {
+    const val = snapshot.val();
+    console.log(val);
+    console.log("111");
+
+    console.log(Object.values(val));
+
+    setData(Object.values(snapshot.val()));
+  });
+};
+
+const removePlanner = (path: string) => {
+  remove(ref(db, path));
+};
+
+export {
+  getContents,
+  addOnValue,
+  updateText,
+  updateContent,
+  onValuePlanner,
+  getPlanner,
+  addPlanner,
+  removePlanner,
+};
