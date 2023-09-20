@@ -116,6 +116,7 @@ public class CustService {
 		return mapper.userInfoUpdate(cust);
 	}
 
+
 	// 포트폴리오 추가하기
 	public int pfAdd(TB_PF pf) {
 
@@ -137,6 +138,7 @@ public class CustService {
 		return mapper.pfTitle(pf);
 
 	}
+
 
 	// 포트폴리오 삭제하기
 	public int pfDelete(@RequestBody Map<String, Object> map) {

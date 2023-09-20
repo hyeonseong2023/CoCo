@@ -1,78 +1,70 @@
-import React, { useState, useEffect, useRef } from 'react';
-import '../css/Main.css'
-import Header from './Header'
-import Banner from './Banner'
-import Contents from './Contents'
-import CategoryBox from './CategoryBox'
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import '../css/Main.css';
+import Header from './Header';
+import Banner from './Banner';
+import Contents from './Contents';
+import CategoryBox from './CategoryBox';
 import axios from 'axios';
+import TopPosts from './TopPosts';
 
 type MainProps = {};
 
 const Main: React.FC<MainProps> = ({}) => {
   const [categoryData, setCategoryData] = useState<any[]>([]);
-  const prevCategoryDataRef = useRef<any[]>();
+  const [selectedCategory, setSelectedCategory] = useState("javascript");
 
-  const fetchData = async () => {
+  // 데이터 가져오는 함수
+  const fetchData = async (category: string) => {
     try {
-        const res = await axios.post(`/recent`);
-        console.log(res);
-        
+      const response = await axios.get(`http://localhost:8099/recent?endpoint=1&category=${category}`);
 
+      const fetchedData = response.data.map((item: { recentList: any }) => {
+        const recentListData = item.recentList;
+        return {
+          id: recentListData.board_id,
+          name: recentListData.board_title,
+          title: recentListData.board_title,
+          content: recentListData.board_content,
+          board_deadline: recentListData.board_deadline,
+          board_dt: recentListData.board_dt,
+          board_members: recentListData.board_members,
+          board_openlink: recentListData.board_openlink,
+          board_period: recentListData.board_period,
+          board_position: recentListData.board_position,
+          board_views: recentListData.board_views,
+          cust_id: recentListData.cust_id,
+          pro_img: recentListData.pro_img,
+          pro_link: recentListData.pro_link,
+          pro_title: recentListData.pro_title,
+        };
+      });
+
+      setCategoryData(fetchedData);
     } catch (error) {
-        console.error(error);
+      console.error("Error fetching data:", error);
     }
+  };
+
+  useEffect(() => {
+    fetchData(selectedCategory);
+  }, [selectedCategory]);
+
+  const updateCategoryData = (selectedCategory: string) => {
+    setSelectedCategory(selectedCategory);
+  };
+
+  function handleLoginButtonClick(): void {
   }
-  useEffect(() => {
-    fetchData();
-  } , []);
-
-  const initialCategoryData = [
-    {
-      id: 1,
-      name: "카테고리 1",
-      title: "카테고리 1 제목",
-      content: "카테고리 1 내용 가져올 공간",
-    },
-    {
-      id: 2,
-      name: "카테고리 2",
-      title: "카테고리 2 제목",
-      content: "카테고리 2 내용 가져올 공간",
-    },
-  ];
-
-  const updateCategoryData = (data: any[]) => {
-    prevCategoryDataRef.current = categoryData;
-  };
-
-  const handleLoginButtonClick = () => {
-  };
-
-  const location = useLocation();
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const token = searchParams.get('token');
-
-    if (token) {
-      console.log('로그인 성공:', token);
-    }
-  }, [location]);
-  const [sessionData, setSessionData] = useState<{ CUST_ID: string; CUST_IMG: string } | null>(null);
-
-
-  const [isJoinModalOpen, setJoinModalOpen] = useState(false);
-
-  console.log();
+  console.log(selectedCategory);
   
   return (
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
+      <hr className='main-hr'/>
       <Banner />
-      <div id="main-Whitespace"/>
+      <TopPosts />
       <CategoryBox onUpdateData={updateCategoryData} />
-      <Contents categoryData={initialCategoryData} />
+      <Contents categoryData={categoryData} />
     </div>
   );
 };
