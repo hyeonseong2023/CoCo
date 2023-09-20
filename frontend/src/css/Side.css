@@ -1,37 +1,40 @@
+
 .side-container {
     margin-top: 40px;
     padding-bottom: 8px;
     height: auto;
     /* background-color: aqua; */
     border-bottom: 2px solid #ccc;
-    width: 1200px;
+    width: 1000px;
     height: 30px;
 }
 
 
-.port-pro-item {
+.side-port-pro-item {
     display: flex;
     justify-content: column;
     font-weight: bold;
     font-size: 20px;
     color: #747474;
+    /* background-color: #4598FF; */
+
 }
 
 
-.port-item {
+.side-port-item {
     margin-left: 30px;
     margin-right: 30px;
 
 }
 
-.port-item.active {
+.side-port-item.active {
     color: #4598FF;
     /* 활성화된 글씨 색상 */
 }
 
 
-.port-pro-content {
+.side-port-pro-content {
+    margin-top: 10px;
     /* background-color: lightcoral; */
     height: 500px;
 }
-

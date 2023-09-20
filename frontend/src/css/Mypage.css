@@ -1,15 +1,27 @@
-.user-port{
+.mypage-container{
     /* background-color: yellow; */
-    margin : 100px 150px 0px 150px;
+    margin : 80px 0px 0px 50px;
     display: flex; 
-    justify-content: space-between;
+    /* justify-content: space-between;     */
+    width: auto;
+}
+
+.mypage-user{
+    /* background-color: aqua; */
+}
+
+.mypgae-side{
+    /* background-color: brown; */
+    margin-left: 50px;
     
 }
 
-.logout-btn{
+
+
+.mypage-logout-btn{
     float: right;
-    margin-right: 150px;
-    margin-top: 20px;
+    margin-right: 181px;
+    /* margin-top: 120px; */
     width: 120px;
 }
 
