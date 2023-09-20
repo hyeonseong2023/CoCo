@@ -75,7 +75,7 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
       console.error('데이터를 서버로 전송하는 중 오류가 발생했습니다.', error);
     }
 
-    Cookies.remove('coin');
+    Cookies.remove('coin'); 
     window.location.replace("/")
   };
 

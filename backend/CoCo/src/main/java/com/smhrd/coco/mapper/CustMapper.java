@@ -15,20 +15,24 @@ import com.smhrd.coco.domain.TB_PF;
 @Mapper
 public interface CustMapper {
 
+	
 	// 마이페이지(기본정보)
-	public List<TB_CUST> mypageCust(String cust_id);
-
+	public List<TB_CUST> mypageCust(String CUST_ID); 
+	
 	// 마이페이지(포트폴리오)
-	public List<TB_PF> mypagePf(String cust_id);
-
+	public List<TB_PF> mypagePf(String CUST_ID); 
+	
 	// 마이페이지(프로젝트)
-	public List<TB_BOARD> mypageProject(String cust_id);
+    public List<TB_BOARD> mypageProject(String CUST_ID); 
+	
+	// 마이페이지(연필 버튼)
+	public TB_CUST updatePage(String CUST_ID); 
+	
+	// 마이페이지(수정하기 버튼)
+	public int update(TB_CUST cust); 
 	
 	// 마이페이지(회원스킬) 
 	public List<TB_CUST_SKILL> custSkill(String cust_id); 
-
-	// 마이페이지(수정하기 페이지로 이동)
-	// public TB_CUST updatePage(String cust_id);
 
 	// 마이페이지(수정하기)
 	public int userInfoUpdate(TB_CUST cust);
@@ -41,4 +45,5 @@ public interface CustMapper {
 
 	// 포트폴리오 삭제하기
 	public int pfDelete(Integer pf_id);
+
 }
