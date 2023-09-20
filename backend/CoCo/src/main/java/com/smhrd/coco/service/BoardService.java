@@ -56,17 +56,17 @@ public class BoardService {
 
 	// 선택한 게시글 내용 보내기 (TB_BOARD, TB_BOARD_SKILL, TB_BOARD_IMG, TB_BOOKMARK,
 	// TB_APPLY)
-	public JSONArray selectPostViews(int board_id, String cust_id) {
+	public JSONArray selectPostViews(int board_id) {
 
 		TB_BOARD board = mapper.selectPostBoard(board_id);
-		String createId = board.getCust_id();
-		//TB_CUST cust = mapper.selectPostCust(cust_id);
+		System.out.println("custid"+board.getCust_id());
+		//String createId = board.getCust_id();
 		List<TB_BOARD_SKILL> skill = mapper.selectPostSkill(board_id);
 		TB_BOARD_IMG img = mapper.selectPostImag(board_id);
-		int bmk = mapper.selectPostBmk(board_id, cust_id);
-		int apply = mapper.selectPostApply(board_id, cust_id);
-//		TB_CUST createCust = mapper.selectPostCust(board.getCust_id());
-//		System.out.println(createCust.getCUST_ID());
+		int bmk = mapper.selectPostBmk(board_id, board.getCust_id());
+		int apply = mapper.selectPostApply(board_id, board.getCust_id());
+		TB_CUST createCust = mapper.selectPostCust(board.getCust_id());
+		System.out.println(createCust.getCust_id());
 
 		
 		// 게시글 등록일시 시간 빼서 저장하기
@@ -118,18 +118,37 @@ public class BoardService {
 		
 		// 게시판 사진 파일 찾아서 바이트형태로 변환하기
 		ImageConverter<File, String> converter = new ImageToBase64();
-		
-		File file = new File("c:\\cocoImage\\" + img.getBOARD_IMG());
-
-		String fileStringValue = null;
 		try {
-			fileStringValue = converter.convert(file);
+			File file = new File("c:\\cocoImage\\" + img.getBOARD_IMG());
+
+			String fileStringValue = null;
+			try {
+				fileStringValue = converter.convert(file);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println(file);
+			img.setBOARD_IMG(fileStringValue);
+	
+		} catch(NullPointerException e) {
+			e.printStackTrace();
+		}
+		
+				
+		//회원 프로필 사진 찾아서 바이트 형태로 변환하기
+		File file2 = new File("c:\\cocoImage\\" + createCust.getCust_img());
+
+		String fileStringValue2 = null;
+		try {
+			fileStringValue2 = converter.convert(file2);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(file);
-		img.setBOARD_IMG(fileStringValue);
+		System.out.println(file2);
+		createCust.setCust_img(fileStringValue2);
+		
 
 		// JSONArray 에 모두 담기
 		JSONArray jsonArray = new JSONArray();
@@ -141,7 +160,7 @@ public class BoardService {
 		obj.put("TB_BOOKMARK", bmk);
 		obj.put("TB_APPLY", apply);
 		obj.put("D_day", dDay);
-		//obj.put("createCust", createCust);
+		obj.put("createCust", createCust);
 
 		jsonArray.add(obj);
 		return jsonArray;

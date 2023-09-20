@@ -4,6 +4,10 @@ import React from 'react';
 import '../css/Contents.css';
 import { Link } from 'react-router-dom';
 
+interface selectedCategory{
+  categoryData: CategoryData[]; // 전체 데이터 배열
+}
+
 interface CategoryData {
   id: any;
   name: any;
@@ -26,8 +30,8 @@ interface ContentsProps {
   categoryData: CategoryData[];
 }
 
+
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
-  
   return (
     <div>
       <div id='Contents-box'>

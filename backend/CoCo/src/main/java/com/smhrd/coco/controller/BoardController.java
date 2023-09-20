@@ -53,6 +53,7 @@ public class BoardController {
 		//TB_BOARD 정보 저장
 		int cnt1 = service.postSaveBoard(saveBoard);		
 		
+		System.out.println("스킬이름:"+ skill.getSKILL_NAME());
 		
 		//TB_BOARD_SKILL테이블에 for문 돌려서 스킬 저장하기
 		String skillPeriod = skill.getSKILL_NAME();
@@ -98,10 +99,10 @@ public class BoardController {
 	
 	
 	//선택한 게시글 내용 보내기
-	@GetMapping("/selectpostviews/{board_id}/{cust_id}")
-	public JSONArray selectPostViews(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
-		
-		return service.selectPostViews(board_id, cust_id);
+	@GetMapping("/selectpostviews/{board_id}")
+	public JSONArray selectPostViews(@PathVariable("board_id")int board_id) {
+		System.out.println("board id: "+board_id);
+		return service.selectPostViews(board_id);
 		
 	}
 	

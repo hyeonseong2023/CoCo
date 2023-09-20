@@ -1,0 +1,32 @@
+.project-component {
+    margin: 80px 30px 0px 30px;
+    /* background-color: #4598FF; */
+    height: 200px;
+    width: 300px; 
+}
+
+.pro-list {
+    /* background-color: plum; */
+    height: 200px;
+    width: 300px; 
+}
+
+.pro-list img {
+    width: 300px; /* 이미지의 너비를 원하는 크기로 조정 */
+    height: 170px; /* 이미지의 높이는 너비에 비례하여 자동으로 조정 */
+  }
+
+.pro-text{
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color:#747474;
+  }
+
+  .pro-map-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three items per row */
+    grid-gap: 50px; 
+    margin-top:130px;
+    /* background-color: blueviolet; */
+  }

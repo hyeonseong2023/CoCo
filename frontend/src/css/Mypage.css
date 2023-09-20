@@ -1,0 +1,16 @@
+.user-port{
+    /* background-color: yellow; */
+    margin : 100px 150px 0px 150px;
+    display: flex; 
+    justify-content: space-between;
+    
+}
+
+.logout-btn{
+    float: right;
+    margin-right: 150px;
+    margin-top: 20px;
+    width: 120px;
+}
+
+ 
