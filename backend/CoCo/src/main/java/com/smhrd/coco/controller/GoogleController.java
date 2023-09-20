@@ -151,7 +151,7 @@ public class GoogleController {
        Map<String, Object> data = new HashMap<>();
        data.put("CUST_ID", custId);
        data.put("CUST_IMG", custImg);
-
+       System.out.println("여기 사람있어요");
        return data;
    }
    	
