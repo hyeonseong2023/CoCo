@@ -16,7 +16,7 @@ const Main: React.FC<MainProps> = ({}) => {
   // 데이터 가져오는 함수
   const fetchData = async (category: string) => {
     try {
-      const response = await axios.get(`http://localhost:8099/recent?endpoint=1&category=${category}`);
+      const response = await axios.get(`http://localhost:8099/recent?endpoint=1`);
 
       const fetchedData = response.data.map((item: { recentList: any }) => {
         const recentListData = item.recentList;
@@ -38,7 +38,8 @@ const Main: React.FC<MainProps> = ({}) => {
           pro_title: recentListData.pro_title,
         };
       });
-
+      console.log(response);
+      
       setCategoryData(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error);
