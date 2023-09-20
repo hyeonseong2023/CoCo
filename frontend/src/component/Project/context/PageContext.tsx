@@ -39,6 +39,11 @@ export interface EditableContextInterface {
   setEditable: (editable: boolean[]) => void;
 }
 
+export interface HeadEditableContextInterface {
+  headEditable: boolean;
+  setHeadEditable: (headEditable: boolean) => void;
+}
+
 export interface CaretContextInterface {
   caret: number;
   setCaret: (caret: number) => void;
@@ -46,6 +51,8 @@ export interface CaretContextInterface {
 
 export interface OverlayContextInterface {
   overlayRef: React.RefObject<any>;
+  overlayVisible: boolean;
+  setOverlayVisible: (overlayVisivle: boolean) => void;
   overlayXY: { x: number; y: number };
   setOverlayXY: (overlayXY: { x: number; y: number }) => void;
   overlayIndex: number;
@@ -53,6 +60,8 @@ export interface OverlayContextInterface {
 }
 
 export const PageContext = createContext<PageContextInterface | null>(null);
+export const HeadEditableContext =
+  createContext<HeadEditableContextInterface | null>(null);
 export const EditableContext = createContext<EditableContextInterface | null>(
   null
 );
@@ -63,29 +72,35 @@ export const OverlayContext = createContext<OverlayContextInterface | null>(
 
 export function PageProvider({ children }: { children: React.ReactNode }) {
   const [contents, setContents] = useState(initialContents());
+  const [headEditable, setHeadEditable] = useState(false);
   const [editable, setEditable] = useState([false]);
   const [caret, setCaret] = useState(0);
+  const [overlayVisible, setOverlayVisible] = useState(false);
   const [overlayXY, setOverlayXY] = useState({ x: 0, y: 0 });
   const overlayRef = useRef(null);
   const [overlayIndex, setOverlayIndex] = useState(0);
 
   return (
     <PageContext.Provider value={{ contents, setContents }}>
-      <EditableContext.Provider value={{ editable, setEditable }}>
-        <CaretContext.Provider value={{ caret, setCaret }}>
-          <OverlayContext.Provider
-            value={{
-              overlayRef,
-              overlayXY,
-              setOverlayXY,
-              overlayIndex,
-              setOverlayIndex,
-            }}
-          >
-            {children}
-          </OverlayContext.Provider>
-        </CaretContext.Provider>
-      </EditableContext.Provider>
+      <HeadEditableContext.Provider value={{ headEditable, setHeadEditable }}>
+        <EditableContext.Provider value={{ editable, setEditable }}>
+          <CaretContext.Provider value={{ caret, setCaret }}>
+            <OverlayContext.Provider
+              value={{
+                overlayRef,
+                overlayVisible,
+                setOverlayVisible,
+                overlayXY,
+                setOverlayXY,
+                overlayIndex,
+                setOverlayIndex,
+              }}
+            >
+              {children}
+            </OverlayContext.Provider>
+          </CaretContext.Provider>
+        </EditableContext.Provider>
+      </HeadEditableContext.Provider>
     </PageContext.Provider>
   );
 }

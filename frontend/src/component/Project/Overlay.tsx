@@ -8,7 +8,15 @@ const Overlay = () => {
     throw new Error("Context must be used within a PageProvider");
   }
   const { overlayRef, overlayIndex, overlayXY } = overlayContext;
-  const itemList = ["기본", "제목1", "제목2", "제목3", "할 일 목록", "구분선"];
+  const itemList = [
+    "기본",
+    "페이지",
+    "제목1",
+    "제목2",
+    "제목3",
+    "할 일 목록",
+    "구분선",
+  ];
   const TextItemList = styled.ul`
     transform: translate(
       0px,
@@ -23,7 +31,7 @@ const Overlay = () => {
     margin-inline-end: 0px;
     padding-inline-start: 0px;
   `;
-  const TextItem = styled.li<{ isFocus: boolean }>`
+  const TextItem = styled.li<{ isfocus: string }>`
     list-style-type: none;
     padding: 10px 8px;
     width: 100%;
@@ -35,7 +43,8 @@ const Overlay = () => {
       background-color: #edf5f5;
       cursor: pointer;
     }
-    background-color: ${({ isFocus }) => (isFocus ? "#edf5f5" : "#fff")};
+    background-color: ${(props) =>
+      props.isfocus === "true" ? "#edf5f5" : "#fff"};
     position: relative;
     img {
       position: absolute;
@@ -90,7 +99,7 @@ const Overlay = () => {
                 {itemList.map((name: string, idx: number) => (
                   <TextItem
                     key={name}
-                    isFocus={overlayIndex === idx ? true : false}
+                    isfocus={overlayIndex === idx ? "true" : "false"}
                   >
                     {name}
                   </TextItem>

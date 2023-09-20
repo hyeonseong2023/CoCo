@@ -14,12 +14,17 @@ export function setFalseEditable(
 }
 
 export function addEditable(editable: boolean[], index: number): boolean[] {
-  let newEditable = editable
-    .slice(0, index + 1)
-    .concat(false)
-    .concat(editable.slice(index + 1));
-  newEditable[index] = false;
-  newEditable[index + 1] = true;
+  let newEditable;
+  if (index === -1) {
+    newEditable = [true].concat(editable.slice(index + 1));
+  } else {
+    newEditable = editable
+      .slice(0, index + 1)
+      .concat(false)
+      .concat(editable.slice(index + 1));
+    newEditable[index] = false;
+    newEditable[index + 1] = true;
+  }
   return newEditable;
 }
 
@@ -30,7 +35,7 @@ export function removeEditable(editable: boolean[], index: number): boolean[] {
 }
 
 export function upwardEditable(editable: boolean[], index: number): boolean[] {
-  if (index === 0) return editable;
+  if (index === 0) return Array(editable.length).fill(false);
   let newEditable = [...editable];
   newEditable[index] = false;
   newEditable[index - 1] = true;
@@ -41,11 +46,14 @@ export function downwardEditable(
   editable: boolean[],
   index: number
 ): boolean[] {
-  console.log("index", index);
-  console.log("length -1", editable.length - 1);
-
+  let newEditable;
+  if (index === -1) {
+    newEditable = [...editable];
+    newEditable[0] = true;
+    return newEditable;
+  }
   if (index === editable.length - 1) return editable;
-  let newEditable = [...editable];
+  newEditable = [...editable];
   newEditable[index] = false;
   newEditable[index + 1] = true;
   return newEditable;
