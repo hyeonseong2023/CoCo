@@ -4,6 +4,9 @@ export function addContents(
   contents: ContentInterface[],
   index: number
 ): ContentInterface[] {
+  if (index === -1) {
+    return [initialContent()].concat(contents.slice(index + 1));
+  }
   return contents
     .slice(0, index + 1)
     .concat(initialContent())
