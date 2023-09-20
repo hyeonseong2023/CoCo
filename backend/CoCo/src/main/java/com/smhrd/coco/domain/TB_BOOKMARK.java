@@ -16,5 +16,14 @@ public class TB_BOOKMARK {
 	private int bmk_id;	// 북마크 순번 
 	private String cust_id; // 회원 아이디	
 	private int board_id; // 게시글 번호
+	
+	
+	public TB_BOOKMARK(String cust_id, int board_id) {
+		super();
+		this.cust_id = cust_id;
+		this.board_id = board_id;
+	}
+	
+	
 
 }

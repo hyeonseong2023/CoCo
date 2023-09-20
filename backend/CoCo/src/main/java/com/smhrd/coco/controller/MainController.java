@@ -60,17 +60,17 @@ public class MainController {
       return service.recentList(endpoint);
    }
 
-//   // 스킬에 맞는 최신순 게시글 가져오기
-//   @GetMapping("/skill")
-//   public JSONArray skillList(@RequestBody Map<String, Object> map) {
-//      return service.skillList(map);
-//   }
-//
-//   // 포지션에 맞는 최신순 게시글 가져오기
-//   @GetMapping("/position")
-//   public JSONArray positionList(@RequestBody Map<String, Object> map) {
-//      return service.positionList(map);
-//   }
+   // 스킬에 맞는 최신순 게시글 가져오기
+   @GetMapping("/skill")
+   public JSONArray skillList(@RequestBody Map<String, Object> map) {
+      return service.skillList(map);
+   }
+
+   // 포지션에 맞는 최신순 게시글 가져오기
+   @GetMapping("/position")
+   public JSONArray positionList(@RequestBody Map<String, Object> map) {
+      return service.positionList(map);
+   }
 
    // 지원한 게시글 보기
    @GetMapping("/apply")

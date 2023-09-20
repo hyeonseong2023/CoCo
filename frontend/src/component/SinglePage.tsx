@@ -20,6 +20,7 @@ const SinglePage: React.FC = () => {
 
           await axios.get(`http://localhost:8099/selectpostviews/${data.id}`)
           .then(res => {
+  
               console.log(res.data);
               console.log(res.data[0]);
               setBoardData(res.data[0]);     

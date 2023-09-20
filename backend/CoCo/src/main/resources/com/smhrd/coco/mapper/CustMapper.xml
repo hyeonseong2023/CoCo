@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.coco.mapper.CustMapper">
 
-<<<<<<<<< Temporary merge branch 1
 	<!-- 마이페이지(기본정보) -->
 	<select id="mypageCust"
 		resultType="com.smhrd.coco.domain.TB_CUST">
