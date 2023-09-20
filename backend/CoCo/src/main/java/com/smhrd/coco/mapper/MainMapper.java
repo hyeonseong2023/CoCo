@@ -12,7 +12,7 @@ public interface MainMapper {
 	public List<TB_BOARD> popularList(); 
 	
 	// 해당게시글 스킬 리스트 가져오기 
-	public List<TB_BOARD_SKILL> boardIdList(int board_id);
+	public List<TB_BOARD_SKILL> boardIdList(Integer board_id);
 	
 	// 북마크 저장 
 	public int bookmarkCheck(String cust_id , Integer board_id);
