@@ -14,8 +14,8 @@ const Table = ({data, boardData}) => {
 
     const fetchData = async() => {
       console.log("Table",data); 
-      setMember(data.board_members);
-      setPeriod(data.board_period);
+      setMember(boardData.TB_BOARD.board_members);
+      setPeriod(boardData.TB_BOARD.board_period);
       setDeadLine(boardData.TB_BOARD.board_deadline);
       setPosition(data.board_position);
       setSkillName(boardData.TB_BOARD_SKILL);
