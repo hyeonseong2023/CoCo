@@ -113,7 +113,6 @@ public class BoardController {
 	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
 	@GetMapping("/webrtc")
 	public String getOrCreateProLink(@RequestParam("board_id") int board_id) {
-		System.out.println("controller 오냐");
 		return service.getOrCreateProLink(board_id);
 	}
 	
