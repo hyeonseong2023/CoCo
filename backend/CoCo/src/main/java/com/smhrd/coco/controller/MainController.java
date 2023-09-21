@@ -43,7 +43,7 @@ public class MainController {
 	}
 	
 	// 북마크 해제
-	@DeleteMapping("/unbookmark")
+	@PostMapping("/unbookmark")
 	public void unBookmark(@RequestBody TB_BOOKMARK book) {
 		int unBookmark = service.unBookmark(book);
 	}

@@ -31,7 +31,7 @@
    </insert>
 
    <!-- 북마크 해제 -->
-   <delete id="umBookmark"
+   <delete id="unBookmark"
       parameterType="com.smhrd.coco.domain.TB_BOOKMARK">
       delete from TB_BOOKMARK where CUST_ID = #{cust_id} and
       BOARD_ID =

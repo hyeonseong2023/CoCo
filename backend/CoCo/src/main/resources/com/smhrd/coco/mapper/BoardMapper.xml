@@ -56,6 +56,18 @@
 			SELECT COUNT(*) FROM TB_APPLY WHERE BOARD_ID=#{board_id} AND CUST_ID=#{cust_id}
 	</select>
 	
+	<!-- 게시글에 지원하기 -->
+	<insert id="postApply">
+			INSERT INTO TB_APPLY (BOARD_ID,CUST_ID)
+							VALUES (#{board_id}, #{cust_id});
+	</insert>
+	
+	<!-- 게시글 지원취소 -->
+	   <delete id="unPostApply">
+      delete from TB_APPLY where CUST_ID = #{cust_id} and
+      BOARD_ID =
+      #{board_id} ;
+   </delete>
 	
 	
 
