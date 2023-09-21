@@ -56,7 +56,7 @@ public class MainService {
 	// 기술스택명 = null,  포지션 = 백엔드  엔드포인트 : 1    포지션에 맞는 최신순 게시글 가져오기
 	// 기술스택명 = React  포지션 = 백엔드  엔드포인트 : 1    기술스택과 포지션에 맞는 최신순 게시글 가져오기 
 	public JSONArray selectList(Map<String, Object> map) {
-		
+		System.out.println(map);
 
 		String skill_name = (String)map.get("skill_name");  // 기술스택명
 		String board_position = (String) map.get("board_position"); //포지션

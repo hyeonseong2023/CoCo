@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
       )}
 
     </div>
-    <hr className='main-hr'/>
+
     </div>
   );
 };
