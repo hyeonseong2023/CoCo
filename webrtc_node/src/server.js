@@ -12,7 +12,7 @@ const app = express();
 // app.use(cors());
 app.use(cors({
   // 3000
-  origin: 'https://188e-222-102-68-9.ngrok-free.app',
+  origin: 'https://8304-222-102-68-9.ngrok-free.app',
   credentials: true,
 }));
 

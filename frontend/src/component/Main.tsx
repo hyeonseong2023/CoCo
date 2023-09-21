@@ -64,14 +64,14 @@ const Main: React.FC<MainProps> = ({ }) => {
   // 임시로 board_id 설정
   const BOARD_ID = 1;
   // 4000
-  const wrUrl = 'https://7c70-222-102-68-9.ngrok-free.app';
+  const wrUrl = 'https://5b2a-222-102-68-9.ngrok-free.app';
 
   // 제출 버튼 클릭 시 board_id Back으로 전송
   const handleClick = async () => {
     // http://localhost:8099/webrtc 로 요청
     // 보낼 때 board_id도 같이 보내야 함
     // 8099
-    axios.get('https://07a5-222-102-68-9.ngrok-free.app/webrtc', { params: { board_id: BOARD_ID } })
+    axios.get('https://5b7d-222-102-68-9.ngrok-free.app/webrtc', { params: { board_id: BOARD_ID } })
       .then(async (res) => {
         console.log("스프링 통신 완료");
         // res.data : 프로젝트 링크 uuid
