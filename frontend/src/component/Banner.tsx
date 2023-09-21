@@ -46,6 +46,7 @@ const Banner = () => {
 
   return (
     <div className='Banner-main'>
+      <div className='banner-space'></div>
       <div className="Banner-container">
         <Slider {...settings}>
           {slideContents.map((content, index) => (

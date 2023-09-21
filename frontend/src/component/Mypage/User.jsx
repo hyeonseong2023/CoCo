@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { MultiSelect } from "react-multi-select-component";
+import { useEffect, useState } from 'react'
 import axios from 'axios';
-
+import Select from 'react-select';
+import Cookies from 'js-cookie';
 import '../../css/User.css';
 import Logo from '../../img/Logo.png';
 import GitHub from '../../img/GitHub.png'
@@ -10,27 +10,39 @@ import editBtn from '../../img/editBtn.png';
 import X from '../../img/x.png';
 
 
+
 const User = ({ data }) => {
 
-    const userId = 'ekdud0225'; //사용자 아이디 
+    const userId = Cookies.get('CUST_ID'); //사용자 아이디 
 
 
     //모달창 노출 여부 
     const [modalOpen, setModalOpen] = useState(false); //회원정보수정 모달창 
     const [deleteModalOpen, setDeleteModalOpen] = useState(false); //회원탈퇴 모달창 
 
-    const [nick, setNick] = useState(data.CUST_NICK);
-    const [position, setPosition] = useState(data.CUST_POSITION);
-    const [career, setCareer] = useState(data.CUST_CAREER);
-    const [git, setGit] = useState(data.CUST_GIT);
-    const [photo, setPhoto] = useState(data.CUST_IMG);
-
+    const [nick, setNick] = useState();
+    const [position, setPosition] = useState();
+    const [career, setCareer] = useState();
+    const [git, setGit] = useState();
+    const [photo, setPhoto] = useState();
     const photoData = "data:image/;base64," + photo;
 
-    // const nick = data.CUST_NICK ;
-    // const position = data.CUST_POSITION;
-    // const career = data.CUST_CAREER; 
-    // const git = data.CUST_GIT; 
+
+
+    const fetchData = async () => {
+
+        setNick(data.CUST_NICK);
+        setPosition(data.CUST_POSITION);
+        setCareer(data.CUST_CAREER);
+        setGit(data.CUST_GIT);
+        setPhoto(data.CUST_IMG);
+
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
 
 
     //나의정보에 skill 띄우기 
@@ -43,16 +55,16 @@ const User = ({ data }) => {
 
 
     //MultiSelect에 선택한 skill 띄우기 
-    let resultArray = [];
-    for (let i = 0; i < data.SKILL_NAME.length; i++) {
-        let skillName = data.SKILL_NAME[i];
+    // let resultArray = [];
+    // for (let i = 0; i < data.SKILL_NAME.length; i++) {
+    //     let skillName = data.SKILL_NAME[i];
 
-        let skillObject = {
-            label: skillName,
-            value: skillName
-        };
-        resultArray.push(skillObject);
-    }
+    //     let skillObject = {
+    //         label: skillName,
+    //         value: skillName
+    //     };
+    //     resultArray.push(skillObject);
+    // }
 
 
     // 회원탈퇴 버튼 클릭 시 모달창 열기 
@@ -134,7 +146,7 @@ const User = ({ data }) => {
     ]
 
     // 선택한 관심스택 
-    const [selected, setSelected] = useState(resultArray);
+    //const [selected, setSelected] = useState(resultArray);
 
     // 관심스택 최대 개수 제한 
     const handleSelectionChange = (selectedItems) => {
@@ -144,6 +156,8 @@ const User = ({ data }) => {
         }
     };
 
+    //const [selected, setSelected] = useState(resultArray); // 선택한 관심스택
+    const [selected, setSelected] = useState([]);
 
     //프로필사진 변경 
     const [Image, setImage] = useState(photoData);
@@ -169,15 +183,19 @@ const User = ({ data }) => {
         reader.readAsDataURL(e.target.files[0])
     }
 
+    console.log(selected);
 
     // 프로필 수정 통신 
     const handleSubmit = () => {
+
+
 
         const formData = new FormData();
         formData.append('cust_id', 'ekdud0225');
         formData.append('cust_nick', modalNick);
         formData.append('cust_position', pselected.value);
         formData.append('cust_career', cselected.value);
+        formData.append('cust_skill', selected.join(', '));
         formData.append('cust_img1', file);
         formData.append('cust_git', modalGit);
 
@@ -205,9 +223,11 @@ const User = ({ data }) => {
             <div className='Mypage-user-container'>
 
                 {/* 편집버튼 */}
-                {userId === 'ekdud0225' && (
+                {/* {userId === 'ekdud0225' && (
                     <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
-                )}
+                )} */}
+
+                <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
 
 
 
@@ -219,22 +239,22 @@ const User = ({ data }) => {
                 <div>
                     <table className='Mypage-user-table'>
                         <tbody>
-                        <tr>
-                            <td className='Mypage-user-table-name'>직무</td>
-                            <td className='Mypage-user-table-content'>{position}</td>
-                        </tr>
-                        <tr>
-                            <td className='Mypage-user-table-name'>경력</td>
-                            <td className='Mypage-user-table-content'>{career}</td>
-                        </tr>
-                        <tr>
-                            <td className='Mypage-user-table-name'>관심스택</td>
-                            <td className='Mypage-user-table-content'>{skillNames}</td>
-                        </tr>
-                        <tr>
-                            <td className='Mypage-user-table-name'>링크</td>
-                            <td className='Mypage-user-table-content'><a href={git} target="_blank"><img src={GitHub}></img></a></td>
-                        </tr>
+                            <tr>
+                                <td className='Mypage-user-table-name'>직무</td>
+                                <td className='Mypage-user-table-content'>{position}</td>
+                            </tr>
+                            <tr>
+                                <td className='Mypage-user-table-name'>경력</td>
+                                <td className='Mypage-user-table-content'>{career}</td>
+                            </tr>
+                            <tr>
+                                <td className='Mypage-user-table-name'>관심스택</td>
+                                <td className='Mypage-user-table-content'>{skillNames}</td>
+                            </tr>
+                            <tr>
+                                <td className='Mypage-user-table-name'>링크</td>
+                                <td className='Mypage-user-table-content'><a href={git} target="_blank"><img src={GitHub}></img></a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -277,70 +297,81 @@ const User = ({ data }) => {
                             <form method='put'>
                                 <table className='Mapage-modal-user-table'>
                                     <tbody>
-                                    {/* 닉네임 변경 */}
-                                    <tr>
-                                        <td className='Mypage-user-modal-name'>닉네임</td>
-                                        <td><input className='Mypage-user-modal-content' type="text" value={modalNick} onChange={(e) => { SetModalNick(e.target.value) }} /></td>
-                                    </tr>
+                                        {/* 닉네임 변경 */}
+                                        <tr>
+                                            <td className='Mypage-user-modal-name'>닉네임</td>
+                                            <td><input className='Mypage-user-modal-content' type="text" value={modalNick} onChange={(e) => { SetModalNick(e.target.value) }} /></td>
+                                        </tr>
 
-                                    {/* 직무 변경 */}
-                                    <tr>
-                                        <td className='Mypage-user-modal-name'>직무</td>
-                                        <td>
-                                            <select
-                                                className='Mypage-user-modal-content'
-                                                value={pselected.value}
-                                                onChange={(e) => setPselected({ value: e.target.value, name: e.target.value })}
-                                            >
-                                                {positionList.map((item) => (
-                                                    <option value={item.value} key={item.value}>
-                                                        {item.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </td>
-                                    </tr>
+                                        {/* 직무 변경 */}
+                                        <tr>
+                                            <td className='Mypage-user-modal-name'>직무</td>
+                                            <td>
+                                                <select
+                                                    className='Mypage-user-modal-content'
+                                                    value={pselected.value}
+                                                    onChange={(e) => setPselected({ value: e.target.value, name: e.target.value })}
+                                                >
+                                                    {positionList.map((item) => (
+                                                        <option value={item.value} key={item.value}>
+                                                            {item.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </td>
+                                        </tr>
 
-                                    {/* 경력 변경 */}
-                                    <tr>
-                                        <td className='Mypage-user-modal-name'>경력</td>
-                                        <td>
-                                            <select
-                                                className='Mypage-user-modal-content'
-                                                value={cselected.value}
-                                                onChange={(e) => setCselected({ value: e.target.value, name: e.target.value })}
-                                            >
-                                                {careerList.map((item) => (
-                                                    <option value={item.value} key={item.value}>
-                                                        {item.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </td>
-                                    </tr>
+                                        {/* 경력 변경 */}
+                                        <tr>
+                                            <td className='Mypage-user-modal-name'>경력</td>
+                                            <td>
+                                                <select
+                                                    className='Mypage-user-modal-content'
+                                                    value={cselected.value}
+                                                    onChange={(e) => setCselected({ value: e.target.value, name: e.target.value })}
+                                                >
+                                                    {careerList.map((item) => (
+                                                        <option value={item.value} key={item.value}>
+                                                            {item.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </td>
+                                        </tr>
 
-                                    {/* 관심스택 변경 */}
-                                    <tr>
-                                        <td className='Mypage-user-modal-name'>관심스택</td>
-                                        <td>
-                                            <MultiSelect
-                                                options={skills}
-                                                value={selected}
-                                                onChange={handleSelectionChange}
-                                                labelledBy={"Select"}
-                                                isCreatable={true}
-                                                maxSelected={3}
-                                                className='Mypage-multi-select'
+                                        <tr>
+                                            <td className='Mypage-user-modal-name'>관심스택</td>
+                                            <td>
 
-                                            />
-                                        </td>
-                                    </tr>
+                                                <Select
+                                                    className='Multi'
+                                                    options={skills}
+                                                    isMulti
+                                                    value={skills.filter((option) =>
+                                                        selected.includes(option.value)
+                                                    )}
+                                                    onChange={(selectedOptions) => {
+                                                        if (selectedOptions.length <= 4) {
+                                                            setSelected(
+                                                                selectedOptions.map((option) => option.value)
+                                                            );
+                                                        }
+                                                    }}
+                                                    styles={{
+                                                        control: (provided) => ({
+                                                            ...provided,
+                                                            fontSize: '14px', // 폰트 크기 조절
+                                                        })
+                                                    }}
+                                                />
+                                            </td>
+                                        </tr>
 
-                                    {/* Git 주소 변경 */}
-                                    <tr>
-                                        <td className='Mypage-user-modal-name'>GitHub</td>
-                                        <td><input className='Mypage-user-modal-content' type="text" value={modalGit} onChange={(e) => { SetModalGit(e.target.value) }} /></td>
-                                    </tr>
+                                        {/* Git 주소 변경 */}
+                                        <tr>
+                                            <td className='Mypage-user-modal-name'>GitHub</td>
+                                            <td><input className='Mypage-user-modal-content' type="text" value={modalGit} onChange={(e) => { SetModalGit(e.target.value) }} /></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <div>

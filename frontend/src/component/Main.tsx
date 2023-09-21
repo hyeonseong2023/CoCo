@@ -9,17 +9,15 @@ import TopPosts from './TopPosts';
 
 type MainProps = {};
 
-const Main: React.FC<MainProps> = ({ }) => {
+const Main: React.FC<MainProps> = () => {
   const [categoryData, setCategoryData] = useState<any[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState("javascript");
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
 
-  // 데이터 가져오는 함수
-  const fetchData = async (category: string) => {
+  const fetchData = async (requestData: any) => {
     try {
-      const response = await axios.get(`http://localhost:8099/recent?endpoint=1`);
-
+      const response = await axios.post('http://localhost:8099/select', requestData);
       const fetchedData = response.data.map((item: any) => {
-
         return {
           id: item.board_id,
           name: item.board_title,
@@ -39,6 +37,7 @@ const Main: React.FC<MainProps> = ({ }) => {
         };
       });
 
+
       setCategoryData(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -46,17 +45,22 @@ const Main: React.FC<MainProps> = ({ }) => {
   };
 
   useEffect(() => {
-    fetchData(selectedCategory);
-  }, [selectedCategory]);
+    const requestData = {
+      skill_name: selectedLanguage,
+      board_position: selectedPosition,
+      endpoint: 0
+    };
+    fetchData(requestData);
+  }, [selectedLanguage, selectedPosition]);
 
-  const updateCategoryData = (selectedCategory: string) => {
-    setSelectedCategory(selectedCategory);
+  const updateCategoryData = (selectedCategory: string | null) => {
+    setSelectedLanguage(selectedCategory);
+    setSelectedPosition(selectedCategory);
   };
 
-  function handleLoginButtonClick(): void {
-  }
-  console.log(selectedCategory);
+  const handleLoginButtonClick = (): void => {
 
+  };
 
 
   //@@@@@@@@@@@@ webrtc 시작
@@ -105,9 +109,13 @@ const Main: React.FC<MainProps> = ({ }) => {
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
-      <TopPosts />
       <button onClick={handleClick}>webrtc</button>
-      <CategoryBox onUpdateData={updateCategoryData} />
+      <TopPosts />
+      <CategoryBox
+        onUpdateData={updateCategoryData}
+        setSelectedLanguage={setSelectedLanguage}
+        setSelectedPosition={setSelectedPosition}
+      />
       <Contents categoryData={categoryData} />
     </div>
   );

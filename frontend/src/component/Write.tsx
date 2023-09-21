@@ -8,15 +8,17 @@ import 'react-quill/dist/quill.snow.css'; // Quill 스타일 임포트
 import { Link } from 'react-router-dom';
 
 const Write = () => {
+  const [selectedPosition, setSelectedPosition] = useState(null);
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [images, setImages] = useState<File[]>([]);
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
+  const [insertedImages, setInsertedImages] = useState<string[]>([]);
   const [recruitmentInfo, setRecruitmentInfo] = useState({
     recruitmentCount: 1,
     techStack: [] as string[],
     duration: 1,
-    position: '',
+    position: '', // 수정 전: position을 문자열로 사용
     startDate: new Date(),
     endDate: new Date(),
     openTalkLink: '',
@@ -24,6 +26,7 @@ const Write = () => {
     recruitmentType: '프로젝트',
   });
 
+  // Quill 에디터 모듈 설정
   const modules = {
     toolbar: {
       container: [
@@ -34,14 +37,17 @@ const Write = () => {
     },
   };
 
+  // 제목 변경 핸들러
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
+  // 내용 변경 핸들러
   const handleContentChange = (value: string) => {
     setContent(value);
   };
 
+  // 모집 정보 변경 핸들러
   const handleRecruitmentInfoChange = (name: string, value: any) => {
     setRecruitmentInfo({
       ...recruitmentInfo,
@@ -49,28 +55,10 @@ const Write = () => {
     });
   };
 
+  // 선택된 기술 스택 상태 변수 및 핸들러
   const [selectedTechStack, setSelectedTechStack] = useState<string[]>([]);
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      const selectedImages = Array.from(files);
-      setImages([...images, ...selectedImages]);
-      const imageUrls = selectedImages.map((file) => URL.createObjectURL(file));
-      setPreviewImages([...previewImages, ...imageUrls]);
-    }
-  };
-
-  const handleImageRemove = (index: number) => {
-    const updatedImages = [...images];
-    updatedImages.splice(index, 1);
-    setImages(updatedImages);
-
-    const updatedPreviewImages = [...previewImages];
-    updatedPreviewImages.splice(index, 1);
-    setPreviewImages(updatedPreviewImages);
-  };
-
+  // 진행 기간 변경 핸들러
   const handleDurationChange = (value: number) => {
     setRecruitmentInfo({
       ...recruitmentInfo,
@@ -78,6 +66,7 @@ const Write = () => {
     });
   };
 
+  // 제출 핸들러
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -98,9 +87,7 @@ const Write = () => {
     formData.append('board_deadline', recruitmentInfo.deadline);
     formData.append('board_views', '0');
     formData.append('SKILL_NAME', selectedTechStack.join(', '));
-    images.forEach((file) => {
-      formData.append('BOARD_IMG', file);
-    });
+    formData.append('BOARD_IMG', "");
 
     try {
       const response = await fetch('http://localhost:8099/postsaveinfor', {
@@ -121,13 +108,36 @@ const Write = () => {
     }
   };
 
+
+
+  
+  // 기술 스택 옵션
   const techStackOptions = [
-    { value: 'JavaScript', label: 'JavaScript' },
-    { value: 'TypeScript', label: 'TypeScript' },
-    { value: 'React', label: 'React' },
-    { value: 'Spring', label: 'Spring' },
-    { value: 'C', label: 'C' },
+    { label: "Spring", value: "Spring" },
+    { label: "JavaScript", value: "javaScript" },
+    { label: "TypeScript", value: "TypeScript" },
+    { label: "Vue", value: "Vue" },
+    // 다른 기술 스택 옵션들...
   ];
+
+  // 포지션 옵션
+  const positionOptions = [
+    { label: '백엔드', value: '백엔드' },
+    { label: '프론트엔드', value: '프론트엔드' },
+    { label: '디자이너', value: '디자이너' },
+    { label: 'IOS', value: 'IOS안드로이드' },
+    { label: '안드로이드', value: '안드로이드' },
+    { label: '데브옵스', value: '데브옵스' },
+    { label: 'PM', value: 'PM' },
+    { label: '기획자', value: '기획자' },
+  ];
+
+  const handlePositionChange = (selectedOptions : any) => {
+    if (selectedOptions.length <= 3) {
+      setSelectedPosition(selectedOptions);
+    }
+  };
+
 
   return (
     <div className="write-container">
@@ -222,21 +232,18 @@ const Write = () => {
               />
             </div>
             <div className="form-subgroup form-subgroup-spacing">
-              <label htmlFor="recruitmentType">모집 구분</label>
-              <select
-                id="recruitmentType"
-                name="recruitmentType"
-                value={recruitmentInfo.recruitmentType}
-                onChange={(e) =>
-                  handleRecruitmentInfoChange(e.target.name, e.target.value)
-                }
-                className="input-field"
-              >
-                <option value="프로젝트">프로젝트</option>
-                <option value="스터디">스터디</option>
-                <option value="대외활동">대외활동</option>
-              </select>
+              <label htmlFor="position">포지션</label>
+              <Select
+                id="position"
+                name="position"
+                options={positionOptions}
+                isMulti
+                value={selectedPosition}
+                onChange={handlePositionChange}
+                className="custom-select"
+              />
             </div>
+
 
             <div className="form-subgroup form-subgroup-spacing">
               <label htmlFor="openTalkLink"> 오픈톡 링크</label>
@@ -253,30 +260,6 @@ const Write = () => {
             </div>
           </div>
 
-          <div className="file-s">
-            <div className="form-subgroup form-subgroup-spacing">
-              <label htmlFor="image">파일 업로드</label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                onChange={handleImageChange}
-                accept="image/*"
-                className="input-field"
-                multiple
-              />
-            </div>
-            {previewImages.length > 0 && (
-              <div className="image-preview form-group-spacing">
-                {previewImages.map((imageUrl, index) => (
-                  <div key={index} className="image-preview-item">
-                    <img className="testimg" src={imageUrl} alt={`미리 보기 ${index}`} />
-                    <button onClick={() => handleImageRemove(index)}>삭제</button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
           <div className="form-group form-group-spacing">
             <label htmlFor="content">내용</label>
             <ReactQuill
