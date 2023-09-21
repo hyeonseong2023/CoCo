@@ -166,3 +166,9 @@
   height: 100px;
   overflow : auto ;
 }
+
+.image-preview-form-group-spacing{
+  height: 100px;
+
+  overflow: auto;
+}
