@@ -9,7 +9,13 @@ import bodyParser from 'body-parser';
 const PORT = process.env.PORT || 4000;
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  // 3000
+  origin: 'https://188e-222-102-68-9.ngrok-free.app',
+  credentials: true,
+}));
+
 app.use(bodyParser.json());
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
@@ -154,5 +160,6 @@ wsServer.on("connection", (socket) => {
 });
 
 const handleListen = () =>
-  console.log(`✅ Listening on http://172.30.1.24:${PORT}`);
+  // 4000
+  console.log(`✅ Listening on http://localhost:${PORT}`);
 httpServer.listen(PORT, handleListen);
