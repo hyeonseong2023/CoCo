@@ -41,7 +41,7 @@ public class MainController {
 	}
 
 	// 북마크 해제
-	@DeleteMapping("/unbookmark")
+	@PostMapping("/unbookmark")
 	public void unBookmark(@RequestBody TB_BOOKMARK book) {
 		int unBookmark = service.unBookmark(book);
 	}
@@ -52,7 +52,7 @@ public class MainController {
 		return service.bookmarkList(cust_id);
 	}
 
-	// 게시글 불러오기 
+	// 게시글 불러오기
 	// 기술스택명 = null 포지션 = null 엔드포인트 : 1 최신순 게시글 가져오기
 	// 기술스택명 = React 포지션 = null 엔드포인트 : 1 기술스택명에 맞는 최신순 게시글 가져오기
 	// 기술스택명 = null, 포지션 = 백엔드 엔드포인트 : 1 포지션에 맞는 최신순 게시글 가져오기

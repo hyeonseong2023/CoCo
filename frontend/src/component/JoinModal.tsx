@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import '../css/JoinModal.css';
+import Select from 'react-select';
+import nextBtn from '../img/nextBtn.png';
+import X from '../img/x.png';
+import Logo from '../img/Logo.png';
+import axios from 'axios';
+
 
 type FormData = {
   nickname: string;
@@ -75,97 +81,233 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
       console.error('데이터를 서버로 전송하는 중 오류가 발생했습니다.', error);
     }
 
-    Cookies.remove('coin'); 
+    Cookies.remove('coin');
     window.location.replace("/")
   };
+
+
+  // 다영시작 
+
+  const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디 
+  const [nick, setNick] = useState(""); // 닉네임
+  const [pselected, setPselected] = useState({ value: "", name: "" });  // 선택한 포지션 
+  const [cselected, setCselected] = useState({ value: "", name: "" })  // 선택한 경력
+  const [selected, setSelected] = useState<string[]>([]);  // 선택한 관심스택
+
+  // 포지션 종류
+  const positionList = [
+    { value: "", name: "" },
+    { value: "백엔드", name: "백엔드" },
+    { value: "프론트엔드", name: "프론트엔드" },
+    { value: "디자이너", name: "디자이너" },
+    { value: "IOS", name: "IOS안드로이드" },
+    { value: "안드로이드", name: "안드로이드" },
+    { value: "데브옵스", name: "데브옵스" },
+    { value: "PM", name: "PM" },
+    { value: "기획자", name: "기획자" }
+    //포지션 종류 참고하세요 
+  ]
+
+  // 경력 종류
+  const careerList = [
+    { value: "", name: "" },
+    { value: "1년", name: "1년" },
+    { value: "2년", name: "2년" },
+    { value: "3년", name: "3년" },
+    { value: "4년", name: "4년" },
+    { value: "5년", name: "5년" },
+    { value: "6년", name: "6년" },
+    { value: "7년", name: "7년" },
+    { value: "8년", name: "8년" },
+    { value: "9년", name: "9년" },
+    { value: "10년이상", name: "10년이상" }
+  ];
+
+  //관심스택 종류 
+  const skills = [
+    { label: "Spring", value: "Spring" },
+    { label: "JavaScript", value: "javaScript" },
+    { label: "TypeScript", value: "TypeScript" },
+    { label: "Vue", value: "Vue" },
+    { label: "Nodejs", value: "Nodejs" },
+    { label: "Java", value: "Java" },
+    { label: "Nextjs", value: "Nextjs" },
+    { label: "Express", value: "Express" },
+    { label: "Go", value: "Go" },
+    { label: "C", value: "C" },
+    { label: "Python", value: "Python" },
+    { label: "Django", value: "Django" },
+    { label: "kotlin", value: "kotlin" },
+    { label: "MySQL", value: "MySQL" },
+    { label: "MongoDB", value: "MongoDB" },
+    { label: "php", value: "php" },
+    { label: "GraphQL", value: "GraphQL" },
+    { label: "ebase", value: "ebase" },
+    { label: "ReactNative", value: "ReactNative" },
+    { label: "Unity", value: "Unity" },
+    { label: "Flutter", value: "Flutter" },
+    { label: "AWS", value: "AWS" },
+    { label: "Kubernetes", value: "Kubernetes" },
+    { label: "Docker", value: "Docker" },
+    { label: "Git", value: "Git" },
+    { label: "Figma", value: "Figma" },
+    { label: "Zeplin", value: "Zeplin" }
+  ]
+
+  let skillNames = selected.join(','); // 배열을 문자열로 합침 
+  const [welcomeOpen, setWelcomeOpen] = useState(false);  // Welcome modal 오픈여부 
+
+  // 통신 (기본정보 저장)
+  const handleAdd = async () => {
+
+    console.log(loginUserId);
+    console.log(nick);
+    console.log(pselected.value);
+    console.log(cselected.value);
+    console.log(skillNames);
+
+
+    const requestData = {
+      cust_id: loginUserId, //아이디 
+      cust_nick: nick,     //닉네임
+      cust_position: pselected.value, //포지션
+      cust_career: cselected.value, // 경력
+      skill_name: skillNames  //관심스택 
+    };
+
+    try {
+      await axios.post('http://localhost:8099/firstlogin', requestData);
+      console.log('요청이 성공했습니다.');
+      closeModal();
+      setWelcomeOpen(true); 
+
+
+    } catch (error) {
+      console.error('요청이 실패했습니다.', error);
+    }
+
+  }
+
+
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <form onSubmit={handleSubmit}>
-          <div className='join-h3C'> <h2>회원가입</h2> </div>
-          <div className="form-group">
-            <label>닉네임</label>
-            <input
-              name="nickname"
-              className="select-field modal-input"
-              value={formData.nickname}
-              onChange={handleChange}
-              required
-            />
-          </div>
 
-          <div className="form-group">
-            <label>직무</label>
-            <select
-              name="job"
-              className="select-field"
-              value={formData.job}
-              onChange={handleChange}
-            >
-              <option value="-- 선택 --">-- 선택 --</option>
-              <option value="백엔드">백엔드</option>
-              <option value="프론트엔드">프론트엔드</option>
-              <option value="디자이너">디자이너</option>
-              <option value="IOS">IOS</option>
-              <option value="안드로이드">안드로이드</option>
-              <option value="DevOps">DevOps</option>
-              <option value="PM">PM</option>
-              <option value="기획자">기획자</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label>경력</label>
-            <select
-              name="experience"
-              className="select-field"
-              value={formData.experience}
-              onChange={handleChange}
-            >
-              <option value="-- 선택 --">-- 선택 --</option>
-              <option value="신입">신입</option>
-              <option value="1년">1년</option>
-              <option value="2년">2년</option>
-              <option value="3년">3년</option>
-              <option value="4년">4년</option>
-              <option value="5년 이상">5년 이상</option>
-            </select>
-          </div>
+        {/* 모달 닫기 부분  */}
+        <div className='join-modal-user-close'>
+          <img className='join-modal-user-img' src={Logo}></img>
+          <img src={X} className="join-modal-user-close-button" onClick={closeModal}></img>
+        </div>
 
-          <div className="form-group">
-            <label>관심스택</label>
-            <select
-              name="interests"
-              className="select-field"
-              value={formData.interests}
-              onChange={handleChange}
-            >
-              <option value="-- 선택 --">-- 선택 --</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="TypeScript">TypeScript</option>
-              <option value="React">React</option>
-              <option value="Spring">Spring</option>
-              <option value="C">C</option>
-            </select>
-          </div>
+        {/* 환영인사 부분  */}
+        <div className='join'> <h1>CoCo에 처음이시군요!</h1> </div>
+        <div className='join-text'> <h1>기본정보를 입력해주세요 </h1> </div>
 
-          {!validationMessage ? (
-            <p>가입 버튼을 눌러주세요</p>
-          ) : (
-            <p>{validationMessage}</p>
-          )}
-
-
-          <button type="submit" className="butjoin">
-            가입하기
-          </button>
+        {/* 정보 입력 부분 */}
+        <form className='join-container'>
+          <table>
+            <tbody>
+              {/* 닉네임 */}
+              <tr>
+                <td className='join-user-modal-name'>닉네임</td>
+                <td><input className='join-user-modal-content' type="text" value={nick} onChange={(e) => { setNick(e.target.value) }} ></input></td>
+              </tr>
+              {/* 직무 */}
+              <tr>
+                <td className='join-user-modal-name'>직무</td>
+                <td>
+                  <select
+                    className='join-user-modal-content'
+                    value={pselected.value}
+                    onChange={(e) => setPselected({ value: e.target.value, name: e.target.value })}
+                  >
+                    {positionList.map((item) => (
+                      <option value={item.value} key={item.value}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+              </tr>
+              {/* 경력*/}
+              <tr>
+                <td className='join-user-modal-name'>경력</td>
+                <td>
+                  <select
+                    className='join-user-modal-content'
+                    value={cselected.value}
+                    onChange={(e) => setCselected({ value: e.target.value, name: e.target.value })}
+                  >
+                    {careerList.map((item) => (
+                      <option value={item.value} key={item.value}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+              </tr>
+              {/* 관심스택 (다중선택) */}
+              <tr>
+                <td className='join-user-modal-name'>관심스택</td>
+                <td>
+                  <Select
+                    className='join-Multi'
+                    options={skills}
+                    isMulti
+                    value={skills.filter((option) =>
+                      selected.includes(option.value)
+                    )}
+                    onChange={(selectedOptions: any) => {
+                      if (selectedOptions.length <= 4) {
+                        setSelected(
+                          selectedOptions.map((option: any) => option.value)
+                        );
+                      }
+                    }}
+                    styles={{
+                      control: (provided) => ({
+                        ...provided,
+                        fontSize: '13px', // 폰트 크기 조절
+                      }),
+                      option: (provided) => ({
+                        ...provided,
+                        fontSize: '15px', // 옵션 폰트 크기 조절
+                      }),
+                    }}
+                    placeholder=""
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </form>
-        <button className="close-button" onClick={closeModal}>
-          X
-        </button>
+        <div>
+          <img src={nextBtn} className='nextBtn' onClick={handleAdd}></img>
+        </div>
       </div>
+
+      {welcomeOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+
+            {/* 모달 닫기 부분  */}
+            <div className='join-modal-user-close'>
+              <img className='join-modal-user-img' src={Logo}></img>
+              <img src={X} className="join-modal-user-close-button" onClick={closeModal}></img>
+            </div>
+
+            {/* 환영인사 부분  */}
+            <div className='join'> <h1>CoCo에 처음이시군요!</h1> </div>
+            <div className='join-text'> <h1>기본정보를 입력해주세요 </h1> </div>
+          </div>
+        </div>
+      )}
+
+
     </div>
-  );
-};
+  )
+}
 
 export default JoinModel;
+

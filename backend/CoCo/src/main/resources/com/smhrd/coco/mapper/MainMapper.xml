@@ -32,7 +32,7 @@
 	</insert>
 
 	<!-- 북마크 해제 -->
-	<delete id="umBookmark"
+	<delete id="unBookmark"
 		parameterType="com.smhrd.coco.domain.TB_BOOKMARK">
 		delete from TB_BOOKMARK where CUST_ID = #{cust_id} and
 		BOARD_ID =
@@ -94,6 +94,11 @@
 		BOARD_DT limit #{endpoint}, 6;
 	</select>
 
+
+     <!-- 해당게시글 작성자의 닉네임 가져오기  -->
+     <select id="custNick" resultType = "String">
+       select CUST_NICK from TB_CUST where CUST_ID = #{cust_id} ;
+     </select>
 
 
 	<!-- 지원한 게시글 보기 -->

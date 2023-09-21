@@ -41,6 +41,8 @@ public interface MainMapper {
 	// 기술스택과 포지션에 맞는 최신순 게시글 가져오기 
 	public List<TB_BOARD> skillPositionList(String skill_name,String board_position, int endpoint);
 	
+	// 해당게시글 작성자의 닉네임 가져오기 
+	public String custNick(String cust_id);
 	
 	
 	

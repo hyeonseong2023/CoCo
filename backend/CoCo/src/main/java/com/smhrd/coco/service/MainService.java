@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_SKILL;
 import com.smhrd.coco.domain.TB_BOOKMARK;
+import com.smhrd.coco.domain.TB_CUST;
 import com.smhrd.coco.mapper.MainMapper;
 
 @Service
@@ -149,6 +150,11 @@ public class MainService {
 
 			map.put("skill_names", skillNames);
 			jsonArray.add(new JSONObject(map));
+			
+			// 해당게시글의 닉네임 가져오기 
+			String custNick = mapper.custNick(pb.getCust_id()); 
+			map.put("cust_nick", custNick);
+		
 		}
 
 		return jsonArray;
