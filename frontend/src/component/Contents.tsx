@@ -40,18 +40,15 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
             <div key={index}>
               <Link to={`/Contents/${data.id}`} key={index} state={data}>
                 <div className='Contentsbox'>
-                  <div className='Ctitle'>
-                  {data.board_members}
+                  <div className='Contentsbox-A'>
+                    <div>day</div>
+                    <div>제목</div>
+                    <div>꼬리부분</div>
                   </div>
-                  <div className='Ccontents'>
-                  {data.title}
-                  <br/>
-                  {data.content}
-                  </div>
-                  <div  className='Cbookmark'>
-                  {data.board_deadline}
-                  <br/>
-                  {data.board_views}
+                  <div className='Contentsbox-B'>
+                    <div>모집인원</div>
+                    <div>분야</div>
+                    <div>아이콘</div>
                   </div>
                 </div>
               </Link>
