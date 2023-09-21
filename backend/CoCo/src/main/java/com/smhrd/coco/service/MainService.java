@@ -39,6 +39,8 @@ public class MainService {
 
 	// 북마크 해제
 	public int unBookmark(TB_BOOKMARK book) {
+		System.out.println(book.getCust_id());
+		System.out.println(book.getBoard_id());
 		return mapper.unBookmark(book.getCust_id(), book.getBoard_id());
 	}
 

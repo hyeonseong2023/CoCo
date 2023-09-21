@@ -35,6 +35,9 @@ public class BoardService {
 	@Autowired
 	ResourceLoader resourceLoader;
 	// 특정 경로에 있는 파일을 가지고 오기
+	
+	@Autowired
+	private MainService mainService;
 
 	@Autowired
 	private BoardMapper mapper;
@@ -56,32 +59,68 @@ public class BoardService {
 
 	// 선택한 게시글 내용 보내기 (TB_BOARD, TB_BOARD_SKILL, TB_BOARD_IMG, TB_BOOKMARK,
 	// TB_APPLY)
-	public JSONArray selectPostViews(int board_id) {
+	public JSONArray selectPostViews(int board_id, String cust_id) {
 
+		mainService.increaseViews(board_id);
 		TB_BOARD board = mapper.selectPostBoard(board_id);
-		System.out.println("custid"+board.getCust_id());
-		//String createId = board.getCust_id();
 		List<TB_BOARD_SKILL> skill = mapper.selectPostSkill(board_id);
 		TB_BOARD_IMG img = mapper.selectPostImag(board_id);
-		int bmk = mapper.selectPostBmk(board_id, board.getCust_id());
-		int apply = mapper.selectPostApply(board_id, board.getCust_id());
+		int bmk = mapper.selectPostBmk(board_id, cust_id);
+		int apply = mapper.selectPostApply(board_id, cust_id);
 		TB_CUST createCust = mapper.selectPostCust(board.getCust_id());
-		System.out.println(createCust.getCust_id());
+		
+		
+	
+		board = setDeadline(board);
+		String dDay = calculateDday(board);
+		
+		// 각자 있는 스킬 배열로 묶기
+		String[] skillList = new String[skill.size()];
+		
+		for (int i = 0; i < skill.size(); i++) {
+			skillList[i] = skill.get(i).getSKILL_NAME();
+		}
+		
+		// 게시판 사진 파일 찾아서 바이트형태로 변환하기
+		img.setBOARD_IMG(converter(img.getBOARD_IMG()));
+		
+		//회원 프로필 사진 찾아서 바이트 형태로 변환하기
+		createCust.setCust_img(converter(createCust.getCust_img()));
 
-		
-		// 게시글 등록일시 시간 빼서 저장하기
-		String date = board.getBoard_dt();
-		String[] dateSplit = date.split(" ");
-		String boardDay = dateSplit[0];
-		board.setBoard_dt(boardDay);
-		
-		// 게시글 모집마감일 시간빼서 저장하기
-		String startDay = board.getBoard_deadline();
-		String[] startSplit = startDay.split(" ");
-		String boardStart = startSplit[0];
-		board.setBoard_deadline(boardStart);
-		
-		//------------------모집 마감일 일수로 계산 (게시글 등록일시-모집마감일) -------------
+		// JSONArray 에 모두 담기
+		JSONArray jsonArray = new JSONArray();
+
+		JSONObject obj = new JSONObject();
+		obj.put("TB_BOARD", board);
+		obj.put("TB_BOARD_SKILL", skillList);
+		obj.put("TB_BOARD_IMG", img);
+		obj.put("TB_BOOKMARK", bmk);
+		obj.put("TB_APPLY", apply);
+		obj.put("D_day", dDay);
+		obj.put("createCust", createCust);
+
+		jsonArray.add(obj);
+		return jsonArray;
+	}
+	
+	
+	//게시글에 지원하기
+	public int postApply(int board_id, String cust_id) {
+		return mapper.postApply(board_id,cust_id);
+	}
+	
+	
+	////게시글 지원취소하기
+	public int unPostApply(int board_id, String cust_id) {
+		return mapper.unPostApply(board_id,cust_id);
+	}
+	
+	
+	
+	
+	
+	
+	public String calculateDday(TB_BOARD board) {
 		String firstDate = board.getBoard_dt();
 		String secondDate = board.getBoard_deadline();
 
@@ -101,69 +140,43 @@ public class BoardService {
 		System.out.println("end :" + endDate);
 
 		long per = ChronoUnit.DAYS.between(startDate, endDate);
-		System.out.println(per);
 		
 		String dDay = per + "";
 
-		System.out.println("dday==="+dDay);
-		//------------------모집 마감일 일수로 계산 끝-------------
-		
-		
-		// 각자 있는 스킬 배열로 묶기
-		String[] skillList = new String[skill.size()];
-		
-		for (int i = 0; i < skill.size(); i++) {
-			skillList[i] = skill.get(i).getSKILL_NAME();
-		}
-		
-		// 게시판 사진 파일 찾아서 바이트형태로 변환하기
+		return dDay;
+	}
+	
+	public TB_BOARD setDeadline(TB_BOARD board) {
+		// 게시글 등록일시 시간 빼서 저장하기
+				String date = board.getBoard_dt();
+				String[] dateSplit = date.split(" ");
+				String boardDay = dateSplit[0];
+				board.setBoard_dt(boardDay);
+				
+				// 게시글 모집마감일 시간빼서 저장하기
+				String startDay = board.getBoard_deadline();
+				String[] startSplit = startDay.split(" ");
+				String boardStart = startSplit[0];
+				board.setBoard_deadline(boardStart);
+				
+				return board;
+				
+	}
+	
+	public String converter(String img) {
 		ImageConverter<File, String> converter = new ImageToBase64();
+		String fileStringValue = null;
 		try {
-			File file = new File("c:\\cocoImage\\" + img.getBOARD_IMG());
-
-			String fileStringValue = null;
+			File file = new File("c:\\cocoImage\\" + img);
 			try {
 				fileStringValue = converter.convert(file);
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println(file);
-			img.setBOARD_IMG(fileStringValue);
-	
 		} catch(NullPointerException e) {
 			e.printStackTrace();
 		}
-		
-				
-		//회원 프로필 사진 찾아서 바이트 형태로 변환하기
-		File file2 = new File("c:\\cocoImage\\" + createCust.getCust_img());
-
-		String fileStringValue2 = null;
-		try {
-			fileStringValue2 = converter.convert(file2);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println(file2);
-		createCust.setCust_img(fileStringValue2);
-		
-
-		// JSONArray 에 모두 담기
-		JSONArray jsonArray = new JSONArray();
-
-		JSONObject obj = new JSONObject();
-		obj.put("TB_BOARD", board);
-		obj.put("TB_BOARD_SKILL", skillList);
-		obj.put("TB_BOARD_IMG", img);
-		obj.put("TB_BOOKMARK", bmk);
-		obj.put("TB_APPLY", apply);
-		obj.put("D_day", dDay);
-		obj.put("createCust", createCust);
-
-		jsonArray.add(obj);
-		return jsonArray;
+		return fileStringValue;
 	}
 	
 	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
