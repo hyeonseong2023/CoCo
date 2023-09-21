@@ -16,8 +16,8 @@
   height: 150px;
   background-color: rgb(255, 255, 255);
   margin-bottom: 20px;
-  border: #2a5b9c 2px solid;
-  border-radius: 2%;
+  border: #d0e1f7 2px solid;
+  border-radius: 20px 20px 20px 20px; 
 }
 
 .Contentsbox{
@@ -26,7 +26,7 @@
 
 
 .Contentsbox-A{
-  width: 60%;
+  width: 75%;
   margin-left: 5%;
 }
 
@@ -47,7 +47,6 @@
 }
 
 .boxA_title>div{
-
 }
 .boxA_img>div>img{
   width: 4%;
@@ -62,4 +61,31 @@
 
 .Contentsbox{
   height: 100%;
+}
+
+.boxB_title{
+  margin-top: 5%;
+}
+.boxB_1{
+  margin-top: 15%;
+}
+.boxB_2{
+  padding-top: 8%;
+}
+
+.boxB_bookmark{
+  margin-top: 1%;
+  width: 10%;
+}
+
+.Contentsbox-B{
+  margin-top: 1%;
+  width: 20%;
+  margin-left: 3%;
+}
+
+
+.ContentsLine{
+  background-color: rgb(2, 196, 230);
+  width: 3px;
 }

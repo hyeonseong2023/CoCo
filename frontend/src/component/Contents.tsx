@@ -1,11 +1,27 @@
 // Contents.tsx
 
 import React from 'react';
-import '../css/Contents.css';
+import '../css/Contents.css'
 import { Link } from 'react-router-dom';
 import img from '../img/profilePicture.png'
-interface selectedCategory{
+import book from '../img/Bookmarkoff.png'
+interface selectedCategory {
   categoryData: CategoryData[]; // 전체 데이터 배열
+}
+
+function getPositionColor(position: string) {
+  switch (position) {
+    case '프론트엔드':
+      return 'frontend-color';
+    case '백엔드':
+      return 'backend-color';
+    case '디자이너':
+      return 'designer-color';
+    case '기획자':
+      return 'planner-color';
+    default:
+      return ''; // 기본값으로 빈 문자열을 반환하거나 다른 적절한 클래스를 할당하세요.
+  }
 }
 
 interface CategoryData {
@@ -45,13 +61,20 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                     <div className='boxA_title'><div>{data.title}</div></div>
                     <div className='boxA_img'><div><img src={img} alt="" /></div></div>
                   </div>
-                  <div className='boxB_title'><div>북마크</div><div>조회수</div></div>
-                  <hr/>
-                  <div className='Contentsbox-B'>
-                    <div>모집인원</div>
-                    <div>분야</div>
-                    <div>아이콘</div>
+                  <div className='boxB_bookmark'><div className='boxB_1'><img src={book} alt="" /></div><div className='boxB_2'>조회수 {data.board_views}</div></div>
+                  <div className='ContentsLine'></div>
+                  <div className='topBody-topTail'>모집분야</div>
+                  <div className='topTail'>
+                    {data.board_position.split(',').map((position, positionIndex) => (
+                      <div
+                        key={positionIndex}
+                        className={`top-board_position ${getPositionColor(position)}`}
+                      >
+                        {position}
+                      </div>
+                    ))}
                   </div>
+
                 </div>
               </Link>
             </div>
