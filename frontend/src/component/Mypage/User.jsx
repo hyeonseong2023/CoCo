@@ -77,6 +77,7 @@ const User = ({ data }) => {
         { value: "데브옵스", name: "데브옵스" },
         { value: "PM", name: "PM" },
         { value: "기획자", name: "기획자" }
+        //포지션 종류 참고하세요 
     ]
 
     // 선택한 포지션 
@@ -168,6 +169,8 @@ const User = ({ data }) => {
         reader.readAsDataURL(e.target.files[0])
     }
 
+
+    // 프로필 수정 통신 
     const handleSubmit = () => {
 
         const formData = new FormData();
@@ -199,38 +202,40 @@ const User = ({ data }) => {
         <div>
 
             {/* 마이페이지 나의 프로필 정보  */}
-            <div className='user-container'>
+            <div className='Mypage-user-container'>
 
                 {/* 편집버튼 */}
                 {userId === 'ekdud0225' && (
-                    <img src={editBtn} className='user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
+                    <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
                 )}
 
 
 
                 {/* 나의 프로필정보 */}
-                <div className='user-img-container'>
+                <div className='Mypage-user-img-container'>
                     <img src={"data:image/;base64," + photo} alt='이미지 출력되지 않았음' className='user-img' />
                 </div>
-                <div className='user-nickname'>{nick}</div>
+                <div className='Mypage-user-nickname'>{nick}</div>
                 <div>
-                    <table className='user-table'>
+                    <table className='Mypage-user-table'>
+                        <tbody>
                         <tr>
-                            <td className='user-table-name'>직무</td>
-                            <td className='user-table-content'>{position}</td>
+                            <td className='Mypage-user-table-name'>직무</td>
+                            <td className='Mypage-user-table-content'>{position}</td>
                         </tr>
                         <tr>
-                            <td className='user-table-name'>경력</td>
-                            <td className='user-table-content'>{career}</td>
+                            <td className='Mypage-user-table-name'>경력</td>
+                            <td className='Mypage-user-table-content'>{career}</td>
                         </tr>
                         <tr>
-                            <td className='user-table-name'>관심스택</td>
-                            <td className='user-table-content'>{skillNames}</td>
+                            <td className='Mypage-user-table-name'>관심스택</td>
+                            <td className='Mypage-user-table-content'>{skillNames}</td>
                         </tr>
                         <tr>
-                            <td className='user-table-name'>링크</td>
-                            <td className='user-table-content'><a href={git} target="_blank"><img src={GitHub}></img></a></td>
+                            <td className='Mypage-user-table-name'>링크</td>
+                            <td className='Mypage-user-table-content'><a href={git} target="_blank"><img src={GitHub}></img></a></td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
             </div >  {/* 마이페이지 나의 프로필 정보 끝  */}
@@ -239,24 +244,24 @@ const User = ({ data }) => {
 
             {/* 편집 클릭시 회원정보수정 모달 창 오픈  */}
             {modalOpen && (
-                <div className='modal-user-back'>
-                    <div className='modal-user-container'>
+                <div className='Mypage-modal-user-back'>
+                    <div className='Mypage-modal-user-container'>
 
                         {/* 모달 닫기 부분  */}
-                        <div className='modal-user-close'>
-                            <img className='modal-user-img' src={Logo}></img>
-                            <img src={X} onClick={(e) => { setModalOpen(false); }} className="modal-user-close-button"></img>
+                        <div className='Mypage-modal-user-close'>
+                            <img className='Mypage-modal-user-img' src={Logo}></img>
+                            <img src={X} onClick={(e) => { setModalOpen(false); }} className="Mypage-modal-user-close-button"></img>
                         </div>
 
                         {/* 모달 프로필사진 수정 */}
                         <div>
-                            <div className='user-img-container'>
-                                <img src={Image} alt='이미지 출력되지 않았음' className='user-img' />
+                            <div className='Mypage-user-img-container'>
+                                <img src={Image} alt='이미지 출력되지 않았음' className='Mypage-user-img' />
                                 {/* <img src={"data:image/;base64," + Image} alt='이미지 출력되지 않았음' className='user-img' />                */}
                             </div>
 
                             <label for="file-input">
-                                <img src={plus} alt="파일 선택" className='plus-img' />
+                                <img src={plus} alt="파일 선택" className='Mypage-plus-img' />
                             </label>
 
                             <input
@@ -270,20 +275,20 @@ const User = ({ data }) => {
 
                             {/* 모달창 정보 수정  */}
                             <form method='put'>
-                                <table className='modal-user-table'>
-
+                                <table className='Mapage-modal-user-table'>
+                                    <tbody>
                                     {/* 닉네임 변경 */}
                                     <tr>
-                                        <td className='user-modal-name'>닉네임</td>
-                                        <td><input className='user-modal-content' type="text" value={modalNick} onChange={(e) => { SetModalNick(e.target.value) }} /></td>
+                                        <td className='Mypage-user-modal-name'>닉네임</td>
+                                        <td><input className='Mypage-user-modal-content' type="text" value={modalNick} onChange={(e) => { SetModalNick(e.target.value) }} /></td>
                                     </tr>
 
                                     {/* 직무 변경 */}
                                     <tr>
-                                        <td className='user-modal-name'>직무</td>
+                                        <td className='Mypage-user-modal-name'>직무</td>
                                         <td>
                                             <select
-                                                className='user-modal-content'
+                                                className='Mypage-user-modal-content'
                                                 value={pselected.value}
                                                 onChange={(e) => setPselected({ value: e.target.value, name: e.target.value })}
                                             >
@@ -298,10 +303,10 @@ const User = ({ data }) => {
 
                                     {/* 경력 변경 */}
                                     <tr>
-                                        <td className='user-modal-name'>경력</td>
+                                        <td className='Mypage-user-modal-name'>경력</td>
                                         <td>
                                             <select
-                                                className='user-modal-content'
+                                                className='Mypage-user-modal-content'
                                                 value={cselected.value}
                                                 onChange={(e) => setCselected({ value: e.target.value, name: e.target.value })}
                                             >
@@ -316,7 +321,7 @@ const User = ({ data }) => {
 
                                     {/* 관심스택 변경 */}
                                     <tr>
-                                        <td className='user-modal-name'>관심스택</td>
+                                        <td className='Mypage-user-modal-name'>관심스택</td>
                                         <td>
                                             <MultiSelect
                                                 options={skills}
@@ -325,7 +330,7 @@ const User = ({ data }) => {
                                                 labelledBy={"Select"}
                                                 isCreatable={true}
                                                 maxSelected={3}
-                                                className='multi-select'
+                                                className='Mypage-multi-select'
 
                                             />
                                         </td>
@@ -333,14 +338,14 @@ const User = ({ data }) => {
 
                                     {/* Git 주소 변경 */}
                                     <tr>
-                                        <td className='user-modal-name'>GitHub</td>
-                                        <td><input className='user-modal-content' type="text" value={modalGit} onChange={(e) => { SetModalGit(e.target.value) }} /></td>
+                                        <td className='Mypage-user-modal-name'>GitHub</td>
+                                        <td><input className='Mypage-user-modal-content' type="text" value={modalGit} onChange={(e) => { SetModalGit(e.target.value) }} /></td>
                                     </tr>
-
+                                    </tbody>
                                 </table>
                                 <div>
-                                    <button className="modal_add_Button" type="submit" onClick={handleSubmit}>저장</button>
-                                    <button className="modal_delete_Button" type="submit" onClick={openDeletePopup}> 회원탈퇴 </button>
+                                    <button className="Mypage-modal_add_Button" type="submit" onClick={handleSubmit}>저장</button>
+                                    <button className="Mypage-modal_delete_Button" type="submit" onClick={openDeletePopup}> 회원탈퇴 </button>
                                 </div>
                             </form>
                         </div>
@@ -353,21 +358,21 @@ const User = ({ data }) => {
 
             {/* 회원탈퇴 모달창  */}
             {deleteModalOpen && (
-                <div className='modal-user-back'>
-                    <div className='modal-user-container'>
+                <div className='Mypage-modal-user-back'>
+                    <div className='Mypage-modal-user-container'>
                         {/* 모달 닫기 부분  */}
-                        <div className='modal-user-close'>
-                            <img className='modal-user-img' src={Logo}></img>
-                            <img src={X} onClick={closeDeletePopup} className="modal-user-close-button"></img>
+                        <div className='Mypage-modal-user-close'>
+                            <img className='Mypage-modal-user-img' src={Logo}></img>
+                            <img src={X} onClick={closeDeletePopup} className="Mypage-modal-user-close-button"></img>
                         </div>
-                        <div className='modal-delete-text'>
+                        <div className='Mypage-modal-delete-text'>
                             {nick}님 정말 탈퇴하시겠어요?
                         </div>
-                        <div className='modal-delete-content'>
+                        <div className='Mypage-modal-delete-content'>
                             탈퇴 버튼 선택 시, 계정은 삭제되며 복구되지 않습니다.
                         </div>
-                        <button className="modal_delete" type="submit" onClick={closeDeletePopup}> 탈퇴 </button>
-                        <button className="modal_delete_Cancle" type="submit" onClick={closeDeletePopup}> 취소 </button>
+                        <button className="Myapge-modal_delete" type="submit" onClick={closeDeletePopup}> 탈퇴 </button>
+                        <button className="Mypage-modal_delete_Cancle" type="submit" onClick={closeDeletePopup}> 취소 </button>
                     </div>
                 </div>)}  {/* 회원탈퇴 모달 창 끝  */}
         </div >

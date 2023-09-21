@@ -51,30 +51,59 @@ public class MainService {
 
 	}
 
-	// 최신순 게시글 6개씩 가져오기
+	
+	// 게시글 불러오기 
+	// 기술스택명 = null   포지션 = null  엔드포인트 : 1    최신순 게시글 가져오기 
+	// 기술스택명 = React  포지션 = null  엔드포인트 : 1    기술스택명에 맞는 최신순 게시글 가져오기
+	// 기술스택명 = null,  포지션 = 백엔드  엔드포인트 : 1    포지션에 맞는 최신순 게시글 가져오기
+	// 기술스택명 = React  포지션 = 백엔드  엔드포인트 : 1    기술스택과 포지션에 맞는 최신순 게시글 가져오기 
+	public JSONArray selectList(Map<String, Object> map) {
+		System.out.println(map);
+
+		String skill_name = (String)map.get("skill_name");  // 기술스택명
+		String board_position = (String) map.get("board_position"); //포지션
+		int endpoint = (int)map.get("endpoint"); //엔드포인트 
+				
+		//최신순 게시글 가져오기 
+		if(skill_name == null && board_position == null) {
+			return recentList(endpoint); 
+			// 기술스택명에 맞는 최신순 게시글 가져오기 
+		} else if (skill_name == null && board_position != null) {
+			return skillList(skill_name, endpoint); 
+			// 포지션에 맞는 최신순 게시글 가져오기  
+		} else if (skill_name != null && board_position == null ) {
+			return positionList(board_position, endpoint);
+		} else { //기술스택과 포지션에 맞는 최신순 게시글 가져오기 
+			return skillPositionList(skill_name,board_position,endpoint);
+		}
+		
+	}
+	
+	// 최신순 게시글 가져오기
 	public JSONArray recentList(int endpoint) {
 		List<TB_BOARD> list = mapper.recentList(endpoint);
 		return boardList(list);
 	}
 
 	// 스킬에 맞는 최신순 게시글 가져오기
-	public JSONArray skillList(Map<String, Object> map) {
-		String skill_name = (String) map.get("skill_name");
-		int endpoint = (int) map.get("endpoint");
-
+	public JSONArray skillList(String skill_name, int endpoint) {
 		List<TB_BOARD> list = mapper.skillList(skill_name, endpoint);
 		return boardList(list);
 	}
 
 	// 포지션에 맞는 최신순 게시글 가져오기
-	public JSONArray positionList(Map<String, Object> map) {
-		String board_position = (String) map.get("board_position");
-		int endpoint = (int) map.get("endpoint");
-
+	public JSONArray positionList(String board_position, int endpoint) {
 		List<TB_BOARD> list = mapper.positionList(board_position, endpoint);
 		return boardList(list);
 	}
+	
+	//기술스택과 포지션에 맞는 최신순 게시글 가져오기 
+	public JSONArray skillPositionList(String skill_name, String board_position, int endpoint ) {
+		List<TB_BOARD> list = mapper.skillPositionList(skill_name, board_position, endpoint);
+		return boardList(list); 
+	}
 
+	
 	// 지원한 게시글 보기
 	public JSONArray applyList(String cust_id) {
 

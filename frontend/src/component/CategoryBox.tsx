@@ -1,129 +1,97 @@
-// CategoryBox.tsx
 import React, { useState } from 'react';
 import Select from 'react-select';
 import '../css/Category.css';
 
 interface CategoryOption {
-  value: string;
+  value: any;
   label: string;
 }
 
 interface CategoryBoxProps {
   onUpdateData: (data: string) => void;
+  setSelectedLanguage: React.Dispatch<React.SetStateAction<string | null>>; 
+  setSelectedPosition: React.Dispatch<React.SetStateAction<string | null>>; 
 }
 
-const CategoryBox: React.FC<CategoryBoxProps> = ({ onUpdateData }) => {
-  // 각 셀렉트 박스에 대한 별도의 상태와 옵션 배열 생성
-  const [selectedCategory1, setSelectedCategory1] = useState<CategoryOption>({ value: "전체", label: "전체" });
-  const [selectedCategory2, setSelectedCategory2] = useState<CategoryOption>({ value: "언어옵션", label: "언어옵션" });
-  const [selectedCategory3, setSelectedCategory3] = useState<CategoryOption>({ value: "포지션", label: "포지션" });
-  const [selectedCategory4, setSelectedCategory4] = useState<CategoryOption>({ value: "진행방식", label: "진행방식" });
+const CategoryBox: React.FC<CategoryBoxProps> = ({ setSelectedLanguage, setSelectedPosition }) => {
+  const [selectedLanguage, setSelectedLanguageLocal] = useState<CategoryOption | null>(null);
+  const [selectedPosition, setSelectedPositionLocal] = useState<CategoryOption | null>(null);
 
-  // 각 셀렉트 박스에 대한 카테고리 옵션 배열 생성
   const categoryOptions1: CategoryOption[] = [
-    { value: "전체", label: "전체" },
-    { value: "프로젝트", label: "프로젝트" },
-    { value: "스터디", label: "스터디" },
+    { label: "javascript", value: "javascript" },
+    { label: "HTML", value: "HTML" },
+    { label: "CSS", value: "CSS" },
+    { label: "React", value: "React" },
+    { label: "Angular", value: "Angular" },
+    { label: "Vue", value: "Vue" },
+    { label: "Sass", value: "Sass" },
+    { value: "Spring", label: "Spring" },
+    { value: "Nodejs", label: "Nodejs" },
+    { value: "java", label: "Java" },
+    { value: "Go", label: "Go" },
+    { value: "Python", label: "Python" },
+    { value: "Django", label: "Django" },
+    { value: "kotlin", label: "kotlin" },
+    { value: "MySQL", label: "MySQL" },
+    { value: "MongoDB", label: "MongoDB" },
+    { value: "php", label: "php" },
+    { value: "GraphQL", label: "GraphQL" },
+    { value: "ebase", label: "ebase" },
+    { value: "aws", label: "AWS" },
+    { value: "Kubernetes", label: "Kubernetes" },
+    { value: "Docker", label: "Docker" },
+    { value: "Git", label: "Git" },
+    { value: "Figma", label: "Figma" },
+    { value: "Zeplin", label: "Zeplin" }
+
   ];
+  
 
   const categoryOptions2: CategoryOption[] = [
-    { value: "언어옵션", label: "전체" },
-    { value: "옵션1", label: "옵션1" },
-    { value: "옵션2", label: "옵션2" },
+    { value: "백엔드", label: "백엔드" },
+    { value: "프론트엔드", label: "프론트엔드" },
+    { value: "디자이너", label: "디자이너" },
+    { value: "IOS", label: "IOS안드로이드" },
+    { value: "안드로이드", label: "안드로이드" },
+    { value: "데브옵스", label: "데브옵스" },
+    { value: "PM", label: "PM" },
+    { value: "기획자", label: "기획자" }
   ];
-
-  const categoryOptions3: CategoryOption[] = [
-    { value: "포지션", label: "포지션" },
-    { value: "카테고리1", label: "카테고리1" },
-    { value: "카테고리2", label: "카테고리2" },
-  ];
-
-  const categoryOptions4: CategoryOption[] = [
-    { value: "진행방식", label: "진행방식" },
-    { value: "카테고리1", label: "카테고리1" },
-    { value: "카테고리2", label: "카테고리2" },
-  ];
-
-  // 각 셀렉트 박스에 대한 변경 이벤트 핸들러를 생성
+  
   const handleSelectChange1 = (selectedOption: CategoryOption | null) => {
     if (selectedOption) {
-      setSelectedCategory1(selectedOption);
-      onUpdateData(selectedOption.value);
+      setSelectedLanguageLocal(selectedOption);
+      setSelectedLanguage(selectedOption.value); // setSelectedLanguage를 업데이트
     }
   };
 
   const handleSelectChange2 = (selectedOption: CategoryOption | null) => {
     if (selectedOption) {
-      setSelectedCategory2(selectedOption);
-      onUpdateData(selectedOption.value);
-    }
-  };
-
-  const handleSelectChange3 = (selectedOption: CategoryOption | null) => {
-    if (selectedOption) {
-      setSelectedCategory3(selectedOption);
-      onUpdateData(selectedOption.value);
-    }
-  };
-
-  const handleSelectChange4 = (selectedOption: CategoryOption | null) => {
-    if (selectedOption) {
-      setSelectedCategory4(selectedOption);
-      onUpdateData(selectedOption.value);
+      setSelectedPositionLocal(selectedOption);
+      setSelectedPosition(selectedOption.value); // setSelectedPosition을 업데이트
     }
   };
 
   return (
-    <div>
-      <section className='studyOrProject_category'>
-        {categoryOptions1.map((category) => (
-          <div
-            key={category.value}
-            className={`studyOrProject_category__item__1EoaI ${category === selectedCategory1 ? "studyOrProject_active__3WkWF" : "studyOrProject_inactive__BC9y-"
-              }`}
-            onClick={() => handleSelectChange1(category)}
-          >
-            <span className='studyOrProject_text__cbBJ2'>{category.label}</span>
-          </div>
-        ))}
-      </section>
-      <div className='category_main'>
-        <div className='category'>
-          <div className='categoryA'>
-            <Select
-              options={categoryOptions2}
-              value={selectedCategory2}
-              onChange={(selectedOption) => handleSelectChange2(selectedOption)}
-              className="select-box" // 추가: 커스텀 스타일을 적용하기 위한 클래스
-            />
-          </div>
-        </div>
-          <div className='category'>
-            <div className='categoryA'>
-              <Select
-                options={categoryOptions3}
-                value={selectedCategory3}
-                onChange={(selectedOption) => handleSelectChange3(selectedOption)}
-                className="select-box" // 추가: 커스텀 스타일을 적용하기 위한 클래스
-              />
-            </div>
-            </div>
-          <div className='category'>
-            <div className='categoryA'>
-              <Select
-                options={categoryOptions4}
-                value={selectedCategory4}
-                onChange={(selectedOption) => handleSelectChange4(selectedOption)}
-                className="select-box" // 추가: 커스텀 스타일을 적용하기 위한 클래스
-              />
-          </div>
-        </div>
-        <div className='category'>
-          <div>👋 내 북마크 보기</div>
-        </div>
-        <div className='category'>
-          <div>👀 모집 중만 보기</div>
-        </div>
+    <div className='category_main'>
+      <div className='category'>
+        <Select
+          options={categoryOptions1}
+          value={selectedLanguage}
+          onChange={(selectedOption) => handleSelectChange1(selectedOption)}
+          className="select-box category1"
+        />
+      </div>
+      <div className='category'>
+        <Select
+          options={categoryOptions2}
+          value={selectedPosition}
+          onChange={(selectedOption) => handleSelectChange2(selectedOption)}
+          className="select-box category2"
+        />
+      </div>
+      <div className='category'>
+        <div>👋 내 북마크 보기</div>
       </div>
     </div>
   );

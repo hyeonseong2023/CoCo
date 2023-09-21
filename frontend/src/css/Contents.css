@@ -20,7 +20,8 @@
     height: 150px;
     background-color: rgb(255, 255, 255);
     margin-bottom: 20px;
-    border-bottom: #4598FF 2px solid;
+    border: #2a5b9c 2px solid;
+    border-radius: 2%;
   }
 
 /* Contents.css */
@@ -63,3 +64,6 @@
   .Cbookmark{
     flex-grow: 1;
   }
+
+
+ 

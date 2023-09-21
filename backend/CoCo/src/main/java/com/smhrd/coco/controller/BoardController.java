@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -139,7 +140,6 @@ public class BoardController {
 		}
 	}
 
-	
 	//게시글 지원취소하기
 	@GetMapping("/unPostApply/{board_id}/{cust_id}")
 	public int unPostApply(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
@@ -156,8 +156,12 @@ public class BoardController {
 			return 0;
 		}
 	}
-	
-	
+
+	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
+	@GetMapping("/webrtc")
+	public String getOrCreateProLink(@RequestParam("board_id") int board_id) {
+		return service.getOrCreateProLink(board_id);
+	}
 
 	
 	

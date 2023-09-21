@@ -178,5 +178,11 @@ public class BoardService {
 		}
 		return fileStringValue;
 	}
+	
+	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
+	public String getOrCreateProLink(int board_id) {
+		return mapper.getOrCreateProLink(board_id);
+	}
+
 
 }

@@ -47,4 +47,8 @@ public interface BoardMapper {
 	// 게시글 지원취소
 	public int unPostApply(int board_id, String cust_id);
 
+	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
+	public String getOrCreateProLink(int board_id);
+
+
 }
