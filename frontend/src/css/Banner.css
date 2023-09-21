@@ -64,3 +64,7 @@ li.slick-active button:before {
 .slick-dots{
   bottom: 10px;
 }
+
+.banner-space{
+  margin-top: 50px;
+}

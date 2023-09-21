@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,9 +46,26 @@ public class BoardController {
 	@PostMapping("/postsaveinfor")
 	public @ResponseBody int postSaveInfor(@RequestPart("BOARD_IMG") MultipartFile file, @ModelAttribute TB_BOARD board, TB_BOARD_SKILL skill) {
 		
+	      System.out.println("회원 아이디: " + board.getCust_id());
+	      System.out.println("모집인원: " + board.getBoard_members());
+	      System.out.println("진행기간: " + board.getBoard_period());
+	      System.out.println("시작일: " + board.getBoard_deadline());
+	      System.out.println("글제목: " + board.getBoard_title());
+	      System.out.println("글내용: " + board.getBoard_content());   
+	      System.out.println("오픈톡 링크: " + board.getBoard_openlink());
+	      System.out.println("포지션 : " + board.getBoard_position());
+	      System.out.println("프로젝트 제목 : " + board.getPro_title());   
+	      System.out.println("화상회의 링크 : " + board.getPro_link());
+	      System.out.println("프로젝트 이미지 : " + board.getPro_img());
+	      System.out.println("기술스택 : " + skill.getSKILL_NAME());
+	      System.out.println("뷰 : " + board.getBoard_views());
+	      
+		
 		TB_BOARD saveBoard = new TB_BOARD(board.getCust_id(), board.getBoard_title(), board.getBoard_members(), board.getBoard_period(), 
 				board.getBoard_deadline(), board.getBoard_openlink(), board.getBoard_content(), board.getBoard_views(), board.getBoard_position(),
 				board.getBoard_title(), board.getPro_img(), board.getPro_link());
+		
+		
 		
 		//TB_BOARD 정보 저장
 		int cnt1 = service.postSaveBoard(saveBoard);		
@@ -98,20 +116,52 @@ public class BoardController {
 	
 	
 	//선택한 게시글 내용 보내기
-	@GetMapping("/selectpostviews/{board_id}")
-	public JSONArray selectPostViews(@PathVariable("board_id")int board_id) {
-		System.out.println("board id: "+board_id);
-		return service.selectPostViews(board_id);
+	@GetMapping("/selectpostviews/{board_id}/{cust_id}")
+	public JSONArray selectPostViews(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
+
+		return service.selectPostViews(board_id, cust_id);
 		
 	}
 	
-	//게시글 수정된 정보 업데이트 하기
-	//@PutMapping("/updatepost/{board_id}/{cust_id}")
-	//public 
-	
-	
-	
-	
+	//게시글에 지원하기
+	@GetMapping("/postApply/{board_id}/{cust_id}")
+	public int postApply(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
+		System.out.println("게시글 지원"+ board_id + cust_id);
+		
+		int cnt = service.postApply(board_id, cust_id);
+		System.out.println("게시글 지원"+cnt);
+		
+		if(cnt<0) {
+			System.out.println("DB에 지원하기 정보저장 실패");
+			return 0;
+		}else {
+			System.out.println("DB에 지원하기 정보저장");
+			return 1;
+		}
+	}
+
+	//게시글 지원취소하기
+	@GetMapping("/unPostApply/{board_id}/{cust_id}")
+	public int unPostApply(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
+		System.out.println("게시글 취소"+ board_id + cust_id);
+		
+		int cnt = service.unPostApply(board_id, cust_id);
+		System.out.println("지원취소"+cnt);
+		
+		if(cnt>0) {
+			System.out.println("지원취소 실패");
+			return 1;
+		}else {
+			System.out.println("지원취소 성공");
+			return 0;
+		}
+	}
+
+	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
+	@GetMapping("/webrtc")
+	public String getOrCreateProLink(@RequestParam("board_id") int board_id) {
+		return service.getOrCreateProLink(board_id);
+	}
 
 	
 	
