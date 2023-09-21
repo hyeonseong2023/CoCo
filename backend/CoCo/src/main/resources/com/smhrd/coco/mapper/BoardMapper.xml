@@ -56,8 +56,10 @@
 			SELECT COUNT(*) FROM TB_APPLY WHERE BOARD_ID=#{board_id} AND CUST_ID=#{cust_id}
 	</select>
 	
-	
-	
+	<!-- 프로젝트 링크 보내기(없는지 확인하여 있다면 생성) -->
+	<select id="getOrCreateProLink" resultType="string">
+			{call GetOrCreateProLink(#{board_id,jdbcType=INTEGER})}
+	</select>
 
 
 </mapper>
