@@ -15,6 +15,8 @@ import com.smhrd.coco.domain.TB_PF;
 @Mapper
 public interface CustMapper {
 
+	// 첫 로그인 기본 정보 DB 저장 
+	public int firstLogin(TB_CUST cust); 
 	
 	// 마이페이지(기본정보)
 	public List<TB_CUST> mypageCust(String CUST_ID); 
