@@ -11,10 +11,11 @@ type MainProps = {};
 
 const Main: React.FC<MainProps> = ({ }) => {
   const [categoryData, setCategoryData] = useState<any[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState("javascript");
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null); // 기본값을 null로 설정
+  const [selectedPosition, setSelectedPosition] = useState<string | null>(null); // 기본값을 null로 설정
 
   // 데이터 가져오는 함수
-  const fetchData = async (category: string) => {
+  const fetchData = async (requestData: any) => {
     try {
       const response = await axios.get(`http://localhost:8099/recent?endpoint=1`);
 
@@ -36,9 +37,9 @@ const Main: React.FC<MainProps> = ({ }) => {
           pro_img: item.pro_img,
           pro_link: item.pro_link,
           pro_title: item.pro_title,
+          
         };
       });
-
       setCategoryData(fetchedData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -46,16 +47,20 @@ const Main: React.FC<MainProps> = ({ }) => {
   };
 
   useEffect(() => {
-    fetchData(selectedCategory);
-  }, [selectedCategory]);
+    fetchData({
+      skill_name: selectedLanguage,
+      board_position: selectedPosition,
+      endpoint: 1
+    });
+  }, []);
 
-  const updateCategoryData = (selectedCategory: string) => {
-    setSelectedCategory(selectedCategory);
+  const updateCategoryData = (selectedCategory: string | null) => {
+    setSelectedLanguage(selectedCategory);
+    setSelectedPosition(selectedCategory); // 포지션도 같은 값을 사용하려면 이렇게 추가
   };
 
   function handleLoginButtonClick(): void {
   }
-  console.log(selectedCategory);
 
 
 
@@ -100,8 +105,12 @@ const Main: React.FC<MainProps> = ({ }) => {
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
       <TopPosts />
-      <button onClick={handleClick}>webrtc</button>
-      <CategoryBox onUpdateData={updateCategoryData} />
+      <CategoryBox
+        onUpdateData={updateCategoryData}
+        setSelectedLanguage={setSelectedLanguage}
+        setSelectedPosition={setSelectedPosition}
+      />
+
       <Contents categoryData={categoryData} />
     </div>
   );
