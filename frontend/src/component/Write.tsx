@@ -58,15 +58,6 @@ const Write = () => {
   // 선택된 기술 스택 상태 변수 및 핸들러
   const [selectedTechStack, setSelectedTechStack] = useState<string[]>([]);
 
-  // 파일 선택 핸들러
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      const selectedFiles = Array.from(files);
-      setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
-    }
-  };
-
   // 진행 기간 변경 핸들러
   const handleDurationChange = (value: number) => {
     setRecruitmentInfo({
@@ -96,6 +87,7 @@ const Write = () => {
     formData.append('board_deadline', recruitmentInfo.deadline);
     formData.append('board_views', '0');
     formData.append('SKILL_NAME', selectedTechStack.join(', '));
+    formData.append('BOARD_IMG', "");
 
     try {
       const response = await fetch('http://localhost:8099/postsaveinfor', {
