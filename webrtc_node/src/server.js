@@ -154,5 +154,5 @@ wsServer.on("connection", (socket) => {
 });
 
 const handleListen = () =>
-  console.log(`✅ Listening on http://localhost:${PORT}`);
+  console.log(`✅ Listening on http://172.30.1.24:${PORT}`);
 httpServer.listen(PORT, handleListen);

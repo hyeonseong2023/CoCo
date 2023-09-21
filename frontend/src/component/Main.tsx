@@ -63,14 +63,15 @@ const Main: React.FC<MainProps> = ({ }) => {
 
   // 임시로 board_id 설정
   const BOARD_ID = 1;
-  const wrUrl = 'http://localhost:4000/';
+  const wrUrl = 'http://172.30.1.24:4000/';
 
   // 제출 버튼 클릭 시 board_id Back으로 전송
   const handleClick = async () => {
     // http://localhost:8099/webrtc 로 요청
     // 보낼 때 board_id도 같이 보내야 함
-    axios.get('http://localhost:8099/webrtc', { params: { board_id: BOARD_ID } })
+    axios.get('http://172.30.1.24:8099/webrtc', { params: { board_id: BOARD_ID } })
       .then(async (res) => {
+        console.log("tt");
         // res.data : 프로젝트 링크 uuid
         const roomName = res.data;
         // 임시 유저 이름, 후에 세션의 닉네임 받아서 넣어야 함

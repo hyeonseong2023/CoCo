@@ -26,7 +26,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
 public class GoogleController {
 
    @Autowired
@@ -53,6 +53,8 @@ public class GoogleController {
    @GetMapping("/login/getGoogleAuthUrl")
    public ResponseEntity<?> getGoogleAuthUrl(HttpServletRequest request) throws Exception {
       
+	  String ngrokUrl = "https://09f7-222-102-68-9.ngrok-free.app";
+	   
       String reqUrl = googleLoginUrl + "/o/oauth2/v2/auth?client_id=" + googleClientId + "&redirect_uri="
             + googleRedirectUrl + "&response_type=code&scope=email%20profile%20openid&access_type=offline";
 
@@ -122,6 +124,8 @@ public class GoogleController {
           session.setAttribute("CUST_IMG", "0");
          
          String redirect_uri="http://localhost:3000/Check";
+         String a = "http://localhost:3000";
+         String b = a+"/Check";
          
          try {
             response.sendRedirect(redirect_uri);
