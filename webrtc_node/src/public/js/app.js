@@ -258,21 +258,22 @@ function handleChatSubmit(event) { // 채팅 메세지 제출
   event.preventDefault();
   const chatInput = chatForm.querySelector("input");
   const message = chatInput.value;
+  // home.pug에서 받아온 roomName과 userName 사용
   roomName = callRoomName;
   nickname = callUserName;
+
   if (fileInput.files.length > 0) { // 파일 첨부가 있는 경우
     const file = fileInput.files[0];
     const reader = new FileReader();
     reader.onloadend = (event) => {
       const arrayBuffer = event.target.result;
       console.log("Sending file:", file.name)
-      socket.emit("chat_file", arrayBuffer, file.name, roomName);
-
-      socket.emit("chat", `${nickname}: You sent a file: ${file.name}`, roomName);
 
       const blobUrl = URL.createObjectURL(file);
 
-      writeChat(`You: <a href="${blobUrl}" download="${file.name}">You sent a file: ${file.name}</a>`, MYCHAT_CN);
+      socket.emit("chat_file", arrayBuffer, `${nickname}: <a href="${blobUrl}" download="${file.name}">${file.name}</a>`, roomName);
+
+      writeChat(`You: <a href="${blobUrl}" download="${file.name}">${file.name}</a>`, MYCHAT_CN);
     };
     reader.readAsArrayBuffer(file);
 
@@ -292,16 +293,18 @@ function writeChat(message, className = null) { // 채팅 메세지를 화면에
     li.classList.add(className);
   }
 
-  const isFileMessageRegex = /sent a file: (.*)(?=<\/a>)/;
+  console.log('Message:', message);
 
-  console.log('Message:', message); // Add this line for debugging.
+  const isFileMessageRegex = /<a href="(.*)" download="(.*)">(.*)<\/a>/;
 
   if (isFileMessageRegex.test(message)) {
-    const [, fileName] = message.match(isFileMessageRegex);
+    li.innerHTML = message;
+  } else {
+    li.textContent = message;
+  }
 
-    // 실질적으로 채팅창에 표시되는 내용
-    li.innerHTML = `<a href="${fileName}" download="${fileName}">${fileName}</a>`;
-
+  if (isFileMessageRegex.test(message)) {
+    li.innerHTML = message;
   } else {
     li.textContent = message;
   }
@@ -353,7 +356,7 @@ function clearAllVideos() { // 모든 비디오를 화면에서 제거
   });
 }
 
-function clearAllChat() { // // 모든 채팅을 화면에서 제거
+function clearAllChat() { // 모든 채팅을 화면에서 제거
   const chatArr = chatBox.querySelectorAll("li");
   chatArr.forEach((chat) => chatBox.removeChild(chat));
 }
@@ -406,7 +409,6 @@ socket.on("accept_join", async (userObjArr) => {
     return;
   }
   console.log("ㅎㅇ");
-  // writeChat("Notice!", NOTICE_CN);
   for (let i = 0; i < length - 1; ++i) {
     try {
       const newPC = createConnection(
@@ -450,6 +452,11 @@ socket.on("chat", (message) => {
   writeChat(message);
 });
 
+socket.on("chat_file", (arrayBuffer, message) => {
+  writeChat(message);
+});
+
+
 socket.on("leave_room", (leavedSocketId, nickname) => {
   removeVideo(leavedSocketId);
   writeChat(`${nickname} 님이 퇴장하였습니다.`, NOTICE_CN);
@@ -491,11 +498,7 @@ function createConnection(remoteSocketId, remoteNickname) { // WebRTC 연결 생
   myPeerConnection.addEventListener("addstream", (event) => {
     handleAddStream(event, remoteSocketId, remoteNickname);
   });
-  // myPeerConnection.addEventListener(
-  //   "iceconnectionstatechange",
-  //   handleConnectionStateChange
-  // );
-  myStream //
+  myStream
     .getTracks()
     .forEach((track) => myPeerConnection.addTrack(track, myStream));
 
@@ -534,13 +537,3 @@ function sortStreams() { // 현재 방에 있는 사람 수에 따라 클래스 
   const streamArr = streams.querySelectorAll("div");
   streamArr.forEach((stream) => (stream.className = `people${peopleInRoom}`));
 }
-
-/*
-function handleConnectionStateChange(event) {
-  console.log(`${pcObjArr.length - 1} CS: ${event.target.connectionState}`);
-  console.log(`${pcObjArr.length - 1} ICS: ${event.target.iceConnectionState}`);
-
-  if (event.target.iceConnectionState === "disconnected") {
-  }
-}
-*/

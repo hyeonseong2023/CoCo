@@ -123,14 +123,11 @@ wsServer.on("connection", (socket) => {
   });
 
   socket.on("chat", (message, roomName) => {
-    console.log(`Received chat for room: ${roomName}`);
-    console.log(wsServer.sockets.adapter.rooms[roomName]);
     socket.to(roomName).emit("chat", message);
   });
 
-  socket.on("chat_file", (arrayBuffer, fileName, roomName) => {
-    // Just emit the arrayBuffer and fileName to other clients.
-    socket.to(roomName).emit("chat_file", arrayBuffer, fileName);
+  socket.on("chat_file", (arrayBuffer, message, roomName) => {
+    socket.to(roomName).emit("chat_file", arrayBuffer, message);
   });
 
   socket.on("disconnecting", () => {
