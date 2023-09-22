@@ -8,6 +8,8 @@ import GitHub from '../../img/GitHub.png'
 import plus from '../../img/plus.png'
 import editBtn from '../../img/editBtn.png';
 import X from '../../img/x.png';
+import profile from '../../img/profilePicture.png';
+
 
 
 
@@ -15,56 +17,72 @@ const User = ({ data }) => {
 
     const userId = Cookies.get('CUST_ID'); //사용자 아이디 
 
-
     //모달창 노출 여부 
     const [modalOpen, setModalOpen] = useState(false); //회원정보수정 모달창 
     const [deleteModalOpen, setDeleteModalOpen] = useState(false); //회원탈퇴 모달창 
 
+    //기본정보 
     const [nick, setNick] = useState();
     const [position, setPosition] = useState();
     const [career, setCareer] = useState();
     const [git, setGit] = useState();
-    const [photo, setPhoto] = useState();
-    const photoData = "data:image/;base64," + photo;
+    const [photo, setPhoto] = useState(); // 프로필사진 
+    //const photoData = "data:image/;base64," + photo;
+
+    //const custSkill = data.CUST_SKILL; // 관심스택 Spring,React,C 
+    const custSkillList = data.CUST_SKILL.split(',');  // 관심스택 
 
 
+    //모달창  
+    const [modalGit, SetModalGit] = useState(git); // 모달 Git 주소 변경 
+    const [Image, setImage] = useState(photo); // 모달 프로필사진 변경 
+    const [modalNick, setModalNick] = useState(data.CUST_NICK); // 모달 닉네임 변경
+    const [pselected, setPselected] = useState({ value: position, name: position }); // 모달 선택한 직무 
+    const [cselected, setCselected] = useState({ value: career, name: career }) // 모달 선택한 경력
+    const [selected, setSelected] = useState(custSkillList); // 모달 선택한 관심스택 
+    const cust_skill = selected.join(',')  // 배열을 문자열로 변경 
+   
+    
 
-    const fetchData = async () => {
 
+    const fetchData = async() => {
         setNick(data.CUST_NICK);
         setPosition(data.CUST_POSITION);
         setCareer(data.CUST_CAREER);
-        setGit(data.CUST_GIT);
-        setPhoto(data.CUST_IMG);
+        setGit(data.CUST_GIT); 
+      }
 
-    }
+      useEffect(()=>{
+          fetchData()
+      }, [data])
+  
 
+
+      useEffect(()=>{
+   
+        setModalNick(data.CUST_NICK); 
+        setPselected({ value: position, name: position });
+        setCselected({ value: career, name: career });
+        setSelected(custSkillList);
+        SetModalGit(data.CUST_GIT)
+
+    }, [modalOpen])
+
+
+    // 프로필사진 
     useEffect(() => {
-        fetchData()
+        if (data.CUST_IMG == null) { //지정안했으면 기본사진 
+            setPhoto(profile)
+        } else {
+            setPhoto("data:image/;base64," + data.CUST_IMG)
+        }
+        setImage(photo)
     }, [])
 
-
-
-    //나의정보에 skill 띄우기 
-    let skillNames = data.SKILL_NAME.join(', '); // 배열을 문자열로 합침
-
-
-    // 모달창 git 주소 
-    const [modalNick, SetModalNick] = useState(nick);
-    const [modalGit, SetModalGit] = useState(git);
-
-
-    //MultiSelect에 선택한 skill 띄우기 
-    // let resultArray = [];
-    // for (let i = 0; i < data.SKILL_NAME.length; i++) {
-    //     let skillName = data.SKILL_NAME[i];
-
-    //     let skillObject = {
-    //         label: skillName,
-    //         value: skillName
-    //     };
-    //     resultArray.push(skillObject);
-    // }
+    //모달창 프로필사진 가져오기 
+    useEffect(() => {
+        setImage(photo)
+    }, [photo])
 
 
     // 회원탈퇴 버튼 클릭 시 모달창 열기 
@@ -84,17 +102,12 @@ const User = ({ data }) => {
         { value: "백엔드", name: "백엔드" },
         { value: "프론트엔드", name: "프론트엔드" },
         { value: "디자이너", name: "디자이너" },
-        { value: "IOS", name: "IOS안드로이드" },
+        { value: "IOS", name: "IOS" },
         { value: "안드로이드", name: "안드로이드" },
         { value: "데브옵스", name: "데브옵스" },
         { value: "PM", name: "PM" },
         { value: "기획자", name: "기획자" }
-        //포지션 종류 참고하세요 
     ]
-
-    // 선택한 포지션 
-    const [pselected, setPselected] = useState({ value: position, name: position });
-
 
     // 경력 종류
     const careerList = [
@@ -110,69 +123,50 @@ const User = ({ data }) => {
         { value: "10년이상", name: "10년이상" }
     ];
 
-    // 선택한 경력
-    const [cselected, setCselected] = useState({ value: career, name: career })
-
-
     //관심스택 종류 
     const skills = [
-        { label: "Spring", value: "Spring" },
-        { label: "JavaScript", value: "javaScript" },
-        { label: "TypeScript", value: "TypeScript" },
-        { label: "Vue", value: "Vue" },
-        { label: "Nodejs", value: "Nodejs" },
-        { label: "Java", value: "Java" },
-        { label: "Nextjs", value: "Nextjs" },
-        { label: "Express", value: "Express" },
-        { label: "Go", value: "Go" },
-        { label: "C", value: "C" },
-        { label: "Python", value: "Python" },
-        { label: "Django", value: "Django" },
-        { label: "kotlin", value: "kotlin" },
-        { label: "MySQL", value: "MySQL" },
-        { label: "MongoDB", value: "MongoDB" },
-        { label: "php", value: "php" },
-        { label: "GraphQL", value: "GraphQL" },
-        { label: "ebase", value: "ebase" },
-        { label: "ReactNative", value: "ReactNative" },
-        { label: "Unity", value: "Unity" },
-        { label: "Flutter", value: "Flutter" },
         { label: "AWS", value: "AWS" },
-        { label: "Kubernetes", value: "Kubernetes" },
+        { label: "C", value: "C" },
+        { label: "Django", value: "Django" },
         { label: "Docker", value: "Docker" },
-        { label: "Git", value: "Git" },
+        { label: "Express", value: "Express" },
         { label: "Figma", value: "Figma" },
+        { label: "Firebase", value: "Firebase" },
+        { label: "Flutter", value: "Flutter" },
+        { label: "Git", value: "Git" },
+        { label: "Go", value: "Go" },
+        { label: "GraphQL", value: "GraphQL" },
+        { label: "Java", value: "Java" },
+        { label: "JavaScript", value: "javaScript" },
+        { label: "Kotlin", value: "Kotlin" },
+        { label: "Kubernetes", value: "Kubernetes" },
+        { label: "MongoDB", value: "MongoDB" },
+        { label: "MySQL", value: "MySQL" },
+        { label: "Nestjs", value: "Nestjs" },
+        { label: "Nextjs", value: "Nextjs" },
+        { label: "Nodejs", value: "Nodejs" },
+        { label: "php", value: "php" },
+        { label: "Python", value: "Python" },
+        { label: "ReactNative", value: "ReactNative" },
+        { label: "Spring", value: "Spring" },
+        { label: "Swift", value: "Swift" },
+        { label: "TypeScript", value: "TypeScript" },
+        { label: "Unity", value: "Unity" },
+        { label: "Vue", value: "Vue" },
         { label: "Zeplin", value: "Zeplin" }
     ]
 
-    // 선택한 관심스택 
-    //const [selected, setSelected] = useState(resultArray);
-
-    // 관심스택 최대 개수 제한 
-    const handleSelectionChange = (selectedItems) => {
-        console.log(selected);
-        if (selectedItems.length <= 4) {
-            setSelected(selectedItems);
-        }
-    };
-
-    //const [selected, setSelected] = useState(resultArray); // 선택한 관심스택
-    const [selected, setSelected] = useState([]);
-
-    //프로필사진 변경 
-    const [Image, setImage] = useState(photoData);
 
     //프로필사진 파일 
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState();
 
     const onChange = (e) => {
 
         if (e.target.files[0]) {
             setFile(e.target.files[0])
         } else { //업로드 취소할 시
-
+            setFile();
         }
-
         //화면에 프로필 사진 표시
         const reader = new FileReader();
         reader.onload = () => {
@@ -181,23 +175,20 @@ const User = ({ data }) => {
             }
         }
         reader.readAsDataURL(e.target.files[0])
+      
     }
 
-    console.log(selected);
 
-    // 프로필 수정 통신 
+    // 통신(프로필수정)
     const handleSubmit = () => {
-
-
-
         const formData = new FormData();
-        formData.append('cust_id', 'ekdud0225');
-        formData.append('cust_nick', modalNick);
-        formData.append('cust_position', pselected.value);
-        formData.append('cust_career', cselected.value);
-        formData.append('cust_skill', selected.join(', '));
-        formData.append('cust_img1', file);
-        formData.append('cust_git', modalGit);
+        formData.append('cust_id', userId); //아이디
+        formData.append('cust_nick', modalNick); //닉네임
+        formData.append('cust_position', pselected.value); //직무
+        formData.append('cust_career', cselected.value); //경력
+        formData.append('cust_skill',cust_skill); //관심스택
+        formData.append('cust_img1', file); //이미지 파일 
+        formData.append('cust_git', modalGit); //git주소 
 
         axios.put('http://localhost:8099/userinfoupdate', formData, {
             headers: {
@@ -206,13 +197,11 @@ const User = ({ data }) => {
         })
             .then((response) => {
                 console.log('요청이 성공했습니다.', response.data);
-
+            
             })
             .catch((error) => {
                 console.error('요청이 실패했습니다.', error);
-
             });
-
     }
 
 
@@ -229,11 +218,12 @@ const User = ({ data }) => {
 
                 <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
 
-
-
                 {/* 나의 프로필정보 */}
                 <div className='Mypage-user-img-container'>
+                    <img src={photo} alt='이미지 출력되지 않았음' className='user-img' />
+                    {/* { photo !=null ? 
                     <img src={"data:image/;base64," + photo} alt='이미지 출력되지 않았음' className='user-img' />
+                    : <img src = {profile}  alt='이미지 출력되지 않았음' className='user-img'/> } */}
                 </div>
                 <div className='Mypage-user-nickname'>{nick}</div>
                 <div>
@@ -249,7 +239,17 @@ const User = ({ data }) => {
                             </tr>
                             <tr>
                                 <td className='Mypage-user-table-name'>관심스택</td>
-                                <td className='Mypage-user-table-content'>{skillNames}</td>
+                                {/* <td className='Mypage-user-table-content'>{data.CUST_SKILL}</td> */}
+                                <td className='Mypage-user-table-content'>
+                                {custSkillList.map((skill, index) => (
+                                 <span key={index}>{skill} &nbsp;</span>
+                                ))}
+                                     </td>
+                                {/* 이미지로 보여주기 
+                                    <td className='skillImg'>
+                                    {custSkillList.map((custSkill, index) => (
+                                        <img key={index} src={process.env.PUBLIC_URL + `/skillImg/${custSkill}.svg`} alt={custSkill} />
+                                    ))} */}
                             </tr>
                             <tr>
                                 <td className='Mypage-user-table-name'>링크</td>
@@ -277,7 +277,6 @@ const User = ({ data }) => {
                         <div>
                             <div className='Mypage-user-img-container'>
                                 <img src={Image} alt='이미지 출력되지 않았음' className='Mypage-user-img' />
-                                {/* <img src={"data:image/;base64," + Image} alt='이미지 출력되지 않았음' className='user-img' />                */}
                             </div>
 
                             <label for="file-input">
@@ -300,7 +299,7 @@ const User = ({ data }) => {
                                         {/* 닉네임 변경 */}
                                         <tr>
                                             <td className='Mypage-user-modal-name'>닉네임</td>
-                                            <td><input className='Mypage-user-modal-content' type="text" value={modalNick} onChange={(e) => { SetModalNick(e.target.value) }} /></td>
+                                            <td><input className='Mypage-user-modal-content' type="text" value={modalNick} onChange={(e) => { setModalNick(e.target.value) }} /></td>
                                         </tr>
 
                                         {/* 직무 변경 */}
@@ -342,12 +341,11 @@ const User = ({ data }) => {
                                         <tr>
                                             <td className='Mypage-user-modal-name'>관심스택</td>
                                             <td>
-
                                                 <Select
                                                     className='Multi'
-                                                    options={skills}
-                                                    isMulti
-                                                    value={skills.filter((option) =>
+                                                    options={skills} // 스택 종류 
+                                                    isMulti 
+                                                    value={skills.filter((option) =>  
                                                         selected.includes(option.value)
                                                     )}
                                                     onChange={(selectedOptions) => {
@@ -356,7 +354,7 @@ const User = ({ data }) => {
                                                                 selectedOptions.map((option) => option.value)
                                                             );
                                                         }
-                                                    }}
+                                                    }}                                        
                                                     styles={{
                                                         control: (provided) => ({
                                                             ...provided,
@@ -364,6 +362,8 @@ const User = ({ data }) => {
                                                         })
                                                     }}
                                                 />
+
+
                                             </td>
                                         </tr>
 

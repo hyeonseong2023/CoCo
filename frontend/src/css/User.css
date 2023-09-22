@@ -199,7 +199,8 @@ input[type="file"] {
 .Multi {
     width: 320px;
     margin-left: 2px;
-    padding-left: 0px;
+    margin-bottom: 6px;
+    text-align: left;
     /* background-color: #4598FF; */
 }
 

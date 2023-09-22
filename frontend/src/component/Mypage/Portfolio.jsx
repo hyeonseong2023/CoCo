@@ -173,7 +173,7 @@ const Portfolio = ({ data }) => {
       )}
 
       {/* 포트폴리오 보여주는 곳 */}
-      <div className='map-container'>
+      <div className='port-map-container'>
         {portfolioData.map((item, index) => (
           <div>
             <div key={item.idex}>
@@ -197,13 +197,13 @@ const Portfolio = ({ data }) => {
 
       {/* 포트폴리오 파일 추가 모달 창  */}
       {addModalOpen && (
-        <div className='modal-user-back'>
-          <div className='modal-user-container'>
+        <div className='port-modal-user-back'>
+          <div className='port-modal-user-container'>
 
             {/* 모달 닫기 부분  */}
             <div className='modal-user-close'>
-              <img className='modal-user-img' src={Logo}></img>
-              <img src={X} onClick={closeAddModal} className="modal-user-close-button"></img>
+              <img className='port-modal-user-img' src={Logo}></img>
+              <img src={X} onClick={closeAddModal} className="port-modal-user-close-button"></img>
             </div>
 
             <div>

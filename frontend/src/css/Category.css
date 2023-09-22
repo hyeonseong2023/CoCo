@@ -1,42 +1,37 @@
-/* Category.css */
-
 /* 첫 번째 select 요소 스타일 */
 #lang1 {
-  background-color: #fff; /* 배경색을 흰색으로 지정 */
-  border: 1px solid #ccc; /* 경계선 스타일 지정 */
-  padding: 5px; /* 내부 여백 설정 */
-  font-size: 16px; /* 폰트 크기 설정 */
-  border-radius: 5px; /* 둥근 모서리 만듦 */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
 /* 두 번째 select 요소 스타일 */
 #lang2 {
-  background-color: #fff; /* 배경색을 흰색으로 지정 */
-  border: 1px solid #ccc; /* 경계선 스타일 지정 */
-  padding: 5px; /* 내부 여백 설정 */
-  font-size: 16px; /* 폰트 크기 설정 */
-  border-radius: 5px; /* 둥근 모서리 만듦 */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
 /* 선택된 옵션 스타일 */
 select option:checked {
-  background-color: #007bff; /* 선택된 옵션의 배경색을 파란색으로 지정 */
-  color: #fff; /* 선택된 옵션의 텍스트 색상을 흰색으로 지정 */
+  background-color: #007bff;
+  color: #fff;
 }
 
-
-.category{
-  display: flex;
-}
-
-.category{
+.category {
   height: 100px;
+  display: flex;
+  align-items: center;
+  width: 220px;
 }
 
-.studyOrProject_category{
+.studyOrProject_category {
   display: flex;
 }
-
 
 .studyOrProject_category > div {
   cursor: pointer;
@@ -46,20 +41,22 @@ select option:checked {
 }
 
 .category_main {
-  display: flex; /* 자식 요소들을 가로로 배치하는 flex 컨테이너로 설정 */
-  align-items: center; 
+  display: flex;
+  align-items: center;
 }
 
 .category_main > div {
-  margin-left: 1%; 
+  margin-left: 1%;
 }
 
-.category{
-  display: flex; 
-  align-items: center; 
-  width: 140PX;
+.category_main {
+  width: 100%;
 }
 
-.category_main > div >div >div{
-  width : 100%;
+.category > div > div {
+  width: 180%;
+}
+
+.css-1dimb5e-singleValue {
+  width: 50px;
 }

@@ -122,11 +122,14 @@ const Write = () => {
   };
 
   const techStackOptions = [
-    { value: 'JavaScript', label: 'JavaScript' },
-    { value: 'TypeScript', label: 'TypeScript' },
-    { value: 'React', label: 'React' },
-    { value: 'Spring', label: 'Spring' },
-    { value: 'C', label: 'C' },
+    { value: "백엔드", name: "백엔드" },
+    { value: "프론트엔드", name: "프론트엔드" },
+    { value: "디자이너", name: "디자이너" },
+    { value: "IOS", name: "IOS안드로이드" },
+    { value: "안드로이드", name: "안드로이드" },
+    { value: "데브옵스", name: "데브옵스" },
+    { value: "PM", name: "PM" },
+    { value: "기획자", name: "기획자" }
   ];
 
   return (

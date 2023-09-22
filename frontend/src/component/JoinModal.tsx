@@ -172,7 +172,7 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
       cust_nick: nick,     //닉네임
       cust_position: pselected.value, //포지션
       cust_career: cselected.value, // 경력
-      skill_name: skillNames  //관심스택 
+      cust_skill: skillNames  //관심스택 
     };
 
     try {
