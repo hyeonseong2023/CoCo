@@ -5,11 +5,9 @@ import http from "http";
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-
 const PORT = process.env.PORT || 4000;
 
 const app = express();
-// app.use(cors());
 app.use(cors({
   // 3000
   origin: 'http://localhost:3000',
@@ -19,13 +17,12 @@ app.use(cors({
 app.use(bodyParser.json());
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
-
 app.use("/public", express.static(process.cwd() + "/src/public"));
-
 
 let savedData = null;
 
-// post 요청으로 비공개 데이터를 전송 후 일반적인 웹페이지 로딩인 get 요청으로 데이터를 받아옴.
+// post 요청으로 비공개 데이터를 전송 후 
+// 일반적인 웹페이지 로딩인 get 요청으로 데이터를 받아옴.
 app.post("/saveData", (req, res) => {
   savedData = req.body;
   res.status(200).send('OK');
@@ -36,7 +33,6 @@ app.get("/", (req, res) => {
     const { userName, roomName } = savedData;
     console.log(userName, roomName);
     res.render("home", { userName: userName, roomName: roomName });
-
   } else {
     res.send('No data available');
   }
@@ -134,6 +130,7 @@ wsServer.on("connection", (socket) => {
     socket.to(myRoomName).emit("leave_room", socket.id, myNickname);
 
     let isRoomEmpty = false;
+
     for (let i = 0; i < roomObjArr.length; ++i) {
       if (roomObjArr[i].roomName === myRoomName) {
         const newUsers = roomObjArr[i].users.filter(
