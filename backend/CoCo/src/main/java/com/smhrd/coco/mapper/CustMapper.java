@@ -19,7 +19,7 @@ public interface CustMapper {
 	public int firstLogin(TB_CUST cust); 
 	
 	// 마이페이지(기본정보)
-	public List<TB_CUST> mypageCust(String CUST_ID); 
+	public TB_CUST mypageCust(String CUST_ID); 
 	
 	// 마이페이지(포트폴리오)
 	public List<TB_PF> mypagePf(String CUST_ID); 

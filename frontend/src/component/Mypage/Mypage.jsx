@@ -30,7 +30,7 @@ const Mypage = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [data]);
 
   
 
@@ -38,9 +38,9 @@ const Mypage = () => {
     <div>
       <Header />
       <div>
-      { data?.CUST_ID === loginUserId && (
+      {/* { data?.CUST_ID === loginUserId && (
         <img src={Logout} className='mypage-logout-btn' />
-      )}
+      )} */}
       </div>
  
       <div className='mypage-container'>

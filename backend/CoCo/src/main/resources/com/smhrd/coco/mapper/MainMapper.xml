@@ -95,11 +95,10 @@
 	</select>
 
 
-     <!-- 해당게시글 작성자의 닉네임 가져오기  -->
-     <select id="custNick" resultType = "String">
-       select CUST_NICK from TB_CUST where CUST_ID = #{cust_id} ;
-     </select>
-
+   <!-- 해당게시글 작성자의 닉네임 가져오기  -->
+   <select id="custNick" resultType = "String">
+    select CUST_NICK from TB_CUST where CUST_ID = #{cust_id} ;
+   </select>
 
 	<!-- 지원한 게시글 보기 -->
 	<select id="applyList"
