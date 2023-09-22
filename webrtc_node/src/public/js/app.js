@@ -258,6 +258,8 @@ function handleChatSubmit(event) { // 채팅 메세지 제출
   event.preventDefault();
   const chatInput = chatForm.querySelector("input");
   const message = chatInput.value;
+  roomName = callRoomName;
+  nickname = callUserName;
   if (fileInput.files.length > 0) { // 파일 첨부가 있는 경우
     const file = fileInput.files[0];
     const reader = new FileReader();
@@ -276,6 +278,7 @@ function handleChatSubmit(event) { // 채팅 메세지 제출
 
     fileInput.value = "";
   } else { // 파일 첨부가 없는 경우 (일반 메세지)
+    console.log(`Sending chat to room: ${roomName}`);
     socket.emit("chat", `${nickname}: ${message}`, roomName);
     writeChat(`You: ${message}`, MYCHAT_CN);
   }
@@ -289,7 +292,7 @@ function writeChat(message, className = null) { // 채팅 메세지를 화면에
     li.classList.add(className);
   }
 
-  const isFileMessageRegex = /You sent a file: (.+)/;
+  const isFileMessageRegex = /sent a file: (.*)(?=<\/a>)/;
 
   console.log('Message:', message); // Add this line for debugging.
 
@@ -297,9 +300,7 @@ function writeChat(message, className = null) { // 채팅 메세지를 화면에
     const [, fileName] = message.match(isFileMessageRegex);
 
     // 실질적으로 채팅창에 표시되는 내용
-    li.innerHTML = `<a href="${fileName}" download="${fileName}">"${fileName}"</a>`;
-
-    console.log('Processed message:', li.innerHTML); // Add this line for debugging.
+    li.innerHTML = `<a href="${fileName}" download="${fileName}">${fileName}</a>`;
 
   } else {
     li.textContent = message;
@@ -316,7 +317,6 @@ function leaveRoom() { // 소켓 연결을 끊고 UI를 초기 상태로 되돌�
   socket.disconnect();
 
   call.classList.add(HIDDEN_CN);
-  welcome.hidden = false;
 
   peerConnectionObjArr = [];
   peopleInRoom = 1;
@@ -329,6 +329,8 @@ function leaveRoom() { // 소켓 연결을 끊고 UI를 초기 상태로 되돌�
   myFace.srcObject = null;
   clearAllVideos();
   clearAllChat();
+
+  window.close();
 }
 
 function removeVideo(leavedSocketId) { // 지정된 id의 비디오 요소를 화면에서 제거
@@ -399,13 +401,12 @@ socket.on("reject_join", () => {
 
 socket.on("accept_join", async (userObjArr) => {
   await initCall();
-
   const length = userObjArr.length;
   if (length === 1) {
     return;
   }
-
-  writeChat("Notice!", NOTICE_CN);
+  console.log("ㅎㅇ");
+  // writeChat("Notice!", NOTICE_CN);
   for (let i = 0; i < length - 1; ++i) {
     try {
       const newPC = createConnection(
@@ -414,15 +415,16 @@ socket.on("accept_join", async (userObjArr) => {
       );
       const offer = await newPC.createOffer();
       await newPC.setLocalDescription(offer);
-      socket.emit("offer", offer, userObjArr[i].socketId, nickname);
-      writeChat(`__${userObjArr[i].nickname}__`, NOTICE_CN);
+      console.log("Sending offer to:", userObjArr[i].nickname);
+      socket.emit("offer", offer, userObjArr[i].socketId, userObjArr[i].nickname);
+      writeChat(`${userObjArr[i].nickname} 님이 입장하였습니다`, NOTICE_CN);
     } catch (err) {
       console.error(err);
     }
   }
-  writeChat(" 님이 입장하였습니다.", NOTICE_CN);
 });
 
+// 다른 유저가 방에 들어올 때마다 호출
 socket.on("offer", async (offer, remoteSocketId, remoteNickname) => {
   try {
     const newPC = createConnection(remoteSocketId, remoteNickname);
@@ -430,7 +432,7 @@ socket.on("offer", async (offer, remoteSocketId, remoteNickname) => {
     const answer = await newPC.createAnswer();
     await newPC.setLocalDescription(answer);
     socket.emit("answer", answer, remoteSocketId);
-    writeChat(`notice! __${remoteNickname}__ 님이 입장하였습니다.`, NOTICE_CN);
+    writeChat(`${remoteNickname} 님이 입장하였습니다`, NOTICE_CN);
   } catch (err) {
     console.error(err);
   }
@@ -450,7 +452,7 @@ socket.on("chat", (message) => {
 
 socket.on("leave_room", (leavedSocketId, nickname) => {
   removeVideo(leavedSocketId);
-  writeChat(`notice! ${nickname} 님이 퇴장하였습니다.`, NOTICE_CN);
+  writeChat(`${nickname} 님이 퇴장하였습니다.`, NOTICE_CN);
   --peopleInRoom;
   sortStreams();
 });

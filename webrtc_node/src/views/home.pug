@@ -40,7 +40,7 @@ html(lang="en")
                     form#chatForm
                         input(required, type="text", placeholder="메세지를 입력하세요")
                         button 전송
-                        input(type='file', id='fileInput')
+                        input#fileInput(type='file')
         aside.modal.hidden
             div.modal__box
                 h2.modal__text

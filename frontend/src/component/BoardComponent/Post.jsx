@@ -37,8 +37,8 @@ const Post = ({ data, boardData }) => {
 
   const sendBookmarkRequest = async (isEmptyBmk) => {
     const apiUrl = isEmptyBmk
-      ? 'http://localhost:8099/unbookmark'
-      : 'http://localhost:8099/bookmarkcheck';
+      ? `${process.env.REACT_APP_URL_8099}/unbookmark`
+      : `${process.env.REACT_APP_URL_8099}/bookmarkcheck`;
 
     try {
       const response = await axios.post(apiUrl, {
@@ -53,8 +53,8 @@ const Post = ({ data, boardData }) => {
 
   const sendApplyRequest = async (isApply) => {
     const apiUrl = !isApply
-      ? 'http://localhost:8099/postApply'
-      : 'http://localhost:8099/unPostApply';
+      ? `${process.env.REACT_APP_URL_8099}/postApply`
+      : `${process.env.REACT_APP_URL_8099}/unPostApply`;
 
     await axios
       .get(`${apiUrl}/${data.id}/${Cookies.get('CUST_ID')}`)

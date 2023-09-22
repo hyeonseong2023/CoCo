@@ -26,7 +26,6 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-//@CrossOrigin("http://localhost:3000")
 public class GoogleController {
 
    @Autowired
@@ -52,8 +51,6 @@ public class GoogleController {
    // http://localhost:8099/login/getGoogleAuthUrl
    @GetMapping("/login/getGoogleAuthUrl")
    public ResponseEntity<?> getGoogleAuthUrl(HttpServletRequest request) throws Exception {
-      
-	  String ngrokUrl = "https://09f7-222-102-68-9.ngrok-free.app";
 	   
       String reqUrl = googleLoginUrl + "/o/oauth2/v2/auth?client_id=" + googleClientId + "&redirect_uri="
             + googleRedirectUrl + "&response_type=code&scope=email%20profile%20openid&access_type=offline";
@@ -115,6 +112,9 @@ public class GoogleController {
       String CUST_IMG = service.img(cust_id);
 
       HttpSession session = request.getSession();
+      
+//      String local3000 = "https://8304-222-102-68-9.ngrok-free.app";
+      String local3000 = "http://localhost:3000";
 
       if (selectEmail == 0) { // 회원가입 : 저장되지 않은 이메일 , 이미지 "0"
          System.out.println("DB에없는 이메일 ");
@@ -122,10 +122,8 @@ public class GoogleController {
          //회원가입이 안된 회원이면 세션에 데이터 저장후 가입폼 작성창으로 리다이렉트
           session.setAttribute("CUST_ID", cust_id);
           session.setAttribute("CUST_IMG", "0");
-         
-         String redirect_uri="http://localhost:3000/Check";
-         String a = "http://localhost:3000";
-         String b = a+"/Check";
+        
+         String redirect_uri = local3000 + "/Check";
          
          try {
             response.sendRedirect(redirect_uri);
@@ -139,7 +137,7 @@ public class GoogleController {
          System.out.println("DB에있는 이메일 ");
          session.setAttribute("CUST_ID", cust_id);
          session.setAttribute("CUST_IMG", CUST_IMG);
-         String redirect_uri="http://localhost:3000/Check";
+         String redirect_uri= local3000 + "/Check";
          response.sendRedirect(redirect_uri);
       }
 

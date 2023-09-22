@@ -199,7 +199,7 @@ const User = ({ data }) => {
         formData.append('cust_img1', file);
         formData.append('cust_git', modalGit);
 
-        axios.put('http://localhost:8099/userinfoupdate', formData, {
+        axios.put(`${process.env.REACT_APP_URL_8099}/userinfoupdate`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

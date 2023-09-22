@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController // 데이터를 반환하는 컨트롤러
-//@CrossOrigin("http://localhost:3000")
 public class CustController {
 
 	@Autowired

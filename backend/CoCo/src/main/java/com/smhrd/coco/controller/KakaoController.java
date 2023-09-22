@@ -18,7 +18,6 @@ import com.smhrd.coco.service.KakaoService;
 
 
 @RestController // 데이터를 반환하는 컨트롤러
-//@CrossOrigin("http://localhost:3000")
 public class KakaoController {
 
 	@Autowired // 의존성 주입

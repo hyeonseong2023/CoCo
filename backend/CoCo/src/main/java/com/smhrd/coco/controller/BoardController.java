@@ -35,7 +35,6 @@ import com.smhrd.coco.converter.ImageConverter;
 import com.smhrd.coco.converter.ImageToBase64;
 
 @RestController
-//@CrossOrigin("http://localhost:3000")
 public class BoardController {
 	
 	@Autowired

@@ -90,7 +90,7 @@ const Write = () => {
     formData.append('BOARD_IMG', "");
 
     try {
-      const response = await fetch('http://localhost:8099/postsaveinfor', {
+      const response = await fetch(`${process.env.REACT_APP_URL_8099}/postsaveinfor`, {
         method: 'POST',
         body: formData,
       });
@@ -110,7 +110,7 @@ const Write = () => {
 
 
 
-  
+
   // 기술 스택 옵션
   const techStackOptions = [
     { label: "Spring", value: "Spring" },
@@ -132,7 +132,7 @@ const Write = () => {
     { label: '기획자', value: '기획자' },
   ];
 
-  const handlePositionChange = (selectedOptions : any) => {
+  const handlePositionChange = (selectedOptions: any) => {
     if (selectedOptions.length <= 3) {
       setSelectedPosition(selectedOptions);
     }

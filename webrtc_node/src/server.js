@@ -12,7 +12,7 @@ const app = express();
 // app.use(cors());
 app.use(cors({
   // 3000
-  origin: 'https://8304-222-102-68-9.ngrok-free.app',
+  origin: 'http://localhost:3000',
   credentials: true,
 }));
 
@@ -123,6 +123,8 @@ wsServer.on("connection", (socket) => {
   });
 
   socket.on("chat", (message, roomName) => {
+    console.log(`Received chat for room: ${roomName}`);
+    console.log(wsServer.sockets.adapter.rooms[roomName]);
     socket.to(roomName).emit("chat", message);
   });
 
