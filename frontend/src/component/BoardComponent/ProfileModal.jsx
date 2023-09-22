@@ -2,7 +2,6 @@ import '../../css/Board.css';
 import closePopup from '../../img/x.png';
 import profilePicture from '../../img/profilePicture.png';
 import { Link } from 'react-router-dom';
-import Mypage from '../Mypage/Mypage';
 
 const ProfileModal = ({ setModalOpen, boardData }) => {
   const userImg = boardData.createCust.cust_img;
