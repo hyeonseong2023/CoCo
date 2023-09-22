@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { storage } from "./functions/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import uuid from "react-uuid";
-import { addContents } from "./functions/contents";
-import { ContentInterface } from "./context/PageContext";
-import { updateContent } from "./functions/firebaseCRUD";
+import React, { useState, useEffect } from 'react';
+import { storage } from './functions/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import uuid from 'react-uuid';
+import { addContents } from './functions/contents';
+import { ContentInterface } from './context/PageContext';
+import { updateContent } from './functions/firebaseCRUD';
 
 const FileInputBox = ({
   children,
@@ -27,11 +27,11 @@ const FileInputBox = ({
     const id = uuid();
     const fileRef = ref(storage, `files/${file.name + id}`);
     uploadBytes(fileRef, file).then(() => {
-      alert("File Uploaded");
+      alert('File Uploaded');
     });
     updateContent(
-      "projects/12345/pageList/0",
-      addContents(contents, index, { id: id, tag: "file", text: file.name })
+      'projects/12345/pageList/0',
+      addContents(contents, index, { id: id, tag: 'file', text: file.name })
     );
   };
 
@@ -50,6 +50,7 @@ const FileInputBox = ({
     e.stopPropagation();
     if (e.dataTransfer.files) {
       setIsDragging(true);
+      console.log(e.dataTransfer.files[0].type);
     }
   };
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {

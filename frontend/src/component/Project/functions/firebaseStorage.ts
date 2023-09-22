@@ -1,10 +1,10 @@
-import { getDownloadURL, ref } from "firebase/storage";
-import { storage } from "./firebase";
+import { getDownloadURL, ref } from 'firebase/storage';
+import { storage } from './firebase';
 
 export const downloadFile = (id: string, name: string) => {
   getDownloadURL(ref(storage, `files/${name + id}`))
     .then((url) => {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = url;
       link.download = name;
 
@@ -30,21 +30,3 @@ export const downloadFile = (id: string, name: string) => {
       // Handle any errors
     });
 };
-
-// export const downloadFile = (event: any) => {
-//   event.preventDefault();
-//   var anchor = event?.target;
-//   var url = anchor.getAttribute("href");
-//   const xhr = new XMLHttpRequest();
-//   xhr.responseType = "blob";
-//   xhr.onload = function (event) {
-//     const blob = xhr.response;
-//     const blobUrl = window.URL.createObjectURL(blob);
-//     anchor.setAttribute("href", blobUrl);
-//     anchor.removeAttribute("onclick");
-//     anchor.click();
-//     window.URL.revokeObjectURL(blobUrl);
-//   };
-//   xhr.open("GET", url);
-//   xhr.send();
-// };
