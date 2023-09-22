@@ -12,6 +12,7 @@ import {
   ContentInterface,
   EditableContextInterface,
   PageContextInterface,
+  initialContents,
 } from "../context/PageContext";
 import { DateSelectArg, EventAddArg, EventInput } from "@fullcalendar/core";
 import uuid from "react-uuid";
@@ -29,7 +30,7 @@ const getContents = (
         const newEditable = Array(snapshot.val().contents.length).fill(false);
         setEditable(newEditable);
       } else {
-        console.log("data doesn't exist");
+        set(ref(db, path), initialContents());
       }
     })
     .catch((error) => {

@@ -8,21 +8,13 @@ const Overlay = () => {
     throw new Error("Context must be used within a PageProvider");
   }
   const { overlayRef, overlayIndex, overlayXY } = overlayContext;
-  const itemList = [
-    "기본",
-    "페이지",
-    "제목1",
-    "제목2",
-    "제목3",
-    "할 일 목록",
-    "구분선",
-  ];
+  const itemList = ["기본", "페이지", "제목1", "제목2", "할 일 목록", "구분선"];
   const TextItemList = styled.ul`
     transform: translate(
       0px,
-      ${overlayIndex <= overlayRef.current?.childElementCount - 5
+      ${overlayIndex <= overlayRef.current?.childElementCount - 2
         ? overlayIndex * -38.4
-        : -38.4 * (overlayRef.current?.childElementCount - 5)}px
+        : -38.4 * (overlayRef.current?.childElementCount - 2)}px
     );
 
     margin-block-start: 0em;

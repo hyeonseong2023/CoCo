@@ -5,6 +5,7 @@ import {
   EditableContext,
   HeadEditableContext,
   PageContext,
+  initialContent,
 } from "./context/PageContext";
 import {
   getCaretPosition,
@@ -71,7 +72,7 @@ const Head = () => {
         e.preventDefault();
         updateContent(
           "projects/12345/pageList/0",
-          addContents(contents.contents, -1)
+          addContents(contents.contents, -1, initialContent())
         );
         setEditable(addEditable(editable, -1));
         break;

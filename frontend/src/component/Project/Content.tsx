@@ -6,6 +6,7 @@ import {
   HeadEditableContext,
   OverlayContext,
   PageContext,
+  initialContent,
 } from "./context/PageContext";
 import {
   getCaretPoint,
@@ -24,13 +25,27 @@ import {
   setTrueEditable,
   upwardEditable,
 } from "./functions/editable";
+import { useDrag, useDrop } from "react-dnd";
+import FileInputBox from "./FileInputBox";
+import { getTagContent } from "./functions/tagList";
+import { downloadFile } from "./functions/firebaseStorage";
+import FileDownload from "./FileDownload";
 
 const Content = ({
   index,
   element,
+  id,
+  moveContent,
+  findContent,
 }: {
   index: number;
   element: ContentInterface;
+  id: string;
+  moveContent: (id: string, atIndex: number) => void;
+  findContent: (id: string) => {
+    content: ContentInterface;
+    index: number;
+  };
 }) => {
   const pageContext = useContext(PageContext);
   const headEditableContext = useContext(HeadEditableContext);
@@ -60,6 +75,31 @@ const Content = ({
   } = overlayContext;
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const tagRef = useRef<HTMLDivElement>(null);
+  const originalIndex = findContent(id).index;
+  const [{ isDragging }, dragRef] = useDrag(
+    () => ({
+      type: "CONTENTS",
+      item: { id, originalIndex },
+      collect: (monitor) => ({
+        isDragging: !!monitor.isDragging(),
+      }),
+    }),
+    [originalIndex]
+  );
+
+  const [, dropRef] = useDrop(
+    () => ({
+      accept: "CONTENTS",
+      hover: (item: { id: string; originalIndex: number }) => {
+        if (item.id !== id) {
+          // hover된 요소와 index 교환! -> 위치 교환
+          const { index: overIndex } = findContent(id);
+          moveContent(item.id, overIndex);
+        }
+      },
+    }),
+    [findContent, moveContent]
+  );
 
   useEffect(() => {
     if (!editable[index] || tagRef.current === null) return;
@@ -100,14 +140,18 @@ const Content = ({
     switch (e.keyCode) {
       case 13: // "Enter"
         e.preventDefault();
+
+        const tagContent = overlayVisible
+          ? getTagContent(overlayIndex)
+          : initialContent();
         updateContent(
           "projects/12345/pageList/0",
-          addContents(contents, index)
+          addContents(contents, index, tagContent)
         );
         setEditable(addEditable(editable, index));
         break;
       case 8: // "Backspace"
-        if (selection?.anchorOffset === 0) {
+        if (selection?.anchorOffset === 0 && index !== 0) {
           e.preventDefault();
           updateContent(
             "projects/12345/pageList/0",
@@ -115,7 +159,6 @@ const Content = ({
           );
           setEditable(removeEditable(editable, index));
           setCaret(31415928979);
-          index === 0 && setHeadEditable(true);
         }
         break;
       case 38: // "윗방향 화살표"
@@ -155,9 +198,18 @@ const Content = ({
     }
   };
 
+  const fileTag = () => {
+    // const url = getUrl(element.id, element.text);
+    return (
+      <div>
+        <FileDownload uid={element.id} name={element.text}></FileDownload>
+      </div>
+    );
+  };
+
   const editableTag = () => {
     return (
-      <div className="text-block-container">
+      <div>
         <div
           className="text-block"
           style={{
@@ -183,18 +235,32 @@ const Content = ({
       </div>
     );
   };
-  switch (element.tag) {
-    case "div":
-      return <div>{editableTag()}</div>;
-    case "h2":
-      return <h2>{editableTag()}</h2>;
-    case "h3":
-      return <h3>{editableTag()}</h3>;
-    case "h4":
-      return <h4>{editableTag()}</h4>;
-    default:
-      return <div>{editableTag()}</div>;
-  }
+
+  const switchTag = (tag: string) => {
+    switch (tag) {
+      case "div":
+        return <div>{editableTag()}</div>;
+      case "h1":
+        return <h1>{editableTag()}</h1>;
+      case "h3":
+        return <h3>{editableTag()}</h3>;
+      case "file":
+        return <div>{fileTag()}</div>;
+      default:
+        return <div>{editableTag()}</div>;
+    }
+  };
+
+  return (
+    <div
+      ref={(node) => dragRef(dropRef(node))}
+      style={{ opacity: isDragging ? 0.4 : 1 }}
+    >
+      <FileInputBox contents={contents} index={index}>
+        {switchTag(element.tag)}
+      </FileInputBox>
+    </div>
+  );
 };
 
 export default Content;
