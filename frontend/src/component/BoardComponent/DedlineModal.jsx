@@ -1,8 +1,20 @@
-import React from 'react';
 import '../../css/Board.css';
-import closePopup from '../../img/x.png';
+import axios from 'axios';
 
-function DedlineModal({ setDPopupOpne }) {
+function DeadlineModal({ setDPopupOpne, boardData, data }) {
+  const postDeadline = async () => {
+    await axios
+      .get(
+        `http://localhost:8099/postdeadline/${data.id}/${boardData.TB_BOARD.board_deadline}`
+      )
+      .then((res) => {
+        window.location.replace(
+          `http://localhost:3000/selectpostviews/${data.id}`
+        );
+        setDPopupOpne(false);
+      });
+  };
+
   const close = () => {
     setDPopupOpne(false);
   };
@@ -15,7 +27,11 @@ function DedlineModal({ setDPopupOpne }) {
         </p>
         <p>마감 하시겠습니까?</p>
 
-        <button className="modal_deadline_Button" type="submit">
+        <button
+          className="modal_deadline_Button"
+          type="submit"
+          onClick={postDeadline}
+        >
           {' '}
           마감하기
         </button>
@@ -28,4 +44,4 @@ function DedlineModal({ setDPopupOpne }) {
   );
 }
 
-export default DedlineModal;
+export default DeadlineModal;

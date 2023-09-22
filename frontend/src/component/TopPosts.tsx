@@ -107,7 +107,7 @@ const TopPosts = () => {
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
 
             return (
-              <Link to={`/Contents/${data.id}`} key={index} state={data}>
+              <Link to={`/selectpostviews/${data.id}`} key={index} state={data}>
                 <div className={contentClassName} key={index}>
                   {isExpired ? (
                     <div className='topHeader'>

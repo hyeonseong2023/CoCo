@@ -54,7 +54,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
         <div id='Contentsbox-c'>
           {categoryData.map((data, index) => (
             <div key={index}>
-              <Link to={`/Contents/${data.id}`} key={index} state={data}>
+              <Link to={`/selectpostviews/${data.id}`} key={index} state={data}>
                 <div className='Contentsbox'>
                   <div className='Contentsbox-A'>
                     <div className='boxA_dead'><div>{data.board_deadline}</div></div>
@@ -63,16 +63,9 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                   </div>
                   <div className='boxB_bookmark'><div className='boxB_1'><img src={book} alt="" /></div><div className='boxB_2'>조회수 {data.board_views}</div></div>
                   <div className='ContentsLine'></div>
-                  <div className='topBody-topTail'>모집분야</div>
+                  <div className='topBody-topTail'></div>
                   <div className='topTail'>
-                    {data.board_position.split(',').map((position, positionIndex) => (
-                      <div
-                        key={positionIndex}
-                        className={`top-board_position ${getPositionColor(position)}`}
-                      >
-                        {position}
-                      </div>
-                    ))}
+                    <div>아이콘</div>
                   </div>
 
                 </div>

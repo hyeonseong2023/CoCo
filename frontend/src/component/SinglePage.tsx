@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom';
-
 import Post from './BoardComponent/Post';
 import '../css/Board.css';
 import axios from "axios";
@@ -16,16 +15,32 @@ const SinglePage: React.FC = () => {
 
   const fetchData = async() => {
     console.log("콘텐츠에서 온 데이터",data);
-    console.log("axios 전");
+    console.log("쿠키에 들어있는 아이디: ",Cookies.get('CUST_ID'));
+    
 
-          await axios.get(`http://localhost:8099/selectpostviews/${data.id}/${Cookies.get('CUST_ID')}`)
+    await axios.get(`http://localhost:8099/selectpostviews/${data.id}`, {
+  params: {
+    cust_id: Cookies.get('CUST_ID'),
+          }
+        })
           .then(res => {
-  
-              // console.log(res.data);
+              console.log(res.data);
               console.log("싱글페이지 데이터:",res.data[0]);
-              setBoardData(res.data[0]);     
+              setBoardData(res.data[0]);   
           })
-    console.log("axios 후");   
+          .catch(error => {
+            // 에러 처리
+          });
+  
+
+          // await axios.get(`http://localhost:8099/selectpostviews/${data.id}/${Cookies.get('CUST_ID')}`)
+          // .then(res => {
+  
+          //     // console.log(res.data);
+          //     console.log("싱글페이지 데이터:",res.data[0]);
+          //     setBoardData(res.data[0]);     
+          // })
+   
   }
 
   useEffect(()=>{

@@ -73,6 +73,11 @@
 	<select id="getOrCreateProLink" resultType="string">
 			{call GetOrCreateProLink(#{board_id,jdbcType=INTEGER})}
 	</select>
+	
+	<!-- 모집마감 -->
+	<update id="postDeadline">
+		UPDATE TB_BOARD SET BOARD_DEADLINE = #{toDay} WHERE BOARD_ID = #{board_id}
+	</update>
 
 
 

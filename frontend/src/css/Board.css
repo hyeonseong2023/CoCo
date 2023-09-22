@@ -348,6 +348,15 @@
     font-size: large;
   }
 
+  /* 마감된 프로젝트 표시 */
+  .projectDeadlineImg{
+    width: 150px;
+    float: right;
+    margin-top: 1%;
+    margin-right: 2%;
+
+  }
+
   /* 삭제버튼 */
   .deleteBtn{
     width: 90px;

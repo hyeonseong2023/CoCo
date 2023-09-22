@@ -1,20 +1,16 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import Header from './Header';
 import Select from 'react-select';
 import '../css/Write.css';
 import Cookies from 'js-cookie';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Quill 스타일 임포트
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Write = () => {
-  const [selectedPosition, setSelectedPosition] = useState(null);
-
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [files, setFiles] = useState<File[]>([]);
-  const [insertedImages, setInsertedImages] = useState<string[]>([]);
-  const [recruitmentInfo, setRecruitmentInfo] = useState({
+  const location = useLocation();
+  const boardData = location?.state as any;
+  const initialContent = boardData === null ? {
     recruitmentCount: 1,
     techStack: [] as string[],
     duration: 1,
@@ -24,7 +20,31 @@ const Write = () => {
     openTalkLink: '',
     deadline: '',
     recruitmentType: '프로젝트',
-  });
+  } : {
+    recruitmentCount: boardData?.TB_BOARD.board_members,
+    techStack: boardData?.TB_BOARD_SKILL,
+    duration: boardData?.TB_BOARD.board_period,
+    position: boardData?.TB_BOARD.board_position.split(",").map((item:string)=>{ return {label:item, value:item}}),
+    startDate: boardData?.TB_BOARD.board_deadline,
+    endDate: boardData?.board_deadline,
+    openTalkLink: boardData?.TB_BOARD.board_openlink,
+    deadline: boardData?.TB_BOARD.board_deadline,
+    recruitmentType: '프로젝트',
+  }
+  console.log(initialContent);
+  
+
+  const [selectedPosition, setSelectedPosition] = useState(initialContent.position);
+
+  const [title, setTitle] = useState(boardData === null ? '' : boardData.TB_BOARD.board_title );
+  const [content, setContent] = useState(boardData === null ? '' : boardData.TB_BOARD.board_content);
+  const [files, setFiles] = useState<File[]>([]);
+  const [insertedImages, setInsertedImages] = useState<string[]>([]);
+  const [recruitmentInfo, setRecruitmentInfo] = useState(initialContent);
+
+  // useEffect(()=>{
+  //   set
+  // },[])
 
   // Quill 에디터 모듈 설정
   const modules = {
@@ -56,7 +76,7 @@ const Write = () => {
   };
 
   // 선택된 기술 스택 상태 변수 및 핸들러
-  const [selectedTechStack, setSelectedTechStack] = useState<string[]>([]);
+  const [selectedTechStack, setSelectedTechStack] = useState<string[]>(initialContent.techStack);
 
   // 진행 기간 변경 핸들러
   const handleDurationChange = (value: number) => {
@@ -70,14 +90,14 @@ const Write = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const startDateStr = recruitmentInfo.startDate.toISOString().split('T')[0];
-    const endDateStr = recruitmentInfo.endDate.toISOString().split('T')[0];
-    const period = `${startDateStr}~${endDateStr}`;
+    // const startDateStr = recruitmentInfo.startDate.toISOString().split('T')[0];
+    // const endDateStr = recruitmentInfo.endDate.toISOString().split('T')[0];
+    // const period = `${startDateStr}~${endDateStr}`;
 
     const formData = new FormData();
     formData.append('cust_id', Cookies.get('CUST_ID') || '');
     formData.append('board_members', recruitmentInfo.recruitmentCount.toString());
-    formData.append('board_period', period);
+    // formData.append('board_period', period);
     formData.append('board_title', title);
     formData.append('board_content', content);
     formData.append('board_openlink', recruitmentInfo.openTalkLink);
@@ -191,6 +211,8 @@ const Write = () => {
                   selectedTechStack.includes(option.value)
                 )}
                 onChange={(selectedOptions: any) => {
+                  console.log(selectedTechStack);
+                  
                   if (selectedOptions.length <= 3) {
                     setSelectedTechStack(
                       selectedOptions.map((option: any) => option.value)
