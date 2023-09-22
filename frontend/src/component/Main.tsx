@@ -14,6 +14,7 @@ const Main: React.FC<MainProps> = () => {
   const [categoryData, setCategoryData] = useState<any[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
+
   const handlePageChange = (page: number): void => {
     setCurrentPage(page);
   };
@@ -29,7 +30,6 @@ const Main: React.FC<MainProps> = () => {
       handlePageChange(currentPage - 1);
     }
   };
-
 
   const fetchData = async (requestData: any) => {
     try {
@@ -51,14 +51,30 @@ const Main: React.FC<MainProps> = () => {
           pro_img: item.pro_img,
           pro_link: item.pro_link,
           pro_title: item.pro_title,
+          cust_nick: item.cust_nick
         };
       });
-
-      console.log(response);
-
-      setCategoryData(fetchedData);
+  
+      if (fetchedData.length === 0) {
+        // 응답 데이터가 비어있을 때
+        console.warn("No data received.");
+        // 원하는 처리를 여기에 추가 (예: 메시지 표시 등)
+      } else {
+        setCategoryData(fetchedData);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
+  
+      setSelectedLanguage(null);
+      setSelectedPosition(null);
+      setCurrentPage(1);
+  
+      const requestData = {
+        skill_name: null,
+        board_position: null,
+        endpoint: 1
+      };
+      fetchData(requestData);
     }
   };
 
@@ -66,28 +82,20 @@ const Main: React.FC<MainProps> = () => {
     const requestData = {
       skill_name: selectedLanguage,
       board_position: selectedPosition,
-      endpoint: 0
+      endpoint: currentPage
     };
     fetchData(requestData);
-  }, [selectedLanguage, selectedPosition]);
+  }, [selectedLanguage, selectedPosition, currentPage]);
 
   const updateCategoryData = (selectedCategory: string | null) => {
     setSelectedLanguage(selectedCategory);
     setSelectedPosition(selectedCategory);
+    setCurrentPage(1); 
   };
 
   const handleLoginButtonClick = (): void => {
 
   };
-
-  useEffect(() => {
-    const requestData = {
-      skill_name: selectedLanguage,
-      board_position: selectedPosition,
-      endpoint: currentPage // 현재 페이지에 따라 endpoint 값을 설정
-    };
-    fetchData(requestData);
-  }, [selectedLanguage, selectedPosition, currentPage]);
 
   return (
     <div>
@@ -108,7 +116,6 @@ const Main: React.FC<MainProps> = () => {
           다음 페이지
         </button>
       </div>
-
     </div>
   );
 };
