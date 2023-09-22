@@ -1,69 +1,91 @@
-/* Contents.css */
-
 #Contents-box {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  #Contents-box > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 
-    flex-basis: calc(100%);
-    margin-bottom: 20px;
-    background-color: #ffffff;
-    box-sizing: border-box;
-  }
-  
-  #Contents-box > div > div {
- 
-    width: 100%;
-    height: 150px;
-    background-color: rgb(255, 255, 255);
-    margin-bottom: 20px;
-    border: #2a5b9c 2px solid;
-    border-radius: 2%;
-  }
+#Contents-box>div {
+  flex-basis: calc(100%);
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
 
-/* Contents.css */
+#Contents-box>div>div {
+  width: 100%;
+  height: 150px;
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 20px;
+  border: #d0e1f7 2px solid;
+  border-radius: 20px 20px 20px 20px; 
+}
 
-#Contents-box {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  #Contents-box > div {
-    flex-basis: calc(100%);
-    margin-bottom: 20px;
-    background-color: #ffffff;
-    box-sizing: border-box;
-  }
-  
-  #Contents-box > div > div {
-    height: 150px;
-    background-color: rgb(255, 255, 255);
-    margin-bottom: 20px;
-  }
-
-  .Contentsbox{
-    background-color: #ffffff;
-    display: flex;
-  }
-
-  .Contentsbox > div{
-    text-align: center;
-  }
-
-  .Ctitle{
-    flex-grow: 1;
-  }
-  .Ccontents{
-    flex-grow: 4;
-  }
-
-  .Cbookmark{
-    flex-grow: 1;
-  }
+.Contentsbox{
+  display: flex;
+}
 
 
- 
+.Contentsbox-A{
+  width: 75%;
+  margin-left: 5%;
+}
+
+.boxA_img > img{
+  width: 5%;
+  height: 5%;
+}
+
+.boxA_dead{
+  height: 33%;
+}
+.boxA_dead>div{
+  margin-top: 2%;
+}
+
+.boxA_title{
+  height: 30%;
+}
+
+.boxA_title>div{
+}
+.boxA_img>div>img{
+  width: 4%;
+}
+
+.Contentsbox-A{
+  height: 100%;
+}
+.Contentsbox-c{
+  height: 100%;
+}
+
+.Contentsbox{
+  height: 100%;
+}
+
+.boxB_title{
+  margin-top: 5%;
+}
+.boxB_1{
+  margin-top: 15%;
+}
+.boxB_2{
+  padding-top: 8%;
+}
+
+.boxB_bookmark{
+  margin-top: 1%;
+  width: 10%;
+}
+
+.Contentsbox-B{
+  margin-top: 1%;
+  width: 20%;
+  margin-left: 3%;
+}
+
+
+.ContentsLine{
+  background-color: rgb(2, 196, 230);
+  width: 3px;
+}

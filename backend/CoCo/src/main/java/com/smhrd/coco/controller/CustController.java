@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.coco.domain.TB_CUST;
+import com.smhrd.coco.domain.TB_CUST_SKILL;
 import com.smhrd.coco.domain.TB_PF;
 import com.smhrd.coco.service.CustService;
 
@@ -32,6 +33,13 @@ public class CustController {
 	@Autowired
 	private CustService service;
 
+
+	// 첫 로그인 기본 정보 DB 저장 
+	@PostMapping("/firstlogin")
+	public int firstLogin(@RequestBody Map<String, String> map) {
+		return service.firstLogin(map); 
+	}
+	
 	// 마이페이지(유저정보, 포트폴리오, 프로젝트 )
 	@GetMapping("/mypage")
 	public JSONObject myPage(@RequestParam("cust_id") String cust_id) {
@@ -41,9 +49,11 @@ public class CustController {
 
 	// 마이페이지(수정하기)
 	@PutMapping("/userinfoupdate") // form-data
-	public @ResponseBody int userInfoUpdate(@RequestPart("cust_img1") MultipartFile file, @ModelAttribute TB_CUST cust , Map<String, Object> map ) {
+	public @ResponseBody int userInfoUpdate(@RequestPart("cust_img1") MultipartFile file, @ModelAttribute TB_CUST cust ,  @ModelAttribute TB_CUST_SKILL custSkill ) {
 			
 		System.out.println("파일" + file);
+		
+
 		
 		//이미지 이름 저장 
 		String newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
