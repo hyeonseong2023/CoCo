@@ -70,14 +70,14 @@
   
   .left{
     /* background-color: blueviolet; */
-    width: 80%;
+    width: 70%;
     margin-right: auto;
     height: 145px;
   }
   
   .right{
     /* background-color: rgb(254, 207, 16); */
-    width: 20%;
+    width: 30%;
     margin-left: auto;
     height: 145px;
   
@@ -86,7 +86,7 @@
 /* 프로필 사진, 닉네임 컨테이너 */
   .profileContainer{
     /* background-color: blue; */
-    margin-top: 5.7%;
+    margin-top: 6.5%;
     width: 50%;
     height: 55px;
   }
@@ -111,7 +111,7 @@
   
   /* 게시글 닉네임 */
   .profileContainer p{
-    margin-left: 15%;
+    margin-left: 17%;
     margin-top: -6%;
     font-weight: bold;
   }
@@ -140,13 +140,13 @@
   /* 뷰아이콘, 뷰스, 게시글날자 컨테이너 */
   .rightBottom{
     /* background-color: rgb(33, 117, 156); */
-    height: 50%;
+    height: 45%;
   }
   
   .rightBottom span{
     /* background-color: aqua; */
     float: right;
-    margin-top: 19%;
+    margin-top: 13%;
     margin-right: 2%;
   }
 
@@ -154,7 +154,7 @@
   .viewsIcon{
     width: 25px;
     float: right;
-    margin-top: 18%;
+    margin-top: 12.5%;
     margin-right: 0%;
     /* background-color: aquamarine; */
   }
@@ -162,7 +162,7 @@
   .views{
     /* background-color: brown; */
     float: right;
-    margin-top: 20%;
+    margin-top: 14%;
     margin-right: 12%;
     font-weight: bold;
     font-size: smaller;
@@ -285,6 +285,47 @@
     margin-left: 0%;
   }
   
+
+  /* 모집마감 모달창 */
+  .modal-deadline-text{
+    margin-top: 5%;
+  }
+
+.modal-cancell-container{
+  padding: 2%;
+  border-radius: 5px;
+  text-align: center;
+  margin-left: 40%;
+  margin-top: -10%;
+  width: 15%;
+  height: 15%;
+  background-color: white;
+}
+
+.modal_deadline_Button{
+  background-color: #4598FF;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3% 5%;
+    border: none;
+    border-radius: 10px;     
+    margin-top: 0%;
+    margin-left: 0%;
+}
+
+.modal_cancell_Button{
+  background-color: #4598FF;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3% 5%;
+    border: none;
+    border-radius: 10px;     
+    margin-top: 10%;
+    margin-left: 3%;
+}
+  
   
   
   
@@ -307,16 +348,26 @@
     font-size: large;
   }
 
+  /* 삭제버튼 */
   .deleteBtn{
     width: 90px;
     float: right;
     margin-top: 1%;
-    margin-right: 5%;
+    margin-right: 2%;
   }
 
+   /* 수정버튼 */
   .modifyBtn{
     width: 90px;
     float: right;
     margin-top: 1%;
-    margin-right: 0%;
+    margin-right: 2%;
+  }
+
+   /* 모집마감 버튼 */
+  .deadlineBtn{
+    width: 90px;
+    float: right;
+    margin-top: 1%;
+    margin-right: 2%;
   }

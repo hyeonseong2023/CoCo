@@ -10,9 +10,26 @@ import TopPosts from './TopPosts';
 type MainProps = {};
 
 const Main: React.FC<MainProps> = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoryData, setCategoryData] = useState<any[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page);
+  };
+
+  const handleNextPageClick = (): void => {
+    if (currentPage < 5) {
+      handlePageChange(currentPage + 1);
+    }
+  };
+
+  const handlePrevPageClick = (): void => {
+    if (currentPage > 1) {
+      handlePageChange(currentPage - 1);
+    }
+  };
+
 
   const fetchData = async (requestData: any) => {
     try {
@@ -37,6 +54,7 @@ const Main: React.FC<MainProps> = () => {
         };
       });
 
+      console.log(response);
 
       setCategoryData(fetchedData);
     } catch (error) {
@@ -59,8 +77,17 @@ const Main: React.FC<MainProps> = () => {
   };
 
   const handleLoginButtonClick = (): void => {
-  
+
   };
+
+  useEffect(() => {
+    const requestData = {
+      skill_name: selectedLanguage,
+      board_position: selectedPosition,
+      endpoint: currentPage // 현재 페이지에 따라 endpoint 값을 설정
+    };
+    fetchData(requestData);
+  }, [selectedLanguage, selectedPosition, currentPage]);
 
   return (
     <div>
@@ -73,6 +100,15 @@ const Main: React.FC<MainProps> = () => {
         setSelectedPosition={setSelectedPosition}
       />
       <Contents categoryData={categoryData} />
+      <div>
+        <button onClick={handlePrevPageClick} disabled={currentPage === 1}>
+          이전 페이지
+        </button>
+        <button onClick={handleNextPageClick} disabled={currentPage === 5}>
+          다음 페이지
+        </button>
+      </div>
+
     </div>
   );
 };

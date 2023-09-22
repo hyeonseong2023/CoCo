@@ -14,6 +14,7 @@ interface PostData {
   board_position: string;
   pro_img: String;
   board_views: number;
+  cust_nick: string;
 }
 
 const TopPosts = () => {
@@ -35,10 +36,12 @@ const TopPosts = () => {
         board_deadline: item.board_deadline,
         board_position: item.board_position,
         pro_img: item.pro_img,
-        board_views: item.board_views
+        board_views: item.board_views,
+        cust_nick: item.cust_nick
+        
       }));
-
-
+      console.log(response);
+      
       setSlideContents(fetchedData);
 
     } catch (error) {
@@ -59,7 +62,7 @@ const TopPosts = () => {
   };
 
   const settings = {
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesPerRow: 1,
   };
 
@@ -105,7 +108,7 @@ const TopPosts = () => {
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
-
+            console.log(data.cust_nick);
             return (
               <Link to={`/Contents/${data.id}`} key={index} state={data}>
                 <div className={contentClassName} key={index}>
@@ -130,7 +133,7 @@ const TopPosts = () => {
                       </div>
                     ))}
                   </div>
-                  <div className='topend'><div className='topend1'><img src={img} alt="" /></div><div className='topend2'>이름</div><div className='topend3'>{data.board_views}</div></div>
+                  <div className='topend'><div className='topend1'><img src={img} alt="" /></div><div className='topend2'></div><div className='topend3'>{data.board_views}</div></div>
                 </div>
               </Link>
             );

@@ -74,7 +74,8 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ setSelectedLanguage, setSelec
 
   return (
     <div className='category_main'>
-      <div className='category'>
+      <div className='category_main_sub'><div>분야별 프로젝트</div> <div>분야별 함께할 팀원을 모집해 보세요.</div></div>
+      <div className='category_sub1'>
         <Select
           options={categoryOptions1}
           value={selectedLanguage}
@@ -82,16 +83,13 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ setSelectedLanguage, setSelec
           className="select-box category1"
         />
       </div>
-      <div className='category'>
+      <div className='category_sub2'>
         <Select
           options={categoryOptions2}
           value={selectedPosition}
           onChange={(selectedOption) => handleSelectChange2(selectedOption)}
           className="select-box category2"
         />
-      </div>
-      <div className='category'>
-        <div>👋 내 북마크 보기</div>
       </div>
     </div>
   );
