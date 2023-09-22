@@ -5,12 +5,15 @@ import 'slick-carousel/slick/slick-theme.css';
 import '../css/TopPosts.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import bookmarkon from '../img/Bookmarkon.png'
+import img from '../img/profilePicture.png'
 interface PostData {
   id: string;
   title: string;
   board_deadline: string;
   board_position: string;
+  pro_img: String;
+  board_views: number;
 }
 
 const TopPosts = () => {
@@ -26,15 +29,18 @@ const TopPosts = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:8099/popularlist");
-
       const fetchedData: PostData[] = response.data.map((item: any) => ({
-        id: item.popularList.board_id,
-        title: item.popularList.board_title,
-        board_deadline: item.popularList.board_deadline,
-        board_position: item.popularList.board_position,
+        id: item.board_id,
+        title: item.board_title,
+        board_deadline: item.board_deadline,
+        board_position: item.board_position,
+        pro_img: item.pro_img,
+        board_views: item.board_views
       }));
-      
+
+
       setSlideContents(fetchedData);
+
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -57,13 +63,34 @@ const TopPosts = () => {
     slidesPerRow: 1,
   };
 
+  function getPositionColor(position: string) {
+    switch (position) {
+      case '프론트엔드':
+        return 'frontend-color';
+      case '백엔드':
+        return 'backend-color';
+      case '디자이너':
+        return 'designer-color';
+      case '기획자':
+        return 'planner-color';
+      default:
+        return ''; // 기본값으로 빈 문자열을 반환하거나 다른 적절한 클래스를 할당하세요.
+    }
+  }
+
   // 현재 날짜 가져오기
   const today = new Date();
 
   return (
     <div className='TopPostsC'>
       <div className='TopPostsCo'>
-        <div className='TopPostsCon'> <h2>인기글</h2><br/><br/><br/> </div>
+        <div className='TopPostsCon'>
+          <div>
+            <h1>인기 프로젝트</h1>
+            <h5>주목할만한 프로젝트를 소개합니다</h5>
+          </div>
+        </div>
+        <div className='topspace'></div>
         <div className='TopPostsConi'>
           <button onClick={previousSlide}>이전</button>
           <button onClick={nextSlide}>다음</button>
@@ -72,14 +99,9 @@ const TopPosts = () => {
       <div className="data-container">
         <Slider ref={sliderRef} {...settings}>
           {slideContents.map((data, index) => {
-            // 마감일을 Date 객체로 변환
             const deadlineDate = new Date(data.board_deadline);
-            
-            // 현재 날짜를 밀리초로 변환
             const todayMillis = today.getTime();
-            // 마감일을 밀리초로 변환
             const deadlineMillis = deadlineDate.getTime();
-            // 밀리초를 일로 변환
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
@@ -87,13 +109,28 @@ const TopPosts = () => {
             return (
               <Link to={`/Contents/${data.id}`} key={index} state={data}>
                 <div className={contentClassName} key={index}>
-                  <div className='toptitle'>{data.title}</div>
-                  <div>{data.board_position}</div>
                   {isExpired ? (
-                    <div>모집 종료</div>
+                    <div className='topHeader'>
+                      <div className='topHeader-day0'>모집마감</div>
+                    </div>
                   ) : (
-                    <div>남은 일 수: {daysDifference}일</div>
+                    <div className='topHeader'>
+                      <div className='topHeader-day'>{daysDifference}일 남음</div>
+                    </div>
                   )}
+                  <div className='topBody'><div className='topBody-title'>{data.title}</div><div className='topBody-bookmark'><img src={bookmarkon} alt="" /></div></div>
+                  <div className='topBody-topTail'>모집분야</div>
+                  <div className='topTail'>
+                    {data.board_position.split(',').map((position, positionIndex) => (
+                      <div
+                        key={positionIndex}
+                        className={`top-board_position ${getPositionColor(position)}`}
+                      >
+                        {position}
+                      </div>
+                    ))}
+                  </div>
+                  <div className='topend'><div className='topend1'><img src={img} alt="" /></div><div className='topend2'>이름</div><div className='topend3'>{data.board_views}</div></div>
                 </div>
               </Link>
             );

@@ -8,25 +8,13 @@
   text-align: center;
   width: 641px;
   height: auto;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   display: flex;
   flex-direction: column; /* 내부 요소들을 세로로 배치 */
   align-items: center; /* 요소들을 가운데 정렬 */
+  /* background-color: #007bff; */
 }
 
-/* 모달 내부 요소 스타일 */
-.modal-content label,
-.modal-content select,
-.modal-content button,
-.modal-content .modal-input {
-  display: flex; /* 요소들을 가로로 배치 */
-  flex-direction: row; /* 요소들을 가로로 배치 */
-  align-items: center; /* 세로 중앙 정렬 */
-  margin: 10px auto;
-  padding: 10px;
-  border-radius: 5px;
-  width: 180px; /* 부모의 절반 너비로 설정 */
-}
 
 
 .close-button {
@@ -160,10 +148,104 @@
   background-color: #0056b3;
 }
 
+
+
 .join-h3C{
   margin: 5%;
+  font-size: medium;
 }
 
 .butjoin:hover{
   background-color: rgb(191, 220, 254);
 }
+
+.modal-open-close{
+  background-color: #ff6565;
+}
+
+
+
+
+
+/* 다영 */
+
+
+/* 모달 닫기 컨테이너 */
+.join-modal-user-close {
+  display: flex;
+  align-items: center;
+}
+
+/* 모달 닫기 로고 이미지  */
+.join-modal-user-img{
+  width: 100px;
+  float: left;
+  margin-right: 10px;
+}
+
+/* 모달 X 버튼  */
+.join-modal-user-close-button{
+  width: 20px;
+  margin-left: 470px;
+  cursor: pointer;
+
+}
+
+
+/* CoCo에 처음이시군요! */
+.join{
+  font-size: small;
+  margin-top: 30px;
+}
+
+/* 기본정보를 입력해주세요  */
+.join-text{
+  margin-top: 10px;
+  font-size: x-small;
+}
+
+.join-container{
+  /* background-color: #0056b3; */
+  margin-top : 30px;
+}
+
+
+.nextBtn{
+  margin-top: 30px;
+  width: 120px;
+}
+
+
+/* 모달 프로필 정보 항목 */
+.join-user-modal-name {
+  text-align: center; 
+  font-weight: 600;
+  padding-right: 10px;
+  /* background-color: #4598FF; */
+  
+}
+
+
+/* 모달 프로필 정보 수정 입력/선택  */
+.join-user-modal-content {
+  width: 320px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; 
+  padding-left: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 15px;
+  /* background-color: #4598FF; */
+}
+
+
+.join-Multi {
+  width: 320px;
+  margin-left: 2px;
+  padding-left: 0px;
+  text-align: left;
+  /* background-color: #4598FF; */
+}
+

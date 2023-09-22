@@ -53,28 +53,4 @@ public class KakaoController {
 		return data;
 	}
 
-	// 첫 로그인 기본 정보 DB에 저장
-	@PostMapping("/firstlogin")
-	public int firstLogin(@RequestBody Map<String, String> map) {
-
-		System.out.println("아이디 : " + map.get("CUST_ID"));
-		System.out.println("닉네임 : " + map.get("CUST_NICK"));
-		System.out.println("경력 : " + map.get("CUST_CAREER"));
-		System.out.println("기술 : " + map.get("SKILL_NAME"));
-
-		TB_CUST cust = new TB_CUST
-				(map.get("CUST_ID"), map.get("CUST_NICK"), map.get("CUST_CAREER"), "sad", "sdsad", map.get("SKILL_NAME"));
-		
-		int cnt = service.firstLogin(cust);
-
-		if (cnt > 0) {
-			System.out.println("DB 저장 성공");
-			return 1;
-		} else {
-			System.out.println("DB 저장 실패");
-			return 0;
-		}
-
-	}
-
 }

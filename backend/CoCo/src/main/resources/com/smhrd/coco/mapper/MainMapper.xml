@@ -1,81 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>	
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">	
-<mapper namespace="com.smhrd.coco.mapper.MainMapper">	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.coco.mapper.MainMapper">
 
-	<!-- 조회수 증가 -->	
-	<update id="increaseViews">	
-		update TB_BOARD set BOARD_VIEWS = BOARD_VIEWS + 1	
-		where BOARD_ID =	
-		#{board_id};	
-	</update>	
+	<!-- 조회수 증가 -->
+	<update id="increaseViews">
+		update TB_BOARD set BOARD_VIEWS = BOARD_VIEWS + 1
+		where BOARD_ID =
+		#{board_id};
+	</update>
 
-	<!-- 인기글(조회수기반) 가져오기 -->	
-	<select id="popularList">	
-		select * from TB_BOARD	
-		order by BOARD_VIEWS	
-		desc LIMIT	
-		6 ;	
-	</select>	
+	<!-- 해당게시글 스킬 리스트 가져오기 -->
+	<select id="boardIdList"
+		resultType="com.smhrd.coco.domain.TB_BOARD_SKILL">
+		select * from TB_BOARD_SKILL where BOARD_ID = #{board_id};
+	</select>
 
-	<!-- 북마크 저장 -->	
-	<insert id="bookmarkCheck"	
-		parameterType="com.smhrd.coco.domain.TB_BOOKMARK">	
-		insert into TB_BOOKMARK (CUST_ID, BOARD_ID)	
-		values	
-		(#{cust_id}, #{board_id});	
-	</insert>	
+	<!-- 인기글(조회수기반) 가져오기 -->
+	<select id="popularList">
+		select * from TB_BOARD
+		order by BOARD_VIEWS
+		desc LIMIT
+		6 ;
+	</select>
 
-	<!-- 북마크 게시글 불러오기 -->	
-	<select id="bookmarkList"	
-		parameterType="com.smhrd.coco.domain.TB_BOOKMARK">	
-		select * from TB_BOARD	
-		where BOARD_ID IN ( select	
-		BOARD_ID	
-		from TB_BOOKMARK	
-		where CUST_ID = #{cust_id}) ;	
-	</select>	
+	<!-- 북마크 저장 -->
+	<insert id="bookmarkCheck"
+		parameterType="com.smhrd.coco.domain.TB_BOOKMARK">
+		insert into TB_BOOKMARK (CUST_ID, BOARD_ID)
+		values
+		(#{cust_id}, #{board_id});
+	</insert>
 
-	<!-- 최신순 게시글 6개씩 가져오기 -->	
-	<select id="recentList" parameterType="int">	
-		select * from TB_BOARD	
-		order by BOARD_DT	
-		limit	
-		#{endpoint}, 6;	
-	</select>	
+	<!-- 북마크 해제 -->
+	<delete id="unBookmark"
+		parameterType="com.smhrd.coco.domain.TB_BOOKMARK">
+		delete from TB_BOOKMARK where CUST_ID = #{cust_id} and
+		BOARD_ID =
+		#{board_id} ;
+	</delete>
 
-	<!-- 스킬에 맞는 최신순 게시글 가져오기 -->	
-	<select id="skillList" parameterType="java.util.Map"	
-		resultType="com.smhrd.coco.domain.TB_BOARD">	
-		select * from TB_BOARD	
-		where BOARD_ID IN ( select BOARD_ID	
-		from TB_BOARD_SKILL where SKILL_NAME = #{skillname} )	
-		order by BOARD_DT	
-		limit	
-		#{endpoint}, 6;	
-	</select>	
+	<!-- 북마크 게시글 불러오기 -->
+	<select id="bookmarkList"
+		parameterType="com.smhrd.coco.domain.TB_BOOKMARK">
+		select * from TB_BOARD
+		where BOARD_ID IN ( select
+		BOARD_ID
+		from TB_BOOKMARK
+		where CUST_ID = #{cust_id}) ;
+	</select>
 
-	<!-- 포지션에 맞는 최신순 게시글 가져오기 -->	
-	<select id="positionList" parameterType="java.util.Map"	
-		resultType="com.smhrd.coco.domain.TB_BOARD">	
-		select * from TB_BOARD	
-		where BOARD_POSITION LIKE CONCAT('%',	
-		#{board_position} ,'%')	
-		order by BOARD_DT	
-		limit #{endpoint}, 6 ;	
-	</select>	
 
-	<!-- 지원한 게시글 보기 -->	
-	<select id="applyList"	
-		resultType="com.smhrd.coco.domain.TB_BOARD">	
-		select * from TB_BOARD where BOARD_ID 	
-		in ( select BOARD_ID from TB_APPLY	
-		where CUST_ID = #{cust_id}) ;	
-	</select>	
+	<!-- 최신순 게시글 가져오기 -->
+	<select id="recentList" parameterType="int">
+		select * from TB_BOARD
+		order by BOARD_DT
+		limit
+		#{endpoint}, 6;
+	</select>
 
-	<!-- 내가 작성한 글 보기 -->	
-	<select id="writeList" resultType="com.smhrd.coco.domain.TB_BOARD">	
-		select * from TB_BOARD 	
-		where CUST_ID = #{cust_id} ; 	
-	</select>	
+	<!-- 기술스택명에 맞는 최신순 게시글 가져오기 -->
+	<select id="skillList" parameterType="java.util.Map"
+		resultType="com.smhrd.coco.domain.TB_BOARD">
+		select * from TB_BOARD
+		where BOARD_ID IN ( select BOARD_ID
+		from TB_BOARD_SKILL where SKILL_NAME = #{skillname} )
+		order by BOARD_DT
+		limit
+		#{endpoint}, 6;
+	</select>
+
+	<!-- 포지션에 맞는 최신순 게시글 가져오기 -->
+	<select id="positionList" parameterType="java.util.Map"
+		resultType="com.smhrd.coco.domain.TB_BOARD">
+		select * from TB_BOARD
+		where BOARD_POSITION LIKE CONCAT('%',
+		#{board_position} ,'%')
+		order by BOARD_DT
+		limit #{endpoint}, 6 ;
+	</select>
+
+
+	<!-- 기술스택과 포지션에 맞는 최신순 게시글 가져오기 -->
+	<select id="skillPositionList" parameterType="java.util.Map">
+		select * from
+		TB_BOARD
+		where BOARD_POSITION LIKE CONCAT('%',
+		#{board_position} ,'%')
+		and BOARD_ID IN (select
+		BOARD_ID
+		from TB_BOARD_SKILL
+		where SKILL_NAME = #{skill_name})
+		order by
+		BOARD_DT limit #{endpoint}, 6;
+	</select>
+
+
+     <!-- 해당게시글 작성자의 닉네임 가져오기  -->
+     <select id="custNick" resultType = "String">
+       select CUST_NICK from TB_CUST where CUST_ID = #{cust_id} ;
+     </select>
+
+
+	<!-- 지원한 게시글 보기 -->
+	<select id="applyList"
+		resultType="com.smhrd.coco.domain.TB_BOARD">
+		select * from TB_BOARD where BOARD_ID
+		in ( select BOARD_ID
+		from TB_APPLY
+		where CUST_ID = #{cust_id}) ;
+	</select>
+
+	<!-- 내가 작성한 글 보기 -->
+	<select id="writeList"
+		resultType="com.smhrd.coco.domain.TB_BOARD">
+		select * from TB_BOARD
+		where CUST_ID = #{cust_id} ;
+	</select>
 
 </mapper>

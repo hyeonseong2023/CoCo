@@ -5,6 +5,7 @@ import '../css/Board.css';
 import axios from "axios";
 import { useEffect, useState } from 'react';
 import Header from './Header';
+import Cookies from 'js-cookie';
 
 
 const SinglePage: React.FC = () => {
@@ -14,14 +15,14 @@ const SinglePage: React.FC = () => {
   const [boardData, setBoardData] = useState();
 
   const fetchData = async() => {
-    console.log(data.id);
-    console.log(data.cust_id);
+    console.log("콘텐츠에서 온 데이터",data);
     console.log("axios 전");
 
-          await axios.get(`http://localhost:8099/selectpostviews/${data.id}`)
+          await axios.get(`http://localhost:8099/selectpostviews/${data.id}/${Cookies.get('CUST_ID')}`)
           .then(res => {
-              console.log(res.data);
-              console.log(res.data[0]);
+  
+              // console.log(res.data);
+              console.log("싱글페이지 데이터:",res.data[0]);
               setBoardData(res.data[0]);     
           })
     console.log("axios 후");   

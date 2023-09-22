@@ -33,13 +33,14 @@
 
 /* 로그인 팝업 내부 버튼을 정렬 및 간격 설정 */
 .popup {
+  /* background-color: orange; */
   display: flex;
   justify-content: space-around;
   gap: 20px;
-  margin-top: 20px;
 }
 
 .popup > div {
+  /* background-color: #fae100; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,12 +57,13 @@
   outline: none;
   transition: all 0.125s ease-in 0s;
   color: #fff;
-  box-shadow: 0 50px 25px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0 50px 25px rgba(0, 0, 0, 0.15); */
 }
 
 /* Google 로그인 버튼 스타일 */
 #googlelogin {
   background-color: #ffffff;
+  border: 1px solid #ccc;
 }
 
 /* Kakao 로그인 버튼 스타일 */
@@ -78,13 +80,16 @@
 }
 
 .login-close-button {
-  color: #ff6565;
+  color: black; 
   font-size: 31px;
   font-weight: 600;
   margin-left: auto;
   cursor: pointer;
   width: 20%;
   height: auto;
+  /* width: 30px;
+  float: left;
+  margin-right: 10px;  */
 }
 
 .login-close-button:hover {
@@ -128,6 +133,12 @@
   display: flex;
 }
 
+.loginbox-welcome{
+  margin-top: 30px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
 #logbox-container > img{
   width: 103px;
   height: 31px;
@@ -140,10 +151,17 @@
 
 .Login-modal-content{
   width: 641px;
-  height: 484px;
+  height: auto;
   border-radius: 10px;
 }
 
 #loginbox-container>h2{
   margin: 2%;
+}
+
+.login-text{
+  font-size: 15px;
+  padding-top: 10px;
+  color : #272E33;
+  font-weight :800
 }

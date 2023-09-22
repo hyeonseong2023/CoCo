@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.smhrd.coco.mapper.CustMapper;
 import com.smhrd.coco.converter.ImageConverter;
@@ -33,6 +34,12 @@ public class CustService {
 	@Autowired
 	private CustMapper mapper;
 
+	// 첫 로그인 기본 정보 DB 저장 
+	public int firstLogin(Map<String, String> map) {
+		TB_CUST cust = new TB_CUST(map.get("cust_id"), map.get("cust_nick"), map.get("cust_career"), map.get("cust_position"), map.get("cust_skill"));
+		return mapper.firstLogin(cust); 
+	}
+	
 	// 마이페이지 (기본정보, 포트폴리오)
 	public JSONObject myPage(String cust_id) {
 
@@ -42,6 +49,7 @@ public class CustService {
 		JSONObject obj = new JSONObject();
 
 		for (TB_CUST custItem : cust) {
+			obj.put("CUST_ID", custItem.getCust_id());
 			obj.put("CUST_NICK", custItem.getCust_nick());
 			obj.put("CUST_CAREER", custItem.getCust_career());
 			obj.put("CUST_POSITION", custItem.getCust_position());
@@ -66,15 +74,10 @@ public class CustService {
 		List<TB_PF> pf = mapper.mypagePf(cust_id);
 
 		JSONArray PF_TABLE = new JSONArray();
-		//Map<String, Object> map = new HashMap<>();
-
-		//List<String> pfItemArray = new ArrayList<>();
+		
 		for (TB_PF pfItem : pf) {
 
 			JSONObject pfobj = new JSONObject();
-//			map.put("PF_ID", pfItem.getPf_id());
-	
-			
 			pfobj.put("PF_ID", pfItem.getPf_id());
 			pfobj.put("PF_TITLE", pfItem.getPf_title());
 

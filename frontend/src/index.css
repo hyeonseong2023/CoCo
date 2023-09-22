@@ -12,11 +12,7 @@ code {
     monospace;
 } */
 
-@font-face{
-  font-family: "Pretendard-Light";
-  font-weight: normal;
-  src : url("./fonts/Pretendard-Light.otf") format("truetype");
-}
+
 
 body{
   font-family: "Pretendard-Light";

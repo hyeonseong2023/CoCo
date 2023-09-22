@@ -1,0 +1,28 @@
+.mypage-container{
+    /* background-color: yellow; */
+    margin : 80px 0px 0px 50px;
+    display: flex; 
+    /* justify-content: space-between;     */
+    width: auto;
+}
+
+.mypage-user{
+    /* background-color: aqua; */
+}
+
+.mypgae-side{
+    /* background-color: brown; */
+    margin-left: 50px;
+    
+}
+
+
+
+.mypage-logout-btn{
+    float: right;
+    margin-right: 181px;
+    /* margin-top: 120px; */
+    width: 120px;
+}
+
+ 

@@ -1,0 +1,134 @@
+.port-add-button {
+    margin: 30px 0px 50px 850px; 
+    width: 95px;
+}
+
+.port-list {
+    margin: 0 20px; 
+    /* background-color: plum; */
+    height: 200px;
+    width: 300px; 
+}
+
+
+  .port-text{
+    display: flex;
+    align-items: center; 
+    height: 50px;
+    /* margin-top: 20px; */
+    /* background-color: #4598FF; */
+    /* width: 320px; */
+  }
+
+  .port-text > div > p {
+    margin :0px;
+    margin-left: 3px;
+    font-size: 15px;
+    width: 300px;
+  }
+
+  .item-btn{
+    /* justify-content: flex-end; */
+    width: 30px;
+  } 
+
+  .item-btn > img {
+    width: 20px;
+    justify-content: flex-end;
+  }
+
+
+  /* 테스트 */
+.map-container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-row-gap : 80px;  
+  /* background-color: blueviolet; */
+
+}
+
+/* .map-container > div{
+  width: 10px;
+} */
+
+.File-Select{
+  margin-top : 7px;
+  width: 100px;
+}
+
+
+
+/* 모달 프로필 수정 컨테이너 */
+.modal-port-table {
+  margin-top : 50px;
+  margin-left: 100px;
+  /* background-color: red; */
+  margin-bottom: 10px;
+}
+
+.modal-port-table ::placeholder{
+  color: black;
+}
+
+/* 모달 프로필 정보 항목 */
+.port-modal-name {
+  text-align: center;
+  font-weight: 600;
+  /* background-color: #4598FF; */
+  
+}
+
+
+/* 모달 프로필 정보 수정 입력/선택  */
+.port-modal-content {
+  width: 250px;
+  height: 42px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; 
+  padding-left: 10px;
+  margin-bottom: 8px;
+  margin-left: 10px;
+  text-align: left;
+  font-size: 15px;
+  /* background-color: #4598FF; */
+}
+
+.modal_add_Btn{
+  background-color: #4598FF;
+  color: white;
+  font-size: 17px;
+  padding: 7px 20px;
+  border: none;
+  border-radius: 5px;     
+  font-weight: 500;
+  margin: auto;
+}
+
+.menu-container {
+  margin: 5px;
+  font-size: 14px;
+  color : #747474;
+}
+
+.menu-container > li {
+  /* margin : 2px;  */
+  border: lightgray solid 1px;
+  padding : 3px; 
+  padding-right: 10px;
+  padding-left: 10px;  
+  border-radius: 3px;
+  background-color: white;
+  margin-left: -10px;
+  box-shadow: rgba(0,0,0,0.2) 2px 2px 4px;
+  list-style-type: none;
+  
+}
+
+
+.delete-text {
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
