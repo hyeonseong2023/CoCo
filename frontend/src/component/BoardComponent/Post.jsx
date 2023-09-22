@@ -12,9 +12,11 @@ import profileImg from '../../img/profilePicture.png';
 import viewsIcon from '../../img/viewsIcon.png';
 import deleteBtn from '../../img/deleteBtn.png';
 import modifyBtn from '../../img/modifyBtn.png';
+import deadlineBtn from '../../img/deadlineBtn.png';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { async } from 'q';
+import DedlineModal from './DedlineModal';
 
 const Post = ({ data, boardData }) => {
   console.log('지원하기 데이터', boardData.TB_APPLY);
@@ -24,6 +26,7 @@ const Post = ({ data, boardData }) => {
   const [isApply, setIsApply] = useState(applyCheck);
   const [bmkImgClicked, setBmkImgClicked] = useState(false);
   const [madalOpen, setModalOpen] = useState(false);
+  const [dPopupOpne, setDPopupOpne] = useState(false);
   const [title, setTitle] = useState(data.title);
   const [views, setViews] = useState(boardData.TB_BOARD.board_views);
   const [date, setDate] = useState(boardData.TB_BOARD.board_dt);
@@ -78,10 +81,21 @@ const Post = ({ data, boardData }) => {
     setModalOpen(true);
   };
 
+  const dedlinePopup = () => {
+    setDPopupOpne(true);
+  };
+
   return (
     <div className="post">
+      {dPopupOpne && (
+        <DedlineModal
+          setDPopupOpne={setDPopupOpne}
+          boardData={boardData}
+        ></DedlineModal>
+      )}
       {madalOpen && (
         <ProfileModal
+          madalOpen={madalOpen}
           setModalOpen={setModalOpen}
           boardData={boardData}
         ></ProfileModal>
@@ -121,9 +135,17 @@ const Post = ({ data, boardData }) => {
             </div>
           </div>
           <div className="right">
-            {/* 지원하기 버튼, 북마크 */}
+            {/* 모집마감, 수정, 삭제 버튼 */}
             {/* style={{display: loginId === postUserId ? "none" : "block"}} */}
             <div className="rightTop">
+              <img
+                alt=""
+                className="deleteBtn"
+                src={deleteBtn}
+                style={{
+                  display: boardCreateId === loginUserId ? 'block' : 'none',
+                }}
+              />
               <img
                 alt=""
                 className="modifyBtn"
@@ -133,13 +155,15 @@ const Post = ({ data, boardData }) => {
                 }}
               />
               <img
+                onClick={dedlinePopup}
                 alt=""
-                className="deleteBtn"
-                src={deleteBtn}
+                className="deadlineBtn"
+                src={deadlineBtn}
                 style={{
                   display: boardCreateId === loginUserId ? 'block' : 'none',
                 }}
               />
+              {/* 지원하기 버튼, 북마크 */}
               <img
                 className="bmkImg"
                 src={isEmptyBmk ? blueBookmark : bookmark}

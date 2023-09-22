@@ -70,7 +70,7 @@ public class BoardService {
 		TB_CUST createCust = mapper.selectPostCust(board.getCust_id());
 		
 		
-	
+		//
 		board = setDeadline(board);
 		String dDay = calculateDday(board);
 		
