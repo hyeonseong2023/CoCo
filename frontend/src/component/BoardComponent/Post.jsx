@@ -21,15 +21,16 @@ import DeadlineModal from './DedlineModal';
 import Write from '../Write';
 
 const Post = ({ data, boardData }) => {
-  console.log('지원하기 데이터', boardData.TB_APPLY);
+  console.log(boardData);
   const isBookmarked = boardData.TB_BOOKMARK > 0 ? true : false;
-  const applyCheck = boardData.TB_APPLY > 0 ? true : false;
+  const applyCheck = boardData.TB_APPLY > 0 ? true
+   : false;
   const [isEmptyBmk, setIsEmptyBmk] = useState(isBookmarked);
   const [isApply, setIsApply] = useState(applyCheck);
   const [bmkImgClicked, setBmkImgClicked] = useState(false);
   const [madalOpen, setModalOpen] = useState(false);
   const [dPopupOpne, setDPopupOpne] = useState(false);
-  const [title, setTitle] = useState(data.title);
+  const [title, setTitle] = useState(boardData.TB_BOARD.board_title);
   const [views, setViews] = useState(boardData.TB_BOARD.board_views);
   const [date, setDate] = useState(boardData.TB_BOARD.board_dt);
   const [dDay, setDday] = useState(boardData.D_day);
@@ -50,7 +51,6 @@ const Post = ({ data, boardData }) => {
         cust_id: loginUserId,
         board_id: data.id,
       });
-      console.log(response.data);
     } catch (error) {
       console.error('Error sending bookmark request: ', error);
     }
@@ -64,7 +64,6 @@ const Post = ({ data, boardData }) => {
     await axios
       .get(`${apiUrl}/${data.id}/${Cookies.get('CUST_ID')}`)
       .then((res) => {
-        console.log('지원하기:', res.data);
       });
   };
 

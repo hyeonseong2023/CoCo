@@ -5,10 +5,11 @@ import '../css/Write.css';
 import Cookies from 'js-cookie';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Quill 스타일 임포트
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Write = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const boardData = location?.state as any;
   const initialContent = boardData === null ? {
     recruitmentCount: 1,
@@ -97,7 +98,7 @@ const Write = () => {
     const formData = new FormData();
     formData.append('cust_id', Cookies.get('CUST_ID') || '');
     formData.append('board_members', recruitmentInfo.recruitmentCount.toString());
-    // formData.append('board_period', period);
+    formData.append('board_period', recruitmentInfo.duration.toString());
     formData.append('board_title', title);
     formData.append('board_content', content);
     formData.append('board_openlink', recruitmentInfo.openTalkLink);
@@ -117,30 +118,30 @@ const Write = () => {
 
       if (response.status === 200) {
         console.log('게시글이 성공적으로 저장되었습니다.');
-        // 작성이 성공하면 필요하면 페이지를 다른 곳으로 리디렉션하거나 다른 작업 수행
+        navigate('/');
       } else {
         alert('게시글 작성 실패');
-        // 작성 실패 시 오류 메시지 표시
+
       }
     } catch (error) {
       console.error('오류 발생: ', error);
-      alert('오류 발생, 다시 시도하세요.'); // 오류 발생 시 메시지 표시
+      alert('오류 발생, 다시 시도하세요.');
     }
   };
 
 
 
   
-  // 기술 스택 옵션
+
   const techStackOptions = [
     { label: "Spring", value: "Spring" },
     { label: "JavaScript", value: "javaScript" },
     { label: "TypeScript", value: "TypeScript" },
     { label: "Vue", value: "Vue" },
-    // 다른 기술 스택 옵션들...
+
   ];
 
-  // 포지션 옵션
+
   const positionOptions = [
     { label: '백엔드', value: '백엔드' },
     { label: '프론트엔드', value: '프론트엔드' },
