@@ -20,7 +20,7 @@ const Main: React.FC<MainProps> = () => {
   };
 
   const handleNextPageClick = (): void => {
-    if (currentPage < 5) {
+    if (currentPage < 10) {
       handlePageChange(currentPage + 1);
     }
   };
