@@ -13,9 +13,12 @@ type MainProps = {};
 const Main: React.FC<MainProps> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoryData, setCategoryData] = useState<any[]>([]);
+  const [newPageData, setNewPageData] = useState<any[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const maxEndpoint = 99; // 최대 endpoint 값
+  const pageSize = 6; // 한 페이지에 표시할 아이템 수
+  const initialLoad = useState<boolean>(false)[0]; // 초기 로딩 여부를 나타내는 상태
 
   const handlePageChange = (page: number): void => {
     setCurrentPage(page);
@@ -43,7 +46,7 @@ const Main: React.FC<MainProps> = () => {
       };
 
       try {
-        requestData.endpoint *= 6;
+        requestData.endpoint *= pageSize;
         const response = await axios.post('http://localhost:8099/select', requestData);
         const fetchedData = response.data.map((item: any) => {
           return {
@@ -70,7 +73,7 @@ const Main: React.FC<MainProps> = () => {
           console.warn("No data received.");
         } else {
           // 기존 데이터와 새로운 페이지 데이터를 합칩니다.
-          setCategoryData([...categoryData, ...fetchedData]);
+          setNewPageData([...newPageData, ...fetchedData]);
           setCurrentPage(nextPage);
         }
       } catch (error) {
@@ -99,12 +102,16 @@ const Main: React.FC<MainProps> = () => {
 
     // 초기 데이터를 가져오기 위해 fetchData 함수 호출
     fetchData(initialRequestData);
-  }, [selectedLanguage, selectedPosition, currentPage]);
+    initialLoad && handleExpandPageClick(); // 초기 로딩 시 한 번만 더 보기 실행
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedLanguage, selectedPosition, currentPage, initialLoad]);
 
   const updateCategoryData = (selectedCategory: string | null) => {
     setSelectedLanguage(selectedCategory);
     setSelectedPosition(selectedCategory);
     setCurrentPage(1); 
+    setCategoryData([]); // 카테고리가 변경되면 현재 데이터 초기화
   };
 
   const handleLoginButtonClick = (): void => {
@@ -114,7 +121,7 @@ const Main: React.FC<MainProps> = () => {
   // fetchData 함수 정의
   const fetchData = async (requestData: any) => {
     try {
-      requestData.endpoint *= 6;
+      requestData.endpoint *= pageSize;
       const response = await axios.post('http://localhost:8099/select', requestData);
       const fetchedData = response.data.map((item: any) => {
         return {
@@ -163,6 +170,11 @@ const Main: React.FC<MainProps> = () => {
     handleExpandPageClick();
   };
 
+  useEffect(() => {
+    // 초기 로딩 시 한 번만 더 보기 실행을 위해 initialLoad 상태를 true로 설정
+    initialLoad && handleExpandPageClick();
+  }, [initialLoad]);
+
   return (
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
@@ -173,8 +185,10 @@ const Main: React.FC<MainProps> = () => {
         setSelectedLanguage={setSelectedLanguage}
         setSelectedPosition={setSelectedPosition}
       />
-      <Contents categoryData={categoryData} />
-      <div>
+      <div className="contents-container">
+        <Contents categoryData={[...categoryData, ...newPageData]} />
+      </div>
+      <div className="more-button-container">
         <button
           onClick={handleMoreButtonClick}
           disabled={currentPage === maxEndpoint}
