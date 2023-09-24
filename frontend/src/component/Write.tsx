@@ -15,7 +15,7 @@ const Write = () => {
     recruitmentCount: 1,
     techStack: [] as string[],
     duration: 1,
-    position: '', // 수정 전: position을 문자열로 사용
+    position: '',
     startDate: new Date(),
     endDate: new Date(),
     openTalkLink: '',
@@ -31,9 +31,8 @@ const Write = () => {
     openTalkLink: boardData?.TB_BOARD.board_openlink,
     deadline: boardData?.TB_BOARD.board_deadline,
     recruitmentType: '프로젝트',
-  }
+  };
   console.log(initialContent);
-  
 
   const [selectedPosition, setSelectedPosition] = useState(initialContent.position);
 
@@ -43,11 +42,6 @@ const Write = () => {
   const [insertedImages, setInsertedImages] = useState<string[]>([]);
   const [recruitmentInfo, setRecruitmentInfo] = useState(initialContent);
 
-  // useEffect(()=>{
-  //   set
-  // },[])
-
-  // Quill 에디터 모듈 설정
   const modules = {
     toolbar: {
       container: [
@@ -58,17 +52,14 @@ const Write = () => {
     },
   };
 
-  // 제목 변경 핸들러
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
-  // 내용 변경 핸들러
   const handleContentChange = (value: string) => {
     setContent(value);
   };
 
-  // 모집 정보 변경 핸들러
   const handleRecruitmentInfoChange = (name: string, value: any) => {
     setRecruitmentInfo({
       ...recruitmentInfo,
@@ -76,10 +67,8 @@ const Write = () => {
     });
   };
 
-  // 선택된 기술 스택 상태 변수 및 핸들러
   const [selectedTechStack, setSelectedTechStack] = useState<string[]>(initialContent.techStack);
 
-  // 진행 기간 변경 핸들러
   const handleDurationChange = (value: number) => {
     setRecruitmentInfo({
       ...recruitmentInfo,
@@ -87,13 +76,8 @@ const Write = () => {
     });
   };
 
-  // 제출 핸들러
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // const startDateStr = recruitmentInfo.startDate.toISOString().split('T')[0];
-    // const endDateStr = recruitmentInfo.endDate.toISOString().split('T')[0];
-    // const period = `${startDateStr}~${endDateStr}`;
 
     const formData = new FormData();
     formData.append('cust_id', Cookies.get('CUST_ID') || '');
@@ -108,7 +92,7 @@ const Write = () => {
     formData.append('board_deadline', recruitmentInfo.deadline);
     formData.append('board_views', '0');
     formData.append('SKILL_NAME', selectedTechStack.join(', '));
-    formData.append('BOARD_IMG', "");
+    formData.append('BOARD_IMG', '');
 
     try {
       const response = await fetch('http://localhost:8099/postsaveinfor', {
@@ -121,7 +105,6 @@ const Write = () => {
         navigate('/');
       } else {
         alert('게시글 작성 실패');
-
       }
     } catch (error) {
       console.error('오류 발생: ', error);
@@ -129,18 +112,12 @@ const Write = () => {
     }
   };
 
-
-
-  
-
   const techStackOptions = [
     { label: "Spring", value: "Spring" },
     { label: "JavaScript", value: "javaScript" },
     { label: "TypeScript", value: "TypeScript" },
     { label: "Vue", value: "Vue" },
-
   ];
-
 
   const positionOptions = [
     { label: '백엔드', value: '백엔드' },
@@ -159,7 +136,6 @@ const Write = () => {
     }
   };
 
-
   return (
     <div className="write-container">
       <Header />
@@ -170,7 +146,7 @@ const Write = () => {
           </div>
 
           <div className="form-group form-group-spacing">
-            <label htmlFor="title">제목:</label>
+            <label htmlFor="title">게시글 제목</label>
             <input
               type="text"
               id="title"
@@ -185,7 +161,7 @@ const Write = () => {
           </div>
           <div className="form-group-form-groups">
             <div className="form-subgroup form-subgroup-spacing">
-              <label htmlFor="recruitmentCount">모집 인원:</label>
+              <label htmlFor="recruitmentCount">모집 인원</label>
               <select
                 id="recruitmentCount"
                 name="recruitmentCount"
@@ -213,7 +189,6 @@ const Write = () => {
                 )}
                 onChange={(selectedOptions: any) => {
                   console.log(selectedTechStack);
-                  
                   if (selectedOptions.length <= 3) {
                     setSelectedTechStack(
                       selectedOptions.map((option: any) => option.value)
@@ -266,8 +241,6 @@ const Write = () => {
                 className="custom-select"
               />
             </div>
-
-
             <div className="form-subgroup form-subgroup-spacing">
               <label htmlFor="openTalkLink"> 오픈톡 링크</label>
               <input
@@ -282,7 +255,6 @@ const Write = () => {
               />
             </div>
           </div>
-
           <div className="form-group form-group-spacing">
             <label htmlFor="content">내용</label>
             <ReactQuill
@@ -292,7 +264,6 @@ const Write = () => {
               onChange={handleContentChange}
             />
           </div>
-
           <div className="cancel-submit-buttons">
             <Link to={'/'}>
               <button type="button" className="cancel-button">
