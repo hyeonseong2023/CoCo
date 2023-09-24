@@ -19,6 +19,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DeadlineModal from './DedlineModal';
 import Write from '../Write';
+import DeleteModal from './DeleteModal';
 
 const Post = ({ data, boardData }) => {
   console.log('지원하기 데이터', boardData.TB_APPLY);
@@ -29,6 +30,7 @@ const Post = ({ data, boardData }) => {
   const [bmkImgClicked, setBmkImgClicked] = useState(false);
   const [madalOpen, setModalOpen] = useState(false);
   const [dPopupOpne, setDPopupOpne] = useState(false);
+  const [postDeletePopup, setPostDeletePopup] = useState(false);
   const [title, setTitle] = useState(data.title);
   const [views, setViews] = useState(boardData.TB_BOARD.board_views);
   const [date, setDate] = useState(boardData.TB_BOARD.board_dt);
@@ -87,8 +89,19 @@ const Post = ({ data, boardData }) => {
     setDPopupOpne(true);
   };
 
+  const postDeleteClick = () => {
+    setPostDeletePopup(true);
+  };
+
   return (
     <div className="post">
+      {postDeletePopup && (
+        <DeleteModal
+          setPostDeletePopup={setPostDeletePopup}
+          data={data}
+        ></DeleteModal>
+      )}
+
       {dPopupOpne && (
         <DeadlineModal
           setDPopupOpne={setDPopupOpne}
@@ -150,6 +163,7 @@ const Post = ({ data, boardData }) => {
                 }}
               />
               <img
+                onClick={postDeleteClick}
                 alt=""
                 className="deleteBtn"
                 src={deleteBtn}

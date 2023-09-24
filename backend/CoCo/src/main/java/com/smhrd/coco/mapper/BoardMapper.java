@@ -53,6 +53,9 @@ public interface BoardMapper {
 	
 	//게시글 모집마감
 	public int postDeadline(int board_id, String toDay);
+	
+	//게시글 삭제 클릭시 board_id => admin 관리자로 변경
+	public int postDelete(int board_id);
 
 
 }
