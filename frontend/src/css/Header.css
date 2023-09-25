@@ -97,14 +97,17 @@
 .writeicon >button{
   font-size: large;
   font-weight: 600;
-  margin-left: 1000px;
+  margin-left: 1150px;
   width: auto;
   height: auto;
 }
-
-
+.header-buttons-div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* 요소를 오른쪽으로 정렬합니다. */
+}
 .header-buttons-div > button{
-  white-space : nowrap;
+
   /* background-color: #007bff; */
   width:110px;
   font-size: large;
