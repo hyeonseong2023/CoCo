@@ -100,22 +100,22 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
     }),
     option: (provided: any, state: any) => ({
       ...provided,
-      color: state.isSelected ? 'blue' : 'black',
+      color: state.isSelected ? 'grey' : 'grey',
     }),
     singleValue: (provided: any) => ({
       ...provided,
-      color: 'blue', // 선택된 값 파란색
+      color: 'grey', // 선택된 값 파란색
     }),
     placeholder: (provided: any) => ({
       ...provided,
-      color: 'blue', // 기본 플레이스홀더 텍스트 파란색
+      color: 'black', // 기본 플레이스홀더 텍스트 파란색
     }),
   };
   return (
     <div className='category_main'>
       <div className='category_titlemain'>
-        <div>분야별 프로젝트</div>
-        <div>분야별 함께할 팀원을 모집해 보세요.</div>
+        <h1>분야별 프로젝트</h1>
+        <h5>분야별 함께할 팀원을 모집해 보세요.</h5>
       </div>
       <div className='category_titleseb'>
         <div className='category_titlesec'>
@@ -150,7 +150,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
             <label className='labelselect1'>
               <button
                 onClick={() => { handleButtonClick('applied'); if (viewState !== 'applied') { onAppliedToggle(); } }}
-                style={{ color: viewState === 'applied' ? 'blue' : 'black' }}
+                style={{ color: viewState === 'grey' ? 'grey' : 'black' }}
               >
                 지원한 게시글 보기
               </button>
