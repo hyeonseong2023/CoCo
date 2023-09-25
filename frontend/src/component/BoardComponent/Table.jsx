@@ -2,21 +2,19 @@ import React, { useEffect, useState } from 'react';
 import '../../css/Board.css';
 import linkIcon from '../../img/linkIcon.png';
 
-const Table = ({ data, boardData }) => {
+const Table = ({boardData }) => {
   const [member, setMember] = useState();
   const [deadLine, setDeadLine] = useState();
   const [position, setPosition] = useState();
   const [period, setPeriod] = useState('');
   const [skillName, setSkillName] = useState([]);
 
-  console.log('스킬네임', skillName);
-
   const fetchData = async () => {
-    console.log('Table', data);
+    console.log('Table', boardData);
     setMember(boardData.TB_BOARD.board_members);
     setPeriod(boardData.TB_BOARD.board_period);
     setDeadLine(boardData.TB_BOARD.board_deadline);
-    setPosition(data.board_position);
+    setPosition(boardData.TB_BOARD.board_position);
     setSkillName(boardData.TB_BOARD_SKILL);
   };
 
@@ -34,7 +32,7 @@ const Table = ({ data, boardData }) => {
       <tbody>
         <tr>
           <th className="widthSize">모집인원</th>
-          <td>{member}명</td>
+          <td>{member}</td>
           <th className="widthSize">모집마감</th>
           <td>{deadLine}</td>
         </tr>

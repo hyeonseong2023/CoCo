@@ -5,11 +5,11 @@ function DeadlineModal({ setDPopupOpne, boardData, data }) {
   const postDeadline = async () => {
     await axios
       .get(
-        `http://localhost:8099/postdeadline/${data.id}/${boardData.TB_BOARD.board_deadline}`
+        `http://localhost:8099/postdeadline/${data}/${boardData.TB_BOARD.board_deadline}`
       )
       .then((res) => {
         window.location.replace(
-          `http://localhost:3000/selectpostviews/${data.id}`
+          `http://localhost:3000/selectpostviews/${data}`
         );
         setDPopupOpne(false);
       });
