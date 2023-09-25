@@ -50,7 +50,7 @@ const Post = ({ data, boardData }) => {
     try {
       const response = await axios.post(apiUrl, {
         cust_id: loginUserId,
-        board_id: data.id,
+        board_id: data,
       });
     } catch (error) {
       console.error('Error sending bookmark request: ', error);
@@ -63,7 +63,7 @@ const Post = ({ data, boardData }) => {
       : 'http://localhost:8099/unPostApply';
 
     await axios
-      .get(`${apiUrl}/${data.id}/${Cookies.get('CUST_ID')}`)
+      .get(`${apiUrl}/${data}/${Cookies.get('CUST_ID')}`)
       .then((res) => {});
   };
 
@@ -209,10 +209,6 @@ const Post = ({ data, boardData }) => {
                     loginUserId && boardCreateId !== loginUserId && dDay != 0
                       ? 'block'
                       : 'none',
-                  // display:
-                  //   loginUserId && boardCreateId !== loginUserId
-                  //     ? 'block'
-                  //     : 'none',
                 }}
                 alt="bmkImg"
               />
@@ -225,10 +221,6 @@ const Post = ({ data, boardData }) => {
                     loginUserId && boardCreateId !== loginUserId && dDay != 0
                       ? 'block'
                       : 'none',
-                  // display:
-                  //   loginUserId && boardCreateId !== loginUserId
-                  //     ? 'block'
-                  //     : 'none',
                 }}
                 alt="applyButton"
               />
