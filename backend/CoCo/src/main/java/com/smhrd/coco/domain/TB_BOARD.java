@@ -45,6 +45,20 @@ public class TB_BOARD {
 		this.pro_img = pro_img;
 		this.pro_link = pro_link;
 	}
-	
 
+	public TB_BOARD(Integer board_id, String board_title, String board_members, String board_period,
+			String board_deadline, String board_openlink, String board_content,
+			String board_position, String pro_title, String pro_img) {
+		super();
+		this.board_id = board_id;
+		this.board_title = board_title;
+		this.board_members = board_members;
+		this.board_period = board_period;
+		this.board_deadline = board_deadline;
+		this.board_openlink = board_openlink;
+		this.board_content = board_content;
+		this.board_position = board_position;
+		this.pro_title = pro_title;
+		this.pro_img = pro_img;
+	}
 }

@@ -95,6 +95,10 @@ const Write = () => {
     // const endDateStr = recruitmentInfo.endDate.toISOString().split('T')[0];
     // const period = `${startDateStr}~${endDateStr}`;
 
+  const url = boardData
+    ? 'http://localhost:8099/postupdateinfor'
+    : 'http://localhost:8099/postsaveinfor';
+
     const formData = new FormData();
     formData.append('cust_id', Cookies.get('CUST_ID') || '');
     formData.append('board_members', recruitmentInfo.recruitmentCount.toString());
@@ -109,9 +113,10 @@ const Write = () => {
     formData.append('board_views', '0');
     formData.append('SKILL_NAME', selectedTechStack.join(', '));
     formData.append('BOARD_IMG', "");
+    boardData && formData.append('board_id', boardData.TB_BOARD.board_id);
 
     try {
-      const response = await fetch('http://localhost:8099/postsaveinfor', {
+      const response = await fetch(url, {
         method: 'POST',
         body: formData,
       });
