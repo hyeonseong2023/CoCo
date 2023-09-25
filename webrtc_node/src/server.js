@@ -129,7 +129,7 @@ wsServer.on("connection", (socket) => {
 
   socket.on("chat_file", (arrayBuffer, message, roomName) => {
     socket.to(roomName).emit("chat_file", arrayBuffer, message);
-  });
+  }); 
 
   socket.on("disconnecting", () => {
     socket.to(myRoomName).emit("leave_room", socket.id, myNickname);

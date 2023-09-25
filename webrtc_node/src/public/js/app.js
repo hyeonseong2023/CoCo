@@ -477,7 +477,6 @@ socket.on('updateMemberList', (members) => {
     memberBox.appendChild(li);
   });
 
-
 });
 
 socket.on("leave_room", (leavedSocketId, nickname) => {
