@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import axios from 'axios';
 import Select from 'react-select';
 import Cookies from 'js-cookie';
+import Cookiess from 'universal-cookie';
 import '../../css/User.css';
 import Logo from '../../img/Logo.png';
-import GitHub from '../../img/GitHub.png'
 import Git from '../../img/Git.png';
 import plus from '../../img/plus.png'
 import editBtn from '../../img/editBtn.png';
@@ -20,15 +20,12 @@ import link3 from '../../img/link3.png';
 
 
 
-
-
-
-
-
-
 const User = ({ data }) => {
 
+    const cookies = new Cookiess();
+
     const navigator = useNavigate();
+    // const cookies = new Cookies();
     
     const userId = Cookies.get('CUST_ID'); //사용자 아이디 
     const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디
@@ -105,6 +102,7 @@ const User = ({ data }) => {
     //모달창 프로필사진 가져오기 
     useEffect(() => {
         setImage(photo)
+
     }, [photo])
 
 
@@ -223,13 +221,13 @@ const User = ({ data }) => {
         })
             .then((response) => {
                 console.log('요청이 성공했습니다.', response.data);
-
             })
             .catch((error) => {
                 console.error('요청이 실패했습니다.', error);
             });
     }
 
+    
 
     // 통신(회원탈퇴)
     const deleteCust =async () =>{
@@ -257,18 +255,19 @@ const User = ({ data }) => {
         navigator('/');   // 메인 페이지로 이동
       };  
 
+
+    
+
     return (
         <div>
 
             {/* 마이페이지 나의 프로필 정보  */}
             <div className='Mypage-user-container'>
 
-                {/* 편집버튼 */}
-                {/* {userId === 'ekdud0225' && (
-                    <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
-                )} */}
-
-                <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
+               {/* 편집버튼 */}
+                {userId === loginUserId && (
+                  <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
+                )}
 
                 {/* 나의 프로필정보 */}
                 <div className='Mypage-user-img-container'>

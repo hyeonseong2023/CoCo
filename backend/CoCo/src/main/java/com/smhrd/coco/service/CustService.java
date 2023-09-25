@@ -127,7 +127,7 @@ public class CustService {
 			if (pjItem.getPro_img() != null) {
 				// 이미지 변환
 				ImageConverter<File, String> converter = new ImageToBase64();
-				File file = new File("c:\\cocoImage\\" + cust.getCust_img());
+				File file = new File("c:\\cocoImage\\" + pjItem.getPro_img());
 
 				String fileStringValue = null;
 				try {
