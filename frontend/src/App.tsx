@@ -23,7 +23,7 @@ const App: React.FC = () => {
           <Route path='/Check' element={<Check />} />
           <Route path='/auth/kakao/callback' element={<KakaoCallback />} />
           <Route path='/pp' element={<ProjectPage />} />
-          <Route path="/Contents/:id" element={<SinglePage />} />
+          <Route path="/selectpostviews/:id" element={<SinglePage />} />
         </Routes>
       </div>
     </Router>

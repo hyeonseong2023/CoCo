@@ -20,6 +20,7 @@ interface CategoryData {
   pro_img: any;
   pro_link: any;
   pro_title: any;
+  cust_nick: any;
 }
 
 interface ContentsProps {
@@ -44,7 +45,8 @@ function getPositionColor(position: string) {
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
   // 현재 날짜 가져오기
   const today = new Date();
-
+  console.log(categoryData);
+  
   return (
     <div>
       <div id='Contents-box'>
@@ -60,7 +62,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
 
             return (
               <div key={index} className="content-wrapper">
-                <Link to={`/Contents/${data.id}`} key={index} state={data}>
+                <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
                   <div className='Contentsbox'>
                     <div className='Contentsbox-A'>
                       {isExpired ? (
@@ -73,11 +75,11 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                         </div>
                       )}
                       <div className='boxA_title'><div>{data.title}</div></div>
-                      <div className='boxA_img'><div><img src={img} alt="" /></div></div>
+                      <div className='boxA_img'><div><img src={img} alt="" /></div><div className='contentsNick'>{data.cust_nick}</div></div>
                     </div>
                     <div className='boxB_bookmark'>
-                      <div className='boxB_1'><img src={book} alt="" /></div>
-                      <div className='boxB_2'>{data.board_views}</div>
+                      <div className='boxB_1'><img src={book} alt="" /> </div>
+                      <div className='boxB_2'><img src="" alt="" />{data.board_views}</div>
                     </div>
                     <div className='ContentsLine'></div>
                     <div className='Content-topTail'>

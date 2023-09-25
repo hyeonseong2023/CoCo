@@ -1,5 +1,6 @@
 package com.smhrd.coco.mapper;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -49,6 +50,12 @@ public interface BoardMapper {
 
 	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
 	public String getOrCreateProLink(int board_id);
+	
+	//게시글 모집마감
+	public int postDeadline(int board_id, String toDay);
+	
+	//게시글 삭제 클릭시 board_id => admin 관리자로 변경
+	public int postDelete(int board_id);
 
 
 }

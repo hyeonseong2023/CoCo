@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +72,6 @@ public class BoardController {
 			if (result>0) {cnt2++;}	
 		}
 		
-		
 		//TB_BOARD_IMG 테이블에 이미지 저장하기		
 		TB_BOARD_IMG img = new TB_BOARD_IMG();
 		
@@ -107,10 +108,12 @@ public class BoardController {
 	
 	
 	//선택한 게시글 내용 보내기
-	@GetMapping("/selectpostviews/{board_id}/{cust_id}")
-	public JSONArray selectPostViews(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
+	@GetMapping("/selectpostviews/{board_id}")
+	public JSONArray selectPostViews(@PathVariable("board_id")int board_id, @RequestParam(value = "cust_id", required = false)String cust_id) {
 
+		System.out.println("boardid: "+board_id + "custid: "+cust_id);
 		return service.selectPostViews(board_id, cust_id);
+		
 		
 	}
 	
@@ -153,6 +156,37 @@ public class BoardController {
 	public String getOrCreateProLink(@RequestParam("board_id") int board_id) {
 		return service.getOrCreateProLink(board_id);
 	}
+	
+	//게시글 모집 마감
+	@GetMapping("/postdeadline/{board_id}/{board_deadline}")
+	public int deadline(@PathVariable("board_id")int board_id) {
+		
+		int cnt = service.postDeadline(board_id);
+		
+		if(cnt>0) {
+			System.out.println("게시글 모집 마감 성공");
+		}else {
+			System.out.println("게시글 모집 마감 실패!!");
+		}
+		
+		return cnt;
+	}
+	
+	//게시글 삭제 클릭시 board_id => admin 관리자로 변경
+	@GetMapping("/postdelete/{board_id}")
+	public int postDelete(@PathVariable("board_id")int board_id) {
+		
+		int cnt = service.postDelete(board_id);
+		
+		if(cnt>0) {
+			System.out.println("게시글 삭제 성공");
+		}else {
+			System.out.println("게시글 삭제 실패!!");
+		}
+		return cnt;
+		
+	}
+	
 
 	
 	
