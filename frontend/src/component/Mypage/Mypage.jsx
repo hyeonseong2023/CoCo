@@ -32,17 +32,11 @@ const Mypage = () => {
     fetchData();
   }, [data]);
 
-  
+
 
   return (
     <div>
       <Header />
-      <div>
-      {/* { data?.CUST_ID === loginUserId && (
-        <img src={Logout} className='mypage-logout-btn' />
-      )} */}
-      </div>
- 
       <div className='mypage-container'>
         <div className='mypage-user'>{data && <User data={data} />}</div>
         <div className ='mypgae-side'>{data && <Side data={data} />}</div>
