@@ -214,7 +214,7 @@ const User = ({ data }) => {
         formData.append('cust_git', modalGit); //git주소 
         formData.append('cust_link', modalLink); //기타주소 
 
-        axios.put('http://localhost:8099/userinfoupdate', formData, {
+        axios.put(`${process.env.REACT_APP_URL_8099}/userinfoupdate`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

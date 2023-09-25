@@ -17,12 +17,24 @@ public interface BoardMapper {
 
 	// TB_BOARD 정보 저장
 	public int postSaveBoard(TB_BOARD board);
+	
+	// TB_BOARD 정보 업데이트
+	public int postUpdateBoard(TB_BOARD board);
 
 	// TB_BOARD_SKILL 정보 저장
-	public int postSaveSkill(TB_BOARD_SKILL skill);
+	public int postSaveSkill(int board_id, String SKILL_NAME);
+	
+	// TB_BOARD_SKILL 정보 삭제
+	public int postDeleteSkill(int board_id);
+	
+	//TB_BOARD_SKILL 정보 업데이트
+	public int postUpdateSkill(TB_BOARD_SKILL skill, int board_id);
 
 	// TB_BOARD_IMG 정보저장
 	public int postSaveImg(TB_BOARD_IMG img);
+	
+	// TB_BOARD_IMG 정보 업데이트
+	public int postUpdateImg(TB_BOARD_IMG img, int board_id);
 
 	// 선택한 게시물 TB_BOARD 정보 가져오기
 	public TB_BOARD selectPostBoard(int board_id);

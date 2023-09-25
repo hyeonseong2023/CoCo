@@ -16,7 +16,6 @@ import com.smhrd.coco.domain.TB_BOOKMARK;
 import com.smhrd.coco.service.MainService;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
 public class MainController {
 
 	@Autowired

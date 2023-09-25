@@ -63,7 +63,7 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
     }
 
     try {
-      const response = await fetch('http://localhost:8099/firstlogin', {
+      const response = await fetch(`${process.env.REACT_APP_URL_8099}/firstlogin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -191,7 +191,7 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
     };
 
     try {
-      await axios.post('http://localhost:8099/firstlogin', requestData);
+      await axios.post(`${process.env.REACT_APP_URL_8099}/firstlogin`, requestData);
       console.log('요청이 성공했습니다.');
       setWelcomeOpen(true);
     } catch (error) {

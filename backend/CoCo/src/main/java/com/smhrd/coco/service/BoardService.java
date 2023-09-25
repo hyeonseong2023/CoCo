@@ -49,17 +49,37 @@ public class BoardService {
 	public int postSaveBoard(TB_BOARD board) {
 		return mapper.postSaveBoard(board);
 	}
+	
+	// TB_BOARD 정보 업데이트
+	public int postUpdateBoard(TB_BOARD board) {
+		return mapper.postUpdateBoard(board);
+	}
 
 	// TB_BOARD_SKILL 정보 저장
-	public int postSaveSkill(TB_BOARD_SKILL skill) {
-		return mapper.postSaveSkill(skill);
+	public int postSaveSkill(String skill, int board_id) {
+		return mapper.postSaveSkill(board_id, skill);
+	}
+	
+	// TB_BOARD_SKILL 정보 삭제
+	public int postDeleteSkill(int board_id) {
+		return mapper.postDeleteSkill(board_id);
+	}
+	
+	// TB_BOARD_SKILL 정보 업데이트
+	public int postUpdateSkill(TB_BOARD_SKILL skill, int board_id) {
+		return mapper.postUpdateSkill(skill, board_id);
 	}
 
 	// TB_BOARD_IMG 정보저장
 	public int postSaveImg(TB_BOARD_IMG img) {
 		return mapper.postSaveImg(img);
 	}
-
+	
+	// TB_BOARD_IMG 정보 업데이트
+	public int postUpdateImg(TB_BOARD_IMG img, int board_id) {
+		return mapper.postUpdateImg(img, board_id);
+	}
+	
 	// 선택한 게시글 내용 보내기 (TB_BOARD, TB_BOARD_SKILL, TB_BOARD_IMG, TB_BOOKMARK,
 	// TB_APPLY)
 	public JSONArray selectPostViews(int board_id, String cust_id) {
@@ -85,6 +105,7 @@ public class BoardService {
 		}
 		
 		// 게시판 사진 파일 찾아서 바이트형태로 변환하기
+		if(img.getBOARD_IMG()!=null)
 		img.setBOARD_IMG(converter(img.getBOARD_IMG()));
 		
 		//회원 프로필 사진 찾아서 바이트 형태로 변환하기

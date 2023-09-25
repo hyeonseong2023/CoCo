@@ -254,28 +254,40 @@ const NOTICE_CN = "noticeChat";
 
 chatForm.addEventListener("submit", handleChatSubmit);
 
+const chatInput = chatForm.querySelector("input");
+
+fileInput.addEventListener("change", function () {
+  if (this.files && this.files.length > 0) {
+    chatInput.value = this.files[0].name;
+  }
+});
+
 function handleChatSubmit(event) { // 채팅 메세지 제출
   event.preventDefault();
   const chatInput = chatForm.querySelector("input");
   const message = chatInput.value;
+  // home.pug에서 받아온 roomName과 userName 사용
+  roomName = callRoomName;
+  nickname = callUserName;
+
   if (fileInput.files.length > 0) { // 파일 첨부가 있는 경우
     const file = fileInput.files[0];
     const reader = new FileReader();
     reader.onloadend = (event) => {
       const arrayBuffer = event.target.result;
       console.log("Sending file:", file.name)
-      socket.emit("chat_file", arrayBuffer, file.name, roomName);
-
-      socket.emit("chat", `${nickname}: You sent a file: ${file.name}`, roomName);
 
       const blobUrl = URL.createObjectURL(file);
 
-      writeChat(`You: <a href="${blobUrl}" download="${file.name}">You sent a file: ${file.name}</a>`, MYCHAT_CN);
+      socket.emit("chat_file", arrayBuffer, `${nickname}: <a href="${blobUrl}" download="${file.name}">${file.name}</a>`, roomName);
+
+      writeChat(`You: <a href="${blobUrl}" download="${file.name}">${file.name}</a>`, MYCHAT_CN);
     };
     reader.readAsArrayBuffer(file);
 
     fileInput.value = "";
   } else { // 파일 첨부가 없는 경우 (일반 메세지)
+    console.log(`Sending chat to room: ${roomName}`);
     socket.emit("chat", `${nickname}: ${message}`, roomName);
     writeChat(`You: ${message}`, MYCHAT_CN);
   }
@@ -289,18 +301,18 @@ function writeChat(message, className = null) { // 채팅 메세지를 화면에
     li.classList.add(className);
   }
 
-  const isFileMessageRegex = /You sent a file: (.+)/;
+  console.log('Message:', message);
 
-  console.log('Message:', message); // Add this line for debugging.
+  const isFileMessageRegex = /<a href="(.*)" download="(.*)">(.*)<\/a>/;
 
   if (isFileMessageRegex.test(message)) {
-    const [, fileName] = message.match(isFileMessageRegex);
+    li.innerHTML = message;
+  } else {
+    li.textContent = message;
+  }
 
-    // 실질적으로 채팅창에 표시되는 내용
-    li.innerHTML = `<a href="${fileName}" download="${fileName}">"${fileName}"</a>`;
-
-    console.log('Processed message:', li.innerHTML); // Add this line for debugging.
-
+  if (isFileMessageRegex.test(message)) {
+    li.innerHTML = message;
   } else {
     li.textContent = message;
   }
@@ -316,7 +328,6 @@ function leaveRoom() { // 소켓 연결을 끊고 UI를 초기 상태로 되돌�
   socket.disconnect();
 
   call.classList.add(HIDDEN_CN);
-  welcome.hidden = false;
 
   peerConnectionObjArr = [];
   peopleInRoom = 1;
@@ -329,6 +340,8 @@ function leaveRoom() { // 소켓 연결을 끊고 UI를 초기 상태로 되돌�
   myFace.srcObject = null;
   clearAllVideos();
   clearAllChat();
+
+  window.close();
 }
 
 function removeVideo(leavedSocketId) { // 지정된 id의 비디오 요소를 화면에서 제거
@@ -351,7 +364,7 @@ function clearAllVideos() { // 모든 비디오를 화면에서 제거
   });
 }
 
-function clearAllChat() { // // 모든 채팅을 화면에서 제거
+function clearAllChat() { // 모든 채팅을 화면에서 제거
   const chatArr = chatBox.querySelectorAll("li");
   chatArr.forEach((chat) => chatBox.removeChild(chat));
 }
@@ -399,13 +412,10 @@ socket.on("reject_join", () => {
 
 socket.on("accept_join", async (userObjArr) => {
   await initCall();
-
   const length = userObjArr.length;
   if (length === 1) {
     return;
   }
-
-  writeChat("Notice!", NOTICE_CN);
   for (let i = 0; i < length - 1; ++i) {
     try {
       const newPC = createConnection(
@@ -414,15 +424,16 @@ socket.on("accept_join", async (userObjArr) => {
       );
       const offer = await newPC.createOffer();
       await newPC.setLocalDescription(offer);
-      socket.emit("offer", offer, userObjArr[i].socketId, nickname);
-      writeChat(`__${userObjArr[i].nickname}__`, NOTICE_CN);
+      console.log("Sending offer to:", userObjArr[i].nickname);
+      socket.emit("offer", offer, userObjArr[i].socketId, userObjArr[i].nickname);
+      writeChat(`${userObjArr[i].nickname} 님이 입장하였습니다`, NOTICE_CN);
     } catch (err) {
       console.error(err);
     }
   }
-  writeChat(" 님이 입장하였습니다.", NOTICE_CN);
 });
 
+// 다른 유저가 방에 들어올 때마다 호출
 socket.on("offer", async (offer, remoteSocketId, remoteNickname) => {
   try {
     const newPC = createConnection(remoteSocketId, remoteNickname);
@@ -430,7 +441,7 @@ socket.on("offer", async (offer, remoteSocketId, remoteNickname) => {
     const answer = await newPC.createAnswer();
     await newPC.setLocalDescription(answer);
     socket.emit("answer", answer, remoteSocketId);
-    writeChat(`notice! __${remoteNickname}__ 님이 입장하였습니다.`, NOTICE_CN);
+    writeChat(`${remoteNickname} 님이 입장하였습니다`, NOTICE_CN);
   } catch (err) {
     console.error(err);
   }
@@ -448,9 +459,30 @@ socket.on("chat", (message) => {
   writeChat(message);
 });
 
+socket.on("chat_file", (arrayBuffer, message) => {
+  writeChat(message);
+});
+
+socket.on('updateMemberList', (members) => {
+
+  const memberBox = document.querySelector("#memberBox");
+  const memberCount = document.querySelector("#memberCount");
+
+  memberBox.innerHTML = "";
+  memberCount.innerText = members.length;
+  // 각 멤버를 목록에 추가
+  members.forEach(member => {
+    let li = document.createElement("li");
+    li.textContent = member;
+    memberBox.appendChild(li);
+  });
+
+
+});
+
 socket.on("leave_room", (leavedSocketId, nickname) => {
   removeVideo(leavedSocketId);
-  writeChat(`notice! ${nickname} 님이 퇴장하였습니다.`, NOTICE_CN);
+  writeChat(`${nickname} 님이 퇴장하였습니다`, NOTICE_CN);
   --peopleInRoom;
   sortStreams();
 });
@@ -489,11 +521,7 @@ function createConnection(remoteSocketId, remoteNickname) { // WebRTC 연결 생
   myPeerConnection.addEventListener("addstream", (event) => {
     handleAddStream(event, remoteSocketId, remoteNickname);
   });
-  // myPeerConnection.addEventListener(
-  //   "iceconnectionstatechange",
-  //   handleConnectionStateChange
-  // );
-  myStream //
+  myStream
     .getTracks()
     .forEach((track) => myPeerConnection.addTrack(track, myStream));
 
@@ -532,13 +560,3 @@ function sortStreams() { // 현재 방에 있는 사람 수에 따라 클래스 
   const streamArr = streams.querySelectorAll("div");
   streamArr.forEach((stream) => (stream.className = `people${peopleInRoom}`));
 }
-
-/*
-function handleConnectionStateChange(event) {
-  console.log(`${pcObjArr.length - 1} CS: ${event.target.connectionState}`);
-  console.log(`${pcObjArr.length - 1} ICS: ${event.target.iceConnectionState}`);
-
-  if (event.target.iceConnectionState === "disconnected") {
-  }
-}
-*/

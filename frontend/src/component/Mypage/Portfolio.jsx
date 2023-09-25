@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import PdfViewer from './PdfViewer' ;
+import PdfViewer from './PdfViewer';
 
 import '../../css/Portfolio.css';
 import '../../css/User.css'
@@ -16,7 +16,7 @@ import Cookies from 'js-cookie';
 
 const Portfolio = ({ data }) => {
 
-  const custId = data.CUST_ID ; // 마이페이지 아이디  
+  const custId = data.CUST_ID; // 마이페이지 아이디  
   const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디 
 
   //포트폴리오 데이터 Map으로 돌리기 
@@ -111,7 +111,7 @@ const Portfolio = ({ data }) => {
     formData.append('pf_title', pdfTitle);
     formData.append('file', file);
 
-    await axios.post('http://localhost:8099/pfadd', formData, {
+    await axios.post(`${process.env.REACT_APP_URL_8099}/pfadd`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -136,7 +136,7 @@ const Portfolio = ({ data }) => {
     };
 
     try {
-      await axios.put('http://localhost:8099/pftitle', requestData);
+      await axios.put(`${process.env.REACT_APP_URL_8099}/pftitle`, requestData);
       console.log('요청이 성공했습니다.');
     } catch (error) {
       console.error('요청이 실패했습니다.', error);
@@ -152,7 +152,7 @@ const Portfolio = ({ data }) => {
     };
 
     try {
-      await axios.delete('http://localhost:8099/pfdelete', { data: requestData });
+      await axios.delete(`${process.env.REACT_APP_URL_8099}/pfdelete`, { data: requestData });
       console.log('요청이 성공했습니다.');
       window.location.replace("/mypage")
     } catch (error) {
@@ -183,7 +183,7 @@ const Portfolio = ({ data }) => {
               <PdfViewer pdfFile={item.pdfSrc} />
               <div className="port-text">
                 <div> <p>{item.text}</p></div>
-                { custId === loginUserId&& <div className='item-btn'><img src={hamburger} onClick={() => { toggleMenu(index) }}></img> </div>}
+                {custId === loginUserId && <div className='item-btn'><img src={hamburger} onClick={() => { toggleMenu(index) }}></img> </div>}
                 {/* toggleMenu  포트폴리오 한개 당 햄버거 버튼 (제목수정, 삭제)  */}
                 {menuOpenIndex === index &&
                   <ui className="menu-container">
@@ -289,14 +289,14 @@ const Portfolio = ({ data }) => {
               <img className='port-modal-user-img' src={Logo}></img>
               <img src={X} onClick={closeDeleteModal} className="port-modal-user-close-button"></img>
             </div>
-              <div className='delete-text'>
+            <div className='delete-text'>
               "{portName}" 파일을 정말 삭제 하시겠습니까?
-              </div>
-              <div>
-                <button className="modal_add_Btn" type="submit" onClick={handleDelete}>삭제</button>
-              </div>
+            </div>
+            <div>
+              <button className="modal_add_Btn" type="submit" onClick={handleDelete}>삭제</button>
             </div>
           </div>
+        </div>
       )}
 
     </div>

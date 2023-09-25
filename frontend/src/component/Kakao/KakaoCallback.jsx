@@ -10,7 +10,7 @@ const KakaoCallback = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(`http://localhost:8099/kakaologin?code=${code}`);
+            const res = await axios.get(`${process.env.REACT_APP_URL_8099}/kakaologin?code=${code}`);
 
             cookies.save('CUST_ID', res.data.CUST_ID);
             cookies.save('CUST_IMG', res.data.CUST_IMG);
