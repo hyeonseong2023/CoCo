@@ -34,7 +34,7 @@ export const KakaoJoin = () => {
   //제출 버튼 클릭 시 기본정보 Back으로 전송 
   const handleSubmit = (e) => {
     //axios post(url, 보낼데이터) 
-    axios.post(`http://localhost:8099/firstlogin`, { ...formData, CUST_ID: CUST_ID })
+    axios.post(`${process.env.REACT_APP_URL_8099}/firstlogin`, { ...formData, CUST_ID: CUST_ID })
       .then((res) => {
         console.log('넘어온 값 : ' + res);
       })

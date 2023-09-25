@@ -41,7 +41,8 @@ public class KakaoService {
 
 		String grantType = "authorization_code";
 		String clientId = "23ddd7c45fb41d2db79ff49bd3a797c3";
-		String redirectUri = "http://localhost:3000/auth/kakao/callback";
+		String local3000 = "http://localhost:3000";
+		String redirectUri = local3000 + "/auth/kakao/callback";
 
 		params.add("grant_type", grantType);
 		params.add("client_id", clientId);

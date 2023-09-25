@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController // 데이터를 반환하는 컨트롤러
-@CrossOrigin("http://localhost:3000")
 public class CustController {
 
 	@Autowired
@@ -47,13 +46,14 @@ public class CustController {
 
 	// 마이페이지(수정하기)
 	@PutMapping("/userinfoupdate") // form-data
-	public @ResponseBody int userInfoUpdate(@RequestPart(required = false, value = "cust_img1") MultipartFile file,
+	public @ResponseBody String userInfoUpdate(@RequestPart(required = false, value = "cust_img1") MultipartFile file,
 			@ModelAttribute TB_CUST cust) {
 
+		String newFileName = null ;
 		if (file != null && !file.isEmpty()) {
 
 			// 이미지 이름 저장
-			String newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
+			newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
 			cust.setCust_img(newFileName);
 
 			try {
@@ -69,12 +69,13 @@ public class CustController {
 		// 이미지 기본정보 저장
 		int update = service.userInfoUpdate(cust);
 
+		System.out.println("뉴파일 네임 " + newFileName);
 		if (update > 0) {
 			System.out.println("마이페이지 기본정보 수정 - DB저장성공");
-			return 1;
+			return  newFileName ;
 		} else {
 			System.out.println("마이페이지 기본정보 수정 - DB저장실패");
-			return 0;
+			return "실패" ;
 		}
 
 	}
@@ -119,5 +120,11 @@ public class CustController {
 	@DeleteMapping("/pfdelete")
 	public void pfDelete(@RequestBody Map<String, Object> map) {
 		int pfDelete = service.pfDelete(map);
+	}
+	
+	// 회원탈퇴 
+	@DeleteMapping("/deletecust")
+	public void deleteCust(@RequestBody Map<String, String> map) {
+		int deleteCust = service.deleteCust(map); 
 	}
 }

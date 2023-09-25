@@ -44,13 +44,13 @@ const Post = ({ data, boardData }) => {
 
   const sendBookmarkRequest = async (isEmptyBmk) => {
     const apiUrl = isEmptyBmk
-      ? 'http://localhost:8099/unbookmark'
-      : 'http://localhost:8099/bookmarkcheck';
+      ? `${process.env.REACT_APP_URL_8099}/unbookmark`
+      : `${process.env.REACT_APP_URL_8099}/bookmarkcheck`;
 
     try {
       const response = await axios.post(apiUrl, {
         cust_id: loginUserId,
-        board_id: data.id,
+        board_id: data,
       });
     } catch (error) {
       console.error('Error sending bookmark request: ', error);
@@ -59,11 +59,11 @@ const Post = ({ data, boardData }) => {
 
   const sendApplyRequest = async (isApply) => {
     const apiUrl = !isApply
-      ? 'http://localhost:8099/postApply'
-      : 'http://localhost:8099/unPostApply';
+      ? `${process.env.REACT_APP_URL_8099}/postApply`
+      : `${process.env.REACT_APP_URL_8099}/unPostApply`;
 
     await axios
-      .get(`${apiUrl}/${data.id}/${Cookies.get('CUST_ID')}`)
+      .get(`${apiUrl}/${data}/${Cookies.get('CUST_ID')}`)
       .then((res) => {});
   };
 
@@ -209,10 +209,6 @@ const Post = ({ data, boardData }) => {
                     loginUserId && boardCreateId !== loginUserId && dDay != 0
                       ? 'block'
                       : 'none',
-                  // display:
-                  //   loginUserId && boardCreateId !== loginUserId
-                  //     ? 'block'
-                  //     : 'none',
                 }}
                 alt="bmkImg"
               />
@@ -225,10 +221,6 @@ const Post = ({ data, boardData }) => {
                     loginUserId && boardCreateId !== loginUserId && dDay != 0
                       ? 'block'
                       : 'none',
-                  // display:
-                  //   loginUserId && boardCreateId !== loginUserId
-                  //     ? 'block'
-                  //     : 'none',
                 }}
                 alt="applyButton"
               />
