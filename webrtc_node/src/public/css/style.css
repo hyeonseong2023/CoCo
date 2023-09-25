@@ -205,7 +205,7 @@ main {
 
 #streamBox #controlers #buttons .unMuteIcon {
   /* color: var(--green-icon-color); */
-  filter: filter: invert(62%) sepia(42%) saturate(5840%) hue-rotate(193deg) brightness(101%) contrast(101%);
+  filter: invert(62%) sepia(42%) saturate(5840%) hue-rotate(193deg) brightness(101%) contrast(101%);
 }
 
 #streamBox #controlers #buttons .muteIcon {
