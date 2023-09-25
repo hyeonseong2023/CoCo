@@ -20,13 +20,13 @@ const Main: React.FC<MainProps> = () => {
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [isApplied, setIsApplied] = useState<boolean>(false);
-  const [isRefreshing, setIsRefreshing] = useState<boolean>(false); 
-  const [IsMyPosts, setIsMyPosts] = useState<boolean>(false); 
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+  const [IsMyPosts, setIsMyPosts] = useState<boolean>(false);
   let pore = 0;
   const maxEndpoint = 99;
   const pageSize = 6;
   const initialLoad = useState<boolean>(false)[0];
-  
+
   // 북마크 데이터를 저장할 상태 추가
   const [bookmarkData, setBookmarkData] = useState<any[]>([]);
 
@@ -49,13 +49,13 @@ const Main: React.FC<MainProps> = () => {
     if (currentPage < maxEndpoint && !isRefreshing && !isApplied && !isBookmarked) {
       const nextPage = currentPage + 1;
       setIsRefreshing(true);
-  
+
       const requestData = {
         skill_name: selectedLanguage,
         board_position: selectedPosition,
         endpoint: nextPage
       };
-  
+
       try {
         requestData.endpoint *= pageSize;
         const response = await axios.post('http://localhost:8099/select', requestData);
@@ -79,7 +79,7 @@ const Main: React.FC<MainProps> = () => {
             cust_nick: item.cust_nick
           };
         });
-  
+
         if (fetchedData.length === 0) {
           console.warn("No data received.");
         } else {
@@ -88,11 +88,11 @@ const Main: React.FC<MainProps> = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-  
+
         setSelectedLanguage(null);
         setSelectedPosition(null);
         setCurrentPage(1);
-  
+
         const requestData = {
           skill_name: null,
           board_position: null,
@@ -104,7 +104,7 @@ const Main: React.FC<MainProps> = () => {
       }
     }
   };
-  
+
   useEffect(() => {
     const initialRequestData = {
       skill_name: selectedLanguage,
@@ -152,7 +152,7 @@ const Main: React.FC<MainProps> = () => {
             cust_nick: item.cust_nick
           };
         });
-        
+
         if (fetchedData.length === 0) {
           console.warn("No data received.");
         } else {
@@ -241,10 +241,15 @@ const Main: React.FC<MainProps> = () => {
     }
   };
 
-  const handleLoginButtonClick = (): void => {
-
+  const handleAppliedToggle = async (): Promise<void> => {
+    setIsApplied(!isApplied);
+    await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
   };
 
+  const onMyPostsToggle = async (): Promise<void> => {
+    setIsMyPosts(!IsMyPosts);
+    await fetchDataAndUpdateState('http://localhost:8099/writelist', setCategoryData);
+  }
 
   //@@@@@@@@@@@@ webrtc 시작
 
@@ -286,21 +291,8 @@ const Main: React.FC<MainProps> = () => {
 
   //@@@@@@@@@@@@ webrtc 끝
 
-
-  const handleAppliedToggle = async (): Promise<void> => {
-    setIsApplied(!isApplied);
-    await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
-  };
-
-  const onMyPostsToggle = async ():Promise<void> =>{
-    setIsMyPosts(!IsMyPosts);
-    await fetchDataAndUpdateState('http://localhost:8099/writelist', setCategoryData);
-  }
-
-
   return (
     <div>
-      <button onClick={handleClick}>webrtc</button>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
       <TopPosts />
