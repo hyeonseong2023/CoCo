@@ -293,6 +293,7 @@ const Main: React.FC<MainProps> = () => {
 
   return (
     <div>
+      <button onClick={handleClick}>webrtc</button>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
       <TopPosts />
