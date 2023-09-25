@@ -5,9 +5,20 @@
 	<!-- 첫 로그인 기본 정보 DB 저장 -->
 	<insert id="firstLogin"
 		parameterType="com.smhrd.coco.domain.TB_CUST">
-		insert into TB_CUST (CUST_ID, CUST_NICK, CUST_POSITION, CUST_CAREER, CUST_SKILL) values
-		(#{cust_id}, #{cust_nick}, #{cust_position},#{cust_career}, #{cust_skill});
+		insert into TB_CUST (CUST_ID, CUST_NICK, CUST_POSITION,
+		CUST_CAREER, CUST_SKILL) values
+		(#{cust_id}, #{cust_nick},
+		#{cust_position},#{cust_career}, #{cust_skill});
 	</insert>
+
+
+	<!-- 이미지 체크 -->
+	<select id="checkCustImg">
+		SELECT CUST_IMG
+		FROM TB_CUST
+		WHERE CUST_ID = #{CUST_ID}
+		AND CUST_IMG IS NULL;
+	</select>
 
 	<!-- 마이페이지(기본정보) -->
 	<select id="mypageCust"
@@ -42,8 +53,6 @@
 	</select>
 
 
-	<!--마이페이지(연필 버튼) <select id="updatePage" resultType="com.smhrd.coco.domain.TB_CUST"> 
-		select * from TB_CUST where CUST_ID = ${CUST_ID}; </select> -->
 
 	<!--마이페이지(수정하기 버튼) -->
 	<update id="userInfoUpdate"
@@ -55,7 +64,9 @@
 		CUST_IMG =
 		#{cust_img},
 		CUST_GIT = #{cust_git},
-		CUST_POSITION = #{cust_position}
+		CUST_POSITION = #{cust_position},
+		CUST_SKILL = #{cust_skill},
+		CUST_LINK = #{cust_link}
 		where CUST_ID = #{cust_id};
 	</update>
 
@@ -78,6 +89,11 @@
 	<delete id="pfDelete" parameterType="Integer">
 		delete from TB_PF where
 		PF_ID = #{PF_ID} ;
+	</delete>
+	
+	<!-- 회원탈퇴 -->
+	<delete id = "deleteCust">
+	    delete from TB_CUST where CUST_ID =#{cust_id};
 	</delete>
 
 </mapper>

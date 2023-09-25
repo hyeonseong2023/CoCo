@@ -20,6 +20,12 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const custImg = Cookies.get('CUST_IMG');
   const [isLoggedIn, setIsLoggedIn] = useState(!!(custId && custImg !== "0" && custImg !== null));
   const navigate = useNavigate();
+  const [isJoinModal, setIsJoinModal] = useState(true);
+  
+
+  useEffect(()=>{
+    isLoggedIn && setIsJoinModal(false)
+  },[isLoggedIn])
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -73,8 +79,9 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
             </button>
 
           )}
-          {custImg === "0" && Cookies.get('coin') === "on" && (
-            <JoinModel onClose={handleJoinModelClose} />
+
+          {isJoinModal && custImg === "0" && Cookies.get('coin') === "on" && (
+            <JoinModel onClose={handleJoinModelClose} setIsJoinModal={setIsJoinModal} />
           )}
           
         </div>

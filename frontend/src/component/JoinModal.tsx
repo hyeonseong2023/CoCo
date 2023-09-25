@@ -6,6 +6,9 @@ import nextBtn from '../img/nextBtn.png';
 import X from '../img/x.png';
 import Logo from '../img/Logo.png';
 import axios from 'axios';
+import { useEffect } from 'react';
+import startBtn from '../img/startBtn.png';
+import { useNavigate } from 'react-router-dom';
 
 
 type FormData = {
@@ -19,7 +22,7 @@ type JoinModelProps = {
   onClose: () => void;
 };
 
-const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
+const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModal: (isJoinModal: boolean)=>void}) => {
   const defaultFormData: FormData = {
     nickname: '',
     job: '-- 선택 --',
@@ -32,9 +35,11 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
 
   // 모달을 닫는 함수
   const closeModal = () => {
-    Cookies.remove('coin');
+    Cookies.remove('coin'); // 쿠키 제거 
     onClose();
   };
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -87,6 +92,9 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
 
 
   // 다영시작 
+
+  const navigator = useNavigate();
+
 
   const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디 
   const [nick, setNick] = useState(""); // 닉네임
@@ -157,6 +165,13 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
   let skillNames = selected.join(','); // 배열을 문자열로 합침 
   const [welcomeOpen, setWelcomeOpen] = useState(false);  // Welcome modal 오픈여부 
 
+
+
+  useEffect(() => {
+
+  }, [welcomeOpen])
+
+
   // 통신 (기본정보 저장)
   const handleAdd = async () => {
 
@@ -178,9 +193,8 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
     try {
       await axios.post('http://localhost:8099/firstlogin', requestData);
       console.log('요청이 성공했습니다.');
-      closeModal();
-      setWelcomeOpen(true); 
 
+      setWelcomeOpen(true);
 
     } catch (error) {
       console.error('요청이 실패했습니다.', error);
@@ -189,105 +203,19 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
   }
 
 
+  const handleStart =()=>{
+    onClose();
+    setWelcomeOpen(false);
+    setIsJoinModal(false)
+
+    Cookies.remove('coin');
+    navigator('/');
+    //window.location.replace("/")
+    //navigator('/');   // 메인 페이지로 이동
+  }
+
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-
-        {/* 모달 닫기 부분  */}
-        <div className='join-modal-user-close'>
-          <img className='join-modal-user-img' src={Logo}></img>
-          <img src={X} className="join-modal-user-close-button" onClick={closeModal}></img>
-        </div>
-
-        {/* 환영인사 부분  */}
-        <div className='join'> <h1>CoCo에 처음이시군요!</h1> </div>
-        <div className='join-text'> <h1>기본정보를 입력해주세요 </h1> </div>
-
-        {/* 정보 입력 부분 */}
-        <form className='join-container'>
-          <table>
-            <tbody>
-              {/* 닉네임 */}
-              <tr>
-                <td className='join-user-modal-name'>닉네임</td>
-                <td><input className='join-user-modal-content' type="text" value={nick} onChange={(e) => { setNick(e.target.value) }} ></input></td>
-              </tr>
-              {/* 직무 */}
-              <tr>
-                <td className='join-user-modal-name'>직무</td>
-                <td>
-                  <select
-                    className='join-user-modal-content'
-                    value={pselected.value}
-                    onChange={(e) => setPselected({ value: e.target.value, name: e.target.value })}
-                  >
-                    {positionList.map((item) => (
-                      <option value={item.value} key={item.value}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-              </tr>
-              {/* 경력*/}
-              <tr>
-                <td className='join-user-modal-name'>경력</td>
-                <td>
-                  <select
-                    className='join-user-modal-content'
-                    value={cselected.value}
-                    onChange={(e) => setCselected({ value: e.target.value, name: e.target.value })}
-                  >
-                    {careerList.map((item) => (
-                      <option value={item.value} key={item.value}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-              </tr>
-              {/* 관심스택 (다중선택) */}
-              <tr>
-                <td className='join-user-modal-name'>관심스택</td>
-                <td>
-                  <Select
-                    className='join-Multi'
-                    options={skills}
-                    isMulti
-                    value={skills.filter((option) =>
-                      selected.includes(option.value)
-                    )}
-                    onChange={(selectedOptions: any) => {
-                      if (selectedOptions.length <= 4) {
-                        setSelected(
-                          selectedOptions.map((option: any) => option.value)
-                        );
-                      }
-                    }}
-                    styles={{
-                      control: (provided) => ({
-                        ...provided,
-                        fontSize: '13px', // 폰트 크기 조절
-                      }),
-                      option: (provided) => ({
-                        ...provided,
-                        fontSize: '15px', // 옵션 폰트 크기 조절
-                      }),
-                    }}
-                    placeholder=""
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-        <div>
-          <img src={nextBtn} className='nextBtn' onClick={handleAdd}></img>
-        </div>
-      </div>
-
-      {welcomeOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
 
@@ -300,12 +228,108 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
             {/* 환영인사 부분  */}
             <div className='join'> <h1>CoCo에 처음이시군요!</h1> </div>
             <div className='join-text'> <h1>기본정보를 입력해주세요 </h1> </div>
+
+            {/* 정보 입력 부분 */}
+            <form className='join-container'>
+              <table>
+                <tbody>
+                  {/* 닉네임 */}
+                  <tr>
+                    <td className='join-user-modal-name'>닉네임</td>
+                    <td><input className='join-user-modal-content' type="text" value={nick} onChange={(e) => { setNick(e.target.value) }} ></input></td>
+                  </tr>
+                  {/* 직무 */}
+                  <tr>
+                    <td className='join-user-modal-name'>직무</td>
+                    <td>
+                      <select
+                        className='join-user-modal-content'
+                        value={pselected.value}
+                        onChange={(e) => setPselected({ value: e.target.value, name: e.target.value })}
+                      >
+                        {positionList.map((item) => (
+                          <option value={item.value} key={item.value}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                  </tr>
+                  {/* 경력*/}
+                  <tr>
+                    <td className='join-user-modal-name'>경력</td>
+                    <td>
+                      <select
+                        className='join-user-modal-content'
+                        value={cselected.value}
+                        onChange={(e) => setCselected({ value: e.target.value, name: e.target.value })}
+                      >
+                        {careerList.map((item) => (
+                          <option value={item.value} key={item.value}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                  </tr>
+                  {/* 관심스택 (다중선택) */}
+                  <tr>
+                    <td className='join-user-modal-name'>관심스택</td>
+                    <td>
+                      <Select
+                        className='join-Multi'
+                        options={skills}
+                        isMulti
+                        value={skills.filter((option) =>
+                          selected.includes(option.value)
+                        )}
+                        onChange={(selectedOptions: any) => {
+                          if (selectedOptions.length <= 4) {
+                            setSelected(
+                              selectedOptions.map((option: any) => option.value)
+                            );
+                          }
+                        }}
+                        styles={{
+                          control: (provided) => ({
+                            ...provided,
+                            fontSize: '13px', // 폰트 크기 조절
+                          }),
+                          option: (provided) => ({
+                            ...provided,
+                            fontSize: '15px', // 옵션 폰트 크기 조절
+                          }),
+                        }}
+                        placeholder=""
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+
+            {/* 다음 버튼  */}
+            <div>
+              <img src={nextBtn} className='nextBtn' onClick={handleAdd}></img>
+            </div>
+          </div>
+
+
+          {welcomeOpen && (
+        <div className="modal-overlay">
+          <div className="delete-modal-content">
+
+            {/* 환영인사 부분  */}
+            <div className='welcome-text1'> <h1>{nick}님 축하합니다!</h1> </div>
+            <div className='welcome-text2'> <h1>회원가입 되었습니다!</h1> </div>
+            <img src={Logo} className='welcome-logo'></img>
+            <img src={startBtn} className='startBtn' onClick={handleStart}></img>
           </div>
         </div>
       )}
+        </div>
+  
 
-
-    </div>
   )
 }
 

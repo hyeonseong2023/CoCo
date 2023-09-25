@@ -120,4 +120,10 @@ public class CustController {
 	public void pfDelete(@RequestBody Map<String, Object> map) {
 		int pfDelete = service.pfDelete(map);
 	}
+	
+	// 회원탈퇴 
+	@DeleteMapping("/deletecust")
+	public void deleteCust(@RequestBody Map<String, String> map) {
+		int deleteCust = service.deleteCust(map); 
+	}
 }

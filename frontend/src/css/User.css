@@ -1,6 +1,9 @@
 
 /* -------------------프로필------------------- */
 
+.react-pdf__Page__textContent textLayer {
+    padding-right: 100px !important;
+}
 
 /* 프로필 컨테이너 */
 .Mypage-user-container {
@@ -13,11 +16,14 @@
     /* margin-right: 50px; */
 }
 
+
+
 /* 프로필 편집 버튼 */
 .Mypage-user-eidt-button {
     margin-top: 20px;
     margin-left: 220px;
     width: 95px;
+    cursor: pointer;
 }
 
 /* 프로필 이미지 컨테이너 */
@@ -88,7 +94,20 @@
 
 }
 
+.mypage-logout-btn{
+    width: 120px;
+    cursor: pointer;
+    /* background-color: aqua; */
+}
 
+.logout-text{
+    margin-top: 5px;
+    margin-left: 280px;
+    color: #5D5D5D;
+    cursor: pointer;
+}
+
+ 
 
 /* -------------- 프로필 수정 모달창 -------------- */
 
@@ -235,7 +254,8 @@ input[type="file"] {
 }
 
 .Mypage-user-table-content img {
-    width: 60px; 
+    padding-top: 10px;
+    width: 23px; 
     height: auto;
     padding-right: 5px;
     /* padding-left: 5px; */
@@ -250,12 +270,16 @@ input[type="file"] {
 
 .Mypage-modal-delete-text{
     margin-top: 60px;
+    font-weight: 800;
+}
+
+.delete-nickName{
     font-size: 30px;
-    font-weight: 600;
+    color: #4598FF;
 }
 
 .Mypage-modal-delete-content{
-       margin-top: 20px;
+       margin-top: 10px;
        margin-bottom: 35px;
        /* background-color: #5D5D5D; */
 }
