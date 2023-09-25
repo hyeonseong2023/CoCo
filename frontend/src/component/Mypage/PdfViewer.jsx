@@ -35,7 +35,7 @@ const PdfViewer = ({ pdfFile }) => {
         <div onClick={openPdfInNewTab}>
         <Document file={`data:application/pdf;base64,${pdfFile}`} options={options} >
               <Page
-              width={320}
+              width={350}
               height={300}
               pageNumber={1} />
           </Document>

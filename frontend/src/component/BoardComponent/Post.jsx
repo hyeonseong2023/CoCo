@@ -12,19 +12,26 @@ import profileImg from '../../img/profilePicture.png';
 import viewsIcon from '../../img/viewsIcon.png';
 import deleteBtn from '../../img/deleteBtn.png';
 import modifyBtn from '../../img/modifyBtn.png';
+import deadlineBtn from '../../img/deadlineBtn.png';
+import projectDeadlineImg from '../../img/projectDeadlineImg.png';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { async } from 'q';
+import { Link } from 'react-router-dom';
+import DeadlineModal from './DedlineModal';
+import Write from '../Write';
+import DeleteModal from './DeleteModal';
 
 const Post = ({ data, boardData }) => {
-  console.log('지원하기 데이터', boardData.TB_APPLY);
+  console.log(boardData);
   const isBookmarked = boardData.TB_BOOKMARK > 0 ? true : false;
   const applyCheck = boardData.TB_APPLY > 0 ? true : false;
   const [isEmptyBmk, setIsEmptyBmk] = useState(isBookmarked);
   const [isApply, setIsApply] = useState(applyCheck);
   const [bmkImgClicked, setBmkImgClicked] = useState(false);
   const [madalOpen, setModalOpen] = useState(false);
-  const [title, setTitle] = useState(data.title);
+  const [dPopupOpne, setDPopupOpne] = useState(false);
+  const [postDeletePopup, setPostDeletePopup] = useState(false);
+  const [title, setTitle] = useState(boardData.TB_BOARD.board_title);
   const [views, setViews] = useState(boardData.TB_BOARD.board_views);
   const [date, setDate] = useState(boardData.TB_BOARD.board_dt);
   const [dDay, setDday] = useState(boardData.D_day);
@@ -43,9 +50,8 @@ const Post = ({ data, boardData }) => {
     try {
       const response = await axios.post(apiUrl, {
         cust_id: loginUserId,
-        board_id: data.id,
+        board_id: data,
       });
-      console.log(response.data);
     } catch (error) {
       console.error('Error sending bookmark request: ', error);
     }
@@ -57,10 +63,8 @@ const Post = ({ data, boardData }) => {
       : `${process.env.REACT_APP_URL_8099}/unPostApply`;
 
     await axios
-      .get(`${apiUrl}/${data.id}/${Cookies.get('CUST_ID')}`)
-      .then((res) => {
-        console.log('지원하기:', res.data);
-      });
+      .get(`${apiUrl}/${data}/${Cookies.get('CUST_ID')}`)
+      .then((res) => {});
   };
 
   const toggleBmk = () => {
@@ -78,10 +82,33 @@ const Post = ({ data, boardData }) => {
     setModalOpen(true);
   };
 
+  const dedlinePopup = () => {
+    setDPopupOpne(true);
+  };
+
+  const postDeleteClick = () => {
+    setPostDeletePopup(true);
+  };
+
   return (
     <div className="post">
+      {postDeletePopup && (
+        <DeleteModal
+          setPostDeletePopup={setPostDeletePopup}
+          data={data}
+        ></DeleteModal>
+      )}
+
+      {dPopupOpne && (
+        <DeadlineModal
+          setDPopupOpne={setDPopupOpne}
+          boardData={boardData}
+          data={data}
+        ></DeadlineModal>
+      )}
       {madalOpen && (
         <ProfileModal
+          madalOpen={madalOpen}
           setModalOpen={setModalOpen}
           boardData={boardData}
         ></ProfileModal>
@@ -121,32 +148,65 @@ const Post = ({ data, boardData }) => {
             </div>
           </div>
           <div className="right">
-            {/* 지원하기 버튼, 북마크 */}
+            {/* 모집마감, 수정, 삭제 버튼 */}
             {/* style={{display: loginId === postUserId ? "none" : "block"}} */}
             <div className="rightTop">
               <img
                 alt=""
-                className="modifyBtn"
-                src={modifyBtn}
+                className="projectDeadlineImg"
+                src={projectDeadlineImg}
                 style={{
-                  display: boardCreateId === loginUserId ? 'block' : 'none',
+                  display: dDay == 0 ? 'block' : 'none',
                 }}
               />
               <img
+                onClick={postDeleteClick}
                 alt=""
                 className="deleteBtn"
                 src={deleteBtn}
                 style={{
-                  display: boardCreateId === loginUserId ? 'block' : 'none',
+                  display:
+                    boardCreateId === loginUserId && dDay != 0
+                      ? 'block'
+                      : 'none',
+                  // display: boardCreateId === loginUserId ? 'block' : 'none',
                 }}
               />
+              <Link to="/Write" state={boardData}>
+                <img
+                  alt=""
+                  className="modifyBtn"
+                  src={modifyBtn}
+                  style={{
+                    display:
+                      boardCreateId === loginUserId && dDay != 0
+                        ? 'block'
+                        : 'none',
+                    // display: boardCreateId === loginUserId ? 'block' : 'none',
+                  }}
+                />
+              </Link>
+              <img
+                onClick={dedlinePopup}
+                alt=""
+                className="deadlineBtn"
+                src={deadlineBtn}
+                style={{
+                  display:
+                    boardCreateId === loginUserId && dDay != 0
+                      ? 'block'
+                      : 'none',
+                  // display: boardCreateId === loginUserId ? 'block' : 'none',
+                }}
+              />
+              {/* 지원하기 버튼, 북마크 */}
               <img
                 className="bmkImg"
                 src={isEmptyBmk ? blueBookmark : bookmark}
                 onClick={toggleBmk}
                 style={{
                   display:
-                    loginUserId && boardCreateId !== loginUserId
+                    loginUserId && boardCreateId !== loginUserId && dDay != 0
                       ? 'block'
                       : 'none',
                 }}
@@ -158,14 +218,13 @@ const Post = ({ data, boardData }) => {
                 onClick={toggleApply}
                 style={{
                   display:
-                    loginUserId && boardCreateId !== loginUserId
+                    loginUserId && boardCreateId !== loginUserId && dDay != 0
                       ? 'block'
                       : 'none',
                 }}
                 alt="applyButton"
               />
             </div>
-
             {/* 게시글 조회수, 조회수아이콘, 게시글 작성 날짜 */}
             <div className="rightBottom">
               <span>{date}</span>
@@ -187,7 +246,7 @@ const Post = ({ data, boardData }) => {
         <h2>프로젝트 소개</h2>
         <hr></hr>
         <br></br>
-        <p>{content}</p>
+        <div dangerouslySetInnerHTML={{ __html: content }}></div>
         <div className="boardImgContainer">
           <img
             alt=""

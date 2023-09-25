@@ -32,66 +32,60 @@ public class CustController {
 	@Autowired
 	private CustService service;
 
-
-	// 첫 로그인 기본 정보 DB 저장 
+	// 첫 로그인 기본 정보 DB 저장
 	@PostMapping("/firstlogin")
 	public int firstLogin(@RequestBody Map<String, String> map) {
-		return service.firstLogin(map); 
+		return service.firstLogin(map);
 	}
-	
+
 	// 마이페이지(유저정보, 포트폴리오, 프로젝트 )
 	@GetMapping("/mypage")
 	public JSONObject myPage(@RequestParam("cust_id") String cust_id) {
 		return service.myPage(cust_id);
 	}
 
-
 	// 마이페이지(수정하기)
 	@PutMapping("/userinfoupdate") // form-data
-	public @ResponseBody int userInfoUpdate(@RequestPart("cust_img1") MultipartFile file, @ModelAttribute TB_CUST cust ,  @ModelAttribute TB_CUST_SKILL custSkill ) {
-			
-		System.out.println("파일" + file);
-		
+	public @ResponseBody int userInfoUpdate(@RequestPart(required = false, value = "cust_img1") MultipartFile file,
+			@ModelAttribute TB_CUST cust) {
 
-		
-		//이미지 이름 저장 
-		String newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
-		cust.setCust_img(newFileName);
-		
-		try {
-			// 이미지 file -> 저장(지정된 경로에)
-			file.transferTo(new File(newFileName));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (file != null && !file.isEmpty()) {
+
+			// 이미지 이름 저장
+			String newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
+			cust.setCust_img(newFileName);
+
+			try {
+				// 이미지 file -> 저장(지정된 경로에)
+				file.transferTo(new File(newFileName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		
-		// 이미지 기본정보 저장 
+
+		// 이미지 기본정보 저장
 		int update = service.userInfoUpdate(cust);
-		
-		
-		if(update>0) {
+
+		if (update > 0) {
 			System.out.println("마이페이지 기본정보 수정 - DB저장성공");
 			return 1;
-		}else {
+		} else {
 			System.out.println("마이페이지 기본정보 수정 - DB저장실패");
 			return 0;
 		}
-		
 
 	}
-	
 
 	// 포트폴리오 추가하기
 	@PostMapping("/pfadd")
-	public int pfAdd(@RequestParam("file") MultipartFile file, @ModelAttribute TB_PF pf ) {
-		
-		//PDF file 기본정보 저장 
+	public int pfAdd(@RequestParam("file") MultipartFile file, @ModelAttribute TB_PF pf) {
+
+		// PDF file 기본정보 저장
 		String newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
-	    pf.setPf_path(newFileName);
-	    
-	    
+		pf.setPf_path(newFileName);
+
 		try {
 			// PDF file -> 저장(지정된 경로에)
 			file.transferTo(new File(newFileName));
@@ -99,19 +93,19 @@ public class CustController {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	    
-		
-		// 포트폴리오 정보 저장 
+		}
+
+		// 포트폴리오 정보 저장
 		int pfAdd = service.pfAdd(pf);
-	    
-		if(pfAdd>0) {
+
+		if (pfAdd > 0) {
 			System.out.println("DB저장성공");
 			return 1;
-		}else {
+		} else {
 			System.out.println("실패");
 			return 0;
-		}		
-	
+		}
+
 	}
 
 	// 포트폴리오 title 수정
@@ -120,10 +114,15 @@ public class CustController {
 		int pfTitle = service.pfTitle(map);
 	}
 
-
 	// 포트폴리오 삭제하기
 	@DeleteMapping("/pfdelete")
 	public void pfDelete(@RequestBody Map<String, Object> map) {
 		int pfDelete = service.pfDelete(map);
+	}
+	
+	// 회원탈퇴 
+	@DeleteMapping("/deletecust")
+	public void deleteCust(@RequestBody Map<String, String> map) {
+		int deleteCust = service.deleteCust(map); 
 	}
 }

@@ -1,5 +1,6 @@
 package com.smhrd.coco.mapper;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,12 +17,24 @@ public interface BoardMapper {
 
 	// TB_BOARD 정보 저장
 	public int postSaveBoard(TB_BOARD board);
+	
+	// TB_BOARD 정보 업데이트
+	public int postUpdateBoard(TB_BOARD board);
 
 	// TB_BOARD_SKILL 정보 저장
-	public int postSaveSkill(TB_BOARD_SKILL skill);
+	public int postSaveSkill(int board_id, String SKILL_NAME);
+	
+	// TB_BOARD_SKILL 정보 삭제
+	public int postDeleteSkill(int board_id);
+	
+	//TB_BOARD_SKILL 정보 업데이트
+	public int postUpdateSkill(TB_BOARD_SKILL skill, int board_id);
 
 	// TB_BOARD_IMG 정보저장
 	public int postSaveImg(TB_BOARD_IMG img);
+	
+	// TB_BOARD_IMG 정보 업데이트
+	public int postUpdateImg(TB_BOARD_IMG img, int board_id);
 
 	// 선택한 게시물 TB_BOARD 정보 가져오기
 	public TB_BOARD selectPostBoard(int board_id);
@@ -49,6 +62,12 @@ public interface BoardMapper {
 
 	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
 	public String getOrCreateProLink(int board_id);
+	
+	//게시글 모집마감
+	public int postDeadline(int board_id, String toDay);
+	
+	//게시글 삭제 클릭시 board_id => admin 관리자로 변경
+	public int postDelete(int board_id);
 
 
 }

@@ -13,11 +13,11 @@
 
 #Contents-box>div>div {
   width: 100%;
-  height: 150px;
+  height: 200px;
   background-color: rgb(255, 255, 255);
   margin-bottom: 20px;
-  border: #2a5b9c 2px solid;
-  border-radius: 2%;
+  border: #D6D6D6 2px solid;
+  border-radius: 20px 20px 20px 20px; 
 }
 
 .Contentsbox{
@@ -26,7 +26,7 @@
 
 
 .Contentsbox-A{
-  width: 60%;
+  width: 75%;
   margin-left: 5%;
 }
 
@@ -47,7 +47,6 @@
 }
 
 .boxA_title>div{
-
 }
 .boxA_img>div>img{
   width: 4%;
@@ -63,3 +62,114 @@
 .Contentsbox{
   height: 100%;
 }
+
+.boxB_title{
+  margin-top: 5%;
+}
+.boxB_1{
+  margin-top: 15%;
+}
+.boxB_2{
+  padding-top: 8%;
+}
+
+.boxB_bookmark{
+  margin-top: 1%;
+  width: 10%;
+}
+
+.Contentsbox-B{
+  margin-top: 1%;
+  width: 20%;
+  margin-left: 3%;
+}
+
+
+.ContentsLine{
+  background-color: rgb(221 231 233);
+  width: 3px;
+}
+
+.Content-topTail{
+  width: 25%;
+
+
+}
+
+.Content-topicon1{
+  height: 22.5%;
+  margin-top: 7.5%;
+  margin-left: 5%;
+}
+
+.Content-topicon2{
+  height: 60%;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.Content-topicon2 > div{
+  width: 40%;
+  height: 50%;
+  width: 100%;
+}
+
+.Content-topicon2 > div >div{
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+.topiconbox {
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  gap: 10px;
+}
+
+.topiconbox > div {
+  border-radius: 30px 30px 30px 30px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  font-size: 16px;
+}
+
+.topiconbox{
+  width: 60%;
+}
+
+.Contentsbox-A > .contentHeader > .topHeader-day{
+  margin-left: 0%;
+  margin-bottom: 2%;
+}
+
+.boxA_img>div>img{
+width: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 60%;
+    border: solid #7d7d7d 1px;
+}
+
+.boxB_1>img{
+  margin-left: 30%;
+}
+
+.boxA_title{
+  padding-bottom: 3%;
+}
+.boxB_1{
+  margin-bottom: 15%;
+}
+.boxA_img{
+  display: flex;
+
+  align-items: center;
+}
+
+.contentsNick{
+  margin-left: 1%;
+}
+
