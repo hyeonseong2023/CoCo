@@ -25,7 +25,7 @@ const Write = () => {
     recruitmentCount: boardData?.TB_BOARD.board_members,
     techStack: boardData?.TB_BOARD_SKILL,
     duration: boardData?.TB_BOARD.board_period,
-    position: boardData?.TB_BOARD.board_position.split(",").map((item:string)=>{ return {label:item, value:item}}),
+    position: boardData?.TB_BOARD.board_position.split(",").map((item: string) => { return { label: item, value: item } }),
     startDate: boardData?.TB_BOARD.board_deadline,
     endDate: boardData?.board_deadline,
     openTalkLink: boardData?.TB_BOARD.board_openlink,
@@ -36,7 +36,7 @@ const Write = () => {
 
   const [selectedPosition, setSelectedPosition] = useState(initialContent.position);
 
-  const [title, setTitle] = useState(boardData === null ? '' : boardData.TB_BOARD.board_title );
+  const [title, setTitle] = useState(boardData === null ? '' : boardData.TB_BOARD.board_title);
   const [content, setContent] = useState(boardData === null ? '' : boardData.TB_BOARD.board_content);
   const [files, setFiles] = useState<File[]>([]);
   const [insertedImages, setInsertedImages] = useState<string[]>([]);
@@ -79,6 +79,9 @@ const Write = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // 기술 스택을 쉼표로 구분된 문자열로 변환
+    const positionString = selectedPosition.join(', ');
+
     const formData = new FormData();
     formData.append('cust_id', Cookies.get('CUST_ID') || '');
     formData.append('board_members', recruitmentInfo.recruitmentCount.toString());
@@ -86,7 +89,7 @@ const Write = () => {
     formData.append('board_title', title);
     formData.append('board_content', content);
     formData.append('board_openlink', recruitmentInfo.openTalkLink);
-    formData.append('board_position', recruitmentInfo.position);
+    formData.append('board_position', positionString); // 변환한 값을 추가
     formData.append('pro_title', 'Project Title');
     formData.append('pro_link', recruitmentInfo.openTalkLink);
     formData.append('board_deadline', recruitmentInfo.deadline);
@@ -123,16 +126,17 @@ const Write = () => {
     { label: '백엔드', value: '백엔드' },
     { label: '프론트엔드', value: '프론트엔드' },
     { label: '디자이너', value: '디자이너' },
-    { label: 'IOS', value: 'IOS안드로이드' },
+    { label: 'IOS안드로이드', value: 'IOS안드로이드' },
     { label: '안드로이드', value: '안드로이드' },
     { label: '데브옵스', value: '데브옵스' },
     { label: 'PM', value: 'PM' },
     { label: '기획자', value: '기획자' },
   ];
 
-  const handlePositionChange = (selectedOptions : any) => {
+
+  const handlePositionChange = (selectedOptions: any) => {
     if (selectedOptions.length <= 3) {
-      setSelectedPosition(selectedOptions);
+      setSelectedPosition(selectedOptions.map((option: any) => option.value));
     }
   };
 
@@ -236,7 +240,10 @@ const Write = () => {
                 name="position"
                 options={positionOptions}
                 isMulti
-                value={selectedPosition}
+                value={selectedPosition.map((value: any) => ({
+                  label: value,
+                  value: value,
+                }))}
                 onChange={handlePositionChange}
                 className="custom-select"
               />

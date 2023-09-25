@@ -63,7 +63,7 @@
 		resultType="com.smhrd.coco.domain.TB_BOARD">
 		select * from TB_BOARD
 		where BOARD_ID IN ( select BOARD_ID
-		from TB_BOARD_SKILL where SKILL_NAME = #{skillname} )
+		from TB_BOARD_SKILL where SKILL_NAME = #{skill_name} )
 		order by BOARD_DT
 		limit
 		#{endpoint}, 6;
