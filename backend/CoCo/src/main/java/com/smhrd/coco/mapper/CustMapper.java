@@ -18,20 +18,17 @@ public interface CustMapper {
 	// 첫 로그인 기본 정보 DB 저장 
 	public int firstLogin(TB_CUST cust); 
 	
+	// 이미지 체크 
+	public int checkCustImg(String cust_id); 
+	
 	// 마이페이지(기본정보)
-	public TB_CUST mypageCust(String CUST_ID); 
+	public TB_CUST mypageCust(String cust_id); 
 	
 	// 마이페이지(포트폴리오)
-	public List<TB_PF> mypagePf(String CUST_ID); 
+	public List<TB_PF> mypagePf(String cust_id); 
 	
 	// 마이페이지(프로젝트)
-    public List<TB_BOARD> mypageProject(String CUST_ID); 
-	
-	// 마이페이지(연필 버튼)
-	public TB_CUST updatePage(String CUST_ID); 
-	
-	// 마이페이지(수정하기 버튼)
-	public int update(TB_CUST cust); 
+    public List<TB_BOARD> mypageProject(String cust_id); 
 	
 	// 마이페이지(회원스킬) 
 	public List<TB_CUST_SKILL> custSkill(String cust_id); 
@@ -48,4 +45,6 @@ public interface CustMapper {
 	// 포트폴리오 삭제하기
 	public int pfDelete(Integer pf_id);
 
+	// 회원탈퇴 
+	public int deleteCust(String cust_id);
 }

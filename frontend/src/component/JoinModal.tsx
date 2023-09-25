@@ -7,6 +7,8 @@ import X from '../img/x.png';
 import Logo from '../img/Logo.png';
 import axios from 'axios';
 import { useEffect } from 'react';
+import startBtn from '../img/startBtn.png';
+import { useNavigate } from 'react-router-dom';
 
 
 type FormData = {
@@ -20,7 +22,7 @@ type JoinModelProps = {
   onClose: () => void;
 };
 
-const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
+const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModal: (isJoinModal: boolean)=>void}) => {
   const defaultFormData: FormData = {
     nickname: '',
     job: '-- 선택 --',
@@ -36,6 +38,8 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
     Cookies.remove('coin'); // 쿠키 제거 
     onClose();
   };
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -88,6 +92,9 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
 
 
   // 다영시작 
+
+  const navigator = useNavigate();
+
 
   const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디 
   const [nick, setNick] = useState(""); // 닉네임
@@ -165,9 +172,6 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
   }, [welcomeOpen])
 
 
-
-
-
   // 통신 (기본정보 저장)
   const handleAdd = async () => {
 
@@ -190,7 +194,6 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
       await axios.post('http://localhost:8099/firstlogin', requestData);
       console.log('요청이 성공했습니다.');
       setWelcomeOpen(true);
-      
     } catch (error) {
       console.error('요청이 실패했습니다.', error);
     }
@@ -198,11 +201,19 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
   }
 
 
+  const handleStart =()=>{
+    onClose();
+    setWelcomeOpen(false);
+    setIsJoinModal(false)
+
+    Cookies.remove('coin');
+    navigator('/');
+    //window.location.replace("/")
+    //navigator('/');   // 메인 페이지로 이동
+  }
+
 
   return (
-
-
-  
         <div className="modal-overlay">
           <div className="modal-content">
 
@@ -304,17 +315,13 @@ const JoinModel: React.FC<JoinModelProps> = ({ onClose }) => {
 
           {welcomeOpen && (
         <div className="modal-overlay">
-          <div className="modal-content">
-
-            {/* 모달 닫기 부분  */}
-            <div className='join-modal-user-close'>
-              <img className='join-modal-user-img' src={Logo}></img>
-              <img src={X} className="join-modal-user-close-button" onClick={closeModal}></img>
-            </div>
+          <div className="delete-modal-content">
 
             {/* 환영인사 부분  */}
-            <div className='join'> <h1>CoCo에 처음이시군요!</h1> </div>
-            <div className='join-text'> <h1>기본정보를 입력해주세요 </h1> </div>
+            <div className='welcome-text1'> <h1>{nick}님 축하합니다!</h1> </div>
+            <div className='welcome-text2'> <h1>회원가입 되었습니다!</h1> </div>
+            <img src={Logo} className='welcome-logo'></img>
+            <img src={startBtn} className='startBtn' onClick={handleStart}></img>
           </div>
         </div>
       )}

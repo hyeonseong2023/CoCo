@@ -5,17 +5,33 @@ import Cookies from 'js-cookie';
 import '../../css/User.css';
 import Logo from '../../img/Logo.png';
 import GitHub from '../../img/GitHub.png'
+import Git from '../../img/Git.png';
 import plus from '../../img/plus.png'
 import editBtn from '../../img/editBtn.png';
 import X from '../../img/x.png';
 import profile from '../../img/profilePicture.png';
+import { useNavigate } from 'react-router-dom';
+import Logout from '../../img/Logout.png'
+
+import link from '../../img/link.png';
+import link1 from '../../img/link1.png'; 
+import link2 from '../../img/link2.png'; 
+import link3 from '../../img/link3.png'; 
+
+
+
+
+
 
 
 
 
 const User = ({ data }) => {
 
+    const navigator = useNavigate();
+    
     const userId = Cookies.get('CUST_ID'); //사용자 아이디 
+    const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디
 
     //모달창 노출 여부 
     const [modalOpen, setModalOpen] = useState(false); //회원정보수정 모달창 
@@ -26,21 +42,27 @@ const User = ({ data }) => {
     const [position, setPosition] = useState();
     const [career, setCareer] = useState();
     const [git, setGit] = useState();
+    const [link, setLink] = useState(); 
     const [photo, setPhoto] = useState(); // 프로필사진 
     //const photoData = "data:image/;base64," + photo;
 
-    //const custSkill = data.CUST_SKILL; // 관심스택 Spring,React,C 
-    const custSkillList = data.CUST_SKILL.split(',');  // 관심스택 
 
 
     //모달창  
     const [modalGit, SetModalGit] = useState(git); // 모달 Git 주소 변경 
+    const [modalLink, setModalLink] = useState(link); // 모달 기타 링크 주소 변경 
     const [Image, setImage] = useState(photo); // 모달 프로필사진 변경 
     const [modalNick, setModalNick] = useState(data.CUST_NICK); // 모달 닉네임 변경
     const [pselected, setPselected] = useState({ value: position, name: position }); // 모달 선택한 직무 
     const [cselected, setCselected] = useState({ value: career, name: career }) // 모달 선택한 경력
-    const [selected, setSelected] = useState(custSkillList); // 모달 선택한 관심스택 
-    const cust_skill = selected.join(',')  // 배열을 문자열로 변경 
+    
+
+
+    const custSkillList = data.CUST_SKILL.split(',');  // 관심스택 
+ 
+  
+    const [selected, setSelected] = useState(custSkillList); // 모달에서 선택한 관심스택 
+    const cust_skill = selected.join(','); 
    
     
 
@@ -50,6 +72,7 @@ const User = ({ data }) => {
         setPosition(data.CUST_POSITION);
         setCareer(data.CUST_CAREER);
         setGit(data.CUST_GIT); 
+        setModalLink(data.CUST_LINK); 
       }
 
       useEffect(()=>{
@@ -165,7 +188,7 @@ const User = ({ data }) => {
         if (e.target.files[0]) {
             setFile(e.target.files[0])
         } else { //업로드 취소할 시
-            setFile();
+           setFile(null);
         }
         //화면에 프로필 사진 표시
         const reader = new FileReader();
@@ -175,8 +198,10 @@ const User = ({ data }) => {
             }
         }
         reader.readAsDataURL(e.target.files[0])
-      
+
+        
     }
+
 
 
     // 통신(프로필수정)
@@ -189,6 +214,7 @@ const User = ({ data }) => {
         formData.append('cust_skill',cust_skill); //관심스택
         formData.append('cust_img1', file); //이미지 파일 
         formData.append('cust_git', modalGit); //git주소 
+        formData.append('cust_link', modalLink); //기타주소 
 
         axios.put('http://localhost:8099/userinfoupdate', formData, {
             headers: {
@@ -197,13 +223,39 @@ const User = ({ data }) => {
         })
             .then((response) => {
                 console.log('요청이 성공했습니다.', response.data);
-            
+
             })
             .catch((error) => {
                 console.error('요청이 실패했습니다.', error);
             });
     }
 
+
+    // 통신(회원탈퇴)
+    const deleteCust =async () =>{
+       
+        const requestData = {
+            cust_id : userId
+          };
+
+          try {
+            await axios.delete('http://localhost:8099/deletecust', { data: requestData });
+            console.log('요청이 성공했습니다.');
+            Cookies.remove('CUST_ID');  // 아이디 쿠키 삭제
+            Cookies.remove('CUST_IMG'); // 이미지 쿠키삭제 
+            navigator('/');   // 메인 페이지로 이동
+            
+          } catch (error) {
+            console.error('요청이 실패했습니다.', error);
+          }
+      
+    }
+
+    const handleLogout = () => {
+        Cookies.remove('CUST_ID');  // 아이디 쿠키 삭제
+        Cookies.remove('CUST_IMG'); // 이미지 쿠키삭제 
+        navigator('/');   // 메인 페이지로 이동
+      };  
 
     return (
         <div>
@@ -239,7 +291,6 @@ const User = ({ data }) => {
                             </tr>
                             <tr>
                                 <td className='Mypage-user-table-name'>관심스택</td>
-                                {/* <td className='Mypage-user-table-content'>{data.CUST_SKILL}</td> */}
                                 <td className='Mypage-user-table-content'>
                                 {custSkillList.map((skill, index) => (
                                  <span key={index}>{skill} &nbsp;</span>
@@ -253,13 +304,22 @@ const User = ({ data }) => {
                             </tr>
                             <tr>
                                 <td className='Mypage-user-table-name'>링크</td>
-                                <td className='Mypage-user-table-content'><a href={git} target="_blank"><img src={GitHub}></img></a></td>
-                            </tr>
+                                <td className='Mypage-user-table-content'>
+                                    <a href={git} target="_blank"><img src={Git}></img></a> <sapn/> {/* 깃허브 주소 */}
+                                    <a href={link}target="_blank"><img src={link1}></img></a>   {/* 다른 기타사항 주소 */}
+                                </td>
+                            </tr>               
                         </tbody>
                     </table>
                 </div>
             </div >  {/* 마이페이지 나의 프로필 정보 끝  */}
 
+            <div>
+             { data?.CUST_ID === loginUserId && (
+            //    <img src={Logout} onClick={handleLogout} className='mypage-logout-btn' />
+               <div className='logout-text' onClick={handleLogout}> 로그아웃 </div>
+              )}
+            </div>
 
 
             {/* 편집 클릭시 회원정보수정 모달 창 오픈  */}
@@ -337,7 +397,8 @@ const User = ({ data }) => {
                                                 </select>
                                             </td>
                                         </tr>
-
+                                       
+                                       {/* 관심스택 변경 */}
                                         <tr>
                                             <td className='Mypage-user-modal-name'>관심스택</td>
                                             <td>
@@ -372,6 +433,12 @@ const User = ({ data }) => {
                                             <td className='Mypage-user-modal-name'>GitHub</td>
                                             <td><input className='Mypage-user-modal-content' type="text" value={modalGit} onChange={(e) => { SetModalGit(e.target.value) }} /></td>
                                         </tr>
+
+                                         {/* 기타 링크 변경 */}
+                                        <tr>
+                                            <td className='Mypage-user-modal-name'>기타</td>
+                                            <td><input className='Mypage-user-modal-content' type="text" value={modalLink} onChange={(e) => { setModalLink(e.target.value) }} /></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <div>
@@ -397,12 +464,13 @@ const User = ({ data }) => {
                             <img src={X} onClick={closeDeletePopup} className="Mypage-modal-user-close-button"></img>
                         </div>
                         <div className='Mypage-modal-delete-text'>
-                            {nick}님 정말 탈퇴하시겠어요?
+                            <span className='delete-nickName'>{nick} &nbsp;</span> 
+                            <span className='delete-text'>님 , 정말 탈퇴하시겠어요?</span>
                         </div>
                         <div className='Mypage-modal-delete-content'>
                             탈퇴 버튼 선택 시, 계정은 삭제되며 복구되지 않습니다.
                         </div>
-                        <button className="Myapge-modal_delete" type="submit" onClick={closeDeletePopup}> 탈퇴 </button>
+                        <button className="Myapge-modal_delete" type="submit" onClick={deleteCust}> 탈퇴 </button>
                         <button className="Mypage-modal_delete_Cancle" type="submit" onClick={closeDeletePopup}> 취소 </button>
                     </div>
                 </div>)}  {/* 회원탈퇴 모달 창 끝  */}

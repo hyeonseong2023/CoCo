@@ -59,25 +59,25 @@ public class MainService {
 	// 기술스택명 = React 포지션 = 백엔드 엔드포인트 : 1 기술스택과 포지션에 맞는 최신순 게시글 가져오기
 	public JSONArray selectList(Map<String, Object> map) {
 		System.out.println(map);
-  
+
 		String skill_name = (String) map.get("skill_name"); // 기술스택명
 		String board_position = (String) map.get("board_position"); // 포지션
 		int endpoint = (int) map.get("endpoint"); // 엔드포인트
-  
+
 		// 최신순 게시글 가져오기
 		if (skill_name == null && board_position == null) {
-		   return recentList(endpoint);
-		   // 기술스택명에 맞는 최신순 게시글 가져오기
+			return recentList(endpoint);
+			// 기술스택명에 맞는 최신순 게시글 가져오기
 		} else if (skill_name != null && board_position == null) {
-		   return skillList(skill_name, endpoint);
-		   // 포지션에 맞는 최신순 게시글 가져오기
+			return skillList(skill_name, endpoint);
+			// 포지션에 맞는 최신순 게시글 가져오기
 		} else if (skill_name == null && board_position != null) {
-		   return positionList(board_position, endpoint);
+			return positionList(board_position, endpoint);
 		} else { // 기술스택과 포지션에 맞는 최신순 게시글 가져오기
-		   return skillPositionList(skill_name, board_position, endpoint);
+			return skillPositionList(skill_name, board_position, endpoint);
 		}
-  
-	 }
+
+	}
 
 	// 최신순 게시글 가져오기
 	public JSONArray recentList(int endpoint) {
@@ -143,7 +143,6 @@ public class MainService {
 			// 해당게시글의 닉네임 가져오기
 			String custNick = mapper.custNick(pb.getCust_id());
 			map.put("cust_nick", custNick);
-			System.out.println(custNick);
 
 			// 해당게시글의 스킬리스트 가져오기
 			List<TB_BOARD_SKILL> skillList = mapper.boardIdList(pb.getBoard_id());

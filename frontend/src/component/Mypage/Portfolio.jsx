@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PdfViewer from './PdfViewer' ;
 
@@ -13,36 +13,39 @@ import hamburger from '../../img/hamburger.png';
 import Cookies from 'js-cookie';
 
 
-const Portfolio = ({ data }) => {
 
-  //포트폴리오 데이터 
-  const portfolioData = data.PF_TABLE.map(item => ({
-    id: item.PF_ID, //파일 아이디 
-    pdfSrc: item.PF_PATH, //파일경로
-    text: item.PF_TITLE //파일이름 
-  }));
+const Portfolio = ({ data }) => {
 
   const custId = data.CUST_ID ; // 마이페이지 아이디  
   const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디 
+
+  //포트폴리오 데이터 Map으로 돌리기 
+  const portfolioData = data.PF_TABLE.map(item => ({
+        id: item.PF_ID, //파일 아이디 
+        pdfSrc: item.PF_PATH, //파일경로
+        text: item.PF_TITLE //파일이름 
+  }));
+
+  useEffect(()=>{
+  },[portfolioData])
+
 
   const [addModalOpen, setAddModalOpen] = useState(false);  // 포트폴리오 추가버튼 모달창 노출 여부 
   const [nameModalOpen, setNameModalOpen] = useState(false);    // 포트폴리오명 수정버튼 노출 여부 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false); // 포트폴리오 삭제버튼 노출 여부 
 
 
-  const [file, setFile] = useState("");  //프토폴리오 파일 
-  const [pdfTitle, setPdfTitle] = useState(""); //포트폴리오 제목 
+  const [file, setFile] = useState();  //프토폴리오 파일 
+  const [pdfTitle, setPdfTitle] = useState(); //포트폴리오 제목 
   const [portName, setPortName] = useState();  // 포트폴리오 제목 수정 
   const [pdfName, setPdfName] = useState(); //포트폴리오명 PDF 파일명  
   const [menuOpenIndex, setMenuOpenIndex] = useState(null); // 현재 열린 메뉴의 인덱스
-
-  // const [updateTitle, setUpdateTitle] = useState(); // 포트폴리오제목 수정 
   const [portIndex, setPortIndex] = useState(); // 포트폴리오 인덱스 
 
 
-
-  // 햄버거 버튼 클릭 시 해당 포트폴리오 메뉴를 엽니다.
+  // 햄버거 버튼 클릭 시 해당 포트폴리오 메뉴 오픈 
   const toggleMenu = (index) => {
+
     if (menuOpenIndex === index) {
       setMenuOpenIndex(null);
     } else {
@@ -62,10 +65,6 @@ const Portfolio = ({ data }) => {
   };
 
 
-
-
-
-
   // 포트폴리오명 수정 버튼 클릭 시
   const openNameModal = (text, index) => {
     setPortName(text);
@@ -77,7 +76,6 @@ const Portfolio = ({ data }) => {
   const closeNameModal = () => {
     setNameModalOpen(false);
   };
-
 
 
   // 포트폴리오 삭제 버튼 클릭시 
@@ -92,8 +90,6 @@ const Portfolio = ({ data }) => {
     setDeleteModalOpen(false);
   }
 
-
-
   // 포트폴리오 PDF 파일 이름 가져오기 
   const onChange = (e) => {
     setPdfName(e.target.files[0].name);
@@ -107,11 +103,11 @@ const Portfolio = ({ data }) => {
 
   }
 
-  // Back으로 포트폴리오 추가 
+  // 통신 (포트폴리오 추가) 
   const handleSubmit = async () => {
 
     const formData = new FormData();
-    formData.append('cust_id', 'ekdud0225');
+    formData.append('cust_id', custId);
     formData.append('pf_title', pdfTitle);
     formData.append('file', file);
 
@@ -130,11 +126,11 @@ const Portfolio = ({ data }) => {
   }
 
 
-  // 포트폴리오명 변경 
+  // 통신 (포트폴리오명 변경)
   const handleName = async () => {
 
     const requestData = {
-      cust_id: 'ekdud0225',
+      cust_id: custId,
       pf_id: portIndex,
       pf_title: portName
     };
@@ -148,7 +144,7 @@ const Portfolio = ({ data }) => {
   };
 
 
-  //포트폴리오 삭제 
+  // 통신(포트폴리오 삭제) 
   const handleDelete = async () => {
 
     const requestData = {
@@ -158,20 +154,27 @@ const Portfolio = ({ data }) => {
     try {
       await axios.delete('http://localhost:8099/pfdelete', { data: requestData });
       console.log('요청이 성공했습니다.');
+      window.location.replace("/mypage")
     } catch (error) {
       console.error('요청이 실패했습니다.', error);
     }
   };
 
+ 
   return (
 
     <div>
 
+      <div className='add-content'>
       {/* 포트폴리오 추가 버튼  */}
       {custId === loginUserId && (
         <img src={addBtn} alt="PDF 선택" className='port-add-button' onClick={openAddModal} />
       )}
+      </div>
 
+      { portfolioData.length == 0  && custId === loginUserId && (
+        <div className = 'nullText'> 포트폴리오를 추가해주세요 </div>
+      ) }
       {/* 포트폴리오 보여주는 곳 */}
       <div className='port-map-container'>
         {portfolioData.map((item, index) => (
@@ -184,8 +187,8 @@ const Portfolio = ({ data }) => {
                 {/* toggleMenu  포트폴리오 한개 당 햄버거 버튼 (제목수정, 삭제)  */}
                 {menuOpenIndex === index &&
                   <ui className="menu-container">
-                    <li onClick={() => openNameModal(item.text, item.id)}>수정</li>
-                    <li onClick={() => openDeleteModal(item.text, item.id)}>삭제</li>
+                    <li  onClick={() => openNameModal(item.text, item.id)}>수정</li>
+                    <li  onClick={() => openDeleteModal(item.text, item.id)}>삭제</li>
                   </ui>
                 }
               </div>
@@ -245,22 +248,20 @@ const Portfolio = ({ data }) => {
       } {/* 모달 창 끝  */}
 
 
-
-
       {/* 포트폴리오 이름변경 모달 창  */}
       {nameModalOpen && (
-        <div className='modal-user-back'>
-          <div className='modal-user-container'>
+        <div className='port-modal-user-back'>
+          <div className='port-modal-user-container'>
 
             {/* 모달 닫기 부분  */}
             <div className='modal-user-close'>
-              <img className='modal-user-img' src={Logo}></img>
-              <img src={X} onClick={closeNameModal} className="modal-user-close-button"></img>
+              <img className='port-modal-user-img' src={Logo}></img>
+              <img src={X} onClick={closeNameModal} className="port-modal-user-close-button"></img>
             </div>
 
             <div>
               <form>
-                <table className='modal-port-table'>
+                <table className='modal-modify-port-table'>
                   {/* 포트폴리오명 */}
                   <tr>
                     <td className='port-modal-name'>포트폴리오명</td>
@@ -280,13 +281,13 @@ const Portfolio = ({ data }) => {
 
       {/* 포트폴리오 삭제 모달창  */}
       {deleteModalOpen && (
-        <div className='modal-user-back'>
-          <div className='modal-user-container'>
+        <div className='port-modal-user-back'>
+          <div className='port-modal-user-container'>
 
             {/* 모달 닫기 부분  */}
             <div className='modal-user-close'>
-              <img className='modal-user-img' src={Logo}></img>
-              <img src={X} onClick={closeDeleteModal} className="modal-user-close-button"></img>
+              <img className='port-modal-user-img' src={Logo}></img>
+              <img src={X} onClick={closeDeleteModal} className="port-modal-user-close-button"></img>
             </div>
               <div className='delete-text'>
               "{portName}" 파일을 정말 삭제 하시겠습니까?
