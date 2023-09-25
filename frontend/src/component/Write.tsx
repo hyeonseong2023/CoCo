@@ -15,7 +15,7 @@ const Write = () => {
     recruitmentCount: 1,
     techStack: [] as string[],
     duration: 1,
-    position: '', // 수정 전: position을 문자열로 사용
+    position: '',
     startDate: new Date(),
     endDate: new Date(),
     openTalkLink: '',
@@ -25,29 +25,23 @@ const Write = () => {
     recruitmentCount: boardData?.TB_BOARD.board_members,
     techStack: boardData?.TB_BOARD_SKILL,
     duration: boardData?.TB_BOARD.board_period,
-    position: boardData?.TB_BOARD.board_position.split(",").map((item:string)=>{ return {label:item, value:item}}),
+    position: boardData?.TB_BOARD.board_position.split(",").map((item: string) => { return { label: item, value: item } }),
     startDate: boardData?.TB_BOARD.board_deadline,
     endDate: boardData?.board_deadline,
     openTalkLink: boardData?.TB_BOARD.board_openlink,
     deadline: boardData?.TB_BOARD.board_deadline,
     recruitmentType: '프로젝트',
-  }
+  };
   console.log(initialContent);
-  
 
   const [selectedPosition, setSelectedPosition] = useState(initialContent.position);
 
-  const [title, setTitle] = useState(boardData === null ? '' : boardData.TB_BOARD.board_title );
+  const [title, setTitle] = useState(boardData === null ? '' : boardData.TB_BOARD.board_title);
   const [content, setContent] = useState(boardData === null ? '' : boardData.TB_BOARD.board_content);
   const [files, setFiles] = useState<File[]>([]);
   const [insertedImages, setInsertedImages] = useState<string[]>([]);
   const [recruitmentInfo, setRecruitmentInfo] = useState(initialContent);
 
-  // useEffect(()=>{
-  //   set
-  // },[])
-
-  // Quill 에디터 모듈 설정
   const modules = {
     toolbar: {
       container: [
@@ -58,17 +52,14 @@ const Write = () => {
     },
   };
 
-  // 제목 변경 핸들러
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
-  // 내용 변경 핸들러
   const handleContentChange = (value: string) => {
     setContent(value);
   };
 
-  // 모집 정보 변경 핸들러
   const handleRecruitmentInfoChange = (name: string, value: any) => {
     setRecruitmentInfo({
       ...recruitmentInfo,
@@ -76,10 +67,8 @@ const Write = () => {
     });
   };
 
-  // 선택된 기술 스택 상태 변수 및 핸들러
   const [selectedTechStack, setSelectedTechStack] = useState<string[]>(initialContent.techStack);
 
-  // 진행 기간 변경 핸들러
   const handleDurationChange = (value: number) => {
     setRecruitmentInfo({
       ...recruitmentInfo,
@@ -87,13 +76,11 @@ const Write = () => {
     });
   };
 
-  // 제출 핸들러
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // const startDateStr = recruitmentInfo.startDate.toISOString().split('T')[0];
-    // const endDateStr = recruitmentInfo.endDate.toISOString().split('T')[0];
-    // const period = `${startDateStr}~${endDateStr}`;
+    // 기술 스택을 쉼표로 구분된 문자열로 변환
+    const positionString = selectedPosition.join(', ');
 
   const url = boardData
     ? 'http://localhost:8099/postupdateinfor'
@@ -106,7 +93,7 @@ const Write = () => {
     formData.append('board_title', title);
     formData.append('board_content', content);
     formData.append('board_openlink', recruitmentInfo.openTalkLink);
-    formData.append('board_position', recruitmentInfo.position);
+    formData.append('board_position', positionString); // 변환한 값을 추가
     formData.append('pro_title', 'Project Title');
     formData.append('pro_link', recruitmentInfo.openTalkLink);
     formData.append('board_deadline', recruitmentInfo.deadline);
@@ -114,6 +101,7 @@ const Write = () => {
     formData.append('SKILL_NAME', selectedTechStack.join(', '));
     formData.append('BOARD_IMG', "");
     boardData && formData.append('board_id', boardData.TB_BOARD.board_id);
+
 
     try {
       const response = await fetch(url, {
@@ -126,7 +114,6 @@ const Write = () => {
         navigate('/');
       } else {
         alert('게시글 작성 실패');
-
       }
     } catch (error) {
       console.error('오류 발생: ', error);
@@ -134,36 +121,30 @@ const Write = () => {
     }
   };
 
-
-
-  
-
   const techStackOptions = [
     { label: "Spring", value: "Spring" },
     { label: "JavaScript", value: "javaScript" },
     { label: "TypeScript", value: "TypeScript" },
     { label: "Vue", value: "Vue" },
-
   ];
-
 
   const positionOptions = [
     { label: '백엔드', value: '백엔드' },
     { label: '프론트엔드', value: '프론트엔드' },
     { label: '디자이너', value: '디자이너' },
-    { label: 'IOS', value: 'IOS안드로이드' },
+    { label: 'IOS안드로이드', value: 'IOS안드로이드' },
     { label: '안드로이드', value: '안드로이드' },
     { label: '데브옵스', value: '데브옵스' },
     { label: 'PM', value: 'PM' },
     { label: '기획자', value: '기획자' },
   ];
 
-  const handlePositionChange = (selectedOptions : any) => {
+
+  const handlePositionChange = (selectedOptions: any) => {
     if (selectedOptions.length <= 3) {
-      setSelectedPosition(selectedOptions);
+      setSelectedPosition(selectedOptions.map((option: any) => option.value));
     }
   };
-
 
   return (
     <div className="write-container">
@@ -175,7 +156,7 @@ const Write = () => {
           </div>
 
           <div className="form-group form-group-spacing">
-            <label htmlFor="title">제목:</label>
+            <label htmlFor="title">게시글 제목</label>
             <input
               type="text"
               id="title"
@@ -190,7 +171,7 @@ const Write = () => {
           </div>
           <div className="form-group-form-groups">
             <div className="form-subgroup form-subgroup-spacing">
-              <label htmlFor="recruitmentCount">모집 인원:</label>
+              <label htmlFor="recruitmentCount">모집 인원</label>
               <select
                 id="recruitmentCount"
                 name="recruitmentCount"
@@ -218,7 +199,6 @@ const Write = () => {
                 )}
                 onChange={(selectedOptions: any) => {
                   console.log(selectedTechStack);
-                  
                   if (selectedOptions.length <= 3) {
                     setSelectedTechStack(
                       selectedOptions.map((option: any) => option.value)
@@ -266,13 +246,14 @@ const Write = () => {
                 name="position"
                 options={positionOptions}
                 isMulti
-                value={selectedPosition}
+                value={selectedPosition.map((value: any) => ({
+                  label: value,
+                  value: value,
+                }))}
                 onChange={handlePositionChange}
                 className="custom-select"
               />
             </div>
-
-
             <div className="form-subgroup form-subgroup-spacing">
               <label htmlFor="openTalkLink"> 오픈톡 링크</label>
               <input
@@ -287,7 +268,6 @@ const Write = () => {
               />
             </div>
           </div>
-
           <div className="form-group form-group-spacing">
             <label htmlFor="content">내용</label>
             <ReactQuill
@@ -297,7 +277,6 @@ const Write = () => {
               onChange={handleContentChange}
             />
           </div>
-
           <div className="cancel-submit-buttons">
             <Link to={'/'}>
               <button type="button" className="cancel-button">

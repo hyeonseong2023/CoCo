@@ -21,6 +21,7 @@ public class TB_CUST {
 	private String cust_img; // 회원 프로필 사진 이미지 경로 
 	private String cust_git; // 회원 깃허브 링크 
 	private String cust_skill ;  // 회원 관심스킬 (다중선택) 9월21일 12시30분 다영
+	private String cust_link ; // 회원 기타 링크 9월 25일 4시 18분 다영 
 	
 	
 
