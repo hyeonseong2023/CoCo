@@ -15,10 +15,10 @@ const Project = ({ data }) => {
   
   //프로젝트 데이터 Map으로 돌리기 
   const projectData = data.PROJECT.map(item => ({
-     id : item.BOARD_ID , //게시글 아이디 
-     title : item.PRO_TITLE , // 프로젝트 명 
-     CamLink : item.PRO_LINK, // 프로젝트 화상회의 링크 
-     img : item.PRO_IMG //프로젝트 이미지 
+     proId : item.BOARD_ID , //게시글 아이디 
+     proTitle : item.PRO_TITLE , // 프로젝트 명 
+     proLink : item.PRO_LINK, // 프로젝트 화상회의 링크 
+     proImg : item.PRO_IMG //프로젝트 이미지 
   }))
 
   useEffect(()=>{
@@ -51,8 +51,8 @@ const Project = ({ data }) => {
         {projectData.map((item, index) => (
            <div className='project-container'>
              <div key ={item.idex}>
-              <a><img src={"data:image/;base64," + item.img} className='project-img' onClick={() => {HandleProject(item.id, item.CamLink)}}/></a>
-              <div> <p>{item.title}</p></div>
+              <a><img src={"data:image/;base64," + item.proImg} className='project-img' onClick={() => {HandleProject(item.proId, item.proCamLink)}}/></a>
+              <div> <p>{item.proTitle}</p></div>
               </div>    
             </div>
         ))}

@@ -40,8 +40,7 @@ const TopPosts = () => {
         cust_nick: item.cust_nick
         
       }));
-      console.log(response);
-      
+
       setSlideContents(fetchedData);
 
     } catch (error) {
@@ -108,9 +107,8 @@ const TopPosts = () => {
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
-            console.log(data.cust_nick);
             return (
-              <Link to={`/Contents/${data.id}`} key={index} state={data}>
+              <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
                 <div className={contentClassName} key={index}>
                   {isExpired ? (
                     <div className='topHeader'>
@@ -133,7 +131,7 @@ const TopPosts = () => {
                       </div>
                     ))}
                   </div>
-                  <div className='topend'><div className='topend1'><img src={img} alt="" /></div><div className='topend2'></div><div className='topend3'>{data.board_views}</div></div>
+                  <div className='topend'><div className='topend1'><img src={img} alt="" /></div><div className='topend2'>{data.cust_nick}</div><div className='topend3'>{data.board_views}</div></div>
                 </div>
               </Link>
             );

@@ -163,6 +163,13 @@ width: 40px;
 .boxB_1{
   margin-bottom: 15%;
 }
-.boxB_2{
+.boxA_img{
+  display: flex;
 
+  align-items: center;
 }
+
+.contentsNick{
+  margin-left: 1%;
+}
+

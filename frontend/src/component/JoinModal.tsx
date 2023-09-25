@@ -193,9 +193,7 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
     try {
       await axios.post('http://localhost:8099/firstlogin', requestData);
       console.log('요청이 성공했습니다.');
-
       setWelcomeOpen(true);
-
     } catch (error) {
       console.error('요청이 실패했습니다.', error);
     }
@@ -334,4 +332,3 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
 }
 
 export default JoinModel;
-
