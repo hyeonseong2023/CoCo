@@ -103,7 +103,7 @@
 }
 
 .Content-topicon2{
-  height: 60%;
+  height: 20%;
   margin-left: 5%;
   margin-top: 5%;
 }
@@ -114,9 +114,16 @@
   width: 100%;
 }
 
+.Content-topicon2 > div{
+  margin-bottom: 5%;
+}
+
+
 .Content-topicon2 > div >div{
   margin-left: 2.5%;
   margin-right: 2.5%;
+  font-size: 1.1rem;
+  font-weight: 800;
 }
 
 .topiconbox {
@@ -171,5 +178,22 @@ width: 40px;
 
 .contentsNick{
   margin-left: 1%;
+}
+
+.boxB_2>img{
+  width: 35px;
+  
+}
+
+.boxB_2{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  padding-right: 38%;
+  margin-top: 30%;
+}
+
+.topend3 >img{
+  width: 20%;
 }
 

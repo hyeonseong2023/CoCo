@@ -61,11 +61,6 @@
 }
 
 
-
-.header-buttons {
-
-}
-
 .mypageicon > img {
   height: 60px;
 }
@@ -121,3 +116,6 @@
   width: 100%;
 }
 
+.header-container{
+  display: flex;
+}

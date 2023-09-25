@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import bookmarkon from '../img/Bookmarkon.png'
 import img from '../img/profilePicture.png'
+import viewicon from '../img/viewsIcon.png'
 interface PostData {
   id: string;
   title: string;
@@ -38,7 +39,7 @@ const TopPosts = () => {
         pro_img: item.pro_img,
         board_views: item.board_views,
         cust_nick: item.cust_nick
-        
+
       }));
 
       setSlideContents(fetchedData);
@@ -131,7 +132,13 @@ const TopPosts = () => {
                       </div>
                     ))}
                   </div>
-                  <div className='topend'><div className='topend1'><img src={img} alt="" /></div><div className='topend2'>{data.cust_nick}</div><div className='topend3'>{data.board_views}</div></div>
+                  <div className='topend'><div className='topend1'>
+                    <img src={img} alt="" /></div><div className='topend2'>{data.cust_nick}
+                    </div>
+                    <div className='topend3'>
+                      <img src={viewicon} alt="" />{data.board_views}
+                    </div>
+                  </div>
                 </div>
               </Link>
             );

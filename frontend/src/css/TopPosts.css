@@ -199,14 +199,14 @@
 
   .topend2{
     display: flex;
-    justify-content: center; /* 가로 가운데 정렬 */
-    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; 
+    align-items: center;
   }
 
   .topend3{
     display: flex;
-    justify-content: center; /* 가로 가운데 정렬 */
-    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: flex-end;
+    align-items: center; 
   }
 
   .topTail > div{

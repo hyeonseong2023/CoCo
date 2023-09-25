@@ -3,7 +3,7 @@ import '../css/Contents.css';
 import { Link } from 'react-router-dom';
 import img from '../img/profilePicture.png';
 import book from '../img/Bookmarkoff.png';
-
+import viewicon from '../img/viewsIcon.png'
 interface CategoryData {
   id: any;
   name: any;
@@ -79,7 +79,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                     </div>
                     <div className='boxB_bookmark'>
                       <div className='boxB_1'><img src={book} alt="" /> </div>
-                      <div className='boxB_2'><img src="" alt="" />{data.board_views}</div>
+                      <div className='boxB_2'><img src={viewicon} alt="" />{data.board_views}</div>
                     </div>
                     <div className='ContentsLine'></div>
                     <div className='Content-topTail'>
@@ -87,7 +87,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                         모집인원 {data.board_members}
                       </div>
                       <div className='Content-topicon2'>
-                        아이콘
+                        <div>아이콘</div>
                         <div className='topiconbox'>
                           {data.board_position.split(',').map((position: string, positionIndex: number) => (
                             <div
