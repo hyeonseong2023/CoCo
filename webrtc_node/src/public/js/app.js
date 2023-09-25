@@ -254,6 +254,14 @@ const NOTICE_CN = "noticeChat";
 
 chatForm.addEventListener("submit", handleChatSubmit);
 
+const chatInput = chatForm.querySelector("input");
+
+fileInput.addEventListener("change", function () {
+  if (this.files && this.files.length > 0) {
+    chatInput.value = this.files[0].name;
+  }
+});
+
 function handleChatSubmit(event) { // 채팅 메세지 제출
   event.preventDefault();
   const chatInput = chatForm.querySelector("input");
@@ -408,7 +416,6 @@ socket.on("accept_join", async (userObjArr) => {
   if (length === 1) {
     return;
   }
-  console.log("ㅎㅇ");
   for (let i = 0; i < length - 1; ++i) {
     try {
       const newPC = createConnection(
@@ -456,10 +463,26 @@ socket.on("chat_file", (arrayBuffer, message) => {
   writeChat(message);
 });
 
+socket.on('updateMemberList', (members) => {
+
+  const memberBox = document.querySelector("#memberBox");
+  const memberCount = document.querySelector("#memberCount");
+
+  memberBox.innerHTML = "";
+  memberCount.innerText = members.length;
+  // 각 멤버를 목록에 추가
+  members.forEach(member => {
+    let li = document.createElement("li");
+    li.textContent = member;
+    memberBox.appendChild(li);
+  });
+
+
+});
 
 socket.on("leave_room", (leavedSocketId, nickname) => {
   removeVideo(leavedSocketId);
-  writeChat(`${nickname} 님이 퇴장하였습니다.`, NOTICE_CN);
+  writeChat(`${nickname} 님이 퇴장하였습니다`, NOTICE_CN);
   --peopleInRoom;
   sortStreams();
 });

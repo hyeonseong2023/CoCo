@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CoCoApplication<CoCo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.smhrd.coco.CoCoApplication",
+            "projectName": "CoCo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

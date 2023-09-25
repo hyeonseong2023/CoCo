@@ -103,6 +103,11 @@ wsServer.on("connection", (socket) => {
     ++targetRoomObj.currentNum;
 
     socket.join(roomName);
+
+    const members = targetRoomObj.users.map(user => user.nickname); // 닉네임 배열 얻기
+
+    wsServer.to(roomName).emit('updateMemberList', members); // 모든 클라이언트에게 업데이트된 리스트 보내기
+
     socket.emit("accept_join", targetRoomObj.users);
   });
 
@@ -141,6 +146,11 @@ wsServer.on("connection", (socket) => {
 
         if (roomObjArr[i].currentNum == 0) {
           isRoomEmpty = true;
+        } else {
+          const members = roomObjArr[i].users.map(user => user.nickname); // 닉네임 배열 얻기
+
+          wsServer.to(myRoomName).emit('updateMemberList', members); // 모든 클라이언틀르에게 업데이트된 리스트 보내기
+
         }
       }
     }

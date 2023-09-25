@@ -35,10 +35,17 @@ html(lang="en")
                         div#controlers__column
                             button#leave 나가기
                 div#chatRoom
+                    div#memberSet
+                        img(src="https://cdn-icons-png.flaticon.com/512/33/33308.png", alt='Image description', width='30', height='30')
+                        h1#memberList 참가자
+                        h1#memberCount 0
+                    ul#memberBox
                     ul#chatBox
                     form#chatForm
                         input(required, type="text", placeholder="메세지를 입력하세요")
                         button 전송
+                        label(for='fileInput')
+                            img(src='https://cdn-icons-png.flaticon.com/512/54/54719.png', alt='Image description', width='20', height='20')
                         input#fileInput(type='file')
         aside.modal.hidden
             div.modal__box
