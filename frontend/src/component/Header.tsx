@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/Header.css';
-import logoimg from '../img/Logo.png';
+import logoimg from '../img/cocoLogo.png';
 import Login from './Login';
 import JoinModel from './JoinModal';
 import Cookies from 'js-cookie';

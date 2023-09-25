@@ -117,14 +117,6 @@ public class BoardController {
 		
 	}
 	
-//	//선택한 게시글 내용 보내기
-//		@GetMapping("/selectpostviews/{board_id}/{cust_id}")
-//		public JSONArray selectPostViews(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
-//
-//			return service.selectPostViews(board_id, cust_id);
-//			
-//		}
-	
 	//게시글에 지원하기
 	@GetMapping("/postApply/{board_id}/{cust_id}")
 	public int postApply(@PathVariable("board_id")int board_id, @PathVariable("cust_id")String cust_id) {
@@ -173,17 +165,26 @@ public class BoardController {
 		
 		if(cnt>0) {
 			System.out.println("게시글 모집 마감 성공");
-//			String redirect_uri="http://localhost:3000/Contents/"+board_id;
-//	    	try {
-//				response.sendRedirect(redirect_uri);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
 		}else {
 			System.out.println("게시글 모집 마감 실패!!");
 		}
 		
 		return cnt;
+	}
+	
+	//게시글 삭제 클릭시 board_id => admin 관리자로 변경
+	@GetMapping("/postdelete/{board_id}")
+	public int postDelete(@PathVariable("board_id")int board_id) {
+		
+		int cnt = service.postDelete(board_id);
+		
+		if(cnt>0) {
+			System.out.println("게시글 삭제 성공");
+		}else {
+			System.out.println("게시글 삭제 실패!!");
+		}
+		return cnt;
+		
 	}
 	
 
