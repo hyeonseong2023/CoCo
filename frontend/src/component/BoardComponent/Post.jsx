@@ -19,17 +19,18 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DeadlineModal from './DedlineModal';
 import Write from '../Write';
+import DeleteModal from './DeleteModal';
 
 const Post = ({ data, boardData }) => {
   console.log(boardData);
   const isBookmarked = boardData.TB_BOOKMARK > 0 ? true : false;
-  const applyCheck = boardData.TB_APPLY > 0 ? true
-   : false;
+  const applyCheck = boardData.TB_APPLY > 0 ? true : false;
   const [isEmptyBmk, setIsEmptyBmk] = useState(isBookmarked);
   const [isApply, setIsApply] = useState(applyCheck);
   const [bmkImgClicked, setBmkImgClicked] = useState(false);
   const [madalOpen, setModalOpen] = useState(false);
   const [dPopupOpne, setDPopupOpne] = useState(false);
+  const [postDeletePopup, setPostDeletePopup] = useState(false);
   const [title, setTitle] = useState(boardData.TB_BOARD.board_title);
   const [views, setViews] = useState(boardData.TB_BOARD.board_views);
   const [date, setDate] = useState(boardData.TB_BOARD.board_dt);
@@ -63,8 +64,7 @@ const Post = ({ data, boardData }) => {
 
     await axios
       .get(`${apiUrl}/${data.id}/${Cookies.get('CUST_ID')}`)
-      .then((res) => {
-      });
+      .then((res) => {});
   };
 
   const toggleBmk = () => {
@@ -86,8 +86,19 @@ const Post = ({ data, boardData }) => {
     setDPopupOpne(true);
   };
 
+  const postDeleteClick = () => {
+    setPostDeletePopup(true);
+  };
+
   return (
     <div className="post">
+      {postDeletePopup && (
+        <DeleteModal
+          setPostDeletePopup={setPostDeletePopup}
+          data={data}
+        ></DeleteModal>
+      )}
+
       {dPopupOpne && (
         <DeadlineModal
           setDPopupOpne={setDPopupOpne}
@@ -149,6 +160,7 @@ const Post = ({ data, boardData }) => {
                 }}
               />
               <img
+                onClick={postDeleteClick}
                 alt=""
                 className="deleteBtn"
                 src={deleteBtn}

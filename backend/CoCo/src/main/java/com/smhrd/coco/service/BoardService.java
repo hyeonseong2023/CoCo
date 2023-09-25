@@ -125,13 +125,17 @@ public class BoardService {
 	
 	//게시글 모집마감
 	public int postDeadline(int board_id) {
-		
-		
+				
 		Date date = new Date();
 		SimpleDateFormat toDay = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String today = toDay.format(date);
 		
 		return mapper.postDeadline(board_id, today);
+	}
+	
+	//게시글 삭제 클릭시 board_id => admin 관리자로 변경
+	public int postDelete(int board_id) {
+		return mapper.postDelete(board_id);
 	}
 	
 	
