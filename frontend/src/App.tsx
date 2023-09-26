@@ -20,7 +20,8 @@ const App: React.FC = () => {
           <Route path="/callback/*" element={<Main />} /> {/* 기본 경로 */}
           <Route path="/Check" element={<Check />} />
           <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
-          <Route path="/Contents/:id" element={<SinglePage />} />
+          <Route path="/pp" element={<ProjectPage />} />
+          <Route path="/selectpostviews/:id" element={<SinglePage />} />
         </Routes>
       </div>
       <Routes>

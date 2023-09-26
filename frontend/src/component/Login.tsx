@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../css/Login.css';
 import logoimg from '../img/Logo.png';
 import axios from 'axios'; // Axios 추가
-import X from '../img/x.png'; 
+import X from '../img/x.png';
 
 type LoginProps = {
   onClose: () => void;
@@ -10,7 +10,7 @@ type LoginProps = {
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 const redirectUrl = process.env.REACT_APP_REDIRECT_URL;
-const googleLoginURL = `http://localhost:8099/login/getGoogleAuthUrl`;
+const googleLoginURL = `${process.env.REACT_APP_URL_8099}/login/getGoogleAuthUrl`;
 
 const kakaoLoginURL = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code`;
 
@@ -63,7 +63,7 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
             <div id="loginbox-container">
               <div className='loginbox-welcome'> CoCo에 오신 것을 환영합니다!</div>
               <div className="popup">
-              <div>
+                <div>
                   <button onClick={handleKakaoLogin} id="kakaologin">
                     <svg
                       id="Bold"

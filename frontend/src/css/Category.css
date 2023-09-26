@@ -1,4 +1,10 @@
-/* 첫 번째 select 요소 스타일 */
+.AppliedActive{
+  background-color: #007bff;
+}
+
+.AppliedInactive{
+
+}
 #lang1 {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -7,7 +13,6 @@
   border-radius: 5px;
 }
 
-/* 두 번째 select 요소 스타일 */
 #lang2 {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -15,8 +20,6 @@
   font-size: 16px;
   border-radius: 5px;
 }
-
-/* 선택된 옵션 스타일 */
 select option:checked {
   background-color: #007bff;
   color: #fff;
@@ -41,17 +44,10 @@ select option:checked {
 }
 
 .category_main {
-  display: flex;
   align-items: center;
 }
 
-.category_main > div {
-  margin-left: 1%;
-}
 
-.category_main {
-  width: 100%;
-}
 
 .category > div > div {
   width: 180%;
@@ -59,4 +55,89 @@ select option:checked {
 
 .css-1dimb5e-singleValue {
   width: 50px;
+}
+
+
+.category_sub1{
+  display: flex;
+}
+
+
+.category_titlemain{
+ font-size:  2rem;
+}
+
+.category_sub1{
+  font-size: 1.2rem;
+}
+
+.category_main_sub{
+  margin-top: 5%;
+}
+
+.react-select-2-live-region{
+  width: auto !important;
+}
+
+.category_titlesec{
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.category_sub2{
+  margin-left: auto;
+}
+
+/* 파란색 박스 스타일 */
+.select-box {
+  border-radius: 4px;
+}
+
+.category_sub1>div{
+  margin-right: 5%;
+
+}
+
+.category_sub1>*{
+  color: #000000;
+}
+
+.labelselect1, .labelselect2{
+  border: 0.5px solid #4598FF; /* 파란색 테두리 */
+  padding: 8px;
+  border-radius: 10px;
+
+}
+
+.labelselect1, .labelselect2>*{
+  color: #4598FF;
+}
+
+.labelselect1:hover{
+  background-color: #4598FF;
+  color: aliceblue;
+}
+.labelselect2:hover{
+  background-color: #4598FF;
+  color: aliceblue!important;
+}
+.category_sub2>label{
+  margin-right: 10px;
+}
+
+.labelselect2{
+  margin-right: 0px!important;
+}
+
+.category_main{
+  margin-bottom: 2%;
+}
+
+.category_sub2{
+  display: flex;
+}
+
+.imgbtnbox{
+  margin-top: 30%;
+  margin-right: 10px;
 }

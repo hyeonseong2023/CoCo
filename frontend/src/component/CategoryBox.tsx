@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import '../css/Category.css';
+import bookmarkIconon from '../img/Bookmarkon.png'
+import bookmarkIconoff from '../img/Bookmarkoff.png'
 
 interface CategoryOption {
   value: any;
@@ -8,14 +10,35 @@ interface CategoryOption {
 }
 
 interface CategoryBoxProps {
-  onUpdateData: (data: string) => void;
-  setSelectedLanguage: React.Dispatch<React.SetStateAction<string | null>>; 
-  setSelectedPosition: React.Dispatch<React.SetStateAction<string | null>>; 
+  onUpdateData: (selectedCategory: string | null) => void;
+  setSelectedLanguage: React.Dispatch<React.SetStateAction<string | null>>;
+  setSelectedPosition: React.Dispatch<React.SetStateAction<string | null>>;
+  isBookmarked: boolean;
+  isApplied: boolean;
+  onBookmarkToggle: () => void;
+  onAppliedToggle: () => void;
+  onMyPostsClick: () => void;
 }
 
-const CategoryBox: React.FC<CategoryBoxProps> = ({ setSelectedLanguage, setSelectedPosition }) => {
-  const [selectedLanguage, setSelectedLanguageLocal] = useState<CategoryOption | null>(null);
-  const [selectedPosition, setSelectedPositionLocal] = useState<CategoryOption | null>(null);
+const CategoryBox: React.FC<CategoryBoxProps> = ({
+  setSelectedLanguage,
+  setSelectedPosition,
+  isBookmarked,
+  isApplied,
+  onBookmarkToggle,
+  onAppliedToggle,
+  onMyPostsClick,
+}) => {
+
+  const [viewState, setViewState] = useState<string | null>(null);
+
+  const handleButtonClick = (stateName: string) => {
+    if (viewState === stateName) {
+      setViewState(null);
+    } else {
+      setViewState(stateName);
+    }
+  };
 
   const categoryOptions1: CategoryOption[] = [
     { label: "javascript", value: "javascript" },
@@ -45,7 +68,6 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ setSelectedLanguage, setSelec
     { value: "Zeplin", label: "Zeplin" }
 
   ];
-  
 
   const categoryOptions2: CategoryOption[] = [
     { value: "백엔드", label: "백엔드" },
@@ -57,41 +79,81 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ setSelectedLanguage, setSelec
     { value: "PM", label: "PM" },
     { value: "기획자", label: "기획자" }
   ];
-  
+
+
   const handleSelectChange1 = (selectedOption: CategoryOption | null) => {
     if (selectedOption) {
-      setSelectedLanguageLocal(selectedOption);
-      setSelectedLanguage(selectedOption.value); // setSelectedLanguage를 업데이트
+      setSelectedLanguage(selectedOption.value); // setSelectedLanguage로 변경
     }
   };
 
   const handleSelectChange2 = (selectedOption: CategoryOption | null) => {
     if (selectedOption) {
-      setSelectedPositionLocal(selectedOption);
-      setSelectedPosition(selectedOption.value); // setSelectedPosition을 업데이트
+      setSelectedPosition(selectedOption.value); // setSelectedPosition으로 변경
     }
   };
 
+  const customStyles = {
+    control: (provided: any) => ({
+      ...provided,
+      width: 200,
+    }),
+
+  };
   return (
     <div className='category_main'>
-      <div className='category'>
-        <Select
-          options={categoryOptions1}
-          value={selectedLanguage}
-          onChange={(selectedOption) => handleSelectChange1(selectedOption)}
-          className="select-box category1"
-        />
+      <div className='category_titlemain'>
+        <h1>분야별 프로젝트</h1>
+        <h5>분야별 함께할 팀원을 모집해 보세요.</h5>
       </div>
-      <div className='category'>
-        <Select
-          options={categoryOptions2}
-          value={selectedPosition}
-          onChange={(selectedOption) => handleSelectChange2(selectedOption)}
-          className="select-box category2"
-        />
-      </div>
-      <div className='category'>
-        <div>👋 내 북마크 보기</div>
+      <div className='category_titleseb'>
+        <div className='category_titlesec'>
+          <div className='category_sub1'>
+            <Select
+              options={categoryOptions1}
+              // value 속성 제거
+              onChange={(selectedOption) => handleSelectChange1(selectedOption)}
+              className="select-box category1"
+              styles={customStyles}
+              placeholder="기술스택"
+            />
+            <Select
+              options={categoryOptions2}
+              // value 속성 제거
+              onChange={(selectedOption) => handleSelectChange2(selectedOption)}
+              className="select-box category2"
+              styles={customStyles}
+              placeholder="포지션"
+            />
+          </div>
+          <div className='category_sub2'>
+          <label>
+              <button>
+              <img
+                src={viewState === 'bookmark' ? bookmarkIconon : bookmarkIconoff}
+                alt="북마크 아이콘"
+                className='imgbtnbox'
+                onClick={() => { handleButtonClick('bookmark'); onBookmarkToggle(); }}
+              />
+              </button>
+            </label>
+            <label className='labelselect1'>
+              <button
+                onClick={() => { handleButtonClick('applied'); if (viewState !== 'applied') { onAppliedToggle(); } }}
+
+              >
+                지원한 게시글 보기
+              </button>
+            </label>
+            <label className='labelselect1'>
+              <button
+                onClick={() => { handleButtonClick('myposts'); onMyPostsClick(); }}
+              >
+                내가 쓴 게시물 보기
+              </button>
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   );

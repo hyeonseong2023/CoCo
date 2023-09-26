@@ -55,28 +55,19 @@
   }
   
  
-
-.header-container{
-    display: flex;
+.header-logo {
+  margin-top: 10px;
+  /* background-color: #7d7d7d; */
 }
 
-.header-buttons {
-  flex: 1; 
-  text-align: right;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
 
 .mypageicon > img {
   height: 60px;
 }
 
-.header-buttons-div {
+.header-buttons-div{
   display: flex;
-  align-items: center;
 }
-
 
 .mypageicon {
   width: 50px; 
@@ -85,7 +76,8 @@
   height: 50px; 
   overflow: hidden;
   border-radius: 80%;
-  border: solid #7d7d7d 1px;
+  border: 1px solid #ccc;
+  margin-left: 10px;
 }
 
 .mypageicon img {
@@ -95,28 +87,43 @@
   
 }
 
+.mypageicon button {
+ 
+  background-color: #007bff;
+  
+}
+
 
 .writeicon >button{
+  font-size: large;
+  font-weight: 600;
+  margin-left: 1200px;
   width: auto;
   height: auto;
 }
+.header-buttons-div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* 요소를 오른쪽으로 정렬합니다. */
+}
+.header-buttons-div > button{
 
-.header-buttons-div> a{
-  margin: 5%;
+  /* background-color: #007bff; */
+  width:110px;
+  font-size: large;
+  font-weight: 600;
 }
 
-.header-buttons-div > a> button{
-  white-space : nowrap;
-}
-
-.header-buttons-div button, .header-buttons-div img {
-  margin-right: 3% 
-}
-
-.header-buttons-div{
-  margin-right: 3%;
-}
 
 .header-containerH{
   width: 100%;
+}
+
+.header-container{
+  display: flex;
+}
+
+.header-buttons{
+  display: flex;
+  align-items: center;
 }

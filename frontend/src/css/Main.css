@@ -9,4 +9,29 @@
     padding-left: 10%;
     padding-right: 10%;
     padding-top: 2%;
+    
+}
+
+.more-button {
+  background-color: #fff;
+  color: #4598FF;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  width: 97%;
+  border: 1px solid #4598FF;
+  margin-right: 1%;
+}
+
+.more-button:hover {
+  background-color: #9fcdfa;
+}
+
+.more-button-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }

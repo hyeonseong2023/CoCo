@@ -11,12 +11,30 @@
                  VALUES (#{cust_id},#{board_title},#{board_members},#{board_period},#{board_deadline},#{board_openlink},#{board_content},
                          #{board_views},#{board_position},#{pro_title},#{pro_img},#{pro_link});
 	</insert>
+	
+	<!-- TB_BOARD 정보 업데이트 -->
+	<update id="postUpdateBoard" parameterType="com.smhrd.coco.domain.TB_BOARD">
+		   UPDATE TB_BOARD SET BOARD_TITLE = #{board_title}, BOARD_MEMBERS=#{board_members}, BOARD_PERIOD=#{board_period}, 
+		   BOARD_DEADLINE=#{board_deadline},BOARD_OPENLINK=#{board_openlink}, BOARD_CONTENT=#{board_content}, 
+		   BOARD_POSITION=#{board_position}, PRO_TITLE=#{pro_title}, PRO_IMG=#{pro_img} WHERE BOARD_ID = #{board_id};
+	</update>
 
 	<!-- TB_BOARD_SKILL 정보 저장 -->
-	<insert id="postSaveSkill" parameterType="com.smhrd.coco.domain.TB_BOARD_SKILL">
+	<insert id="postSaveSkill">
 			INSERT INTO TB_BOARD_SKILL (BOARD_ID, SKILL_NAME)
 								VALUES (#{board_id}, #{SKILL_NAME});
 	</insert>
+	
+	<!-- TB_BOARD_SKILL 정보 삭제 -->
+	<delete id="postDeleteSkill">
+			DELETE FROM TB_BOARD_SKILL WHERE BOARD_ID = #{board_id};
+	</delete>
+	
+	
+	<!-- TB_BOARD_SKILL 정보 업데이트 -->
+	<update id="postUpdateSkill" parameterType="com.smhrd.coco.domain.TB_BOARD_SKILL">
+			UPDATE TB_BOARD_SKILL SET SKILL_NAME=#{SKILL_NAME} WHERE BOARD_ID = #{board_id}
+	</update>
 
 	<!-- TB_BOARD_IMG 정보저장 -->
 	<insert id="postSaveImg" parameterType="com.smhrd.coco.domain.TB_BOARD_IMG">
@@ -24,25 +42,30 @@
 							VALUES (#{board_id}, #{BOARD_IMG});
 	</insert>
 	
+	<!-- TB_BOARD_IMG 정보 업데이트 -->
+	<update id="postUpdateImg" parameterType="com.smhrd.coco.domain.TB_BOARD_IMG">
+			UPDATE TB_BOARD_IMG SET BOARD_IMG=#{BOARD_IMG} WHERE BOARD_ID = #{board_id}
+	</update>
+	
 	<!-- 선택한 게시물 board 테이블에서 정보가져오기 -->
-	<select id="selectPostBoard" resultType="com.smhrd.coco.domain.TB_BOARD" >
+	<select id="selectPostBoard" resultType="com.smhrd.coco.domain.TB_BOARD">
 			SELECT BOARD_ID, CUST_ID, BOARD_TITLE, BOARD_MEMBERS, BOARD_PERIOD, BOARD_DEADLINE, BOARD_OPENLINK, 
 					BOARD_CONTENT, BOARD_DT, BOARD_VIEWS, BOARD_POSITION 
 			FROM TB_BOARD WHERE BOARD_ID = #{board_id}
 	</select>
 	
-	<!-- 선택한 게시물 skill 테이블에서 정보가져오기 -->
-	<select id="selectPostCust" resultType="com.smhrd.coco.domain.TB_CUST" >
+	<!-- 선택한 게시물 cust 테이블에서 정보가져오기 -->
+	<select id="selectPostCust" resultType="com.smhrd.coco.domain.TB_CUST">
 			SELECT CUST_ID, CUST_NICK, CUST_IMG FROM TB_CUST WHERE CUST_ID=#{cust_id}
 	</select>
 	
 	<!-- 선택한 게시물 skill 테이블에서 정보가져오기 -->
-	<select id="selectPostSkill" resultType="com.smhrd.coco.domain.TB_BOARD_SKILL" >
+	<select id="selectPostSkill" resultType="com.smhrd.coco.domain.TB_BOARD_SKILL">
 			SELECT BOARD_ID, SKILL_NAME FROM TB_BOARD_SKILL WHERE BOARD_ID = #{CUST_ID}
 	</select>
 	
 	<!-- 선택한 게시물 board_img 테이블에서 정보가져오기 -->
-	<select id="selectPostImag" resultType="com.smhrd.coco.domain.TB_BOARD_IMG" >
+	<select id="selectPostImag" resultType="com.smhrd.coco.domain.TB_BOARD_IMG">
 			SELECT BOARD_ID, BOARD_IMG FROM TB_BOARD_IMG WHERE BOARD_ID = #{board_id}
 	</select>
 	
@@ -73,6 +96,16 @@
 	<select id="getOrCreateProLink" resultType="string">
 			{call GetOrCreateProLink(#{board_id,jdbcType=INTEGER})}
 	</select>
+	
+	<!-- 모집마감 -->
+	<update id="postDeadline">
+		UPDATE TB_BOARD SET BOARD_DEADLINE = #{toDay} WHERE BOARD_ID = #{board_id}
+	</update>
+	
+	<!-- 게시글 삭제 클릭시 board_id => admin 관리자로 변경 -->
+	<update id="postDelete">
+		UPDATE TB_BOARD SET CUST_ID = 'admin' WHERE BOARD_ID = #{board_id}
+	</update>
 
 
 

@@ -30,3 +30,34 @@
     margin-top:130px;
     /* background-color: blueviolet; */
   }
+
+  .teamSelect{
+    width: 90px;
+    margin-left: 470px;
+    cursor: pointer;
+  }
+
+  .null-project{
+    margin-top: 200px;
+    margin-left: 400px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #747474;
+
+  }
+
+
+.project-map-container{
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-row-gap : 40px;  
+  margin-left: 80px;
+}
+ 
+
+.project-img{
+  width: 350px;
+  height: 190px;
+
+}

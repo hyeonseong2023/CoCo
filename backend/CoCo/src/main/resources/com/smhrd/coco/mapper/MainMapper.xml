@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.coco.mapper.MainMapper">
 
+	<!-- 프로필 이미지 보내기 -->
+    <select id="ImgPath" parameterType="String" resultType="com.smhrd.coco.domain.TB_CUST">
+    select * from TB_CUST 
+    where CUST_ID = #{cust_id} ; 
+    </select>
+    
 	<!-- 조회수 증가 -->
 	<update id="increaseViews">
 		update TB_BOARD set BOARD_VIEWS = BOARD_VIEWS + 1
@@ -18,6 +24,7 @@
 	<!-- 인기글(조회수기반) 가져오기 -->
 	<select id="popularList">
 		select * from TB_BOARD
+		WHERE CUST_ID NOT IN ('admin')
 		order by BOARD_VIEWS
 		desc LIMIT
 		6 ;
@@ -43,16 +50,18 @@
 	<select id="bookmarkList"
 		parameterType="com.smhrd.coco.domain.TB_BOOKMARK">
 		select * from TB_BOARD
-		where BOARD_ID IN ( select
+		where CUST_ID NOT IN ('admin') and 
+		BOARD_ID IN ( select
 		BOARD_ID
 		from TB_BOOKMARK
-		where CUST_ID = #{cust_id}) ;
+		where CUST_ID = #{cust_id}) ; 
 	</select>
 
 
 	<!-- 최신순 게시글 가져오기 -->
 	<select id="recentList" parameterType="int">
 		select * from TB_BOARD
+		where CUST_ID NOT IN ('admin') 
 		order by BOARD_DT
 		limit
 		#{endpoint}, 6;
@@ -62,8 +71,9 @@
 	<select id="skillList" parameterType="java.util.Map"
 		resultType="com.smhrd.coco.domain.TB_BOARD">
 		select * from TB_BOARD
-		where BOARD_ID IN ( select BOARD_ID
-		from TB_BOARD_SKILL where SKILL_NAME = #{skillname} )
+		where CUST_ID NOT IN ('admin') and
+		BOARD_ID IN ( select BOARD_ID
+		from TB_BOARD_SKILL where SKILL_NAME = #{skill_name} )
 		order by BOARD_DT
 		limit
 		#{endpoint}, 6;
@@ -73,7 +83,8 @@
 	<select id="positionList" parameterType="java.util.Map"
 		resultType="com.smhrd.coco.domain.TB_BOARD">
 		select * from TB_BOARD
-		where BOARD_POSITION LIKE CONCAT('%',
+		where CUST_ID NOT IN ('admin') and
+		BOARD_POSITION LIKE CONCAT('%',
 		#{board_position} ,'%')
 		order by BOARD_DT
 		limit #{endpoint}, 6 ;
@@ -84,7 +95,8 @@
 	<select id="skillPositionList" parameterType="java.util.Map">
 		select * from
 		TB_BOARD
-		where BOARD_POSITION LIKE CONCAT('%',
+		where CUST_ID NOT IN ('admin') and
+		BOARD_POSITION LIKE CONCAT('%',
 		#{board_position} ,'%')
 		and BOARD_ID IN (select
 		BOARD_ID
@@ -95,16 +107,17 @@
 	</select>
 
 
-     <!-- 해당게시글 작성자의 닉네임 가져오기  -->
-     <select id="custNick" resultType = "String">
-       select CUST_NICK from TB_CUST where CUST_ID = #{cust_id} ;
-     </select>
-
+   <!-- 해당게시글 작성자의 닉네임 가져오기  -->
+   <select id="custNick" resultType = "String">
+    select CUST_NICK from TB_CUST where CUST_ID = #{cust_id} ;
+   </select>
 
 	<!-- 지원한 게시글 보기 -->
 	<select id="applyList"
 		resultType="com.smhrd.coco.domain.TB_BOARD">
-		select * from TB_BOARD where BOARD_ID
+		select * from TB_BOARD 
+		where CUST_ID NOT IN ('admin') and
+		BOARD_ID
 		in ( select BOARD_ID
 		from TB_APPLY
 		where CUST_ID = #{cust_id}) ;
@@ -114,7 +127,7 @@
 	<select id="writeList"
 		resultType="com.smhrd.coco.domain.TB_BOARD">
 		select * from TB_BOARD
-		where CUST_ID = #{cust_id} ;
+		where CUST_ID = #{cust_id} and CUST_ID NOT IN ('admin');
 	</select>
 
 </mapper>
