@@ -5,21 +5,24 @@ import http from "http";
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-
 const PORT = process.env.PORT || 4000;
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  // 3000
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
+
 app.use(bodyParser.json());
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
-
 app.use("/public", express.static(process.cwd() + "/src/public"));
-
 
 let savedData = null;
 
-// post 요청으로 비공개 데이터를 전송 후 일반적인 웹페이지 로딩인 get 요청으로 데이터를 받아옴.
+// post 요청으로 비공개 데이터를 전송 후 
+// 일반적인 웹페이지 로딩인 get 요청으로 데이터를 받아옴.
 app.post("/saveData", (req, res) => {
   savedData = req.body;
   res.status(200).send('OK');
@@ -29,7 +32,7 @@ app.get("/", (req, res) => {
   if (savedData) {
     const { userName, roomName } = savedData;
     console.log(userName, roomName);
-    res.render("home", { userName: JSON.stringify(userName), roomName: JSON.stringify(roomName) });
+    res.render("home", { userName: userName, roomName: roomName });
   } else {
     res.send('No data available');
   }
@@ -100,6 +103,11 @@ wsServer.on("connection", (socket) => {
     ++targetRoomObj.currentNum;
 
     socket.join(roomName);
+
+    const members = targetRoomObj.users.map(user => user.nickname); // 닉네임 배열 얻기
+
+    wsServer.to(roomName).emit('updateMemberList', members); // 모든 클라이언트에게 업데이트된 리스트 보내기
+
     socket.emit("accept_join", targetRoomObj.users);
   });
 
@@ -119,15 +127,15 @@ wsServer.on("connection", (socket) => {
     socket.to(roomName).emit("chat", message);
   });
 
-  socket.on("chat_file", (arrayBuffer, fileName, roomName) => {
-    // Just emit the arrayBuffer and fileName to other clients.
-    socket.to(roomName).emit("chat_file", arrayBuffer, fileName);
+  socket.on("chat_file", (arrayBuffer, message, roomName) => {
+    socket.to(roomName).emit("chat_file", arrayBuffer, message);
   });
 
   socket.on("disconnecting", () => {
     socket.to(myRoomName).emit("leave_room", socket.id, myNickname);
 
     let isRoomEmpty = false;
+
     for (let i = 0; i < roomObjArr.length; ++i) {
       if (roomObjArr[i].roomName === myRoomName) {
         const newUsers = roomObjArr[i].users.filter(
@@ -138,6 +146,11 @@ wsServer.on("connection", (socket) => {
 
         if (roomObjArr[i].currentNum == 0) {
           isRoomEmpty = true;
+        } else {
+          const members = roomObjArr[i].users.map(user => user.nickname); // 닉네임 배열 얻기
+
+          wsServer.to(myRoomName).emit('updateMemberList', members); // 모든 클라이언틀르에게 업데이트된 리스트 보내기
+
         }
       }
     }
@@ -153,5 +166,6 @@ wsServer.on("connection", (socket) => {
 });
 
 const handleListen = () =>
+  // 4000
   console.log(`✅ Listening on http://localhost:${PORT}`);
 httpServer.listen(PORT, handleListen);

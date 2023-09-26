@@ -102,6 +102,7 @@ const Write = () => {
     formData.append('BOARD_IMG', '');
     boardData && formData.append('board_id', boardData.TB_BOARD.board_id);
 
+
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -137,7 +138,6 @@ const Write = () => {
     { label: 'PM', value: 'PM' },
     { label: '기획자', value: '기획자' },
   ];
-
 
   const handlePositionChange = (selectedOptions: any) => {
     if (selectedOptions.length <= 3) {

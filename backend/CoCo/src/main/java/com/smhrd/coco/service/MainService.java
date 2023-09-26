@@ -1,5 +1,7 @@
 package com.smhrd.coco.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import com.smhrd.coco.converter.ImageConverter;
+import com.smhrd.coco.converter.ImageToBase64;
 import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_SKILL;
 import com.smhrd.coco.domain.TB_BOOKMARK;
@@ -22,6 +26,33 @@ public class MainService {
 	@Autowired
 	private MainMapper mapper;
 
+	// 프로필 이미지 보내기 
+	public JSONObject profileImg(String cust_id) {
+		
+		JSONObject obj = new JSONObject();
+		
+		TB_CUST ImgPath = mapper.ImgPath(cust_id); 
+		
+		// 이미지 변환
+		ImageConverter<File, String> converter = new ImageToBase64();
+		File file = new File("c:\\cocoImage\\" + ImgPath.getCust_img());
+
+		String fileStringValue = null;
+		
+		try {
+			fileStringValue = converter.convert(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		obj.put("CUST_IMG", fileStringValue);
+		
+		return obj; 
+		
+	
+	}
+	
+	
 	// 조회수 증가
 	public int increaseViews(int board_id) {
 		return mapper.increaseViews(board_id);
@@ -68,10 +99,10 @@ public class MainService {
 		if (skill_name == null && board_position == null) {
 			return recentList(endpoint);
 			// 기술스택명에 맞는 최신순 게시글 가져오기
-		} else if (skill_name == null && board_position != null) {
+		} else if (skill_name != null && board_position == null) {
 			return skillList(skill_name, endpoint);
 			// 포지션에 맞는 최신순 게시글 가져오기
-		} else if (skill_name != null && board_position == null) {
+		} else if (skill_name == null && board_position != null) {
 			return positionList(board_position, endpoint);
 		} else { // 기술스택과 포지션에 맞는 최신순 게시글 가져오기
 			return skillPositionList(skill_name, board_position, endpoint);
@@ -143,7 +174,6 @@ public class MainService {
 			// 해당게시글의 닉네임 가져오기
 			String custNick = mapper.custNick(pb.getCust_id());
 			map.put("cust_nick", custNick);
-			System.out.println(custNick);
 
 			// 해당게시글의 스킬리스트 가져오기
 			List<TB_BOARD_SKILL> skillList = mapper.boardIdList(pb.getBoard_id());

@@ -4,9 +4,9 @@
   --black-color: #212121;
 
   --header-background-color: hsl(0, 0%, 100%);
-  --main-background-color: hsl(0, 0%, 16%);
-  --chatBox-background-color: #37474f;
-  --controler-background-color: #29434e;
+  --main-background-color: hsl(0, 0%, 13%);
+  --chatBox-background-color: #ffffff;
+  --controler-background-color: #000000;
 
   --green-icon-color: #23c552;
   --red-icon-color: #f85031;
@@ -25,15 +25,10 @@ body {
   color: var(--black-color);
 }
 
-header {
-  width: 100%;
-  height: 5vh;
-
-  color: wheat;
-  background-color: var(--header-background-color);
-
-  display: flex;
-  align-items: center;
+#imgTitle {
+  position: absolute;
+  top: 0px;
+  left: -18px;
 }
 
 header i {
@@ -51,7 +46,7 @@ header h1 {
 
 main {
   width: 100%;
-  height: 93vh;
+  height: 100vh;
 
   background-color: var(--main-background-color);
 
@@ -87,7 +82,6 @@ main {
   width: 100%;
   height: 100%;
   border-radius: 10px;
-
 
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
@@ -127,7 +121,7 @@ main {
 
   text-align: center;
   color: whitesmoke;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   letter-spacing: 1px;
 }
@@ -137,7 +131,7 @@ main {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 51px;
+  height: 50px;
 
   background-color: var(--controler-background-color);
 
@@ -164,7 +158,7 @@ main {
 
 #streamBox #controlers #controlers__column:last-child {
   justify-content: flex-end;
-  padding-right: 20px;
+  padding-right: 10px;
 }
 
 #streamBox #controlers select {
@@ -172,9 +166,8 @@ main {
 
   color: whitesmoke;
   background: none;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(80, 80, 80, 0.4);
 
-  box-shadow: var(--header-background-color) 0px 7px 29px 0px;
 }
 
 #streamBox #controlers #buttons button {
@@ -187,6 +180,16 @@ main {
   transition: all 0.2s ease-in-out;
 }
 
+#buttons {
+  position: absolute;
+  bottom: 7px;
+  left: 660px;
+}
+
+#buttons h1 {
+  font-size: 3px;
+}
+
 #streamBox #controlers #buttons button:hover {
   background-color: #c8cfdf;
 }
@@ -195,39 +198,51 @@ main {
   margin-right: 10px;
 }
 
+#shareScreen {
+  position: absolute;
+  left: 143px;
+}
+
 #streamBox #controlers #buttons .unMuteIcon {
-  color: var(--green-icon-color);
+  /* color: var(--green-icon-color); */
+  filter: invert(62%) sepia(42%) saturate(5840%) hue-rotate(193deg) brightness(101%) contrast(101%);
 }
 
 #streamBox #controlers #buttons .muteIcon {
-  color: var(--red-icon-color);
+  /* color: var(--red-icon-color); */
+  filter: invert(100%) sepia(0%) saturate(6058%) hue-rotate(54deg) brightness(122%) contrast(100%);
 }
 
 #streamBox #controlers #buttons .cameraIcon {
-  color: var(--green-icon-color);
+  /* color: var(--green-icon-color); */
+  filter: invert(62%) sepia(42%) saturate(5840%) hue-rotate(193deg) brightness(101%) contrast(101%);
 }
 
 #streamBox #controlers #buttons .unCameraIcon {
-  color: var(--red-icon-color);
+  filter: invert(100%) sepia(0%) saturate(6058%) hue-rotate(54deg) brightness(122%) contrast(100%);
+  /* color: var(--red-icon-color); */
 }
 
 #streamBox #controlers #buttons .screenIcon {
-  color: var(--red-icon-color);
+  filter: invert(100%) sepia(0%) saturate(6058%) hue-rotate(54deg) brightness(122%) contrast(100%);
+  /* color: var(--red-icon-color); */
+
 }
 
 #streamBox #controlers #buttons .unscreenIcon {
-  color: var(--green-icon-color);
+  filter: invert(62%) sepia(42%) saturate(5840%) hue-rotate(193deg) brightness(101%) contrast(101%);
+  /* color: var(--green-icon-color); */
 }
 
 #streamBox #controlers #leave {
-  padding: 5px 10px;
+  padding: 6px 10px;
 
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   border: none;
   border-radius: 5px;
 
-  background: var(--red-icon-color);
+  background: #4598FF;
   color: var(--header-background-color);
 
   transition: all 0.2s ease-in-out;
@@ -245,13 +260,38 @@ main {
   background-color: var(--chatBox-background-color);
 }
 
+#memberSet {
+  display: flex;
+  flex-direction: row;
+  color: #4598FF;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px 15px;
+}
+
+#memberList {
+  padding: 5px 8px;
+}
+
+#memberCount {
+  padding: 5px;
+}
+
+#memberBox li {
+  padding: 5px 15px;
+}
+
+#memberSet img {
+  filter: invert(62%) sepia(42%) saturate(5840%) hue-rotate(193deg) brightness(101%) contrast(101%);
+}
+
 #chatRoom #chatBox {
   position: absolute;
-  bottom: 51px;
+  top: 20%;
   left: 0;
 
   width: 100%;
-  height: calc(100% - 51px);
+  height: calc(80% - 51px);
   padding: 5px 10px;
 
   display: flex;
@@ -259,7 +299,9 @@ main {
 
   overflow-y: auto;
   overflow-wrap: break-word;
-  color: whitesmoke;
+  color: rgb(0, 0, 0);
+
+  border-top: 1px solid #b7b7b7;
 }
 
 #chatRoom #chatBox li {
@@ -272,23 +314,26 @@ main {
 }
 
 #chatRoom #chatBox .noticeChat {
-  color: aquamarine;
+  color: #4598FF;
+  ;
 }
 
 #chatRoom #chatForm {
   position: absolute;
-  bottom: 1px;
+  bottom: 0px;
   left: 0;
 
   width: 100%;
   height: 50px;
-  background-color: #62727b;
+  background-color: #4598FF;
+
 }
 
 #chatRoom #chatForm input {
   position: relative;
 
-  width: 83%;
+  right: -9%;
+  width: 75%;
   height: 100%;
   padding: 3px 10px;
 
@@ -311,12 +356,23 @@ main {
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
+label {
+  position: absolute;
+  top: 15px;
+  left: 7px;
+  filter: invert(100%) sepia(0%) saturate(6058%) hue-rotate(54deg) brightness(122%) contrast(100%);
+}
+
+#fileInput {
+  display: none;
+}
+
 #chatRoom #chatForm button {
   position: absolute;
   top: 5%;
   right: 1%;
 
-  width: 15%;
+  width: 13%;
   height: 90%;
 
   /* letter-spacing: 1px; */

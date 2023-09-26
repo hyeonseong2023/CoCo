@@ -16,6 +16,44 @@
 }
 
 
+.delete-modal-content{
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 641px;
+  height: 455px;
+  /* overflow-y: auto; */
+  display: flex;
+  flex-direction: column; /* 내부 요소들을 세로로 배치 */
+  align-items: center; /* 요소들을 가운데 정렬 */
+  /* background-color: #007bff; */
+}
+
+.welcome-logo{
+  width: 500px;
+}
+
+.startBtn{
+  width: 200px;
+}
+
+.welcome-text1{
+  margin-top : 60px;
+  font-size: 15px;
+}
+
+.welcome-text2{
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+
+
+
+
 
 .close-button {
   width: 25%;
