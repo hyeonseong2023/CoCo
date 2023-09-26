@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { storage } from './functions/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import uuid from 'react-uuid';
 import { addContents } from './functions/contents';
 import { ContentInterface } from './context/PageContext';
 import { updateContent } from './functions/firebaseCRUD';
+import {
+  PageIndexContext,
+  PageStructureContext,
+  ProjectContext,
+} from './context/ProjectContext';
 
 const FileInputBox = ({
   children,
@@ -15,6 +20,14 @@ const FileInputBox = ({
   contents: ContentInterface[];
   index: number;
 }) => {
+  const projectId = useContext(ProjectContext);
+  const pageStructureContext = useContext(PageStructureContext);
+  const pageIndexContext = useContext(PageIndexContext);
+  if (!projectId || !pageIndexContext || !pageStructureContext) {
+    throw new Error('Context must be used within a ProjectProvider');
+  }
+  const { pageIndex, setPageIndex } = pageIndexContext;
+  const { pageStructure, setPageStructure } = pageStructureContext;
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState<File | null>(null);
 
@@ -22,16 +35,17 @@ const FileInputBox = ({
     uploadFile();
   }, [file]);
 
-  const uploadFile = () => {
-    if (file == null) return;
+  const uploadFile = async () => {
+    if (file == null || file?.type === undefined) return;
+    const root = file.type.split('/')[0] === 'image' ? 'image' : 'file';
     const id = uuid();
-    const fileRef = ref(storage, `files/${file.name + id}`);
-    uploadBytes(fileRef, file).then(() => {
-      alert('File Uploaded');
+    const fileRef = ref(storage, `${root}s/${file.name + id}`);
+    await uploadBytes(fileRef, file).then(() => {
+      alert('업로드 완료');
     });
     updateContent(
-      'projects/12345/pageList/0',
-      addContents(contents, index, { id: id, tag: 'file', text: file.name })
+      `projects/${projectId}/pageList/${pageStructure[pageIndex].id}`,
+      addContents(contents, index, { id: id, tag: root, text: file.name })
     );
   };
 
@@ -50,7 +64,6 @@ const FileInputBox = ({
     e.stopPropagation();
     if (e.dataTransfer.files) {
       setIsDragging(true);
-      console.log(e.dataTransfer.files[0].type);
     }
   };
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {

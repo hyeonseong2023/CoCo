@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import React, { useState } from 'react';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 function FileDownload({ uid, name }: { uid: string; name: string }) {
-  const [fileURL, setFileURL] = useState(""); // 파일 다운로드 URL을 저장하는 상태
+  const [fileURL, setFileURL] = useState(''); // 파일 다운로드 URL을 저장하는 상태
 
   const handleDownload = async () => {
     try {
@@ -16,23 +16,15 @@ function FileDownload({ uid, name }: { uid: string; name: string }) {
       setFileURL(downloadURL);
 
       // 브라우저에서 파일 다운로드
-      window.open(downloadURL, "_blank");
+      window.open(downloadURL, '_blank');
     } catch (error) {
-      console.error("파일 다운로드 중 오류 발생:", error);
+      console.error('파일 다운로드 중 오류 발생:', error);
     }
   };
 
   return (
     <div>
       <button onClick={handleDownload}>{name}</button>
-      {/* {fileURL && (
-        <div>
-          <p>다운로드 URL:</p>
-          <a href={fileURL} target="_blank" rel="noopener noreferrer">
-            {fileURL}
-          </a>
-        </div>
-      )} */}
     </div>
   );
 }

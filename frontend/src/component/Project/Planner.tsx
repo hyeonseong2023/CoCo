@@ -1,33 +1,36 @@
-import React, { useEffect, useState } from "react";
-import "./Planner.css";
+import React, { useContext, useEffect, useState } from 'react';
+import './css/Planner.css';
 import {
   EventApi,
   DateSelectArg,
   EventClickArg,
   EventContentArg,
-  EventAddArg,
   EventInput,
-} from "@fullcalendar/core";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import listPlugin from "@fullcalendar/list";
-import interactionPlugin from "@fullcalendar/interaction";
-import uuid from "react-uuid";
-import { addPlanner, removePlanner } from "./functions/firebaseCRUD";
-import PlannerModal from "./PlannerModal";
+} from '@fullcalendar/core';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+import PlannerModal from './PlannerModal';
+import { ProjectContext } from './context/ProjectContext';
+import { onValuePlanner, updatePlanner } from './functions/firebaseCRUD';
 
 const Planner = ({ initialEvents }: { initialEvents: EventInput[] }) => {
-  const [data, setData] = useState<EventApi[]>([]);
+  const projectId = useContext(ProjectContext);
+  if (!projectId) {
+    throw new Error('Context must be used within a ProjectProvider');
+  }
+  const [data, setData] = useState<EventInput[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selected, setSelected] = useState<DateSelectArg | EventClickArg>();
-  // let edit = false;
   const [edit, setEdit] = useState(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    onValuePlanner(`projects/${projectId}/planner`, setData);
+  }, []);
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
-    // edit = true;
     setEdit(true);
     setSelected(selectInfo);
     selectInfo.view.calendar.unselect();
@@ -35,24 +38,25 @@ const Planner = ({ initialEvents }: { initialEvents: EventInput[] }) => {
   };
 
   const handleEventClick = (clickInfo: EventClickArg) => {
-    // edit = false;
     setEdit(false);
     setSelected(clickInfo);
     openModal();
-    // if (
-    //   // eslint-disable-next-line no-restricted-globals
-    //   confirm(
-    //     `Are you sure you want to delete the event '${clickInfo.event.title}'`
-    //   )
-    // ) {
-    //   console.log(clickInfo.event.id);
-    //   removePlanner("projects/12345/planner/" + clickInfo.event.id);
-    //   clickInfo.event.remove();
-    // }
   };
 
   const handleEvents = (events: EventApi[]) => {
-    setData(events);
+    if (events.length > 0) {
+      const newEvents = events.map((item) => {
+        return {
+          id: item.id,
+          title: item.title,
+          start: item.startStr,
+          end: item.endStr,
+          allDay: item.allDay,
+          extendedProps: item.extendedProps,
+        };
+      });
+      updatePlanner(`projects/${projectId}/planner`, newEvents);
+    }
   };
 
   const renderEventContent = (eventContent: EventContentArg) => {
@@ -85,18 +89,18 @@ const Planner = ({ initialEvents }: { initialEvents: EventInput[] }) => {
       <div className="demo-app">
         <div className="demo-app-main">
           <FullCalendar
-            locale={"ko"}
+            locale={'ko'}
             plugins={[
               dayGridPlugin,
               timeGridPlugin,
               listPlugin,
               interactionPlugin,
             ]}
-            buttonText={{ today: "Today" }}
+            buttonText={{ today: 'Today' }}
             headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
             }}
             initialView="dayGridMonth"
             dragScroll={true}
@@ -105,6 +109,7 @@ const Planner = ({ initialEvents }: { initialEvents: EventInput[] }) => {
             selectMirror={true}
             dayMaxEvents={true}
             initialEvents={initialEvents} // alternatively, use the `events` setting to fetch from a feed
+            events={data}
             select={handleDateSelect}
             eventContent={renderEventContent} // custom render function
             eventClick={handleEventClick}

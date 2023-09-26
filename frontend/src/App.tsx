@@ -1,15 +1,13 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Main from "./component/Main";
-import Write from "./component/Write";
-import Mypage from "./component/Mypage/Mypage";
-import Check from "./component/Check";
-import KakaoCallback from "./component/Kakao/KakaoCallback";
-import "./App.css";
-import ProjectPage from "./component/Project/ProjectPage";
-import SinglePage from "./component/SinglePage";
-
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Main from './component/Main';
+import Write from './component/Write';
+import Mypage from './component/Mypage/Mypage';
+import Check from './component/Check';
+import KakaoCallback from './component/Kakao/KakaoCallback';
+import './App.css';
+import ProjectPage from './component/Project/ProjectPage';
+import SinglePage from './component/SinglePage';
 
 const App: React.FC = () => {
   return (

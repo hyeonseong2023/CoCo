@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { OverlayContext } from "./context/PageContext";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { OverlayContext } from './context/PageContext';
 
 const Overlay = () => {
   const overlayContext = useContext(OverlayContext);
   if (!overlayContext) {
-    throw new Error("Context must be used within a PageProvider");
+    throw new Error('Context must be used within a PageProvider');
   }
   const { overlayRef, overlayIndex, overlayXY } = overlayContext;
-  const itemList = ["기본", "페이지", "제목1", "제목2", "할 일 목록", "구분선"];
+  const itemList = ['기본', '페이지', '제목1', '제목2', '할 일 목록', '구분선'];
   const TextItemList = styled.ul`
     transform: translate(
       0px,
@@ -36,7 +36,7 @@ const Overlay = () => {
       cursor: pointer;
     }
     background-color: ${(props) =>
-      props.isfocus === "true" ? "#edf5f5" : "#fff"};
+      props.isfocus === 'true' ? '#edf5f5' : '#fff'};
     position: relative;
     img {
       position: absolute;
@@ -48,50 +48,50 @@ const Overlay = () => {
   `;
 
   return (
-    <div style={{ pointerEvents: "auto", position: "relative", zIndex: 0 }}>
+    <div style={{ pointerEvents: 'auto', position: 'relative', zIndex: 0 }}>
       <div
         style={{
-          position: "fixed",
-          left: overlayXY.x + "px",
-          top: overlayXY.y + "px",
-          pointerEvents: "none",
+          position: 'fixed',
+          left: overlayXY.x + 'px',
+          top: overlayXY.y + 'px',
+          pointerEvents: 'none',
         }}
       >
         <div
           style={{
-            position: "absolute",
-            top: "0px",
-            left: "0px",
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            alignItems: "flex-start",
+            position: 'absolute',
+            top: '0px',
+            left: '0px',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-start',
           }}
         >
           <div
             style={{
-              position: "relative",
-              pointerEvents: "auto",
-              bottom: "100%",
+              position: 'relative',
+              pointerEvents: 'auto',
+              bottom: '100%',
             }}
           >
             <div
               style={{
-                width: "200px",
-                height: "200px",
-                backgroundColor: "#fff",
-                border: "2px solid",
-                padding: "15px",
-                overflow: "hidden",
+                width: '200px',
+                height: '200px',
+                backgroundColor: '#fff',
+                border: '2px solid',
+                padding: '15px',
+                overflow: 'hidden',
               }}
             >
               <TextItemList ref={overlayRef}>
                 {itemList.map((name: string, idx: number) => (
                   <TextItem
                     key={name}
-                    isfocus={overlayIndex === idx ? "true" : "false"}
+                    isfocus={overlayIndex === idx ? 'true' : 'false'}
                   >
                     {name}
                   </TextItem>

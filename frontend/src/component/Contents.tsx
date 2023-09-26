@@ -1,10 +1,10 @@
 // Contents.tsx
 
 import React from 'react';
-import '../css/Contents.css'
+import '../css/Contents.css';
 import { Link } from 'react-router-dom';
-import img from '../img/profilePicture.png'
-import book from '../img/Bookmarkoff.png'
+import img from '../img/profilePicture.png';
+import book from '../img/Bookmarkoff.png';
 interface selectedCategory {
   categoryData: CategoryData[]; // 전체 데이터 배열
 }
@@ -46,35 +46,50 @@ interface ContentsProps {
   categoryData: CategoryData[];
 }
 
-
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
   return (
     <div>
-      <div id='Contents-box'>
-        <div id='Contentsbox-c'>
+      <div id="Contents-box">
+        <div id="Contentsbox-c">
           {categoryData.map((data, index) => (
             <div key={index}>
               <Link to={`/Contents/${data.id}`} key={index} state={data}>
-                <div className='Contentsbox'>
-                  <div className='Contentsbox-A'>
-                    <div className='boxA_dead'><div>{data.board_deadline}</div></div>
-                    <div className='boxA_title'><div>{data.title}</div></div>
-                    <div className='boxA_img'><div><img src={img} alt="" /></div></div>
-                  </div>
-                  <div className='boxB_bookmark'><div className='boxB_1'><img src={book} alt="" /></div><div className='boxB_2'>조회수 {data.board_views}</div></div>
-                  <div className='ContentsLine'></div>
-                  <div className='topBody-topTail'>모집분야</div>
-                  <div className='topTail'>
-                    {data.board_position.split(',').map((position, positionIndex) => (
-                      <div
-                        key={positionIndex}
-                        className={`top-board_position ${getPositionColor(position)}`}
-                      >
-                        {position}
+                <div className="Contentsbox">
+                  <div className="Contentsbox-A">
+                    <div className="boxA_dead">
+                      <div>{data.board_deadline}</div>
+                    </div>
+                    <div className="boxA_title">
+                      <div>{data.title}</div>
+                    </div>
+                    <div className="boxA_img">
+                      <div>
+                        <img src={img} alt="" />
                       </div>
-                    ))}
+                    </div>
                   </div>
-
+                  <div className="boxB_bookmark">
+                    <div className="boxB_1">
+                      <img src={book} alt="" />
+                    </div>
+                    <div className="boxB_2">조회수 {data.board_views}</div>
+                  </div>
+                  <div className="ContentsLine"></div>
+                  <div className="topBody-topTail">모집분야</div>
+                  <div className="topTail">
+                    {data.board_position
+                      .split(',')
+                      .map((position: string, positionIndex: number) => (
+                        <div
+                          key={positionIndex}
+                          className={`top-board_position ${getPositionColor(
+                            position
+                          )}`}
+                        >
+                          {position}
+                        </div>
+                      ))}
+                  </div>
                 </div>
               </Link>
             </div>
@@ -83,6 +98,6 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Contents;

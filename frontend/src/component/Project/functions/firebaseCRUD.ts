@@ -6,16 +6,51 @@ import {
   update,
   set,
   remove,
-} from "firebase/database";
-import { db } from "./firebase";
+} from 'firebase/database';
+import { db } from './firebase';
 import {
   ContentInterface,
   EditableContextInterface,
   PageContextInterface,
   initialContents,
-} from "../context/PageContext";
-import { DateSelectArg, EventAddArg, EventInput } from "@fullcalendar/core";
-import uuid from "react-uuid";
+} from '../context/PageContext';
+import { DateSelectArg, EventAddArg, EventInput } from '@fullcalendar/core';
+import uuid from 'react-uuid';
+
+const getPageStructure = (path: string, setPageStructure: (e: []) => void) => {
+  const dbRef = ref(db);
+  get(child(dbRef, `${path}/pageStructure`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      setPageStructure(snapshot.val());
+    } else {
+      const id = uuid();
+      set(ref(db, `${path}/pageStructure`), [{ id: id, text: '' }]);
+      set(ref(db, `${path}/pageList/${id}`), initialContents(id));
+    }
+  });
+};
+
+const updatePageStructure = (path: string, contents: any) => {
+  set(ref(db, path), contents);
+};
+
+const pageStructureOnValue = (
+  path: string,
+  setPageStructure: (e: []) => void
+) => {
+  onValue(ref(db, path), (snapshot) => {
+    setPageStructure(snapshot.val());
+  });
+};
+
+const addPage = (path: string, pageStructure: any) => {
+  const id = uuid();
+  set(
+    ref(db, `${path}/pageStructure`),
+    [...pageStructure].concat({ id: id, text: '' })
+  );
+  set(ref(db, `${path}/pageList/${id}`), initialContents(id));
+};
 
 const getContents = (
   path: string,
@@ -29,8 +64,6 @@ const getContents = (
         setState(snapshot.val());
         const newEditable = Array(snapshot.val().contents.length).fill(false);
         setEditable(newEditable);
-      } else {
-        set(ref(db, path), initialContents());
       }
     })
     .catch((error) => {
@@ -46,18 +79,18 @@ const addOnValue = (
   onValue(ref(db, path), (snapshot) => {
     const data = snapshot.val();
     if (!pageContext || !editableContext) {
-      throw new Error("PageContext must be used within a PageProvider");
+      throw new Error('PageContext must be used within a PageProvider');
     }
     const { contents, setContents } = pageContext;
     const { editable, setEditable } = editableContext;
     setContents(data);
-    let id = "";
+    let id = '';
     for (let i = 0; i < editable.length; i++) {
       if (editable[i]) {
         id = contents.contents[i].id;
       }
     }
-    if (id === "") return;
+    if (id === '') return;
     const length = data.length;
     const newEditable = Array(length).fill(false);
     for (let i = 0; i < length; i++) {
@@ -73,7 +106,7 @@ const updateText = (path: string, text: string) => {
   update(ref(db, path), { text: text });
 };
 
-const updateContent = (path: string, contents: ContentInterface[]) => {
+const updateContent = (path: string, contents: any) => {
   update(ref(db, path), { contents: contents });
 };
 
@@ -91,8 +124,6 @@ const getPlanner = (path: string, setData: (data: any) => void) => {
           }
         }
         setData(newList);
-      } else {
-        console.log("data doesn't exist");
       }
     })
     .catch((error) => {
@@ -106,12 +137,7 @@ const addPlanner = (path: string, data: any) => {
 
 const onValuePlanner = (path: string, setData: (data: any) => void) => {
   onValue(ref(db, path), (snapshot) => {
-    const val = snapshot.val();
-    console.log(val);
-    console.log("111");
-
-    console.log(Object.values(val));
-
+    if (!snapshot.val()) return;
     setData(Object.values(snapshot.val()));
   });
 };
@@ -121,7 +147,7 @@ const removePlanner = (path: string) => {
 };
 
 const updatePlanner = (path: string, data: any) => {
-  update(ref(db, path), data);
+  set(ref(db, path), data);
 };
 
 export {
@@ -134,4 +160,8 @@ export {
   addPlanner,
   removePlanner,
   updatePlanner,
+  getPageStructure,
+  updatePageStructure,
+  pageStructureOnValue,
+  addPage,
 };

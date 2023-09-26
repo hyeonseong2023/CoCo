@@ -1,0 +1,32 @@
+.pro-mem-container {
+  z-index: 9999;
+  position: absolute;
+  left: 100px;
+  width: 300px;
+  padding: 30px;
+  background-color: aliceblue;
+  border-radius: 30px;
+}
+
+.pro-mem-header > img {
+  height: 20px;
+  width: 20px;
+  float: right;
+}
+
+.pro-mem-main img {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+
+.pro-mem-main > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.pro-mem-main > div > div {
+  font-size: larger;
+  margin-left: 20px;
+}

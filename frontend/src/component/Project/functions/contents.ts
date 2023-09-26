@@ -1,5 +1,5 @@
-import { ContentInterface, initialContent } from "../context/PageContext";
-import { getTagContent } from "./tagList";
+import { ContentInterface, initialContent } from '../context/PageContext';
+import { getTagContent } from './tagList';
 
 export function addContents(
   contents: ContentInterface[],
@@ -18,6 +18,6 @@ export function addContents(
 export function removeContents(
   contents: ContentInterface[],
   index: number
-): ContentInterface[] {
+): ContentInterface[] | number[] {
   return contents.slice(0, index).concat(contents.slice(index + 1));
 }

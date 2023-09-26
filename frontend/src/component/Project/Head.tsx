@@ -1,22 +1,35 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { updateContent, updateText } from "./functions/firebaseCRUD";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { updateContent, updateText } from './functions/firebaseCRUD';
 import {
   CaretContext,
   EditableContext,
   HeadEditableContext,
   PageContext,
   initialContent,
-} from "./context/PageContext";
+} from './context/PageContext';
 import {
   getCaretPosition,
   setCaretClick,
   setCaretPosition,
-} from "./functions/caret";
-import "../../css/ProjectContents.css";
-import { addEditable, downwardEditable } from "./functions/editable";
-import { addContents } from "./functions/contents";
+} from './functions/caret';
+import './css/ProjectContents.css';
+import { addEditable, downwardEditable } from './functions/editable';
+import { addContents } from './functions/contents';
+import {
+  PageIndexContext,
+  PageStructureContext,
+  ProjectContext,
+} from './context/ProjectContext';
 
 const Head = () => {
+  const projectId = useContext(ProjectContext);
+  const pageStructureContext = useContext(PageStructureContext);
+  const pageIndexContext = useContext(PageIndexContext);
+  if (!projectId || !pageIndexContext || !pageStructureContext) {
+    throw new Error('Context must be used within a ProjectProvider');
+  }
+  const { pageIndex, setPageIndex } = pageIndexContext;
+  const { pageStructure, setPageStructure } = pageStructureContext;
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const headRef = useRef<HTMLHeadingElement>(null);
   const pageContext = useContext(PageContext);
@@ -29,9 +42,10 @@ const Head = () => {
     !caretContext ||
     !editableContext
   ) {
-    throw new Error("PageContext must be used within a PageProvider");
+    throw new Error('PageContext must be used within a PageProvider');
   }
   const contents = pageContext.contents;
+
   const { headEditable, setHeadEditable } = headEditableContext;
   const { editable, setEditable } = editableContext;
   const { caret, setCaret } = caretContext;
@@ -48,7 +62,14 @@ const Head = () => {
   }, [headEditable]);
 
   const onInput = (e: React.ChangeEvent<HTMLHeadingElement>) => {
-    updateText(`projects/12345/pageList/0/head`, e.target.innerText);
+    updateText(
+      `projects/${projectId}/pageList/${pageStructure[pageIndex].id}/head`,
+      e.target.innerText
+    );
+    updateText(
+      `projects/${projectId}/pageStructure/${pageIndex}`,
+      e.target.innerText
+    );
   };
 
   const onFocus = () => {
@@ -71,7 +92,7 @@ const Head = () => {
       case 13: // "Enter"
         e.preventDefault();
         updateContent(
-          "projects/12345/pageList/0",
+          `projects/${projectId}/pageList/${pageStructure[pageIndex].id}`,
           addContents(contents.contents, -1, initialContent())
         );
         setEditable(addEditable(editable, -1));
@@ -89,7 +110,7 @@ const Head = () => {
         <div
           className="text-block"
           style={{
-            display: headEditable ? "block" : "none",
+            display: headEditable ? 'block' : 'none',
           }}
           placeholder="제목없음"
           ref={headRef}
@@ -102,11 +123,11 @@ const Head = () => {
         <div
           className="text-block"
           style={{
-            display: headEditable ? "none" : "block",
+            display: headEditable ? 'none' : 'block',
           }}
           onClick={onClick}
         >
-          {contents.head.text === "" ? "제목없음" : contents.head.text}
+          {contents.head.text === '' ? '제목없음' : contents.head.text}
         </div>
       </div>
     </h1>

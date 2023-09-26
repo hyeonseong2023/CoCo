@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
-import "./PlannerModal.css";
-import uuid from "react-uuid";
+import React, { useContext, useEffect, useState } from 'react';
+import './css/PlannerModal.css';
+import uuid from 'react-uuid';
 import {
   addPlanner,
   removePlanner,
   updatePlanner,
-} from "./functions/firebaseCRUD";
+} from './functions/firebaseCRUD';
+import { ProjectContext } from './context/ProjectContext';
 
 const PlannerModal = (props: any) => {
-  // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
+  const projectId = useContext(ProjectContext);
+  if (!projectId) {
+    throw new Error('Context must be used within a ProjectProvider');
+  }
 
   const { open, close, header, selected, edit, setEdit } = props;
-  const [title, setTitle] = useState("");
-  const [contents, setContents] = useState("");
+  const [title, setTitle] = useState('');
+  const [contents, setContents] = useState('');
 
   useEffect(() => {
     setTitle(selected?.event?.title);
@@ -29,12 +33,8 @@ const PlannerModal = (props: any) => {
         end: selected.event.endStr,
         extendedProps: { contents: contents },
       };
-      updatePlanner(`projects/12345/planner/${data.id}`, data);
-      selected.event.remove();
-      selected.view.calendar.addEvent(data);
+      updatePlanner(`projects/${projectId}/planner/${data.id}`, data);
     } else {
-      // 추가
-      let calendarApi = selected.view.calendar;
       const data = {
         id: uuid(),
         title: title,
@@ -45,8 +45,7 @@ const PlannerModal = (props: any) => {
           contents: contents,
         },
       };
-      calendarApi.addEvent(data);
-      addPlanner("projects/12345/planner", data);
+      addPlanner(`projects/${projectId}/planner`, data);
     }
     closeModal();
   };
@@ -57,25 +56,24 @@ const PlannerModal = (props: any) => {
 
   const remove = () => {
     if (selected.event?.id) {
-      selected.event.remove();
-      removePlanner(`projects/12345/planner/${selected.event.id}`);
+      removePlanner(`projects/${projectId}/planner/${selected.event.id}`);
     }
     closeModal();
   };
 
   const closeModal = () => {
-    setTitle("");
-    setContents("");
+    setTitle('');
+    setContents('');
     close();
   };
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-    <div className={open ? "openModal modal" : "modal"}>
+    <div className={open ? 'openModal modal' : 'modal'}>
       {open ? (
         <section>
           <header>
-            {header}{" "}
+            {header}{' '}
             {edit ? (
               <input
                 type="text"
@@ -114,10 +112,10 @@ const PlannerModal = (props: any) => {
               <div>
                 <button className="close" onClick={update}>
                   수정하기
-                </button>{" "}
+                </button>{' '}
                 <button className="close" onClick={remove}>
                   삭제하기
-                </button>{" "}
+                </button>{' '}
               </div>
             )}
           </footer>
