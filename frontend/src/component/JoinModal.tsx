@@ -187,7 +187,8 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
       cust_nick: nick,     //닉네임
       cust_position: pselected.value, //포지션
       cust_career: cselected.value, // 경력
-      cust_skill: skillNames  //관심스택 
+      cust_skill: skillNames,
+      cust_img: "dsad"
     };
 
     try {
