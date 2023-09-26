@@ -191,7 +191,8 @@ const Main: React.FC<MainProps> = () => {
           cust_nick: item.cust_nick
         };
       });
-
+      console.log(response);
+      
       if (fetchedData.length === 0) {
         console.warn("No data received.");
       } else {

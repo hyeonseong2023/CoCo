@@ -87,7 +87,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                         모집인원 {data.board_members}
                       </div>
                       <div className='Content-topicon2'>
-                        <div>아이콘</div>
+                        <div>모집분야</div>
                         <div className='topiconbox'>
                           {data.board_position.split(',').map((position: string, positionIndex: number) => (
                             <div
