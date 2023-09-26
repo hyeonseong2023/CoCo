@@ -103,12 +103,12 @@ public class BoardService {
 		for (int i = 0; i < skill.size(); i++) {
 			skillList[i] = skill.get(i).getSKILL_NAME();
 		}
-		
 		// 게시판 사진 파일 찾아서 바이트형태로 변환하기
-		if(img.getBOARD_IMG()!=null)
-		img.setBOARD_IMG(converter(img.getBOARD_IMG()));
+		if(img !=null) {
+		img.setBOARD_IMG(converter(img.getBOARD_IMG()));}
 		
 		//회원 프로필 사진 찾아서 바이트 형태로 변환하기
+		if(createCust != null)
 		createCust.setCust_img(converter(createCust.getCust_img()));
 
 		// JSONArray 에 모두 담기

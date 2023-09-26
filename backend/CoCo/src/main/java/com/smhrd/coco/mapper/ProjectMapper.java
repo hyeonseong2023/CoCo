@@ -9,6 +9,16 @@ import com.smhrd.coco.domain.TB_CUST;
 @Mapper
 public interface ProjectMapper {
 	
+	//프로젝트 응모 수락여부 Y인 멤버들 닉네임, 프로필사진 정보 보내기
 	public List<TB_CUST> projectMemberList(int board_id);
+	
+	//프로젝트 응모 수락여부 N인 유저 아이디, 닉네임, 프로필사진
+	public List<TB_CUST> projectApplyList(int board_id);
+	
+	//응모여부 N -> Y 로 바꾸기 (board_id, cust_id)
+	public int projectAccept(int board_id, String cust_id);
+	
+	//프로젝트 응모 거절로 응모테이블에서 삭제하기
+	public int applyDecline(int board_id, String cust_id);
 
 }
