@@ -98,18 +98,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
       ...provided,
       width: 200,
     }),
-    option: (provided: any, state: any) => ({
-      ...provided,
-      color: state.isSelected ? 'grey' : 'grey',
-    }),
-    singleValue: (provided: any) => ({
-      ...provided,
-      color: 'grey', // 선택된 값 파란색
-    }),
-    placeholder: (provided: any) => ({
-      ...provided,
-      color: 'black', // 기본 플레이스홀더 텍스트 파란색
-    }),
+
   };
   return (
     <div className='category_main'>
@@ -138,11 +127,12 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
             />
           </div>
           <div className='category_sub2'>
-            <label>
+          <label>
               <button>
               <img
                 src={viewState === 'bookmark' ? bookmarkIconon : bookmarkIconoff}
                 alt="북마크 아이콘"
+                className='imgbtnbox'
                 onClick={() => { handleButtonClick('bookmark'); onBookmarkToggle(); }}
               />
               </button>
@@ -150,15 +140,14 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
             <label className='labelselect1'>
               <button
                 onClick={() => { handleButtonClick('applied'); if (viewState !== 'applied') { onAppliedToggle(); } }}
-                style={{ color: viewState === 'grey' ? 'grey' : 'black' }}
+
               >
                 지원한 게시글 보기
               </button>
             </label>
-            <label className='labelselect2'>
+            <label className='labelselect1'>
               <button
                 onClick={() => { handleButtonClick('myposts'); onMyPostsClick(); }}
-                style={{ color: viewState === 'myposts' ? 'blue' : 'black' }}
               >
                 내가 쓴 게시물 보기
               </button>

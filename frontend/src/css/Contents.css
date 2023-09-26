@@ -5,10 +5,11 @@
 }
 
 #Contents-box>div {
-  flex-basis: calc(100%);
+  flex-basis: calc(98%);
   margin-bottom: 20px;
   background-color: #ffffff;
   box-sizing: border-box;
+  margin-left: 0.5%;
 }
 
 #Contents-box>div>div {
@@ -16,7 +17,7 @@
   height: 200px;
   background-color: rgb(255, 255, 255);
   margin-bottom: 20px;
-  border: #D6D6D6 2px solid;
+  border: #D6D6D6 1px solid;
   border-radius: 20px 20px 20px 20px; 
 }
 

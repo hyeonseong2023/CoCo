@@ -1,6 +1,6 @@
 .top-posts-slide-content {
     border-radius: 20px;
-    border: 2px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     background: rgb(255, 255, 255);
     height: 290px;
     align-items: center; /* 세로 중앙 정렬 */
@@ -61,6 +61,7 @@
 
 .top-posts-slide-content{
     font-size: 13px;
+    margin-left: 6%;
 }
 
 .TopPostsC{
@@ -123,7 +124,7 @@
 }
 
 .topTail{
-    margin-left: 5%;
+
     height: 23%;
     display: flex;
 }
@@ -140,6 +141,7 @@
 .topend3{
     margin-left: auto;
     margin-right: 5%;
+    padding-right: 3%;
 }
 .topTail > div{
     width: 40%;
@@ -199,7 +201,7 @@
 
   .topend2{
     display: flex;
-    justify-content: center; 
+    margin-left: 3%;
     align-items: center;
   }
 
@@ -209,20 +211,20 @@
     align-items: center; 
   }
 
+  .topend3>img{
+    width: 30px;
+    margin-right: 3%;
+  }
+
   .topTail > div{
     font-size: 0.8rem;
     font-weight: 800;
   }
 
-  .topBody-topTail{
-    padding-left: 5%;
-  }
-  .topend{
-    padding-left: 4%;
-  }
+
+
 
   .topend2{
-    margin-left: 4%;
     margin-bottom: 3.5%;
   }
   .category_titlemain>h1{
@@ -244,4 +246,6 @@
   }
 
 
- 
+.topend2{
+  width: 100%
+}

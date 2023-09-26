@@ -103,17 +103,24 @@ select option:checked {
 }
 
 .labelselect1, .labelselect2{
-  border: 0.5px solid #484849; /* 파란색 테두리 */
-  padding: 10px;
+  border: 0.5px solid #4598FF; /* 파란색 테두리 */
+  padding: 8px;
   border-radius: 10px;
+
 }
 
+.labelselect1, .labelselect2>*{
+  color: #4598FF;
+}
 
-.labelselect1:hover, .labelselect2:hover{
-  background-color: #32363a;
+.labelselect1:hover{
+  background-color: #4598FF;
   color: aliceblue;
 }
-
+.labelselect2:hover{
+  background-color: #4598FF;
+  color: aliceblue!important;
+}
 .category_sub2>label{
   margin-right: 10px;
 }
@@ -123,6 +130,14 @@ select option:checked {
 }
 
 .category_main{
-  margin-bottom: 2.5%;
+  margin-bottom: 2%;
 }
 
+.category_sub2{
+  display: flex;
+}
+
+.imgbtnbox{
+  margin-top: 30%;
+  margin-right: 10px;
+}
