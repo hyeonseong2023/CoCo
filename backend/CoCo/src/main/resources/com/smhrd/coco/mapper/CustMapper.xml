@@ -11,7 +11,6 @@
 		#{cust_position},#{cust_career}, #{cust_skill});
 	</insert>
 
-
 	<!-- 이미지 체크 -->
 	<select id="checkCustImg">
 		SELECT CUST_IMG
@@ -92,8 +91,8 @@
 	</delete>
 	
 	<!-- 회원탈퇴 -->
-	<delete id = "deleteCust">
-	    delete from TB_CUST where CUST_ID =#{cust_id};
-	</delete>
+	<update id = "deleteCust">
+	   update TB_CUST set CUST_CHECK = 'N' where CUST_ID = #{cust_id} ; 
+	</update>
 
 </mapper>
