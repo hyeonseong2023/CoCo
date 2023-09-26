@@ -14,7 +14,9 @@
   }
 }
 
-
+.login{
+  font-size: large;
+}
 /* 모달 백그라운드 오버레이 스타일 */
 .modal-overlay {
     position: fixed;
@@ -69,15 +71,22 @@
   display: flex;
 }
 
-.mypageicon {
-  width: 50px; 
-  min-width: 50px;
-  min-height: 50px;
-  height: 50px; 
-  overflow: hidden;
-  border-radius: 80%;
-  border: 1px solid #ccc;
-  margin-left: 10px;
+.header-buttons-div>div{
+  display: flex;
+  text-align: center;
+align-items: center; 
+justify-content: center;
+}
+
+
+.mypageicon>img{
+width: 40px;
+min-width: 40px;
+min-height: 40px;
+height: 40px;
+overflow: hidden;
+border-radius: 60%;
+border: solid #ccc 1px;
 }
 
 .mypageicon img {
@@ -96,7 +105,7 @@
 
 .writeicon{
   font-size: large;
-  margin-left: 1225px;
+  margin-left: 1100px;
   width: auto;
   height: auto;
 }
@@ -131,4 +140,21 @@
 .header-buttons{
   display: flex;
   align-items: center;
+}
+
+.writeicon{
+  
+  /* background-color: #ccc; */
+  width: 150px;
+  font-weight: 800;
+}
+
+.login{
+  /* background-color: #ccc; */
+  width: 130px;
+  font-weight: 800;
+}
+
+.mypageicon{
+  margin-left: 10px;
 }
