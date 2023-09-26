@@ -1,0 +1,19 @@
+.applicants-container {
+  background-color: whitesmoke;
+  min-height: 500px;
+}
+
+.applicant-div {
+  margin: 10px;
+  padding: 10px;
+}
+
+.applicant-div > div {
+  display: inline;
+}
+
+.applicant-div > div > img {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
