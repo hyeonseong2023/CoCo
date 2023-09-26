@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import img from '../img/normal.png'
 import write from '../img/writeA.png'
 import CoCo from '../img/CoCo.png'
-import profile from '../img/profilePicture.png'
+import profilePicture from '../img/profilePicture.png'
 
 import login from '../img/Login.png'
 import axios from 'axios';
@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
   useEffect (()=>{
     if (custImg == null) { //지정안했으면 기본사진 
-      setCustImg(profile)
+      setCustImg(profilePicture)
   } else {
       setCustImg(custProfileImg)
   }
