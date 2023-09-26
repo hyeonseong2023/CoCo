@@ -36,7 +36,7 @@ const Post = ({ data, boardData }) => {
   const [date, setDate] = useState(boardData.TB_BOARD.board_dt);
   const [dDay, setDday] = useState(boardData.D_day);
   const [content, setContent] = useState(boardData.TB_BOARD.board_content);
-  const [boardImg, setBoardImg] = useState(boardData.TB_BOARD_IMG.board_IMG);
+  const [boardImg, setBoardImg] = useState(boardData.TB_BOARD_IMG?.board_IMG);
   const [custNick, setCustNick] = useState(boardData.createCust.cust_nick);
   const [custImg, setCustImg] = useState(boardData.createCust.cust_img);
   const boardCreateId = boardData.TB_BOARD.cust_id;

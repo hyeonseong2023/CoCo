@@ -82,7 +82,7 @@ const Write = () => {
     // 기술 스택을 쉼표로 구분된 문자열로 변환
     const positionString = selectedPosition.join(', ');
 
-  const url = boardData
+    const url = boardData
     ? 'http://localhost:8099/postupdateinfor'
     : 'http://localhost:8099/postsaveinfor';
 
@@ -99,7 +99,7 @@ const Write = () => {
     formData.append('board_deadline', recruitmentInfo.deadline);
     formData.append('board_views', '0');
     formData.append('SKILL_NAME', selectedTechStack.join(', '));
-    formData.append('BOARD_IMG', "");
+    formData.append('BOARD_IMG', '');
     boardData && formData.append('board_id', boardData.TB_BOARD.board_id);
 
 
@@ -245,7 +245,7 @@ const Write = () => {
                 name="position"
                 options={positionOptions}
                 isMulti
-                value={selectedPosition.map((value: any) => ({
+                value={selectedPosition && selectedPosition.map((value: any) => ({
                   label: value,
                   value: value,
                 }))}

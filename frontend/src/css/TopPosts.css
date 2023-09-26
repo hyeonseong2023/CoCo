@@ -1,6 +1,6 @@
 .top-posts-slide-content {
     border-radius: 20px;
-    border: 2px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     background: rgb(255, 255, 255);
     height: 290px;
     align-items: center; /* 세로 중앙 정렬 */
@@ -30,6 +30,22 @@
     display: flex;
 }
 
+.TopPostsCon>div>h1{
+  font-size: 2.4rem;
+  color: #0d0d0d;
+  margin-bottom: 1.5%;
+}
+
+.TopPostsCon>div>h5{
+  font-size: 1.2rem;
+  color: #7d7d7d;
+
+}
+
+.TopPostsCon>div{
+  margin-bottom: 30px;
+}
+
 .TopPostsConi{
     flex: 1; 
     text-align: right;
@@ -45,6 +61,7 @@
 
 .top-posts-slide-content{
     font-size: 13px;
+    margin-left: 6%;
 }
 
 .TopPostsC{
@@ -107,7 +124,7 @@
 }
 
 .topTail{
-    margin-left: 5%;
+
     height: 23%;
     display: flex;
 }
@@ -124,6 +141,7 @@
 .topend3{
     margin-left: auto;
     margin-right: 5%;
+    padding-right: 3%;
 }
 .topTail > div{
     width: 40%;
@@ -171,7 +189,7 @@
     height: 40px;
     overflow: hidden;
     border-radius: 60%;
-    border: solid #7d7d7d 1px;
+    border: solid #ccc 1px;
   }
 
   .topend1>img{
@@ -183,12 +201,51 @@
 
   .topend2{
     display: flex;
-    justify-content: center; /* 가로 가운데 정렬 */
-    align-items: center; /* 세로 가운데 정렬 */
+    margin-left: 3%;
+    align-items: center;
   }
 
   .topend3{
     display: flex;
-    justify-content: center; /* 가로 가운데 정렬 */
-    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: flex-end;
+    align-items: center; 
   }
+
+  .topend3>img{
+    width: 30px;
+    margin-right: 3%;
+  }
+
+  .topTail > div{
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+
+
+
+  .topend2{
+    margin-bottom: 3.5%;
+  }
+  .category_titlemain>h1{
+    font-size: 2.4rem;
+    color: #0d0d0d;
+    margin-bottom: 0.5%;
+    margin-top: 3%;
+    
+  }
+
+  .category_titlemain>h5{
+    font-size: 1.2rem;
+    color: #7d7d7d;
+    margin-bottom: 2%;
+  }
+
+  .category_titlemain{
+    margin-left: 0.5%;
+  }
+
+
+.topend2{
+  width: 100%
+}
