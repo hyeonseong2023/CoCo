@@ -62,7 +62,7 @@
 	<select id="recentList" parameterType="int">
 		select * from TB_BOARD
 		where CUST_ID NOT IN ('admin') 
-		order by BOARD_DT
+		order by BOARD_DT DESC
 		limit
 		#{endpoint}, 6;
 	</select>

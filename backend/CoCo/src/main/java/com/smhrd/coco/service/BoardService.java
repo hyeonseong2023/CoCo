@@ -36,15 +36,15 @@ import com.smhrd.coco.converter.ImageToBase64;
 @Service
 public class BoardService {
 
-	@Autowired
-	ResourceLoader resourceLoader;
-	// 특정 경로에 있는 파일을 가지고 오기
+   @Autowired
+   ResourceLoader resourceLoader;
+   // 특정 경로에 있는 파일을 가지고 오기
+   
+   @Autowired
+   private MainService mainService;
 
-	@Autowired
-	private MainService mainService;
-
-	@Autowired
-	private BoardMapper mapper;
+   @Autowired
+   private BoardMapper mapper;
 
 	// TB_BOARD 정보 저장
 	public int postSaveBoard(TB_BOARD board) {
@@ -117,17 +117,17 @@ public class BoardService {
 		if (createCust != null)
 			createCust.setCust_img(converter(createCust.getCust_img()));
 
-		// JSONArray 에 모두 담기
-		JSONArray jsonArray = new JSONArray();
+      // JSONArray 에 모두 담기
+      JSONArray jsonArray = new JSONArray();
 
-		JSONObject obj = new JSONObject();
-		obj.put("TB_BOARD", board);
-		obj.put("TB_BOARD_SKILL", skillList);
-		obj.put("TB_BOARD_IMG", img);
-		obj.put("TB_BOOKMARK", bmk);
-		obj.put("TB_APPLY", apply);
-		obj.put("D_day", dDay);
-		obj.put("createCust", createCust);
+      JSONObject obj = new JSONObject();
+      obj.put("TB_BOARD", board);
+      obj.put("TB_BOARD_SKILL", skillList);
+      obj.put("TB_BOARD_IMG", img);
+      obj.put("TB_BOOKMARK", bmk);
+      obj.put("TB_APPLY", apply);
+      obj.put("D_day", dDay);
+      obj.put("createCust", createCust);
 
 		jsonArray.add(obj);
 		return jsonArray;

@@ -3,6 +3,7 @@ import Select from 'react-select';
 import '../css/Category.css';
 import bookmarkIconon from '../img/Bookmarkon.png'
 import bookmarkIconoff from '../img/Bookmarkoff.png'
+import Cookies from 'js-cookie';
 
 interface CategoryOption {
   value: any;
@@ -19,6 +20,8 @@ interface CategoryBoxProps {
   onAppliedToggle: () => void;
   onMyPostsClick: () => void;
 }
+
+const custId = Cookies.get('CUST_ID');
 
 const CategoryBox: React.FC<CategoryBoxProps> = ({
   setSelectedLanguage,
@@ -98,24 +101,13 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
       ...provided,
       width: 200,
     }),
-    option: (provided: any, state: any) => ({
-      ...provided,
-      color: state.isSelected ? 'blue' : 'black',
-    }),
-    singleValue: (provided: any) => ({
-      ...provided,
-      color: 'blue', // 선택된 값 파란색
-    }),
-    placeholder: (provided: any) => ({
-      ...provided,
-      color: 'blue', // 기본 플레이스홀더 텍스트 파란색
-    }),
+
   };
   return (
     <div className='category_main'>
       <div className='category_titlemain'>
-        <div>분야별 프로젝트</div>
-        <div>분야별 함께할 팀원을 모집해 보세요.</div>
+        <h1>분야별 프로젝트</h1>
+        <h5>분야별 함께할 팀원을 모집해 보세요.</h5>
       </div>
       <div className='category_titleseb'>
         <div className='category_titlesec'>
@@ -138,31 +130,32 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
             />
           </div>
           <div className='category_sub2'>
-            <label>
-              <button>
-              <img
-                src={viewState === 'bookmark' ? bookmarkIconon : bookmarkIconoff}
-                alt="북마크 아이콘"
-                onClick={() => { handleButtonClick('bookmark'); onBookmarkToggle(); }}
-              />
-              </button>
-            </label>
-            <label className='labelselect1'>
-              <button
-                onClick={() => { handleButtonClick('applied'); if (viewState !== 'applied') { onAppliedToggle(); } }}
-                style={{ color: viewState === 'applied' ? 'blue' : 'black' }}
-              >
-                지원한 게시글 보기
-              </button>
-            </label>
-            <label className='labelselect2'>
-              <button
-                onClick={() => { handleButtonClick('myposts'); onMyPostsClick(); }}
-                style={{ color: viewState === 'myposts' ? 'blue' : 'black' }}
-              >
-                내가 쓴 게시물 보기
-              </button>
-            </label>
+            {custId && (
+              <>
+                <label>
+                  <button>
+                    <img
+                      src={viewState === 'bookmark' ? bookmarkIconon : bookmarkIconoff}
+                      alt="북마크 아이콘"
+                      className='imgbtnbox'
+                      onClick={() => { handleButtonClick('bookmark'); onBookmarkToggle(); }}
+                    />
+                  </button>
+                </label>
+                <label className='labelselect1'>
+                  <button
+                    onClick={() => { handleButtonClick('applied'); if (viewState !== 'applied') { onAppliedToggle(); } }}
+                  >
+                    지원한 게시글 보기
+                  </button>
+                </label>
+                <label className='labelselect1'>
+                  <button onClick={() => { handleButtonClick('myposts'); onMyPostsClick(); }}>
+                    내가 쓴 게시물 보기
+                  </button>
+                </label>
+              </>
+            )}
           </div>
         </div>
       </div>

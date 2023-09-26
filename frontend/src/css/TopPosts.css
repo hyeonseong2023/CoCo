@@ -1,6 +1,6 @@
 .top-posts-slide-content {
     border-radius: 20px;
-    border: 2px solid rgb(209, 209, 209);
+    border: 1px solid rgb(209, 209, 209);
     background: rgb(255, 255, 255);
     height: 290px;
     align-items: center; /* 세로 중앙 정렬 */
@@ -30,13 +30,26 @@
     display: flex;
 }
 
+.TopPostsCon>div>h1{
+  font-size: 2.4rem;
+  color: #0d0d0d;
+  margin-bottom: 1.5%;
+}
+
+.TopPostsCon>div>h5{
+  font-size: 1.2rem;
+  color: #7d7d7d;
+
+}
+
 .TopPostsConi{
     flex: 1; 
     text-align: right;
     display: flex;
-    align-items: center;
+    align-items: end;
+    margin-bottom: 2%;
     justify-content: flex-end;
-    margin-right: 2%;
+    font-size: 1.1rem;
 }
 
 .TopPostsConi > button{
@@ -45,6 +58,7 @@
 
 .top-posts-slide-content{
     font-size: 13px;
+    margin-left: 6%;
 }
 
 .TopPostsC{
@@ -107,7 +121,7 @@
 }
 
 .topTail{
-    margin-left: 5%;
+
     height: 23%;
     display: flex;
 }
@@ -124,6 +138,7 @@
 .topend3{
     margin-left: auto;
     margin-right: 5%;
+    padding-right: 3%;
 }
 .topTail > div{
     width: 40%;
@@ -141,28 +156,7 @@
     margin-left: 5%;
     margin-bottom: 3%;
   }
-  
 
-  .frontend-color {
-    background-color: rgba(255, 160, 160, 0.5); /* 연한 빨간색과 50% 투명도 */
-    color: #AA0000; /* 진한 빨간색 */
-  }
-  
-  .backend-color {
-    background-color: rgba(160, 255, 160, 0.5); /* 연한 녹색과 50% 투명도 */
-    color: #00AA00; /* 진한 녹색 */
-  }
-  
-  .designer-color {
-    background-color: rgba(160, 160, 255, 0.5); /* 연한 파란색과 50% 투명도 */
-    color: #0000AA; /* 진한 파란색 */
-  }
-  
-  .planner-color {
-    background-color: rgba(255, 255, 160, 0.5); /* 연한 노란색과 50% 투명도 */
-    color: #AAAA00; /* 진한 노란색 */
-  }
-  
 
   .topend1{
     width: 40px;
@@ -171,7 +165,7 @@
     height: 40px;
     overflow: hidden;
     border-radius: 60%;
-    border: solid #7d7d7d 1px;
+    border: solid #ccc 1px;
   }
 
   .topend1>img{
@@ -183,12 +177,91 @@
 
   .topend2{
     display: flex;
-    justify-content: center; /* 가로 가운데 정렬 */
-    align-items: center; /* 세로 가운데 정렬 */
+    margin-left: 3%;
+    align-items: center;
   }
 
   .topend3{
     display: flex;
-    justify-content: center; /* 가로 가운데 정렬 */
-    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: flex-end;
+    align-items: center; 
   }
+
+  .topend3>img{
+    width: 30px;
+    margin-right: 3%;
+  }
+
+  .topTail > div{
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+
+
+
+  .topend2{
+    margin-bottom: 3.5%;
+  }
+  .category_titlemain>h1{
+    font-size: 2.4rem;
+    color: #0d0d0d;
+    margin-bottom: 0.5%;
+    margin-top: 3%;
+    
+  }
+
+  .TopPostsCon>div>h5{
+    margin-top : 1%;
+  }
+
+  .category_titlemain>h5{
+    font-size: 1.2rem;
+    color: #7d7d7d;
+    margin-bottom: 2%;
+  }
+
+  .category_titlemain{
+    margin-left: 0.5%;
+  }
+
+
+.topend2{
+  width: 100%
+}
+
+
+.frontend-color {
+  background-color: rgba(255, 160, 160, 0.5); /* 연한 빨간색과 50% 투명도 */
+  color: #AA0000; /* 진한 빨간색 */
+}
+
+.backend-color {
+  background-color: rgba(160, 255, 160, 0.5); /* 연한 녹색과 50% 투명도 */
+  color: #00AA00; /* 진한 녹색 */
+}
+
+.designer-color {
+  background-color: rgba(160, 160, 255, 0.5); /* 연한 파란색과 50% 투명도 */
+  color: #0000AA; /* 진한 파란색 */
+}
+
+.planner-color {
+  background-color: rgba(255, 255, 160, 0.5); /* 연한 노란색과 50% 투명도 */
+  color: #AAAA00; /* 진한 노란색 */
+}
+
+.ios-color{
+  background-color: #f9e7cf;
+  color: #ff9d00; 
+}
+
+.dev-color{
+  background-color: rgb(171, 228, 255);
+  color: rgb(0, 174, 255); 
+}
+
+.pm-color{
+  background-color: #f7caf2;
+  color: #800073; 
+}

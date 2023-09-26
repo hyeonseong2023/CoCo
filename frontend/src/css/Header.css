@@ -14,7 +14,9 @@
   }
 }
 
-
+.login{
+  font-size: large;
+}
 /* 모달 백그라운드 오버레이 스타일 */
 .modal-overlay {
     position: fixed;
@@ -61,11 +63,6 @@
 }
 
 
-
-.header-buttons {
-
-}
-
 .mypageicon > img {
   height: 60px;
 }
@@ -74,15 +71,22 @@
   display: flex;
 }
 
-.mypageicon {
-  width: 50px; 
-  min-width: 50px;
-  min-height: 50px;
-  height: 50px; 
-  overflow: hidden;
-  border-radius: 80%;
-  border: 1px solid #ccc;
-  margin-left: 10px;
+.header-buttons-div>div{
+  display: flex;
+  text-align: center;
+align-items: center; 
+justify-content: center;
+}
+
+
+.mypageicon>img{
+width: 40px;
+min-width: 40px;
+min-height: 40px;
+height: 40px;
+overflow: hidden;
+border-radius: 60%;
+border: solid #ccc 1px;
 }
 
 .mypageicon img {
@@ -99,17 +103,25 @@
 }
 
 
-.writeicon >button{
+.writeicon{
   font-size: large;
-  font-weight: 600;
-  margin-left: 1000px;
+  margin-left: 1100px;
   width: auto;
   height: auto;
 }
 
-
+.writeicon>button{
+  width: 100px;
+  /* background-color: aquamarine; */
+  font-weight: 600;
+}
+.header-buttons-div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* 요소를 오른쪽으로 정렬합니다. */
+}
 .header-buttons-div > button{
-  white-space : nowrap;
+
   /* background-color: #007bff; */
   width:110px;
   font-size: large;
@@ -121,3 +133,28 @@
   width: 100%;
 }
 
+.header-container{
+  display: flex;
+}
+
+.header-buttons{
+  display: flex;
+  align-items: center;
+}
+
+.writeicon{
+  
+  /* background-color: #ccc; */
+  width: 150px;
+  font-weight: 800;
+}
+
+.login{
+  /* background-color: #ccc; */
+  width: 130px;
+  font-weight: 800;
+}
+
+.mypageicon{
+  margin-left: 10px;
+}

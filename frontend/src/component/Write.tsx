@@ -98,7 +98,7 @@ const Write = () => {
     formData.append('pro_link', recruitmentInfo.openTalkLink);
     formData.append('board_deadline', recruitmentInfo.deadline);
     formData.append('board_views', '0');
-    formData.append('SKILL_NAME', selectedTechStack.join(', '));
+    formData.append('SKILL_NAME', selectedTechStack.join(','));
     formData.append('BOARD_IMG', '');
     boardData && formData.append('board_id', boardData.TB_BOARD.board_id);
 
@@ -122,10 +122,35 @@ const Write = () => {
   };
 
   const techStackOptions = [
-    { label: "Spring", value: "Spring" },
+    { label: "AWS", value: "AWS" },
+    { label: "C", value: "C" },
+    { label: "Django", value: "Django" },
+    { label: "Docker", value: "Docker" },
+    { label: "Express", value: "Express" },
+    { label: "Figma", value: "Figma" },
+    { label: "Firebase", value: "Firebase" },
+    { label: "Flutter", value: "Flutter" },
+    { label: "Git", value: "Git" },
+    { label: "Go", value: "Go" },
+    { label: "GraphQL", value: "GraphQL" },
+    { label: "Java", value: "Java" },
     { label: "JavaScript", value: "javaScript" },
+    { label: "Kotlin", value: "Kotlin" },
+    { label: "Kubernetes", value: "Kubernetes" },
+    { label: "MongoDB", value: "MongoDB" },
+    { label: "MySQL", value: "MySQL" },
+    { label: "Nestjs", value: "Nestjs" },
+    { label: "Nextjs", value: "Nextjs" },
+    { label: "Nodejs", value: "Nodejs" },
+    { label: "php", value: "php" },
+    { label: "Python", value: "Python" },
+    { label: "ReactNative", value: "ReactNative" },
+    { label: "Spring", value: "Spring" },
+    { label: "Swift", value: "Swift" },
     { label: "TypeScript", value: "TypeScript" },
+    { label: "Unity", value: "Unity" },
     { label: "Vue", value: "Vue" },
+    { label: "Zeplin", value: "Zeplin" }
   ];
 
   const positionOptions = [
@@ -151,11 +176,11 @@ const Write = () => {
       <form className="write-form" onSubmit={handleSubmit}>
         <div className="write-container-box">
           <div className="write-submitSet">
-            <h2>게시글 작성</h2>
+            <h1>1. 프로젝트 기본 정보를 입력해주세요</h1>
           </div>
 
           <div className="form-group form-group-spacing">
-            <label htmlFor="title">게시글 제목</label>
+            <label htmlFor="title" className='titlesub1'>게시글 제목</label>
             <input
               type="text"
               id="title"
@@ -164,9 +189,6 @@ const Write = () => {
               required
               className="input-field"
             />
-          </div>
-          <div id="write-division">
-            <h3>모집 정보</h3>
           </div>
           <div className="form-group-form-groups">
             <div className="form-subgroup form-subgroup-spacing">
@@ -189,6 +211,7 @@ const Write = () => {
             <div className="form-subgroup form-subgroup-spacing">
               <label htmlFor="techStack">기술 스택</label>
               <Select
+                placeholder = ""
                 id="techStack"
                 name="techStack"
                 options={techStackOptions}
@@ -251,10 +274,11 @@ const Write = () => {
                 }))}
                 onChange={handlePositionChange}
                 className="custom-select"
+                placeholder = ""
               />
             </div>
             <div className="form-subgroup form-subgroup-spacing">
-              <label htmlFor="openTalkLink"> 오픈톡 링크</label>
+              <label htmlFor="openTalkLink" > 오픈톡 링크</label>
               <input
                 type="text"
                 id="openTalkLink"
@@ -268,7 +292,7 @@ const Write = () => {
             </div>
           </div>
           <div className="form-group form-group-spacing">
-            <label htmlFor="content">내용</label>
+            <label htmlFor="content" className='writesub2'>2. 프로젝트에 대해 소개해주세요</label>
             <ReactQuill
               style={{ width: '800px', height: '600px' }}
               modules={modules}
@@ -277,15 +301,16 @@ const Write = () => {
             />
           </div>
           <div className="cancel-submit-buttons">
+            <button type="submit" className="submit-button">
+              등록
+            </button>
             <Link to={'/'}>
               <button type="button" className="cancel-button">
-                작성 취소
+                취소
               </button>
             </Link>
-            <button type="submit" className="submit-button">
-              작성
-            </button>
           </div>
+          <div className='writespace'></div>
         </div>
       </form>
     </div>
