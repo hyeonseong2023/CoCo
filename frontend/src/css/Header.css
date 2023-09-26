@@ -94,12 +94,17 @@
 }
 
 
-.writeicon >button{
+.writeicon{
   font-size: large;
-  font-weight: 600;
-  margin-left: 1200px;
+  margin-left: 1225px;
   width: auto;
   height: auto;
+}
+
+.writeicon>button{
+  width: 100px;
+  /* background-color: aquamarine; */
+  font-weight: 600;
 }
 .header-buttons-div {
   display: flex;
