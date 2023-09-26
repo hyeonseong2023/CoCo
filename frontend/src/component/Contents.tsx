@@ -54,20 +54,13 @@ function getPositionColor(position: string) {
 }
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
-  const [skillName, setSkillName] = useState([]);
-
   const today = new Date();
-  console.log("categoryData", categoryData);
-
 
   return (
     <div>
       <div id='Contents-box'>
         <div id='Contentsbox-c'>
           {categoryData.map((data, index) => { 
-            
-            // setSkillName(data.skill_names);
-            // 이 부분에서 날짜 관련 로직을 사용할 수 있도록 today를 정의
             const deadlineDate = new Date(data.board_deadline);
             const todayMillis = today.getTime();
             const deadlineMillis = deadlineDate.getTime();
@@ -89,19 +82,24 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                           <div className='topHeader-daya'>{daysDifference}일 남음</div>
                         </div>
                       )}
-                      <div className='boxA_title'><div className='boxA_titleA'>{data.title}</div>
+                      <div className='boxA_title'>
+                        <div className='boxA_titleA'>{data.title}</div>
                         <td className="skillImg">
-                          
-                          {data.skill_names.map((skill: any) => (
-                            <img src={process.env.PUBLIC_URL + `/skillImg/${skill}.svg`} />
-                          ))}
+                          {data.skill_names ? (
+                            data.skill_names.map((skill: any) => (
+                              <img key={skill} src={process.env.PUBLIC_URL + `/skillImg/${skill}.svg`} alt={skill} />
+                            ))
+                          ) : null}
                         </td>
                       </div>
-                      <div className='boxA_img'><div><img src={img} alt="" /></div><div className='contentsNick'>{data.cust_nick}</div></div>
+                      <div className='boxA_img'>
+                        <div><img src={img} alt="" /></div>
+                        <div className='contentsNick'>{data.cust_nick}</div>
+                      </div>
                     </div>
 
                     <div className='boxB_bookmark'>
-                      <div className='boxB_1'><img src={book} alt="" /> </div>
+                      <div className='boxB_1'><img src={book} alt="" /></div>
                       <div className='boxB_2'><img src={viewicon} alt="" />{data.board_views}</div>
                     </div>
 
@@ -118,7 +116,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                               key={positionIndex}
                               className={`top-board_position ${getPositionColor(position)}`}
                             >
-                              {position}
+                              {position.trim()}
                             </div>
                           ))}
                         </div>
