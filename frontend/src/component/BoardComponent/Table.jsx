@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../css/Board.css';
 import linkIcon from '../../img/linkIcon.png';
 
-const Table = ({boardData }) => {
+const Table = ({ boardData }) => {
   const [member, setMember] = useState();
   const [deadLine, setDeadLine] = useState();
   const [position, setPosition] = useState();
