@@ -1,5 +1,5 @@
-import React, { createContext, useRef, useState } from "react";
-import uuid from "react-uuid";
+import React, { createContext, useRef, useState } from 'react';
+import uuid from 'react-uuid';
 
 export interface ContentInterface {
   id: string;
@@ -21,15 +21,15 @@ export interface PageContextInterface {
 export function initialContent(): ContentInterface {
   return {
     id: uuid(),
-    tag: "div",
-    text: "",
+    tag: 'div',
+    text: '',
   };
 }
 
-export function initialContents(): PageContentInterface {
+export function initialContents(id: string): PageContentInterface {
   return {
-    id: uuid(),
-    head: { id: uuid(), tag: "h1", text: "" },
+    id: id,
+    head: { id: uuid(), tag: 'h1', text: '' },
     contents: [initialContent()],
   };
 }
@@ -71,7 +71,7 @@ export const OverlayContext = createContext<OverlayContextInterface | null>(
 );
 
 export function PageProvider({ children }: { children: React.ReactNode }) {
-  const [contents, setContents] = useState(initialContents());
+  const [contents, setContents] = useState(initialContents('54325234'));
   const [headEditable, setHeadEditable] = useState(false);
   const [editable, setEditable] = useState([false]);
   const [caret, setCaret] = useState(0);

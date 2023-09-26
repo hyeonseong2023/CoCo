@@ -82,7 +82,7 @@ const Write = () => {
     // 기술 스택을 쉼표로 구분된 문자열로 변환
     const positionString = selectedPosition.join(', ');
 
-  const url = boardData
+    const url = boardData
     ? 'http://localhost:8099/postupdateinfor'
     : 'http://localhost:8099/postsaveinfor';
 
@@ -98,8 +98,8 @@ const Write = () => {
     formData.append('pro_link', recruitmentInfo.openTalkLink);
     formData.append('board_deadline', recruitmentInfo.deadline);
     formData.append('board_views', '0');
-    formData.append('SKILL_NAME', selectedTechStack.join(', '));
-    formData.append('BOARD_IMG', "");
+    formData.append('SKILL_NAME', selectedTechStack.join(','));
+    formData.append('BOARD_IMG', '');
     boardData && formData.append('board_id', boardData.TB_BOARD.board_id);
 
 
@@ -122,10 +122,35 @@ const Write = () => {
   };
 
   const techStackOptions = [
-    { label: "Spring", value: "Spring" },
+    { label: "AWS", value: "AWS" },
+    { label: "C", value: "C" },
+    { label: "Django", value: "Django" },
+    { label: "Docker", value: "Docker" },
+    { label: "Express", value: "Express" },
+    { label: "Figma", value: "Figma" },
+    { label: "Firebase", value: "Firebase" },
+    { label: "Flutter", value: "Flutter" },
+    { label: "Git", value: "Git" },
+    { label: "Go", value: "Go" },
+    { label: "GraphQL", value: "GraphQL" },
+    { label: "Java", value: "Java" },
     { label: "JavaScript", value: "javaScript" },
+    { label: "Kotlin", value: "Kotlin" },
+    { label: "Kubernetes", value: "Kubernetes" },
+    { label: "MongoDB", value: "MongoDB" },
+    { label: "MySQL", value: "MySQL" },
+    { label: "Nestjs", value: "Nestjs" },
+    { label: "Nextjs", value: "Nextjs" },
+    { label: "Nodejs", value: "Nodejs" },
+    { label: "php", value: "php" },
+    { label: "Python", value: "Python" },
+    { label: "ReactNative", value: "ReactNative" },
+    { label: "Spring", value: "Spring" },
+    { label: "Swift", value: "Swift" },
     { label: "TypeScript", value: "TypeScript" },
+    { label: "Unity", value: "Unity" },
     { label: "Vue", value: "Vue" },
+    { label: "Zeplin", value: "Zeplin" }
   ];
 
   const positionOptions = [
@@ -245,7 +270,7 @@ const Write = () => {
                 name="position"
                 options={positionOptions}
                 isMulti
-                value={selectedPosition.map((value: any) => ({
+                value={selectedPosition && selectedPosition.map((value: any) => ({
                   label: value,
                   value: value,
                 }))}

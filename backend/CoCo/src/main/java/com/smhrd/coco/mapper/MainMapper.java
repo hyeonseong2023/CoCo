@@ -3,10 +3,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_SKILL;
+import com.smhrd.coco.domain.TB_CUST;
 
 @Mapper
 public interface MainMapper {
 	
+	// 프로필 이미지 보내기 
+	public TB_CUST ImgPath(String cust_id); 
 	
 	// 조회수 증가
 	public int increaseViews(int board_id);

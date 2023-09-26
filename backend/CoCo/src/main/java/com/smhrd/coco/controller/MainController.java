@@ -3,7 +3,7 @@ package com.smhrd.coco.controller;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
-
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +20,12 @@ public class MainController {
 
 	@Autowired
 	private MainService service;
-
+	
+	// 프로필 이미지 보내기 
+	@GetMapping("/profileimg")
+    public JSONObject profileImg(@RequestParam("cust_id") String cust_id) {  
+		return service.profileImg(cust_id); 
+	}
 	// 조회수 증가
 	@GetMapping("/views")
 	public void views(@RequestParam("board_id") int board_id) {

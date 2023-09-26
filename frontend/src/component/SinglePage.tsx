@@ -16,6 +16,7 @@ const SinglePage: React.FC = () => {
 
   const fetchData = async () => {
     const boardId = boardIdFromPathname;
+    console.log("싱글",`http://localhost:8099/selectpostviews/${boardIdFromPathname}`);
 
     try {
       const response = await axios.get(`http://localhost:8099/selectpostviews/${boardIdFromPathname}`, {
@@ -23,7 +24,7 @@ const SinglePage: React.FC = () => {
           cust_id: Cookies.get('CUST_ID'),
         },
       });
-      console.log(response);
+      console.log("싱글",response);
       
       setBoardData(response.data[0]);
     } catch (error) {

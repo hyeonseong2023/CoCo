@@ -7,10 +7,11 @@
 }
 
 .post {
+  /* background-color: aqua; */
   width: 70%;
   height: 100vh;
-  position: absolute;
-  top: 0;
+  position: absolute; /* post 컴포넌트를 absolute로 설정 */
+  top: 10%; /* 위쪽에 붙이기 위해 top을 0으로 설정 */
 }
 
 .postTitle{

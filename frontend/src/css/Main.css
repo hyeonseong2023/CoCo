@@ -14,15 +14,16 @@
 
 .more-button {
   background-color: #fff;
-  color: #58a2f1;
+  color: #4598FF;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s;
-  width: 100%;
-  border: 1px solid #58a2f1;
+  width: 97%;
+  border: 1px solid #4598FF;
+  margin-right: 1%;
 }
 
 .more-button:hover {
