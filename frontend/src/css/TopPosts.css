@@ -42,16 +42,14 @@
 
 }
 
-.TopPostsCon>div{
-  margin-bottom: 30px;
-}
-
 .TopPostsConi{
     flex: 1; 
     text-align: right;
     display: flex;
-    align-items: center;
+    align-items: end;
+    margin-bottom: 2%;
     justify-content: flex-end;
+    font-size: 1.1rem;
 }
 
 .TopPostsConi > button{
@@ -213,6 +211,10 @@
     
   }
 
+  .TopPostsCon>div>h5{
+    margin-top : 1%;
+  }
+
   .category_titlemain>h5{
     font-size: 1.2rem;
     color: #7d7d7d;
@@ -260,6 +262,6 @@
 }
 
 .pm-color{
-  background-color: #fca4f3;
+  background-color: #f7caf2;
   color: #800073; 
 }
