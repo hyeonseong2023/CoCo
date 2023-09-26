@@ -12,6 +12,9 @@ import SinglePage from './component/SinglePage';
 const App: React.FC = () => {
   return (
     <Router>
+      <Routes>
+        <Route path="/pp" element={<ProjectPage />} />
+      </Routes>
       <div className="main-div">
         <Routes>
           <Route path="/write" element={<Write />} />
@@ -20,13 +23,9 @@ const App: React.FC = () => {
           <Route path="/callback/*" element={<Main />} /> {/* 기본 경로 */}
           <Route path="/Check" element={<Check />} />
           <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
-          <Route path="/pp" element={<ProjectPage />} />
           <Route path="/selectpostviews/:id" element={<SinglePage />} />
         </Routes>
       </div>
-      <Routes>
-        <Route path="/pp" element={<ProjectPage />} />
-      </Routes>
     </Router>
   );
 };
