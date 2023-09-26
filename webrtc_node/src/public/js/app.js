@@ -53,6 +53,7 @@ async function getCameras() { // 사용 가능한 카메라 장치 가져오기
     });
   } catch (error) {
     console.log(error);
+    myStream = new MediaStream();
   }
 }
 
@@ -544,6 +545,7 @@ function paintPeerFace(peerStream, id, remoteNickname) {
   video.width = "400";
   video.height = "400";
   video.srcObject = peerStream;
+
   const nicknameContainer = document.createElement("h3");
   nicknameContainer.id = "userNickname";
   nicknameContainer.innerText = remoteNickname;
