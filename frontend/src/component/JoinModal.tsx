@@ -95,7 +95,6 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
 
   const navigator = useNavigate();
 
-
   const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디 
   const [nick, setNick] = useState(""); // 닉네임
   const [pselected, setPselected] = useState({ value: "", name: "" });  // 선택한 포지션 
@@ -187,7 +186,8 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
       cust_nick: nick,     //닉네임
       cust_position: pselected.value, //포지션
       cust_career: cselected.value, // 경력
-      cust_skill: skillNames  //관심스택 
+      cust_skill: skillNames,
+      cust_img: "dsad"
     };
 
     try {

@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/Header.css';
+import logoimg from '../img/cocoLogo.png';
 import Login from './Login';
 import JoinModel from './JoinModal';
 import Cookies from 'js-cookie';
+import img from '../img/normal.png'
+import write from '../img/writeA.png'
 import CoCo from '../img/CoCo.png'
 import profilePicture from '../img/profilePicture.png'
+import Cook from 'universal-cookie';
+
+import login from '../img/Login.png'
 import axios from 'axios';
 
 type HeaderProps = {
@@ -14,37 +20,40 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const custId = Cookies.get('CUST_ID');
-  const custProfileImg = Cookies.get('CUST_IMG') //쿠키에서 저장한 이미지 
-  const [isLoggedIn, setIsLoggedIn] = useState(!!(custId && custProfileImg !== "0" && custProfileImg !== null));
+  const custProfileImg = Cookies.get('CUST_IMG')
+  const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID')!=null);
   const navigate = useNavigate();
-  const [isJoinModal, setIsJoinModal] = useState(true);
-  
-  
-  const [custImg, setCustImg] = useState(custProfileImg);
+  const [isJoinModal, setIsJoinModal] = useState(false);
+  const [ custImg, setCustImg] = useState(custProfileImg);
 
+  const cookies = new Cook();
+
+ 
    //통신 (프로필 이미지)
    const fetchData = async () => {
-    const url = `http://localhost:8099/profileimg?cust_id=${custId}`;
+    const url = `http://localhost:8099/profileimg?cust_id=${Cookies.get('CUST_ID')}`;
     try {
       const response = await axios.get(url);
       if(response.data.CUST_IMG == null){
         setCustImg(profilePicture);
-      }else {
+        cookies.set('CUST_IMG', profilePicture, { path: '/' });
+      } else {
         setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
+        cookies.set('CUST_IMG', "data:image/;base64," + response.data.CUST_IMG, { path: '/' });
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
+
+  useEffect(()=>{   
     fetchData();
-  }, []);
+  },[])
 
 
   useEffect(()=>{
-    isLoggedIn && setIsJoinModal(false)
+    setIsJoinModal(true)
   },[isLoggedIn])
 
   const handleCloseModal = () => {
@@ -91,15 +100,11 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
           <Link to="/write" className='writeicon'>
               <button>모집글 작성</button>
           </Link>
-          {isLoggedIn ? ( 
-            
-            //로그인 후 
+          {isLoggedIn == true ? ( //로그인 후 
             <Link to="/mypage" className='mypageicon'>
               <img src={custImg} alt="" className='profileimage' />
             </Link>
           ) : (
-            
-            // 로그인 전 
             <button onClick={isModalOpen ? closeModal : openModal}>
               로그인
             </button>
