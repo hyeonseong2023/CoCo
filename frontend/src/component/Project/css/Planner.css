@@ -46,6 +46,7 @@ b {
 }
 
 .demo-app-main {
+  z-index: 1;
   width: 85vw;
   height: 100vh;
   flex-grow: 1;
