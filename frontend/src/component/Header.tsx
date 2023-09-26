@@ -21,7 +21,7 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const custProfileImg = Cookies.get('CUST_IMG')
-  const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID')!=null);
+  const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') != null);
   const navigate = useNavigate();
   const [isJoinModal, setIsJoinModal] = useState(false);
   const [ custImg, setCustImg] = useState(custProfileImg);
@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
   useEffect(()=>{
     setIsJoinModal(true)
-  },[isLoggedIn])
+  }, [isLoggedIn])
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -92,36 +92,43 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
 
   return (
-    <div  className="header-containerH">
-    <div className="header-container">
-      <div className="header-logo"><a href='/'><img src={CoCo} alt="" /></a></div>
-      <div className="header-buttons">
-        <div className='header-buttons-div'>
-          <Link to="/write" className='writeicon'>
-              <button>모집글 작성</button>
-          </Link>
-          {isLoggedIn == true ? ( //로그인 후 
-            <Link to="/mypage" className='mypageicon'>
-              <img src={custImg} alt="" className='profileimage' />
-            </Link>
-          ) : (
-            <button onClick={isModalOpen ? closeModal : openModal}>
-              로그인
-            </button>
+    <div className="header-containerH">
+      <div className="header-container">
+        <div className="header-logo"><a href='/'><img src={CoCo} alt="" /></a></div>
+        <div className="header-buttons">
+          <div className='header-buttons-div'>
+            {isLoggedIn == true ? ( //로그인 후 
+              <div>
+                <Link to="/write" className='writeicon'>
+                  <button>모집글 작성</button>
+                </Link>
+                <Link to="/mypage" className='mypageicon'>
+                  <img src={custImg} alt="" className='profileimage' />
+                </Link>
+              </div>
+            ) : (
+              <div className='header-buttons-div-div'>
+                <button onClick={isModalOpen ? closeModal : openModal} className='writeicon'>
+                  모집글 작성
+                </button>
+                <button onClick={isModalOpen ? closeModal : openModal} className='login'>
+                  로그인
+                </button>
+              </div>
 
-          )}
+            )}
 
-          {isJoinModal && custImg === "0" && Cookies.get('coin') === "on" && (
-            <JoinModel onClose={handleJoinModelClose} setIsJoinModal={setIsJoinModal} />
-          )}
-          
+            {isJoinModal && custImg === "0" && Cookies.get('coin') === "on" && (
+              <JoinModel onClose={handleJoinModelClose} setIsJoinModal={setIsJoinModal} />
+            )}
+
+          </div>
         </div>
-      </div>
-      {isModalOpen && (
-        <Login onClose={closeModal} />
-      )}
+        {isModalOpen && (
+          <Login onClose={closeModal} />
+        )}
 
-    </div>
+      </div>
 
     </div>
   );
