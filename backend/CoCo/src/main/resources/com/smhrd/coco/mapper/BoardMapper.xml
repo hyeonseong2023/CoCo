@@ -54,7 +54,7 @@
 			FROM TB_BOARD WHERE BOARD_ID = #{board_id}
 	</select>
 	
-	<!-- 선택한 게시물 skill 테이블에서 정보가져오기 -->
+	<!-- 선택한 게시물 cust 테이블에서 정보가져오기 -->
 	<select id="selectPostCust" resultType="com.smhrd.coco.domain.TB_CUST">
 			SELECT CUST_ID, CUST_NICK, CUST_IMG FROM TB_CUST WHERE CUST_ID=#{cust_id}
 	</select>
