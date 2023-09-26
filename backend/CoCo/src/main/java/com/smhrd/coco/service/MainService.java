@@ -167,6 +167,7 @@ public class MainService {
 			map.put("board_dt", pb.getBoard_dt());
 			map.put("board_views", pb.getBoard_views());
 			map.put("board_position", pb.getBoard_position());
+			map.put("board_members" , pb.getBoard_members());
 			map.put("pro_title", pb.getPro_title());
 			map.put("pro_img", pb.getPro_img());
 			map.put("pro_link", pb.getPro_link());
