@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/Contents.css';
 import { Link } from 'react-router-dom';
 import img from '../img/profilePicture.png';
 import book from '../img/Bookmarkoff.png';
-import viewicon from '../img/viewsIcon.png';
+import viewicon from '../img/viewsIcon.png'
+
 interface CategoryData {
   id: any;
   name: any;
@@ -21,6 +22,7 @@ interface CategoryData {
   pro_link: any;
   pro_title: any;
   cust_nick: any;
+  skill_names: any;
 }
 
 interface ContentsProps {
@@ -32,97 +34,93 @@ function getPositionColor(position: string) {
     case '프론트엔드':
       return 'frontend-color';
     case '백엔드':
+    case ' 백엔드':
       return 'backend-color';
     case '디자이너':
+    case ' 디자이너':
       return 'designer-color';
+    case ' IOS안드로이드':
+    case 'IOS안드로이드':
+      return 'ios-color'
+    case '데브옵스':
+      return 'dev-color'
+    case 'PM':
+      return 'pm-color'
     case '기획자':
-      return 'planner-color';
+      return 'planner-color'; // 이러한 포지션들에 대해서는 'planner-color' 클래스를 반환합니다.
     default:
       return ''; // 기본값으로 빈 문자열을 반환하거나 다른 적절한 클래스를 할당하세요.
   }
 }
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
-  // 현재 날짜 가져오기
+  const [skillName, setSkillName] = useState([]);
+
   const today = new Date();
-  console.log(categoryData);
+  console.log("categoryData", categoryData);
+
 
   return (
     <div>
-      <div id="Contents-box">
-        <div id="Contentsbox-c">
-          {categoryData.map((data, index) => {
+      <div id='Contents-box'>
+        <div id='Contentsbox-c'>
+          {categoryData.map((data, index) => { 
+            
+            // setSkillName(data.skill_names);
             // 이 부분에서 날짜 관련 로직을 사용할 수 있도록 today를 정의
             const deadlineDate = new Date(data.board_deadline);
             const todayMillis = today.getTime();
             const deadlineMillis = deadlineDate.getTime();
-            const daysDifference = Math.floor(
-              (deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24)
-            );
+            const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
-            const contentClassName = `top-posts-slide-content ${
-              isExpired ? 'expired' : ''
-            }`;
+            const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
 
             return (
               <div key={index} className="content-wrapper">
-                <Link
-                  to={`selectpostviews/${data.id}`}
-                  key={index}
-                  state={data}
-                >
-                  <div className="Contentsbox">
-                    <div className="Contentsbox-A">
+                <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
+                  <div className='Contentsbox'>
+                    <div className='Contentsbox-A'>
                       {isExpired ? (
-                        <div className="contentHeader">
-                          <div className="topHeader-day">모집마감</div>
+                        <div className='contentHeader'>
+                          <div className='topHeader-day'>모집마감</div>
                         </div>
                       ) : (
-                        <div className="topHeader">
-                          <div className="topHeader-day">
-                            {daysDifference}일 남음
-                          </div>
+                        <div className='topHeader'>
+                          <div className='topHeader-daya'>{daysDifference}일 남음</div>
                         </div>
                       )}
-                      <div className="boxA_title">
-                        <div>{data.title}</div>
+                      <div className='boxA_title'><div className='boxA_titleA'>{data.title}</div>
+                        <td className="skillImg">
+                          
+                          {data.skill_names.map((skill: any) => (
+                            <img src={process.env.PUBLIC_URL + `/skillImg/${skill}.svg`} />
+                          ))}
+                        </td>
                       </div>
-                      <div className="boxA_img">
-                        <div>
-                          <img src={img} alt="" />
-                        </div>
-                        <div className="contentsNick">{data.cust_nick}</div>
-                      </div>
+                      <div className='boxA_img'><div><img src={img} alt="" /></div><div className='contentsNick'>{data.cust_nick}</div></div>
                     </div>
-                    <div className="boxB_bookmark">
-                      <div className="boxB_1">
-                        <img src={book} alt="" />{' '}
-                      </div>
-                      <div className="boxB_2">
-                        <img src={viewicon} alt="" />
-                        {data.board_views}
-                      </div>
+
+                    <div className='boxB_bookmark'>
+                      <div className='boxB_1'><img src={book} alt="" /> </div>
+                      <div className='boxB_2'><img src={viewicon} alt="" />{data.board_views}</div>
                     </div>
-                    <div className="ContentsLine"></div>
-                    <div className="Content-topTail">
-                      <div className="Content-topicon1">
-                        모집인원 {data.board_members}
+
+                    <div className='ContentsLine'></div>
+                    <div className='Content-topTail'>
+                      <div className='Content-topicon1'>
+                        모집인원 {data.board_members} 명
                       </div>
-                      <div className="Content-topicon2">
-                        <div>모집분야</div>
-                        <div className="topiconbox">
-                          {data.board_position
-                            .split(',')
-                            .map((position: string, positionIndex: number) => (
-                              <div
-                                key={positionIndex}
-                                className={`top-board_position ${getPositionColor(
-                                  position
-                                )}`}
-                              >
-                                {position}
-                              </div>
-                            ))}
+                      <div className='Content-topicon2'>
+                        <div className='Content-topicon2Sub'>모집분야</div>
+                        <div className='topiconbox'>
+                          {data.board_position.split(',').map((position: string, positionIndex: number) => (
+                            <div
+                              key={positionIndex}
+                              className={`top-board_position ${getPositionColor(position)}`}
+                            >
+                              {position}
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -135,6 +133,6 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Contents;
