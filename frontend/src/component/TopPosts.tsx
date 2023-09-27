@@ -30,7 +30,7 @@ const TopPosts = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8099/popularlist`);
+      const response = await axios.get(`${process.env.REACT_APP_URL_8099}/popularlist`);
       const fetchedData: PostData[] = response.data.map((item: any) => ({
         id: item.board_id,
         title: item.board_title,

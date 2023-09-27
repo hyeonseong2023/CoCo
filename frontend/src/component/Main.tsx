@@ -58,7 +58,7 @@ const Main: React.FC<MainProps> = () => {
 
       try {
         requestData.endpoint *= pageSize;
-        const response = await axios.post('http://localhost:8099/select', requestData);
+        const response = await axios.post(`${process.env.REACT_APP_URL_8099}/select`, requestData);
         const fetchedData = response.data.map((item: any) => {
           return {
             id: item.board_id,
@@ -170,7 +170,7 @@ const Main: React.FC<MainProps> = () => {
   const fetchData = async (requestData: any) => {
     try {
       requestData.endpoint *= pageSize;
-      const response = await axios.post('http://localhost:8099/select', requestData);
+      const response = await axios.post(`${process.env.REACT_APP_URL_8099}:8099/select`, requestData);
       const fetchedData = response.data.map((item: any) => {
         return {
           id: item.board_id,
@@ -239,13 +239,21 @@ const Main: React.FC<MainProps> = () => {
     if (isBookmarked) {
       setBookmarkData([]);
     } else {
-      await fetchDataAndUpdateState('http://localhost:8099/bookmark', setBookmarkData);
+      await fetchDataAndUpdateState(`${process.env.REACT_APP_URL_8099}/bookmark`, setBookmarkData);
     }
   };
 
   const handleAppliedToggle = async (): Promise<void> => {
+<<<<<<< HEAD
+    if (isApplied) {
+      setisApplieddata([]);
+    } else {
+      await fetchDataAndUpdateState(`${process.env.REACT_APP_URL_8099}/writelist`, setisApplieddata);
+    }
+=======
     setIsApplied(!isApplied);
     await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
+>>>>>>> parent of 83ed442 (Merge branch 'main' into lhs)
   };
 
   const onMyPostsToggle = async (): Promise<void> => {
@@ -293,6 +301,20 @@ const Main: React.FC<MainProps> = () => {
 
   //@@@@@@@@@@@@ webrtc 끝
 
+<<<<<<< HEAD
+
+  const onMyPostsToggle = async (): Promise<void> => {
+
+    if (IsMyPosts) {
+      setIsMyPostsData([]);
+    } else {
+      await fetchDataAndUpdateState(`${process.env.REACT_APP_URL_8099}/apply`, setIsMyPostsData);
+    }
+  }
+
+
+=======
+>>>>>>> parent of 83ed442 (Merge branch 'main' into lhs)
   return (
     <div>
       <button onClick={handleClick}>webrtc</button>

@@ -20,13 +20,31 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const custProfileImg = Cookies.get('CUST_IMG')
-  const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') != null);
+  const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') != null && Cookies.get('CUST_IMG') != "0");
   const navigate = useNavigate();
   const [isJoinModal, setIsJoinModal] = useState(false);
+<<<<<<< HEAD
+=======
   console.log(custProfileImg);
+>>>>>>> parent of 83ed442 (Merge branch 'main' into lhs)
   const [custImg, setCustImg] = useState(custProfileImg);
 
 
+<<<<<<< HEAD
+
+  //통신 (프로필 이미지)
+  const fetchData = async () => {
+    const url = `${process.env.REACT_APP_URL_8099}/profileimg?cust_id=${Cookies.get('CUST_ID')}`;
+    try {
+      const response = await axios.get(url);
+      if (response.data.CUST_IMG == null) {
+        setCustImg(profilePicture);
+        cookies.set('CUST_IMG', profilePicture, { path: '/' });
+      } else {
+        setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
+        cookies.set('CUST_IMG', "data:image/;base64," + response.data.CUST_IMG, { path: '/' });
+      }
+=======
   //통신 (프로필 이미지)
   const fetchData = async () => {
     const url = `http://localhost:8099/profileimg?cust_id=${Cookies.get('CUST_ID')}`;
@@ -34,6 +52,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
       const response = await axios.get(url);
       setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
 
+>>>>>>> parent of 83ed442 (Merge branch 'main' into lhs)
     } catch (error) {
       console.error(error);
     }
@@ -41,6 +60,12 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
 
   useEffect(() => {
+<<<<<<< HEAD
+    fetchData();
+  }, [])
+
+
+=======
     if (custImg == null) { //지정안했으면 기본사진 
       setCustImg(profilePicture)
     } else {
@@ -52,6 +77,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   // console.log(custProfileImg);
 
 
+>>>>>>> parent of 83ed442 (Merge branch 'main' into lhs)
   useEffect(() => {
     setIsJoinModal(true)
   }, [isLoggedIn])

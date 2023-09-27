@@ -14,9 +14,9 @@ import { useNavigate } from 'react-router-dom';
 import Logout from '../../img/Logout.png'
 
 import link from '../../img/link.png';
-import link1 from '../../img/link1.png'; 
-import link2 from '../../img/link2.png'; 
-import link3 from '../../img/link3.png'; 
+import link1 from '../../img/link1.png';
+import link2 from '../../img/link2.png';
+import link3 from '../../img/link3.png';
 
 
 
@@ -26,7 +26,7 @@ const User = ({ data }) => {
 
     const navigator = useNavigate();
     // const cookies = new Cookies();
-    
+
     const userId = Cookies.get('CUST_ID'); //사용자 아이디 
     const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디
 
@@ -39,7 +39,7 @@ const User = ({ data }) => {
     const [position, setPosition] = useState();
     const [career, setCareer] = useState();
     const [git, setGit] = useState();
-    const [link, setLink] = useState(); 
+    const [link, setLink] = useState();
     const [photo, setPhoto] = useState(); // 프로필사진 
     //const photoData = "data:image/;base64," + photo;
 
@@ -52,35 +52,35 @@ const User = ({ data }) => {
     const [modalNick, setModalNick] = useState(data.CUST_NICK); // 모달 닉네임 변경
     const [pselected, setPselected] = useState({ value: position, name: position }); // 모달 선택한 직무 
     const [cselected, setCselected] = useState({ value: career, name: career }) // 모달 선택한 경력
-    
+
 
 
     const custSkillList = data.CUST_SKILL.split(',');  // 관심스택 
- 
-  
+
+
     const [selected, setSelected] = useState(custSkillList); // 모달에서 선택한 관심스택 
-    const cust_skill = selected.join(','); 
-   
-    
+    const cust_skill = selected.join(',');
 
 
-    const fetchData = async() => {
+
+
+    const fetchData = async () => {
         setNick(data.CUST_NICK);
         setPosition(data.CUST_POSITION);
         setCareer(data.CUST_CAREER);
-        setGit(data.CUST_GIT); 
-        setModalLink(data.CUST_LINK); 
-      }
+        setGit(data.CUST_GIT);
+        setModalLink(data.CUST_LINK);
+    }
 
-      useEffect(()=>{
-          fetchData()
-      }, [data])
-  
+    useEffect(() => {
+        fetchData()
+    }, [data])
 
 
-      useEffect(()=>{
-   
-        setModalNick(data.CUST_NICK); 
+
+    useEffect(() => {
+
+        setModalNick(data.CUST_NICK);
         setPselected({ value: position, name: position });
         setCselected({ value: career, name: career });
         setSelected(custSkillList);
@@ -186,7 +186,7 @@ const User = ({ data }) => {
         if (e.target.files[0]) {
             setFile(e.target.files[0])
         } else { //업로드 취소할 시
-           setFile(null);
+            setFile(null);
         }
         //화면에 프로필 사진 표시
         const reader = new FileReader();
@@ -197,7 +197,7 @@ const User = ({ data }) => {
         }
         reader.readAsDataURL(e.target.files[0])
 
-        
+
     }
 
 
@@ -209,7 +209,7 @@ const User = ({ data }) => {
         formData.append('cust_nick', modalNick); //닉네임
         formData.append('cust_position', pselected.value); //직무
         formData.append('cust_career', cselected.value); //경력
-        formData.append('cust_skill',cust_skill); //관심스택
+        formData.append('cust_skill', cust_skill); //관심스택
         formData.append('cust_img1', file); //이미지 파일 
         formData.append('cust_git', modalGit); //git주소 
         formData.append('cust_link', modalLink); //기타주소 
@@ -227,36 +227,36 @@ const User = ({ data }) => {
             });
     }
 
-    
+
 
     // 통신(회원탈퇴)
-    const deleteCust =async () =>{
-       
-        const requestData = {
-            cust_id : userId
-          };
+    const deleteCust = async () => {
 
-          try {
-            await axios.delete('http://localhost:8099/deletecust', { data: requestData });
+        const requestData = {
+            cust_id: userId
+        };
+
+        try {
+            await axios.delete(`${process.env.REACT_APP_URL_8099}/deletecust`, { data: requestData });
             console.log('요청이 성공했습니다.');
             Cookies.remove('CUST_ID');  // 아이디 쿠키 삭제
             Cookies.remove('CUST_IMG'); // 이미지 쿠키삭제 
             navigator('/');   // 메인 페이지로 이동
-            
-          } catch (error) {
+
+        } catch (error) {
             console.error('요청이 실패했습니다.', error);
-          }
-      
+        }
+
     }
 
     const handleLogout = () => {
         Cookies.remove('CUST_ID');  // 아이디 쿠키 삭제
         Cookies.remove('CUST_IMG'); // 이미지 쿠키삭제 
         navigator('/');   // 메인 페이지로 이동
-      };  
+    };
 
 
-    
+
 
     return (
         <div>
@@ -264,9 +264,9 @@ const User = ({ data }) => {
             {/* 마이페이지 나의 프로필 정보  */}
             <div className='Mypage-user-container'>
 
-               {/* 편집버튼 */}
+                {/* 편집버튼 */}
                 {userId === loginUserId && (
-                  <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
+                    <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
                 )}
 
                 {/* 나의 프로필정보 */}
@@ -291,6 +291,12 @@ const User = ({ data }) => {
                             <tr>
                                 <td className='Mypage-user-table-name'>관심스택</td>
                                 <td className='Mypage-user-table-content'>
+<<<<<<< HEAD
+                                    {custSkillList.map((skill, index) => (
+                                        <span key={index}>{skill} &nbsp;</span>
+                                    ))}
+                                </td>
+=======
                                 {custSkillList.map((skill, index) => (
                                  <span key={index}>{skill} &nbsp;</span>
                                 ))}
@@ -300,24 +306,25 @@ const User = ({ data }) => {
                                     {custSkillList.map((custSkill, index) => (
                                         <img key={index} src={process.env.PUBLIC_URL + `/skillImg/${custSkill}.svg`} alt={custSkill} />
                                     ))} */}
+>>>>>>> parent of 83ed442 (Merge branch 'main' into lhs)
                             </tr>
                             <tr>
                                 <td className='Mypage-user-table-name'>링크</td>
                                 <td className='Mypage-user-table-content'>
-                                    <a href={git} target="_blank"><img src={Git}></img></a> <sapn/> {/* 깃허브 주소 */}
-                                    <a href={link}target="_blank"><img src={link1}></img></a>   {/* 다른 기타사항 주소 */}
+                                    <a href={git} target="_blank"><img src={Git}></img></a> <sapn /> {/* 깃허브 주소 */}
+                                    <a href={link} target="_blank"><img src={link1}></img></a>   {/* 다른 기타사항 주소 */}
                                 </td>
-                            </tr>               
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div >  {/* 마이페이지 나의 프로필 정보 끝  */}
 
             <div>
-             { data?.CUST_ID === loginUserId && (
-            //    <img src={Logout} onClick={handleLogout} className='mypage-logout-btn' />
-               <div className='logout-text' onClick={handleLogout}> 로그아웃 </div>
-              )}
+                {data?.CUST_ID === loginUserId && (
+                    //    <img src={Logout} onClick={handleLogout} className='mypage-logout-btn' />
+                    <div className='logout-text' onClick={handleLogout}> 로그아웃 </div>
+                )}
             </div>
 
 
@@ -396,16 +403,16 @@ const User = ({ data }) => {
                                                 </select>
                                             </td>
                                         </tr>
-                                       
-                                       {/* 관심스택 변경 */}
+
+                                        {/* 관심스택 변경 */}
                                         <tr>
                                             <td className='Mypage-user-modal-name'>관심스택</td>
                                             <td>
                                                 <Select
                                                     className='Multi'
                                                     options={skills} // 스택 종류 
-                                                    isMulti 
-                                                    value={skills.filter((option) =>  
+                                                    isMulti
+                                                    value={skills.filter((option) =>
                                                         selected.includes(option.value)
                                                     )}
                                                     onChange={(selectedOptions) => {
@@ -414,7 +421,7 @@ const User = ({ data }) => {
                                                                 selectedOptions.map((option) => option.value)
                                                             );
                                                         }
-                                                    }}                                        
+                                                    }}
                                                     styles={{
                                                         control: (provided) => ({
                                                             ...provided,
@@ -433,7 +440,7 @@ const User = ({ data }) => {
                                             <td><input className='Mypage-user-modal-content' type="text" value={modalGit} onChange={(e) => { SetModalGit(e.target.value) }} /></td>
                                         </tr>
 
-                                         {/* 기타 링크 변경 */}
+                                        {/* 기타 링크 변경 */}
                                         <tr>
                                             <td className='Mypage-user-modal-name'>기타</td>
                                             <td><input className='Mypage-user-modal-content' type="text" value={modalLink} onChange={(e) => { setModalLink(e.target.value) }} /></td>
@@ -463,7 +470,7 @@ const User = ({ data }) => {
                             <img src={X} onClick={closeDeletePopup} className="Mypage-modal-user-close-button"></img>
                         </div>
                         <div className='Mypage-modal-delete-text'>
-                            <span className='delete-nickName'>{nick} &nbsp;</span> 
+                            <span className='delete-nickName'>{nick} &nbsp;</span>
                             <span className='delete-text'>님 , 정말 탈퇴하시겠어요?</span>
                         </div>
                         <div className='Mypage-modal-delete-content'>

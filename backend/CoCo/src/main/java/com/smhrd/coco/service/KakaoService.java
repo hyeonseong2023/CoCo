@@ -18,7 +18,6 @@ import com.smhrd.coco.domain.KakaoProfile;
 import com.smhrd.coco.domain.TB_CUST;
 import com.smhrd.coco.mapper.KakaoMapper;
 
-
 // Controller에서 보내준 데이터와 요청을 가공 
 
 @Service
@@ -119,8 +118,6 @@ public class KakaoService {
 		return cust_id;
 	}
 
-	
-	
 	// 카카오 이메일 조회
 	public int selectEmail(String CUST_ID) {
 		return mapper.selectEmail(CUST_ID);

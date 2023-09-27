@@ -4,9 +4,9 @@ import axios from 'axios';
 const DeleteModal = ({ setPostDeletePopup, data }) => {
   const postDelete = async () => {
     await axios
-      .get(`http://localhost:8099/postdelete/${data.id}`)
+      .get(`${process.env.REACT_APP_URL_8099}/postdelete/${data.id}`)
       .then((res) => {
-        window.location.replace(`http://localhost:3000`);
+        window.location.replace(`${process.env.REACT_APP_URL_3000}`);
         setPostDeletePopup(false);
       });
   };
