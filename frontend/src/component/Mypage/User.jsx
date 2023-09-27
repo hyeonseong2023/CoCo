@@ -4,14 +4,12 @@ import Select from 'react-select';
 import Cookies from 'js-cookie';
 import Cookiess from 'universal-cookie';
 import '../../css/User.css';
-import Logo from '../../img/Logo.png';
 import Git from '../../img/Git.png';
 import plus from '../../img/plus.png'
 import editBtn from '../../img/editBtn.png';
 import X from '../../img/x.png';
 import profile from '../../img/profilePicture.png';
 import { useNavigate } from 'react-router-dom';
-import Logout from '../../img/Logout.png'
 
 import link from '../../img/link.png';
 import link1 from '../../img/link1.png'; 
@@ -27,8 +25,10 @@ const User = ({ data }) => {
     const navigator = useNavigate();
     // const cookies = new Cookies();
     
-    const userId = Cookies.get('CUST_ID'); //사용자 아이디 
-    const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디
+   
+    const mypageId = data.CUST_ID ; // 마이페이지 아이디  
+    const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디   
+
 
     //모달창 노출 여부 
     const [modalOpen, setModalOpen] = useState(false); //회원정보수정 모달창 
@@ -205,7 +205,7 @@ const User = ({ data }) => {
     // 통신(프로필수정)
     const handleSubmit = () => {
         const formData = new FormData();
-        formData.append('cust_id', userId); //아이디
+        formData.append('cust_id', mypageId); //아이디
         formData.append('cust_nick', modalNick); //닉네임
         formData.append('cust_position', pselected.value); //직무
         formData.append('cust_career', cselected.value); //경력
@@ -233,7 +233,7 @@ const User = ({ data }) => {
     const deleteCust =async () =>{
        
         const requestData = {
-            cust_id : userId
+            cust_id : mypageId
           };
 
           try {
@@ -266,7 +266,7 @@ const User = ({ data }) => {
             <div className='Mypage-user-container'>
 
                {/* 편집버튼 */}
-                {userId === loginUserId && (
+                {mypageId === loginUserId && (
                   <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
                 )}
 
@@ -324,7 +324,7 @@ const User = ({ data }) => {
 
                         {/* 모달 닫기 부분  */}
                         <div className='Mypage-modal-user-close'>
-                            <img className='Mypage-modal-user-img' src={Logo}></img>
+                            {/* <img className='Mypage-modal-user-img' src={Logo}></img> */}
                             <img src={X} onClick={(e) => { setModalOpen(false); }} className="Mypage-modal-user-close-button"></img>
                         </div>
 
@@ -455,7 +455,7 @@ const User = ({ data }) => {
                     <div className='Mypage-modal-user-container'>
                         {/* 모달 닫기 부분  */}
                         <div className='Mypage-modal-user-close'>
-                            <img className='Mypage-modal-user-img' src={Logo}></img>
+                            {/* <img className='Mypage-modal-user-img' src={Logo}></img> */}
                             <img src={X} onClick={closeDeletePopup} className="Mypage-modal-user-close-button"></img>
                         </div>
                         <div className='Mypage-modal-delete-text'>

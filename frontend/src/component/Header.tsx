@@ -21,7 +21,7 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const custProfileImg = Cookies.get('CUST_IMG')
-  const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') != null && Cookies.get('CUST_IMG') != "0");
+  const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') != null);
   const navigate = useNavigate();
   const [isJoinModal, setIsJoinModal] = useState(false);
   const [ custImg, setCustImg] = useState(custProfileImg);
