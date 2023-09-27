@@ -19,12 +19,16 @@ import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_BOARD_SKILL;
 import com.smhrd.coco.domain.TB_BOOKMARK;
 import com.smhrd.coco.domain.TB_CUST;
+import com.smhrd.coco.mapper.BoardMapper;
 import com.smhrd.coco.mapper.MainMapper;
 
 @Service
 public class MainService {
 	@Autowired
 	private MainMapper mapper;
+	
+	@Autowired
+	private BoardMapper boardMapper; 
 
 	// 프로필 이미지 보내기 
 	public JSONObject profileImg(String cust_id) {
@@ -177,6 +181,36 @@ public class MainService {
 			map.put("pro_img", pb.getPro_img());
 			map.put("pro_link", pb.getPro_link());
 
+			// 해당 게시글 프로필사진
+			TB_CUST ImgPath = mapper.ImgPath(pb.getCust_id()); 
+			
+			if(ImgPath != null) {
+				// 이미지 변환
+				ImageConverter<File, String> converter = new ImageToBase64();
+				File file = new File("c:\\cocoImage\\" + ImgPath.getCust_img());
+
+				String fileStringValue = null;
+				
+				try {
+					fileStringValue = converter.convert(file);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				map.put("cust_img", fileStringValue);
+			} else {
+				map.put("cust_img", null); 
+			}
+			
+			// 해당 게시글 북마크 체크여부 
+			int bmk = boardMapper.selectPostBmk(pb.getBoard_id(), pb.getCust_id());
+			if( bmk >0) {
+				map.put("bmkimg", "true");
+			}else {
+				map.put("bmkimg", "false");
+			}
+			
+			
 			// 해당게시글의 닉네임 가져오기
 			String custNick = mapper.custNick(pb.getCust_id());
 			map.put("cust_nick", custNick);
