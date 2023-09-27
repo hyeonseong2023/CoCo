@@ -34,23 +34,12 @@ b {
   font-size: 14px;
 }
 
-.demo-app-sidebar {
-  width: 300px;
-  line-height: 1.5;
-  background: #eaf9ff;
-  border-right: 1px solid #d3e2e8;
-}
-
-.demo-app-sidebar-section {
-  padding: 2em;
-}
-
 .demo-app-main {
   z-index: 1;
-  width: 85vw;
+  width: 80vw;
   height: 100vh;
   flex-grow: 1;
-  padding: 3em;
+  margin-top: 3em;
 }
 
 .fc {

@@ -18,6 +18,7 @@ type FormData = {
   interests: string;
 };
 
+Cookies.remove('coin');
 type JoinModelProps = {
   onClose: () => void;
 };
@@ -33,9 +34,8 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
   const [formData, setFormData] = useState<FormData>(defaultFormData);
   const [validationMessage, setValidationMessage] = useState<string>('');
 
-  // 모달을 닫는 함수
   const closeModal = () => {
-    Cookies.remove('coin'); // 쿠키 제거 
+    Cookies.remove('coin');
     onClose();
   };
 
@@ -95,7 +95,6 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
 
   const navigator = useNavigate();
 
-
   const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디 
   const [nick, setNick] = useState(""); // 닉네임
   const [pselected, setPselected] = useState({ value: "", name: "" });  // 선택한 포지션 
@@ -119,16 +118,13 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
   // 경력 종류
   const careerList = [
     { value: "", name: "" },
+    { value: "신입", name: "신입" },
     { value: "1년", name: "1년" },
     { value: "2년", name: "2년" },
     { value: "3년", name: "3년" },
     { value: "4년", name: "4년" },
     { value: "5년", name: "5년" },
-    { value: "6년", name: "6년" },
-    { value: "7년", name: "7년" },
-    { value: "8년", name: "8년" },
-    { value: "9년", name: "9년" },
-    { value: "10년이상", name: "10년이상" }
+    { value: "6년이상", name: "6년이상" }
   ];
 
   //관심스택 종류 
@@ -207,9 +203,8 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
     setWelcomeOpen(false);
     setIsJoinModal(false)
 
-    Cookies.remove('coin');
     navigator('/');
-    //window.location.replace("/")
+    // window.location.replace("/")
     //navigator('/');   // 메인 페이지로 이동
   }
 
@@ -220,7 +215,7 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
 
             {/* 모달 닫기 부분  */}
             <div className='join-modal-user-close'>
-              <img className='join-modal-user-img' src={Logo}></img>
+              {/* <img className='join-modal-user-img' src={Logo}></img> */}
               <img src={X} className="join-modal-user-close-button" onClick={closeModal}></img>
             </div>
 

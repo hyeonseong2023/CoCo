@@ -53,6 +53,7 @@ async function getCameras() { // 사용 가능한 카메라 장치 가져오기
     });
   } catch (error) {
     console.log(error);
+    myStream = new MediaStream();
   }
 }
 
@@ -288,15 +289,16 @@ function handleChatSubmit(event) { // 채팅 메세지 제출
     fileInput.value = "";
   } else { // 파일 첨부가 없는 경우 (일반 메세지)
     console.log(`Sending chat to room: ${roomName}`);
-    socket.emit("chat", `${nickname}: ${message}`, roomName);
+    socket.emit("chat", `${message} :${nickname}`, roomName);
     writeChat(`You: ${message}`, MYCHAT_CN);
   }
 
   chatInput.value = "";
 }
 
-function writeChat(message, className = null) { // 채팅 메세지를 화면에 표시
+function writeChat(message, className = "a") { // 채팅 메세지를 화면에 표시
   const li = document.createElement("li");
+  console.log('className:', className);
   if (className) {
     li.classList.add(className);
   }
@@ -477,7 +479,6 @@ socket.on('updateMemberList', (members) => {
     memberBox.appendChild(li);
   });
 
-
 });
 
 socket.on("leave_room", (leavedSocketId, nickname) => {
@@ -545,6 +546,7 @@ function paintPeerFace(peerStream, id, remoteNickname) {
   video.width = "400";
   video.height = "400";
   video.srcObject = peerStream;
+
   const nicknameContainer = document.createElement("h3");
   nicknameContainer.id = "userNickname";
   nicknameContainer.innerText = remoteNickname;

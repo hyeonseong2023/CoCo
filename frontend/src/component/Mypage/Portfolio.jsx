@@ -164,7 +164,6 @@ const Portfolio = ({ data }) => {
   return (
 
     <div>
-
       <div className='add-content'>
       {/* 포트폴리오 추가 버튼  */}
       {custId === loginUserId && (
