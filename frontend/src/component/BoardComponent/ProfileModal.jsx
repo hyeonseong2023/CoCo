@@ -2,6 +2,7 @@ import '../../css/Board.css';
 import closePopup from '../../img/x.png';
 import profilePicture from '../../img/profilePicture.png';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const ProfileModal = ({ setModalOpen, boardData }) => {
   const userImg = boardData.createCust.cust_img;
@@ -10,6 +11,10 @@ const ProfileModal = ({ setModalOpen, boardData }) => {
   const close = () => {
     setModalOpen(false);
   };
+
+  // const createUserProfile = () => {
+  //   Cookies.set('anotherId', boardData.TB_BOARD.cust_id);
+  // };
 
   return (
     <div className="modal-user-back">
@@ -39,7 +44,10 @@ const ProfileModal = ({ setModalOpen, boardData }) => {
 
           <div>
             <h2>{userNick}</h2>
-            <Link to="/Mypage">
+            <Link
+              to="/Mypage"
+              state={{ anotherId: boardData.TB_BOARD.cust_id }}
+            >
               <button className="modal_add_Button" type="submit">
                 {' '}
                 작업물 보기
