@@ -219,7 +219,7 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
 
             {/* 모달 닫기 부분  */}
             <div className='join-modal-user-close'>
-              <img className='join-modal-user-img' src={Logo}></img>
+              {/* <img className='join-modal-user-img' src={Logo}></img> */}
               <img src={X} className="join-modal-user-close-button" onClick={closeModal}></img>
             </div>
 
