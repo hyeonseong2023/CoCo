@@ -232,36 +232,38 @@
 
 
 .frontend-color {
-  background-color: rgba(255, 160, 160, 0.5); /* 연한 빨간색과 50% 투명도 */
-  color: #AA0000; /* 진한 빨간색 */
+  background-color: #FADBF2;
+  color: #E087B5; 
 }
 
 .backend-color {
-  background-color: rgba(160, 255, 160, 0.5); /* 연한 녹색과 50% 투명도 */
-  color: #00AA00; /* 진한 녹색 */
+  background-color: #DAECFF; /* 연한 파란색과 50% 투명도 */
+  color:#71AAE3; /* 진한 파란색 */
 }
 
 .designer-color {
-  background-color: rgba(160, 160, 255, 0.5); /* 연한 파란색과 50% 투명도 */
-  color: #0000AA; /* 진한 파란색 */
+  background-color: rgba(255, 255, 160, 0.5); /* 연한 노란색과 50% 투명도 */
+  color: #f3f335; /* 진한 노란색 */
 }
 
 .planner-color {
-  background-color: rgba(255, 255, 160, 0.5); /* 연한 노란색과 50% 투명도 */
-  color: #AAAA00; /* 진한 노란색 */
+  background-color: rgba(231, 197, 103, 0.5); /* 연한 노란색과 50% 투명도 */
+  color: #bea221; /* 진한 노란색 */
+
 }
 
 .ios-color{
-  background-color: #f9e7cf;
-  color: #ff9d00; 
+  background-color: #E6FFB9; /* 연한 녹색과 50% 투명도 */
+  color: #a0e028 /* 진한 녹색 */
+
 }
 
 .dev-color{
-  background-color: rgb(171, 228, 255);
-  color: rgb(0, 174, 255); 
+  background-color: #E9E5FB ; /* 연한 빨간색과 50% 투명도 */
+  color: #997CC8; /* 진한 빨간색 */
 }
 
 .pm-color{
-  background-color: #f7caf2;
-  color: #800073; 
+  background-color: #cfe4c9;
+  color: #b5e48a; 
 }
