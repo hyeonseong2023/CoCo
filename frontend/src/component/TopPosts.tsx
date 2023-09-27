@@ -6,6 +6,7 @@ import '../css/TopPosts.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import bookmarkon from '../img/Bookmarkon.png'
+import bookmarkoff from '../img/Bookmarkoff.png'
 import img from '../img/profilePicture.png'
 import viewicon from '../img/viewsIcon.png'
 interface PostData {
@@ -16,6 +17,8 @@ interface PostData {
   pro_img: String;
   board_views: number;
   cust_nick: string;
+  cust_img:any;
+  bmkimg:any;
 }
 
 const TopPosts = () => {
@@ -38,8 +41,8 @@ const TopPosts = () => {
         board_position: item.board_position,
         pro_img: item.pro_img,
         board_views: item.board_views,
-        cust_nick: item.cust_nick
-
+        cust_nick: item.cust_nick,
+        bmkimg: item.bmkimg
       }));
 
       setSlideContents(fetchedData);
@@ -77,6 +80,7 @@ const TopPosts = () => {
         return 'designer-color';
       case ' IOS안드로이드':
       case 'IOS안드로이드':
+      case '안드로이드':
         return 'ios-color'
       case '데브옵스':
         case ' 데브옵스':
@@ -128,7 +132,8 @@ const TopPosts = () => {
                       <div className='topHeader-day'>{daysDifference}일 남음</div>
                     </div>
                   )}
-                  <div className='topBody'><div className='topBody-title'>{data.title}</div><div className='topBody-bookmark'><img src={bookmarkon} alt="" /></div></div>
+                  <div className='topBody'><div className='topBody-title'>{data.title}</div><div className='topBody-bookmark'>
+                    {data.bmkimg ? <img src={bookmarkon} alt="" />:<img src={bookmarkoff} alt="" />}</div></div>
                   <div className='topBody-topTail'>모집분야</div>
                   <div className='topTail'>
                     {data.board_position.split(',').map((position, positionIndex) => (
@@ -141,7 +146,15 @@ const TopPosts = () => {
                     ))}
                   </div>
                   <div className='topend'><div className='topend1'>
-                    <img src={img} alt="" /></div><div className='topend2'>{data.cust_nick}
+                  <div>
+                        <img
+                src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
+                alt="이미지 출력되지 않았음"
+                className="user-img"
+              ></img>
+                        </div>
+                        
+                        </div><div className='topend2'>{data.cust_nick}
                     </div>
                     <div className='topend3'>
                       <img src={viewicon} alt="" />{data.board_views}

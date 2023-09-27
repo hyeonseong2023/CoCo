@@ -36,13 +36,13 @@ const Main: React.FC<MainProps> = () => {
     if (currentPage < maxEndpoint && !isRefreshing && !isApplied && !isBookmarked && !isMyPosts) {
       const nextPage = currentPage + 6;
       setIsRefreshing(true);
-
+  
       const requestData = {
         skill_name: selectedLanguage,
         board_position: selectedPosition,
         endpoint: nextPage
       };
-
+  
       try {
         requestData.endpoint *= pageSize;
         const response = await axios.post('http://localhost:8099/select', requestData);
@@ -66,20 +66,21 @@ const Main: React.FC<MainProps> = () => {
             cust_nick: item.cust_nick
           };
         });
-
+  
         if (fetchedData.length === 0) {
           console.warn("No data received.");
         } else {
+          // 새로운 데이터를 현재 데이터에 추가
           setCategoryData((prevData) => [...prevData, ...fetchedData]);
-          setCurrentPage(nextPage);
+          setCurrentPage(nextPage); // 페이지 번호를 업데이트
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-
+  
         setSelectedLanguage(null);
         setSelectedPosition(null);
         setCurrentPage(1);
-
+  
         const requestData = {
           skill_name: null,
           board_position: null,
@@ -91,7 +92,7 @@ const Main: React.FC<MainProps> = () => {
       }
     }
   };
-
+  
   useEffect(() => {
     const initialRequestData = {
       skill_name: selectedLanguage,
@@ -151,7 +152,7 @@ const Main: React.FC<MainProps> = () => {
             };
           });
           stateUpdater(processedData);
-          
+
         }
       } else {
         console.error("Data retrieval failed.");
@@ -216,8 +217,8 @@ const Main: React.FC<MainProps> = () => {
 
   const handleBookmarkToggle = async (): Promise<void> => {
     setIsBookmarked(!isBookmarked);
-    setIsApplied(false);   
-    setIsMyPosts(false);  
+    setIsApplied(false);
+    setIsMyPosts(false);
 
     if (isBookmarked) {
       setBookmarkData([]);
@@ -228,8 +229,8 @@ const Main: React.FC<MainProps> = () => {
 
   const handleAppliedToggle = async (): Promise<void> => {
     setIsApplied(!isApplied);
-    setIsBookmarked(false); 
-    setIsMyPosts(false);   
+    setIsBookmarked(false);
+    setIsMyPosts(false);
 
     if (isApplied) {
       setData1([]);
@@ -255,7 +256,10 @@ const Main: React.FC<MainProps> = () => {
               pro_img: item.pro_img,
               pro_link: item.pro_link,
               pro_title: item.pro_title,
-              cust_nick: item.cust_nick
+              cust_nick: item.cust_nick,
+              cust_img: item.cust_img,
+              bmkimg: item.bmkimg
+              
             };
           });
 
@@ -275,8 +279,8 @@ const Main: React.FC<MainProps> = () => {
 
   const onMyPostsToggle = async (): Promise<void> => {
     setIsMyPosts(!isMyPosts);
-    setIsApplied(false);   
-    setIsBookmarked(false); 
+    setIsApplied(false);
+    setIsBookmarked(false);
 
     if (isMyPosts) {
       setData2([]);
@@ -302,7 +306,9 @@ const Main: React.FC<MainProps> = () => {
               pro_img: item.pro_img,
               pro_link: item.pro_link,
               pro_title: item.pro_title,
-              cust_nick: item.cust_nick
+              cust_nick: item.cust_nick,
+              cust_img: item.cust_img,
+              bmkimg: item.bmkimg
             };
           });
 
