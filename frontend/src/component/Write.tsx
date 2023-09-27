@@ -11,35 +11,48 @@ const Write = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const boardData = location?.state as any;
-  console.log("boardData!!!!!!", boardData);
-  
-  const initialContent = boardData === null ? {
-    recruitmentCount: 1,
-    techStack: [] as string[],
-    duration: 1,
-    position: '',
-    startDate: new Date(),
-    endDate: new Date(),
-    openTalkLink: '',
-    deadline: '',
-    recruitmentType: '프로젝트',
-  } : {
-    recruitmentCount: boardData?.TB_BOARD.board_members,
-    techStack: boardData?.TB_BOARD_SKILL,
-    duration: boardData?.TB_BOARD.board_period,
-    position: boardData?.TB_BOARD.board_position.split(",").map((item: string) => { return { label: item, value: item } }),
-    startDate: boardData?.TB_BOARD.board_deadline,
-    endDate: boardData?.board_deadline,
-    openTalkLink: boardData?.TB_BOARD.board_openlink,
-    deadline: boardData?.TB_BOARD.board_deadline,
-    recruitmentType: '프로젝트',
-  };
+  console.log('boardData!!!!!!', boardData);
+
+  const initialContent =
+    boardData === null
+      ? {
+          recruitmentCount: 1,
+          techStack: [] as string[],
+          duration: 1,
+          position: '',
+          startDate: new Date(),
+          endDate: new Date(),
+          openTalkLink: '',
+          deadline: '',
+          recruitmentType: '프로젝트',
+        }
+      : {
+          recruitmentCount: boardData?.TB_BOARD.board_members,
+          techStack: boardData?.TB_BOARD_SKILL,
+          duration: boardData?.TB_BOARD.board_period,
+          position: boardData?.TB_BOARD.board_position
+            .split(',')
+            .map((item: string) => {
+              return { label: item, value: item };
+            }),
+          startDate: boardData?.TB_BOARD.board_deadline,
+          endDate: boardData?.board_deadline,
+          openTalkLink: boardData?.TB_BOARD.board_openlink,
+          deadline: boardData?.TB_BOARD.board_deadline,
+          recruitmentType: '프로젝트',
+        };
   console.log(initialContent);
 
-  const [selectedPosition, setSelectedPosition] = useState(initialContent.position);
+  const [selectedPosition, setSelectedPosition] = useState(
+    initialContent.position
+  );
 
-  const [title, setTitle] = useState(boardData === null ? '' : boardData.TB_BOARD.board_title);
-  const [content, setContent] = useState(boardData === null ? '' : boardData.TB_BOARD.board_content);
+  const [title, setTitle] = useState(
+    boardData === null ? '' : boardData.TB_BOARD.board_title
+  );
+  const [content, setContent] = useState(
+    boardData === null ? '' : boardData.TB_BOARD.board_content
+  );
   const [files, setFiles] = useState<File[]>([]);
   const [insertedImages, setInsertedImages] = useState<string[]>([]);
   const [recruitmentInfo, setRecruitmentInfo] = useState(initialContent);
@@ -69,7 +82,9 @@ const Write = () => {
     });
   };
 
-  const [selectedTechStack, setSelectedTechStack] = useState<string[]>(initialContent.techStack);
+  const [selectedTechStack, setSelectedTechStack] = useState<string[]>(
+    initialContent.techStack
+  );
 
   const handleDurationChange = (value: number) => {
     setRecruitmentInfo({
@@ -85,12 +100,15 @@ const Write = () => {
     const positionString = selectedPosition.join(', ');
 
     const url = boardData
-    ? 'http://localhost:8099/postupdateinfor'
-    : 'http://localhost:8099/postsaveinfor';
+      ? 'http://localhost:8099/postupdateinfor'
+      : 'http://localhost:8099/postsaveinfor';
 
     const formData = new FormData();
     formData.append('cust_id', Cookies.get('CUST_ID') || '');
-    formData.append('board_members', recruitmentInfo.recruitmentCount.toString());
+    formData.append(
+      'board_members',
+      recruitmentInfo.recruitmentCount.toString()
+    );
     formData.append('board_period', recruitmentInfo.duration.toString());
     formData.append('board_title', title);
     formData.append('board_content', content);
@@ -103,7 +121,6 @@ const Write = () => {
     formData.append('SKILL_NAME', selectedTechStack.join(','));
     formData.append('BOARD_IMG', '');
     boardData && formData.append('board_id', boardData.TB_BOARD.board_id);
-
 
     try {
       const response = await fetch(url, {
@@ -124,35 +141,35 @@ const Write = () => {
   };
 
   const techStackOptions = [
-    { label: "AWS", value: "AWS" },
-    { label: "C", value: "C" },
-    { label: "Django", value: "Django" },
-    { label: "Docker", value: "Docker" },
-    { label: "Express", value: "Express" },
-    { label: "Figma", value: "Figma" },
-    { label: "Firebase", value: "Firebase" },
-    { label: "Flutter", value: "Flutter" },
-    { label: "Git", value: "Git" },
-    { label: "Go", value: "Go" },
-    { label: "GraphQL", value: "GraphQL" },
-    { label: "Java", value: "Java" },
-    { label: "JavaScript", value: "javaScript" },
-    { label: "Kotlin", value: "Kotlin" },
-    { label: "Kubernetes", value: "Kubernetes" },
-    { label: "MongoDB", value: "MongoDB" },
-    { label: "MySQL", value: "MySQL" },
-    { label: "Nestjs", value: "Nestjs" },
-    { label: "Nextjs", value: "Nextjs" },
-    { label: "Nodejs", value: "Nodejs" },
-    { label: "php", value: "php" },
-    { label: "Python", value: "Python" },
-    { label: "ReactNative", value: "ReactNative" },
-    { label: "Spring", value: "Spring" },
-    { label: "Swift", value: "Swift" },
-    { label: "TypeScript", value: "TypeScript" },
-    { label: "Unity", value: "Unity" },
-    { label: "Vue", value: "Vue" },
-    { label: "Zeplin", value: "Zeplin" }
+    { label: 'AWS', value: 'AWS' },
+    { label: 'C', value: 'C' },
+    { label: 'Django', value: 'Django' },
+    { label: 'Docker', value: 'Docker' },
+    { label: 'Express', value: 'Express' },
+    { label: 'Figma', value: 'Figma' },
+    { label: 'Firebase', value: 'Firebase' },
+    { label: 'Flutter', value: 'Flutter' },
+    { label: 'Git', value: 'Git' },
+    { label: 'Go', value: 'Go' },
+    { label: 'GraphQL', value: 'GraphQL' },
+    { label: 'Java', value: 'Java' },
+    { label: 'JavaScript', value: 'javaScript' },
+    { label: 'Kotlin', value: 'Kotlin' },
+    { label: 'Kubernetes', value: 'Kubernetes' },
+    { label: 'MongoDB', value: 'MongoDB' },
+    { label: 'MySQL', value: 'MySQL' },
+    { label: 'Nestjs', value: 'Nestjs' },
+    { label: 'Nextjs', value: 'Nextjs' },
+    { label: 'Nodejs', value: 'Nodejs' },
+    { label: 'php', value: 'php' },
+    { label: 'Python', value: 'Python' },
+    { label: 'ReactNative', value: 'ReactNative' },
+    { label: 'Spring', value: 'Spring' },
+    { label: 'Swift', value: 'Swift' },
+    { label: 'TypeScript', value: 'TypeScript' },
+    { label: 'Unity', value: 'Unity' },
+    { label: 'Vue', value: 'Vue' },
+    { label: 'Zeplin', value: 'Zeplin' },
   ];
 
   const positionOptions = [
@@ -182,7 +199,9 @@ const Write = () => {
           </div>
 
           <div className="form-group form-group-spacing">
-            <label htmlFor="title" className='titlesub1'>게시글 제목</label>
+            <label htmlFor="title" className="titlesub1">
+              게시글 제목
+            </label>
             <input
               type="text"
               id="title"
@@ -200,7 +219,10 @@ const Write = () => {
                 name="recruitmentCount"
                 value={recruitmentInfo.recruitmentCount}
                 onChange={(e) =>
-                  handleRecruitmentInfoChange(e.target.name, parseInt(e.target.value))
+                  handleRecruitmentInfoChange(
+                    e.target.name,
+                    parseInt(e.target.value)
+                  )
                 }
                 className="input-field"
               >
@@ -213,7 +235,7 @@ const Write = () => {
             <div className="form-subgroup form-subgroup-spacing">
               <label htmlFor="techStack">기술 스택</label>
               <Select
-                placeholder = ""
+                placeholder=""
                 id="techStack"
                 name="techStack"
                 options={techStackOptions}
@@ -270,15 +292,16 @@ const Write = () => {
                 name="position"
                 options={positionOptions}
                 isMulti
-                value={selectedPosition && selectedPosition.map((value: any) => value.value)}
+                value={positionOptions.filter((option) =>
+                  selectedPosition.includes(option.value)
+                )}
                 onChange={handlePositionChange}
                 className="custom-select"
                 placeholder=""
               />
-
             </div>
             <div className="form-subgroup form-subgroup-spacing">
-              <label htmlFor="openTalkLink" > 오픈톡 링크</label>
+              <label htmlFor="openTalkLink"> 오픈톡 링크</label>
               <input
                 type="text"
                 id="openTalkLink"
@@ -292,7 +315,9 @@ const Write = () => {
             </div>
           </div>
           <div className="form-group form-group-spacing">
-            <label htmlFor="content" className='writesub2'>2. 프로젝트에 대해 소개해주세요</label>
+            <label htmlFor="content" className="writesub2">
+              2. 프로젝트에 대해 소개해주세요
+            </label>
             <ReactQuill
               style={{ width: '800px', height: '600px' }}
               modules={modules}
@@ -310,7 +335,7 @@ const Write = () => {
               </button>
             </Link>
           </div>
-          <div className='writespace'></div>
+          <div className="writespace"></div>
         </div>
       </form>
     </div>
