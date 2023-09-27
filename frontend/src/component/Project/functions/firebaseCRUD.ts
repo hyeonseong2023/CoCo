@@ -132,12 +132,15 @@ const getPlanner = (path: string, setData: (data: any) => void) => {
 };
 
 const addPlanner = (path: string, data: any) => {
-  set(ref(db, path + `/${data.id}`), data);
+  set(ref(db, `${path}/${data.id}`), data);
 };
 
 const onValuePlanner = (path: string, setData: (data: any) => void) => {
   onValue(ref(db, path), (snapshot) => {
-    if (!snapshot.val()) return;
+    if (!snapshot.val()) {
+      setData([]);
+      return;
+    }
     setData(Object.values(snapshot.val()));
   });
 };

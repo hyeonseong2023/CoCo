@@ -49,7 +49,7 @@ const Page = () => {
   }, [pageStructure, pageIndex]);
 
   return (
-    <div>
+    <div className="pro-contents-container">
       {overlayVisible && <Overlay />}
       <Head />
       <ContentList />

@@ -95,7 +95,6 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
 
   const navigator = useNavigate();
 
-
   const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디 
   const [nick, setNick] = useState(""); // 닉네임
   const [pselected, setPselected] = useState({ value: "", name: "" });  // 선택한 포지션 
@@ -220,7 +219,7 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
 
             {/* 모달 닫기 부분  */}
             <div className='join-modal-user-close'>
-              <img className='join-modal-user-img' src={Logo}></img>
+              {/* <img className='join-modal-user-img' src={Logo}></img> */}
               <img src={X} className="join-modal-user-close-button" onClick={closeModal}></img>
             </div>
 

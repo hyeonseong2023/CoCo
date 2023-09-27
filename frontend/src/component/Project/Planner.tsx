@@ -44,19 +44,19 @@ const Planner = ({ initialEvents }: { initialEvents: EventInput[] }) => {
   };
 
   const handleEvents = (events: EventApi[]) => {
-    if (events.length > 0) {
-      const newEvents = events.map((item) => {
-        return {
-          id: item.id,
-          title: item.title,
-          start: item.startStr,
-          end: item.endStr,
-          allDay: item.allDay,
-          extendedProps: item.extendedProps,
-        };
-      });
-      updatePlanner(`projects/${projectId}/planner`, newEvents);
-    }
+    // if (events.length > 0) {
+    //   const newEvents = events.map((item) => {
+    //     return {
+    //       id: item.id,
+    //       title: item.title,
+    //       start: item.startStr,
+    //       end: item.endStr,
+    //       allDay: item.allDay,
+    //       extendedProps: item.extendedProps,
+    //     };
+    //   });
+    //   updatePlanner(`projects/${projectId}/planner/${newEvents.id}`, newEvents);
+    // }
   };
 
   const renderEventContent = (eventContent: EventContentArg) => {

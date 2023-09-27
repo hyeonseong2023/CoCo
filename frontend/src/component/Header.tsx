@@ -9,6 +9,7 @@ import img from '../img/normal.png'
 import write from '../img/writeA.png'
 import CoCo from '../img/CoCo.png'
 import profilePicture from '../img/profilePicture.png'
+import Cook from 'universal-cookie';
 
 import login from '../img/Login.png'
 import axios from 'axios';
@@ -23,36 +24,35 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') != null);
   const navigate = useNavigate();
   const [isJoinModal, setIsJoinModal] = useState(false);
-  console.log(custProfileImg);
-  const [custImg, setCustImg] = useState(custProfileImg);
+  const [ custImg, setCustImg] = useState(custProfileImg);
 
+  const cookies = new Cook();
 
-  //통신 (프로필 이미지)
-  const fetchData = async () => {
+ 
+   //통신 (프로필 이미지)
+   const fetchData = async () => {
     const url = `http://localhost:8099/profileimg?cust_id=${Cookies.get('CUST_ID')}`;
     try {
       const response = await axios.get(url);
-      setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
-
+      if(response.data.CUST_IMG == null){
+        setCustImg(profilePicture);
+        cookies.set('CUST_IMG', profilePicture, { path: '/' });
+      } else {
+        setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
+        cookies.set('CUST_IMG', "data:image/;base64," + response.data.CUST_IMG, { path: '/' });
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
 
-  useEffect(() => {
-    if (custImg == null) { //지정안했으면 기본사진 
-      setCustImg(profilePicture)
-    } else {
-      setCustImg(custProfileImg)
-    }
-  }, [custProfileImg])
+  useEffect(()=>{   
+    fetchData();
+  },[])
 
 
-  // console.log(custProfileImg);
-
-
-  useEffect(() => {
+  useEffect(()=>{
     setIsJoinModal(true)
   }, [isLoggedIn])
 
