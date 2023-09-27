@@ -18,6 +18,7 @@ type FormData = {
   interests: string;
 };
 
+Cookies.remove('coin');
 type JoinModelProps = {
   onClose: () => void;
 };
@@ -202,9 +203,8 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
     setWelcomeOpen(false);
     setIsJoinModal(false)
 
-    Cookies.remove('coin');
     navigator('/');
-    window.location.replace("/")
+    // window.location.replace("/")
     //navigator('/');   // 메인 페이지로 이동
   }
 
