@@ -29,7 +29,8 @@ const Main: React.FC<MainProps> = () => {
   
   // 북마크 데이터를 저장할 상태 추가
   const [bookmarkData, setBookmarkData] = useState<any[]>([]);
-
+  const [AppliedData, setisApplieddata] = useState<any[]>([]);
+  const [MyPostsData, setIsMyPostsData] = useState<any[]>([]);
   const handlePageChange = (page: number): void => {
     setCurrentPage(page);
   };
@@ -234,8 +235,6 @@ const Main: React.FC<MainProps> = () => {
 
   const handleBookmarkToggle = async (): Promise<void> => {
     setIsBookmarked(!isBookmarked);
-
-    // 북마크 토글 시 북마크 데이터 업데이트 또는 초기화
     if (isBookmarked) {
       setBookmarkData([]);
     } else {
@@ -243,15 +242,24 @@ const Main: React.FC<MainProps> = () => {
     }
   };
 
+
   const handleAppliedToggle = async (): Promise<void> => {
-    setIsApplied(!isApplied);
-    await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
+    if (isApplied) {
+      setisApplieddata([]);
+    } else {
+      await fetchDataAndUpdateState('http://localhost:8099/writelist', setisApplieddata);
+    }
   };
 
   const onMyPostsToggle = async ():Promise<void> =>{
-    setIsMyPosts(!IsMyPosts);
-    await fetchDataAndUpdateState('http://localhost:8099/writelist', setCategoryData);
+
+    if (IsMyPosts) {
+      setIsMyPostsData([]);
+    } else {
+      await fetchDataAndUpdateState('http://localhost:8099/apply', setIsMyPostsData);
+    }
   }
+
   return (
     <div>
       <Header onLoginButtonClick={handleLoginButtonClick} />
