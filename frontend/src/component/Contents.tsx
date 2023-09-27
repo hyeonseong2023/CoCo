@@ -41,6 +41,7 @@ function getPositionColor(position: string) {
       return 'designer-color';
     case ' IOS안드로이드':
     case 'IOS안드로이드':
+    case '안드로이드':
       return 'ios-color'
     case '데브옵스':
       case ' 데브옵스':
@@ -56,7 +57,8 @@ function getPositionColor(position: string) {
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
   const today = new Date();
-
+  console.log(categoryData);
+  
   return (
     <div>
       <div id='Contents-box'>

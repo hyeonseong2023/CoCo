@@ -32,7 +32,6 @@ const Main: React.FC<MainProps> = () => {
   const handlePageChange = (page: number): void => {
     setCurrentPage(page);
   };
-
   const handleExpandPageClick = async (): Promise<void> => {
     if (currentPage < maxEndpoint && !isRefreshing && !isApplied && !isBookmarked && !isMyPosts) {
       const nextPage = currentPage + 6;
@@ -120,31 +119,39 @@ const Main: React.FC<MainProps> = () => {
       const custId = Cookies.get('CUST_ID');
       const response = await axios.get(url + `?cust_id=${custId}`);
       if (response.status === 200) {
-        const fetchedData = response.data.map((item: any) => {
-          return {
-            id: item.board_id,
-            name: item.board_title,
-            title: item.board_title,
-            content: item.board_content,
-            board_deadline: item.board_deadline,
-            board_dt: item.board_dt,
-            board_members: item.board_members,
-            board_openlink: item.board_openlink,
-            board_period: item.board_period,
-            board_position: item.board_position,
-            board_views: item.board_views,
-            cust_id: item.cust_id,
-            pro_img: item.pro_img,
-            pro_link: item.pro_link,
-            pro_title: item.pro_title,
-            cust_nick: item.cust_nick
-          };
-        });
-
-        if (fetchedData.length === 0) {
-          console.warn("No data received.");
+        let fetchedData;
+        if (url.includes('bookmark')) {
+          // 북마크로 가져올 때는 데이터가 data에 바로 들어감
+          fetchedData = response.data;
         } else {
-          stateUpdater(fetchedData);
+          // 다른 토글 버튼으로 가져올 때는 data.data에 데이터가 들어감
+          fetchedData = response.data;
+        }
+        if (fetchedData && fetchedData.length === 0) {
+          console.warn("No data received.");
+        } else if (fetchedData) { // fetchedData가 유효한 경우에만 처리
+          const processedData = fetchedData.map((item: any) => {
+            return {
+              id: item.board_id,
+              name: item.board_title,
+              title: item.board_title,
+              content: item.board_content,
+              board_deadline: item.board_deadline,
+              board_dt: item.board_dt,
+              board_members: item.board_members,
+              board_openlink: item.board_openlink,
+              board_period: item.board_period,
+              board_position: item.board_position,
+              board_views: item.board_views,
+              cust_id: item.cust_id,
+              pro_img: item.pro_img,
+              pro_link: item.pro_link,
+              pro_title: item.pro_title,
+              cust_nick: item.cust_nick
+            };
+          });
+          stateUpdater(processedData);
+          
         }
       } else {
         console.error("Data retrieval failed.");
@@ -209,8 +216,8 @@ const Main: React.FC<MainProps> = () => {
 
   const handleBookmarkToggle = async (): Promise<void> => {
     setIsBookmarked(!isBookmarked);
-    setIsApplied(false);   // 다른 토글 상태 초기화
-    setIsMyPosts(false);   // 다른 토글 상태 초기화
+    setIsApplied(false);   
+    setIsMyPosts(false);  
 
     if (isBookmarked) {
       setBookmarkData([]);
@@ -221,25 +228,95 @@ const Main: React.FC<MainProps> = () => {
 
   const handleAppliedToggle = async (): Promise<void> => {
     setIsApplied(!isApplied);
-    setIsBookmarked(false); // 다른 토글 상태 초기화
-    setIsMyPosts(false);   // 다른 토글 상태 초기화
+    setIsBookmarked(false); 
+    setIsMyPosts(false);   
 
     if (isApplied) {
       setData1([]);
     } else {
-      await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
+      try {
+        const custId = Cookies.get('CUST_ID');
+        const response = await axios.get(`http://localhost:8099/apply?cust_id=${custId}`);
+        if (response.status === 200) {
+          const fetchedData = response.data.map((item: any) => {
+            return {
+              id: item.board_id,
+              name: item.board_title,
+              title: item.board_title,
+              content: item.board_content,
+              board_deadline: item.board_deadline,
+              board_dt: item.board_dt,
+              board_members: item.board_members,
+              board_openlink: item.board_openlink,
+              board_period: item.board_period,
+              board_position: item.board_position,
+              board_views: item.board_views,
+              cust_id: item.cust_id,
+              pro_img: item.pro_img,
+              pro_link: item.pro_link,
+              pro_title: item.pro_title,
+              cust_nick: item.cust_nick
+            };
+          });
+
+          if (fetchedData.length === 0) {
+            console.warn("No data received.");
+          } else {
+            setData1(fetchedData);
+          }
+        } else {
+          console.error("Data retrieval failed.");
+        }
+      } catch (error) {
+        console.error("Data retrieval error:", error);
+      }
     }
   };
 
   const onMyPostsToggle = async (): Promise<void> => {
     setIsMyPosts(!isMyPosts);
-    setIsApplied(false);   // 다른 토글 상태 초기화
-    setIsBookmarked(false); // 다른 토글 상태 초기화
+    setIsApplied(false);   
+    setIsBookmarked(false); 
 
     if (isMyPosts) {
       setData2([]);
     } else {
-      await fetchDataAndUpdateState('http://localhost:8099/writelist', setCategoryData);
+      try {
+        const custId = Cookies.get('CUST_ID');
+        const response = await axios.get(`http://localhost:8099/writelist?cust_id=${custId}`);
+        if (response.status === 200) {
+          const fetchedData = response.data.map((item: any) => {
+            return {
+              id: item.board_id,
+              name: item.board_title,
+              title: item.board_title,
+              content: item.board_content,
+              board_deadline: item.board_deadline,
+              board_dt: item.board_dt,
+              board_members: item.board_members,
+              board_openlink: item.board_openlink,
+              board_period: item.board_period,
+              board_position: item.board_position,
+              board_views: item.board_views,
+              cust_id: item.cust_id,
+              pro_img: item.pro_img,
+              pro_link: item.pro_link,
+              pro_title: item.pro_title,
+              cust_nick: item.cust_nick
+            };
+          });
+
+          if (fetchedData.length === 0) {
+            console.warn("No data received.");
+          } else {
+            setData2(fetchedData);
+          }
+        } else {
+          console.error("Data retrieval failed.");
+        }
+      } catch (error) {
+        console.error("Data retrieval error:", error);
+      }
     }
   };
 
