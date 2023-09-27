@@ -26,7 +26,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isJoinModal, setIsJoinModal] = useState(Cookies.get('CUST_ID') != null && Cookies.get('CUST_IMG') == "0" && Cookies.get('coin') == "on");
 
   const [ custImg, setCustImg] = useState(custProfileImg);
-  console.log(isLoggedIn);
 
   console.log("아이디", Cookies.get('CUST_ID'));
   console.log("이미지", Cookies.get('CUST_IMG'));

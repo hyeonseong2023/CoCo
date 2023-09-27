@@ -60,8 +60,7 @@ function getPositionColor(position: string) {
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
   const today = new Date();
-  console.log(categoryData);
-  
+  console.log("컨텐츠!",categoryData);
   return (
     <div>
       <div id='Contents-box'>
@@ -113,7 +112,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
 
                     <div className='boxB_bookmark'>
                       <div className='boxB_1'>
-                      {data.bmkimg ? <img src={bookmarkon} alt="" />:<img src={bookmarkoff} alt="" />}
+                      {data.bmkimg == "false"? <img src={bookmarkoff} alt="" />:<img src={bookmarkon} alt="" />}
 
                       </div>
                       <div className='boxB_2'><img src={viewicon} alt="" />{data.board_views}</div>

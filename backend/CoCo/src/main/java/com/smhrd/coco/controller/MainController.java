@@ -34,8 +34,8 @@ public class MainController {
 
 	// 인기글(조회수기반) 가져오기
 	@GetMapping("/popularlist")
-	public JSONArray main() {
-		return service.popularList();
+	public JSONArray main(@RequestParam("cust_id") String cust_id) {
+		return service.popularList(cust_id);
 	}
 
 	// 북마크 저장

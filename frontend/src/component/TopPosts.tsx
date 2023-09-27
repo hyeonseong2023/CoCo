@@ -9,6 +9,7 @@ import bookmarkon from '../img/Bookmarkon.png'
 import bookmarkoff from '../img/Bookmarkoff.png'
 import img from '../img/profilePicture.png'
 import viewicon from '../img/viewsIcon.png'
+import Cookies from 'js-cookie';
 interface PostData {
   id: string;
   title: string;
@@ -30,10 +31,10 @@ const TopPosts = () => {
       fetchData();
     }
   }, [slideContents]);
-
+  const id = Cookies.get('CUST_ID');
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8099/popularlist`);
+      const response = await axios.get(`http://localhost:8099/popularlist?cust_id=${id}`);
       const fetchedData: PostData[] = response.data.map((item: any) => ({
         id: item.board_id,
         title: item.board_title,
@@ -120,6 +121,7 @@ const TopPosts = () => {
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
+            console.log("탑!!",data);
             return (
               <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
                 <div className={contentClassName} key={index}>
@@ -132,8 +134,9 @@ const TopPosts = () => {
                       <div className='topHeader-day'>{daysDifference}일 남음</div>
                     </div>
                   )}
+                  
                   <div className='topBody'><div className='topBody-title'>{data.title}</div><div className='topBody-bookmark'>
-                    {data.bmkimg ? <img src={bookmarkon} alt="" />:<img src={bookmarkoff} alt="" />}</div></div>
+                    {data.bmkimg == "true"? <img src={bookmarkon} alt="" />:<img src={bookmarkoff} alt="" />}</div></div>
                   <div className='topBody-topTail'>모집분야</div>
                   <div className='topTail'>
                     {data.board_position.split(',').map((position, positionIndex) => (

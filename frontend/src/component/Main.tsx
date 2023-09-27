@@ -166,6 +166,7 @@ const Main: React.FC<MainProps> = () => {
   const fetchData = async (requestData: any) => {
     try {
       requestData.endpoint *= pageSize;
+      requestData.cust_id = Cookies.get('CUST_ID');
       const response = await axios.post('http://localhost:8099/select', requestData);
       const fetchedData = response.data.map((item: any) => {
         return {
@@ -185,10 +186,13 @@ const Main: React.FC<MainProps> = () => {
           pro_link: item.pro_link,
           pro_title: item.pro_title,
           cust_nick: item.cust_nick,
-          skill_names: item.skill_names
+          skill_names: item.skill_names,
+          cust_img: item.cust_img,
+          bmkimg: item.bmkimg
         };
+
       });
-      console.log(response);
+      console.log("메인 컨텐츠",response);
 
       if (fetchedData.length === 0) {
         console.warn("No data received.");
@@ -262,7 +266,8 @@ const Main: React.FC<MainProps> = () => {
               
             };
           });
-
+          console.log("메인셀렉트",response);
+          
           if (fetchedData.length === 0) {
             console.warn("No data received.");
           } else {
