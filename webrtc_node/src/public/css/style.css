@@ -313,6 +313,10 @@ main {
   opacity: 0.6;
 }
 
+#chatRoom #chatBox .a {
+  text-align: right;
+}
+
 #chatRoom #chatBox .noticeChat {
   color: #4598FF;
   ;

@@ -289,15 +289,16 @@ function handleChatSubmit(event) { // 채팅 메세지 제출
     fileInput.value = "";
   } else { // 파일 첨부가 없는 경우 (일반 메세지)
     console.log(`Sending chat to room: ${roomName}`);
-    socket.emit("chat", `${nickname}: ${message}`, roomName);
+    socket.emit("chat", `${message} :${nickname}`, roomName);
     writeChat(`You: ${message}`, MYCHAT_CN);
   }
 
   chatInput.value = "";
 }
 
-function writeChat(message, className = null) { // 채팅 메세지를 화면에 표시
+function writeChat(message, className = "a") { // 채팅 메세지를 화면에 표시
   const li = document.createElement("li");
+  console.log('className:', className);
   if (className) {
     li.classList.add(className);
   }
