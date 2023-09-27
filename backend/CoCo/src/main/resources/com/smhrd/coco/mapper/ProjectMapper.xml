@@ -31,6 +31,16 @@
 	<delete id="applyDecline">
 		DELETE FROM TB_APPLY WHERE BOARD_ID = #{board_id} AND CUST_ID = #{cust_id};
 	</delete>
+	
+	<!-- 프로젝트 명, 프로젝트 이미지 보내기. 이미지 없으면 null 값으로 (board_id) -->
+	<select id="projectInfo" resultType="com.smhrd.coco.domain.TB_BOARD">
+		SELECT PRO_TITLE, PRO_IMG FROM TB_BOARD WHERE BOARD_ID = #{board_id};
+	</select>
+	
+	<!-- 프로젝트 명, 프로젝트 이미지 업데이트 (board_id) -->
+	<update id="projectInfoUpdate">
+		UPDATE TB_BOARD SET PRO_TITLE = #{pro_title}, PRO_IMG = #{pro_img} WHERE BOARD_ID = #{board_id};
+	</update>
 
 
 
