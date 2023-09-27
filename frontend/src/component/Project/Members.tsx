@@ -22,8 +22,8 @@ const Members = ({
   }, []);
 
   const fetchData = async () => {
-    const url = 'http://172.30.1.20:8099/projectmemberlist';
-    const data = { board_id: 51 };
+    const url = `${process.env.REACT_APP_URL_8099}/projectmemberlist`;
+    const data = { board_id: parseInt(projectId!) };
     await axios.post(url, data).then((res) => {
       console.log(res.data);
 

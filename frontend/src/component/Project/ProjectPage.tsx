@@ -10,7 +10,7 @@ import { ProjectProvider } from './context/ProjectContext';
 import Settings from './Settings';
 
 const ProjectPage = () => {
-  const projectId = '12345';
+  const projectId = '51';
   const [selectedMenu, setSelectedMenu] = useState('Page');
   const [initialEvents, setInitialEvent] = useState<EventInput[]>([]);
   useEffect(() => {
