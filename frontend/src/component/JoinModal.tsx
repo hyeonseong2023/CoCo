@@ -190,6 +190,9 @@ const JoinModel = ({ onClose, setIsJoinModal }: { onClose: () => void, setIsJoin
     try {
       await axios.post(`${process.env.REACT_APP_URL_8099}/firstlogin`, requestData);
       console.log('요청이 성공했습니다.');
+      Cookies.set('CUST_IMG', "1", { path: '/' });
+      console.log(Cookies.get("CUST_ID"));
+      
       setWelcomeOpen(true);
     } catch (error) {
       console.error('요청이 실패했습니다.', error);
@@ -202,7 +205,7 @@ const JoinModel = ({ onClose, setIsJoinModal }: { onClose: () => void, setIsJoin
     onClose();
     setWelcomeOpen(false);
     setIsJoinModal(false)
-
+    window.location.replace("/")
     navigator('/');
     // window.location.replace("/")
     //navigator('/');   // 메인 페이지로 이동
