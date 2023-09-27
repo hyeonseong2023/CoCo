@@ -149,7 +149,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
                 </label>
                 <label className='labelselect1'>
                   <button onClick={() => { handleButtonClick('myposts'); onMyPostsClick(); }}>
-                  {isMyPosts ? "전체  게시글" : "지원한 게시글"}
+                  {isMyPosts ? "전체  게시글" : "작성한 게시글"}
                   </button>
                 </label>
               </>
