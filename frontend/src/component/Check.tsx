@@ -17,7 +17,6 @@ const Check: React.FC = () => {
         }
         cookies.set('CUST_ID', userData.CUST_ID, { path: '/' });
         cookies.set('CUST_IMG', userData.CUST_IMG, { path: '/' });
-        console.log("쿠키아이디" , cookies.get('CUST_ID'));
         
         navigate('/');
       })

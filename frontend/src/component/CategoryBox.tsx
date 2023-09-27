@@ -86,13 +86,13 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
 
   const handleSelectChange1 = (selectedOption: CategoryOption | null) => {
     if (selectedOption) {
-      setSelectedLanguage(selectedOption.value);
+      setSelectedLanguage(selectedOption.value); // setSelectedLanguage로 변경
     }
   };
 
   const handleSelectChange2 = (selectedOption: CategoryOption | null) => {
     if (selectedOption) {
-      setSelectedPosition(selectedOption.value);
+      setSelectedPosition(selectedOption.value); // setSelectedPosition으로 변경
     }
   };
 
@@ -114,6 +114,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
           <div className='category_sub1'>
             <Select
               options={categoryOptions1}
+              // value 속성 제거
               onChange={(selectedOption) => handleSelectChange1(selectedOption)}
               className="select-box category1"
               styles={customStyles}
@@ -121,6 +122,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
             />
             <Select
               options={categoryOptions2}
+              // value 속성 제거
               onChange={(selectedOption) => handleSelectChange2(selectedOption)}
               className="select-box category2"
               styles={customStyles}
@@ -142,7 +144,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
                 </label>
                 <label className='labelselect1'>
                   <button
-                    onClick={() => { handleButtonClick('applied'); onAppliedToggle();  }}
+                    onClick={() => { handleButtonClick('applied'); if (viewState !== 'applied') { onAppliedToggle(); } }}
                   >
                     지원한 게시글 보기
                   </button>

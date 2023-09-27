@@ -66,13 +66,9 @@ public class BoardController {
 		
 		//TB_BOARD_IMG img = setBoardImg(file, board.getBoard_id());
 		//int cnt3 = service.postSaveImg(img);
-		
-		//게시글 작성시 APPLY 게시판 응모여부에 H(호스트)로 저장하기
-		int cnt4 = service.postSaveApply(board.getBoard_id(), board.getCust_id());
-		
-		
+
 		// 게시글 board, skill, img 테이블에 각각 저장 성공실패시
-		if (cnt1 > 0 && cnt2 == 0 && cnt4>0// && cnt3 > 0
+		if (cnt1 > 0 && cnt2 == 0// && cnt3 > 0
 				) {
 			System.out.println("DB 저장 성공");
 			return 1;

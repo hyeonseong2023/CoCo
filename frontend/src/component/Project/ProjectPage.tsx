@@ -35,7 +35,6 @@ const ProjectPage = () => {
       <div>
         <div className="pp-container">
           <SideBar setSelectedMenu={setSelectedMenu} />
-          <div className="vertical-line"></div>
           {changeMenu(selectedMenu)}
         </div>
       </div>
