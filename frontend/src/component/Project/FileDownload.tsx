@@ -23,13 +23,8 @@ function FileDownload({ uid, name }: { uid: string; name: string }) {
   };
 
   return (
-    <div style={{ display: 'inline' }} onClick={handleDownload}>
-      <img
-        style={{ height: '20px', width: '20px', display: 'inline' }}
-        src={process.env.PUBLIC_URL + '/projectImg/file.png'}
-        alt=""
-      ></img>
-      <div style={{ display: 'inline' }}>{name}</div>
+    <div>
+      <button onClick={handleDownload}>{name}</button>
     </div>
   );
 }

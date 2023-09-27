@@ -32,12 +32,10 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
    const fetchData = async () => {
     const url = `http://localhost:8099/profileimg?cust_id=${custId}`;
     try {
+
       const response = await axios.get(url);
-      if(response.data.CUST_IMG == null){
-        setCustImg(profilePicture);
-      }else {
-        setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
-      }} catch (error) {
+      setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
+    } catch (error) {
       console.error(error);
     }
   };
@@ -48,7 +46,8 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
    
 
   useEffect (()=>{
-    if (custImg == null) { //지정안했으면 기본사진 
+
+    if (custImg == "on") { //지정안했으면 기본사진 
       setCustImg(profilePicture)
   } else {
       setCustImg(custProfileImg)
@@ -95,8 +94,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
       openModal();
     }
   };
-
-
+  
 
   return (
     <div  className="header-containerH">
@@ -109,7 +107,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
           </Link>
           {isLoggedIn ? ( //로그인 후 
             <Link to="/mypage" className='mypageicon'>
-              <img src={custImg} alt="" className='profileimage' />
+              {Cookies.get('CUST_IMG')!="on"?<img src={custImg} alt="" className='profileimage' />:<img src={profilePicture} alt="" className='profileimage' />}
             </Link>
           ) : (
             // 로그인 전 

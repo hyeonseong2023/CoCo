@@ -66,7 +66,6 @@ const MenuItem = ({
   };
   return (
     <div
-      className="pro-side-page"
       ref={(node) => dragRef(dropRef(node))}
       style={{ opacity: isDragging ? 0.4 : 1 }}
       onMouseOver={() => {
@@ -79,19 +78,15 @@ const MenuItem = ({
         setPageIndex(index);
       }}
     >
-      <img
-        src={process.env.PUBLIC_URL + '/projectImg/document.png'}
-        alt=""
-      ></img>
-      <div>{text === '' ? '제목없음' : text} </div>
+      {text === '' ? '제목없음' : text}{' '}
       <img
         onClick={() => {
           deleteFile(index);
         }}
         style={{
           display: isHovering ? 'inline' : 'none',
-          height: '20px',
-          width: '20px',
+          height: '15px',
+          width: '15px',
         }}
         src={process.env.PUBLIC_URL + '/projectImg/deleteFile.png'}
         alt=""

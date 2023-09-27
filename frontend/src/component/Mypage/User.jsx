@@ -251,7 +251,6 @@ const User = ({ data }) => {
       
     }
 
-    // 로그아웃 
     const handleLogout = () => {
         Cookies.remove('CUST_ID');  // 아이디 쿠키 삭제
         Cookies.remove('CUST_IMG'); // 이미지 쿠키삭제 
@@ -298,6 +297,11 @@ const User = ({ data }) => {
                                  <span key={index}>{skill} &nbsp;</span>
                                 ))}
                                      </td>
+                                {/* 이미지로 보여주기 
+                                    <td className='skillImg'>
+                                    {custSkillList.map((custSkill, index) => (
+                                        <img key={index} src={process.env.PUBLIC_URL + `/skillImg/${custSkill}.svg`} alt={custSkill} />
+                                    ))} */}
                             </tr>
                             <tr>
                                 <td className='Mypage-user-table-name'>링크</td>

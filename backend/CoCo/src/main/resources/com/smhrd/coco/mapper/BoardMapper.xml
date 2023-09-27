@@ -47,12 +47,6 @@
 			UPDATE TB_BOARD_IMG SET BOARD_IMG=#{BOARD_IMG} WHERE BOARD_ID = #{board_id}
 	</update>
 	
-	<!-- 게시글 작성시 APPLY 게시판 응모여부에 H(호스트)로 저장하기 -->
-	<insert id="postSaveApply">
-			INSERT INTO TB_APPLY (BOARD_ID, CUST_ID, APPROVE_YN)
-							VALUES (#{board_id}, #{cust_id}, 'H');
-	</insert>
-	
 	<!-- 선택한 게시물 board 테이블에서 정보가져오기 -->
 	<select id="selectPostBoard" resultType="com.smhrd.coco.domain.TB_BOARD">
 			SELECT BOARD_ID, CUST_ID, BOARD_TITLE, BOARD_MEMBERS, BOARD_PERIOD, BOARD_DEADLINE, BOARD_OPENLINK, 
@@ -85,10 +79,10 @@
 			SELECT COUNT(*) FROM TB_APPLY WHERE BOARD_ID=#{board_id} AND CUST_ID=#{cust_id}
 	</select>
 	
-	<!-- 게시글에 지원시 apply 테이블에 정보 저장 -->
+	<!-- 게시글에 지원하기 -->
 	<insert id="postApply">
 			INSERT INTO TB_APPLY (BOARD_ID,CUST_ID)
-							VALUES (#{board_id}, #{sender_id});
+							VALUES (#{board_id}, #{cust_id});
 	</insert>
 	
 	<!-- 게시글 지원취소 -->

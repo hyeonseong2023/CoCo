@@ -1,57 +1,19 @@
-.pro-settings-container {
-  width: 50%;
-  padding-top: 50px;
-  padding-left: 20%;
-  padding-right: 20%;
-}
-
 .applicants-container {
-  padding: 20px;
-  border-radius: 15px;
-  /* background-color: whitesmoke; */
-  border: 1.5px solid rgb(206, 206, 206);
+  background-color: whitesmoke;
   min-height: 500px;
 }
 
-.acceptdelcine {
-  border-radius: 0px;
-  margin-right: 0%;
-  /* float: right; */
-  width: 60px;
-}
-
-.pro-setting {
-  padding: 10px;
-  border-radius: 10px;
-  /* color: white; */
-  font-size: 15px;
-
-  /* background-color: #4598ff; */
-}
-
-.setting-usernick {
-  margin-left: 3%;
-  width: 70%;
-}
-
 .applicant-div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   margin: 10px;
   padding: 10px;
 }
 
 .applicant-div > div {
-  /* width: 100%; */
-  /* background-color: aliceblue; */
-  /* display: inline; */
-  margin-right: 10px;
-  margin-bottom: 10px;
+  display: inline;
 }
 
-.setting-profileImg {
+.applicant-div > div > img {
   border-radius: 50%;
-  height: 50px;
-  width: 50px;
+  height: 80px;
+  width: 80px;
 }

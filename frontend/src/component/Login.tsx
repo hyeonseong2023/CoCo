@@ -59,7 +59,6 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
               {/* <button className="login-close-button" onClick={closePopup}>
                 X
               </button> */}
-              <img src={X} onClick={closePopup} ></img>
             </div>
             <div id="loginbox-container">
               <div className='loginbox-welcome'> CoCo에 오신 것을 환영합니다!</div>
