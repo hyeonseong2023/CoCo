@@ -22,6 +22,7 @@ const Check: React.FC = () => {
         navigate('/');
       })
       .catch((error) => {
+        cookies.set('coin',"on", { path: '/' });
         console.error('Error fetching data:', error);
         navigate('/');
       });

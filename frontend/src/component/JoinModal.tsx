@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import startBtn from '../img/startBtn.png';
 import { useNavigate } from 'react-router-dom';
-import bigcoco from '../img/bigCoCo.png';
+import bigcoco from '../img/bigCoCo.png'; 
 
 type FormData = {
   nickname: string;
@@ -190,6 +190,9 @@ const JoinModel = ({ onClose, setIsJoinModal }: { onClose: () => void, setIsJoin
     try {
       await axios.post(`${process.env.REACT_APP_URL_8099}/firstlogin`, requestData);
       console.log('요청이 성공했습니다.');
+      Cookies.set('CUST_IMG', "1", { path: '/' });
+      console.log(Cookies.get("CUST_ID"));
+      
       setWelcomeOpen(true);
     } catch (error) {
       console.error('요청이 실패했습니다.', error);
@@ -202,7 +205,7 @@ const JoinModel = ({ onClose, setIsJoinModal }: { onClose: () => void, setIsJoin
     onClose();
     setWelcomeOpen(false);
     setIsJoinModal(false)
-
+    window.location.replace("/")
     navigator('/');
     // window.location.replace("/")
     //navigator('/');   // 메인 페이지로 이동
@@ -215,7 +218,6 @@ const JoinModel = ({ onClose, setIsJoinModal }: { onClose: () => void, setIsJoin
 
         {/* 모달 닫기 부분  */}
         <div className='join-modal-user-close'>
-          {/* <img className='join-modal-user-img' src={Logo}></img> */}
           <img src={X} className="join-modal-user-close-button" onClick={closeModal}></img>
         </div>
 
@@ -316,7 +318,7 @@ const JoinModel = ({ onClose, setIsJoinModal }: { onClose: () => void, setIsJoin
             {/* 환영인사 부분  */}
             <div className='welcome-text1'> <h1>{nick}님 축하합니다!</h1> </div>
             <div className='welcome-text2'> <h1>회원가입 되었습니다!</h1> </div>
-            <img src={Logo} className='welcome-logo'></img>
+            <img src={bigcoco} className='welcome-logo'></img>
             <img src={startBtn} className='startBtn' onClick={handleStart}></img>
           </div>
         </div>

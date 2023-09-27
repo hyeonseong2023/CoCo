@@ -26,16 +26,19 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isJoinModal, setIsJoinModal] = useState(Cookies.get('CUST_ID') != null && Cookies.get('CUST_IMG') == "0" && Cookies.get('coin') == "on");
 
   const [ custImg, setCustImg] = useState(custProfileImg);
-
+  console.log(isLoggedIn);
+  
 
    //통신 (프로필 이미지)
    const fetchData = async () => {
     const url = `http://localhost:8099/profileimg?cust_id=${custId}`;
     try {
       const response = await axios.get(url);
-      setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
-      
-    } catch (error) {
+      if(response.data.CUST_IMG == null){
+        setCustImg(profilePicture);
+      }else {
+        setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
+      }} catch (error) {
       console.error(error);
     }
   };
