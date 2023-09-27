@@ -45,7 +45,10 @@ const ContentList = () => {
       ],
     });
 
-    updateContent(`projects/${projectId}/pageStructure}`, data);
+    updateContent(
+      `projects/${projectId}/pageList/${pageStructure[pageIndex].id}`,
+      data
+    );
   };
 
   return (

@@ -2,17 +2,16 @@
   padding: 0%;
   margin: 0%;
   font-family: SpoqaHanSansNeo-Regular;
-  font-size: 14px;
+  /* font-size: 14px; */
 }
 
 @font-face {
   font-family: 'SpoqaHanSansNeo-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff')
+    format('woff');
   font-weight: normal;
   font-style: normal;
 }
-
-
 
 button {
   background: none;
@@ -27,7 +26,6 @@ button {
   outline: none;
   appearance: none;
 }
-
 
 /* 링크의 기본 디자인 속성 초기화 */
 a {

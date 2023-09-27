@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ProjectContext } from './context/ProjectContext';
 import closeImg from '../../img/x.png';
 import './css/Members.css';
+import profileImg from '../../img/profilePicture.png';
 
 interface Member {
   cust_nick: string;
@@ -46,14 +47,17 @@ const Members = ({
             <div>
               <img
                 key={item.cust_nick}
-                src={'data:image/;base64,' + item.cust_img}
+                src={
+                  item.cust_img
+                    ? 'data:image/;base64,' + item.cust_img
+                    : profileImg
+                }
                 alt=""
               ></img>
               <div>{item.cust_nick}</div>
             </div>
           ))}
       </div>
-      <div className="pro-mem-footer">asdf</div>
     </div>
   );
 };

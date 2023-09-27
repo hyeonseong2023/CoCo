@@ -27,10 +27,10 @@ const Settings = () => {
   };
 
   return (
-    <div>
+    <div className="pro-settings-container">
       Settings
-      <div>
-        <div>지원자</div>
+      <div className="pro-setting">
+        <div>프로젝트 지원자</div>
         <div className="applicants-container">
           {applicants &&
             applicants.map((item, index) => (

@@ -218,6 +218,7 @@ const Content = ({
   const fileTag = () => {
     return (
       <div
+        style={{ display: 'flex', alignItems: 'center' }}
         onMouseOver={() => {
           setIseHovering(true);
         }}
@@ -228,7 +229,11 @@ const Content = ({
         <FileDownload uid={element.id} name={element.text}></FileDownload>
         <img
           onClick={deleteFile}
-          style={{ display: isHovering ? 'inline' : 'none' }}
+          style={{
+            display: isHovering ? 'inline' : 'none',
+            height: '20px',
+            width: '20px',
+          }}
           src={process.env.PUBLIC_URL + '/projectImg/deleteFile.png'}
           alt=""
         ></img>
