@@ -123,6 +123,7 @@
   font-weight: 500;
   margin: auto;
   cursor: pointer;
+  margin-top:10px;
 }
 
 .modal-modify-port-table{
@@ -185,7 +186,7 @@
 /* 모달 X 버튼  */
 .port-modal-user-close-button{
   width: 20px;
-  margin-left: 470px;
+  margin-left: 540px;
   cursor: pointer;
 
 }

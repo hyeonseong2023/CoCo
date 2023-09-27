@@ -107,7 +107,7 @@ const Portfolio = ({ data }) => {
   const handleSubmit = async () => {
 
     const formData = new FormData();
-    formData.append('cust_id', mypageId);
+    formData.append('cust_id', loginUserId);
     formData.append('pf_title', pdfTitle);
     formData.append('file', file);
 
@@ -204,7 +204,7 @@ const Portfolio = ({ data }) => {
 
             {/* 모달 닫기 부분  */}
             <div className='modal-user-close'>
-              <img className='port-modal-user-img' src={Logo}></img>
+              {/* <img className='port-modal-user-img' src={Logo}></img> */}
               <img src={X} onClick={closeAddModal} className="port-modal-user-close-button"></img>
             </div>
 

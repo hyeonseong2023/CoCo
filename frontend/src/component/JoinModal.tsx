@@ -4,11 +4,11 @@ import '../css/JoinModal.css';
 import Select from 'react-select';
 import nextBtn from '../img/nextBtn.png';
 import X from '../img/x.png';
-import Logo from '../img/Logo.png';
 import axios from 'axios';
 import { useEffect } from 'react';
 import startBtn from '../img/startBtn.png';
 import { useNavigate } from 'react-router-dom';
+import bigcoco from '../img/bigCoCo.png'; 
 
 
 type FormData = {
@@ -18,6 +18,7 @@ type FormData = {
   interests: string;
 };
 
+Cookies.remove('coin');
 type JoinModelProps = {
   onClose: () => void;
 };
@@ -34,7 +35,9 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
   const [validationMessage, setValidationMessage] = useState<string>('');
 
   const closeModal = () => {
+    Cookies.set('CUST_IMG', "on", { path: '/' });
     Cookies.remove('coin');
+    window.location.replace("/")
     onClose();
   };
 
@@ -202,9 +205,8 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
     setWelcomeOpen(false);
     setIsJoinModal(false)
 
-    Cookies.remove('coin');
     navigator('/');
-    window.location.replace("/")
+    // window.location.replace("/")
     //navigator('/');   // 메인 페이지로 이동
   }
 
@@ -316,7 +318,7 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
             {/* 환영인사 부분  */}
             <div className='welcome-text1'> <h1>{nick}님 축하합니다!</h1> </div>
             <div className='welcome-text2'> <h1>회원가입 되었습니다!</h1> </div>
-            <img src={Logo} className='welcome-logo'></img>
+            <img src={bigcoco} className='welcome-logo'></img>
             <img src={startBtn} className='startBtn' onClick={handleStart}></img>
           </div>
         </div>

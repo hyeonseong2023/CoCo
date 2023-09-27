@@ -24,7 +24,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   text-align: center;
   width: 641px;
-  height: 455px;
+  height: 500px;
   /* overflow-y: auto; */
   display: flex;
   flex-direction: column; /* 내부 요소들을 세로로 배치 */
@@ -33,17 +33,23 @@
 }
 
 .welcome-logo{
-  width: 500px;
+  width: 300px;
 }
 
 .startBtn{
+  margin-top: 60px;
   width: 200px;
 }
 
 .welcome-text1{
-  margin-top : 60px;
+  margin-top : 80px;
   font-size: 15px;
 }
+
+.welcome-text1 >h1 {
+  margin-bottom: 0%;
+}
+
 
 .welcome-text2{
   margin-bottom: 20px;
@@ -224,7 +230,8 @@
 /* 모달 X 버튼  */
 .join-modal-user-close-button{
   width: 20px;
-  margin-left: 470px;
+  margin-top: 10px;
+  margin-left: 600px;
   cursor: pointer;
 
 }
@@ -234,11 +241,11 @@
 .join{
   font-size: small;
   margin-top: 30px;
+  margin-bottom: ;
 }
 
 /* 기본정보를 입력해주세요  */
 .join-text{
-  margin-top: 10px;
   font-size: x-small;
 }
 
@@ -287,3 +294,10 @@
   /* background-color: #4598FF; */
 }
 
+.join > h1 {
+  margin-bottom: 0%;
+}
+
+.join-text >h1 {
+  margin-bottom: 2%;
+}

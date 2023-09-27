@@ -11,10 +11,8 @@ import X from '../../img/x.png';
 import profile from '../../img/profilePicture.png';
 import { useNavigate } from 'react-router-dom';
 
-import link from '../../img/link.png';
 import link1 from '../../img/link1.png'; 
-import link2 from '../../img/link2.png'; 
-import link3 from '../../img/link3.png'; 
+
 
 
 
@@ -205,7 +203,7 @@ const User = ({ data }) => {
     // 통신(프로필수정)
     const handleSubmit = () => {
         const formData = new FormData();
-        formData.append('cust_id', mypageId); //아이디
+        formData.append('cust_id', loginUserId); //아이디
         formData.append('cust_nick', modalNick); //닉네임
         formData.append('cust_position', pselected.value); //직무
         formData.append('cust_career', cselected.value); //경력
@@ -233,7 +231,7 @@ const User = ({ data }) => {
     const deleteCust =async () =>{
        
         const requestData = {
-            cust_id : mypageId
+            cust_id : loginUserId
           };
 
           try {
