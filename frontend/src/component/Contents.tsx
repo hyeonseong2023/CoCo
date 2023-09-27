@@ -43,6 +43,7 @@ function getPositionColor(position: string) {
     case 'IOS안드로이드':
       return 'ios-color'
     case '데브옵스':
+      case ' 데브옵스':
       return 'dev-color'
     case 'PM':
       return 'pm-color'

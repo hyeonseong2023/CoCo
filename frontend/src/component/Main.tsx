@@ -22,32 +22,22 @@ const Main: React.FC<MainProps> = () => {
   const [isApplied, setIsApplied] = useState<boolean>(false);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [IsMyPosts, setIsMyPosts] = useState<boolean>(false);
-  let pore = 0;
   const maxEndpoint = 99;
-  const pageSize = 10;
+  const pageSize = 1;
   const initialLoad = useState<boolean>(false)[0];
 
   // 북마크 데이터를 저장할 상태 추가
   const [bookmarkData, setBookmarkData] = useState<any[]>([]);
+  const [Data1, setData1] = useState<any[]>([]);
+  const [Data2, setData2] = useState<any[]>([]);
 
   const handlePageChange = (page: number): void => {
     setCurrentPage(page);
   };
 
-  const handleNextPageClick = (): void => {
-    if (currentPage < maxEndpoint) {
-      handlePageChange(currentPage + 1);
-    }
-  };
-
-  const handlePrevPageClick = (): void => {
-    if (currentPage > 1) {
-      handlePageChange(currentPage - 1);
-    }
-  };
   const handleExpandPageClick = async (): Promise<void> => {
     if (currentPage < maxEndpoint && !isRefreshing && !isApplied && !isBookmarked) {
-      const nextPage = currentPage + 1;
+      const nextPage = currentPage + 6;
       setIsRefreshing(true);
 
       const requestData = {
@@ -234,8 +224,6 @@ const Main: React.FC<MainProps> = () => {
 
   const handleBookmarkToggle = async (): Promise<void> => {
     setIsBookmarked(!isBookmarked);
-
-    // 북마크 토글 시 북마크 데이터 업데이트 또는 초기화
     if (isBookmarked) {
       setBookmarkData([]);
     } else {
@@ -245,17 +233,28 @@ const Main: React.FC<MainProps> = () => {
 
   const handleAppliedToggle = async (): Promise<void> => {
     setIsApplied(!isApplied);
-    await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
+
+
+    if (isApplied) {
+      setData1([]);
+    } else {
+      await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
+    }
+
+
   };
 
   const onMyPostsToggle = async (): Promise<void> => {
     setIsMyPosts(!IsMyPosts);
-    await fetchDataAndUpdateState('http://localhost:8099/writelist', setCategoryData);
+
+    if (IsMyPosts) {
+      setData2([]);
+    } else {
+      await fetchDataAndUpdateState('http://localhost:8099/writelist', setCategoryData);
+    }
+
   }
 
-  //@@@@@@@@@@@@ webrtc 시작
-
-  // 임시로 board_id 설정
   const BOARD_ID = 1;
   // 4000
   // const wrUrl = process.env.REACT_APP_URL_4000;

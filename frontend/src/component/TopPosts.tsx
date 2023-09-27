@@ -65,22 +65,30 @@ const TopPosts = () => {
     slidesToShow: 4,
     slidesPerRow: 1,
   };
-
   function getPositionColor(position: string) {
     switch (position) {
       case '프론트엔드':
         return 'frontend-color';
       case '백엔드':
+      case ' 백엔드':
         return 'backend-color';
       case '디자이너':
+      case ' 디자이너':
         return 'designer-color';
+      case ' IOS안드로이드':
+      case 'IOS안드로이드':
+        return 'ios-color'
+      case '데브옵스':
+        case ' 데브옵스':
+        return 'dev-color'
+      case 'PM':
+        return 'pm-color'
       case '기획자':
-        return 'planner-color';
+        return 'planner-color'; // 이러한 포지션들에 대해서는 'planner-color' 클래스를 반환합니다.
       default:
         return ''; // 기본값으로 빈 문자열을 반환하거나 다른 적절한 클래스를 할당하세요.
     }
   }
-
   // 현재 날짜 가져오기
   const today = new Date();
 
