@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.smhrd.coco.domain.TB_BOARD;
 import com.smhrd.coco.domain.TB_CUST;
 
 @Mapper
@@ -20,5 +21,11 @@ public interface ProjectMapper {
 	
 	//프로젝트 응모 거절로 응모테이블에서 삭제하기
 	public int applyDecline(int board_id, String cust_id);
+	
+	//프로젝트 명, 프로젝트 이미지 보내기. 이미지 없으면 null 값으로 (board_id)
+	public TB_BOARD projectInfo(int board_id);
+	
+	//프로젝트 명, 프로젝트 이미지 업데이트 (board_id)
+	public int projectInfoUpdate(String pro_img, int board_id, String pro_title);
 
 }
