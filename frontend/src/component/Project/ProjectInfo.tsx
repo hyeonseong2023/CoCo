@@ -15,11 +15,14 @@ const ProjectInfo = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_URL_8099}/projectinfo`;
     const data = { board_id: parseInt(projectId) };
     await axios.post(url, data).then((res) => {
-      console.log(res.data);
+      setProjectTitle(res.data.pro_title);
+      setProjectImg('data:image/;base64,' + res.data.pro_img);
+      setFile(base64toFile(res.data.pro_img, '새파일'));
     });
   };
 
@@ -33,11 +36,15 @@ const ProjectInfo = () => {
     data.append('board_id', projectId);
     data.append('pro_title', projectTitle);
     data.append('pro_img', file!);
-    await axios.post(url, data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    await axios
+      .post(url, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(() => {
+        alert('수정 완료');
+      });
   };
 
   const onChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,8 +85,8 @@ const ProjectInfo = () => {
           <div>
             <img
               style={{
-                maxHeight: '200px',
-                maxWidth: '300px',
+                height: '200px',
+                width: '300px',
                 borderRadius: '10px',
               }}
               src={'' + projectImg}
@@ -109,12 +116,15 @@ const ProjectInfo = () => {
               top: '50%',
             }}
           >
-            사진을 업로드해주세요
+            <img
+              src={process.env.PUBLIC_URL + '/projectImg/projectImg.png'}
+              alt=""
+            ></img>
             <label htmlFor="file-input">
               <img
                 style={{
                   width: '3%',
-                  left: '30%',
+                  left: '3%',
                   bottom: '3%',
                   position: 'absolute',
                 }}
@@ -129,5 +139,17 @@ const ProjectInfo = () => {
     </div>
   );
 };
+
+function base64toFile(base_data: string, filename: string) {
+  let bstr = atob(base_data),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  return new File([u8arr], filename);
+}
 
 export default ProjectInfo;

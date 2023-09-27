@@ -15,6 +15,9 @@ export interface Member {
 
 const Settings = () => {
   const projectId = useContext(ProjectContext);
+  if (!projectId) {
+    throw new Error('Context must be used within a ProjectProvider');
+  }
   const [applicants, setApplicants] = useState<Member[]>();
 
   useEffect(() => {
@@ -46,6 +49,7 @@ const Settings = () => {
             applicants.map((item, index) => (
               <Applicant
                 key={item.cust_id}
+                projectId={projectId}
                 index={index}
                 applicants={applicants}
                 setApplicants={setApplicants}
