@@ -10,7 +10,6 @@ import startBtn from '../img/startBtn.png';
 import { useNavigate } from 'react-router-dom';
 import bigcoco from '../img/bigCoCo.png';
 
-
 type FormData = {
   nickname: string;
   job: string;
