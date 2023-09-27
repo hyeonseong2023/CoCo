@@ -34,7 +34,7 @@ const Post = ({ data, boardData }) => {
   const [title, setTitle] = useState(boardData.TB_BOARD.board_title);
   const [views, setViews] = useState(boardData.TB_BOARD.board_views);
   const [date, setDate] = useState(boardData.TB_BOARD.board_dt);
-  const [dDay, setDday] = useState(boardData.D_day);
+  const [dDay, setDday] = useState(boardData.D_day - 1);
   const [content, setContent] = useState(boardData.TB_BOARD.board_content);
   const [boardImg, setBoardImg] = useState(boardData.TB_BOARD_IMG?.board_IMG);
   const [custNick, setCustNick] = useState(boardData.createCust.cust_nick);

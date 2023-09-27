@@ -19,17 +19,18 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const custProfileImg = Cookies.get('CUST_IMG')
-  const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') != null);
+  const custId = Cookies.get('CUST_ID');
+  const custProfileImg = Cookies.get('CUST_IMG');
+  const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') && Cookies.get('CUST_IMG') != "0");
   const navigate = useNavigate();
-  const [isJoinModal, setIsJoinModal] = useState(false);
-  console.log(custProfileImg);
+  const [isJoinModal, setIsJoinModal] = useState(Cookies.get('CUST_ID') != null && Cookies.get('CUST_IMG') == "0" && Cookies.get('coin') == "on");
+
   const [custImg, setCustImg] = useState(custProfileImg);
 
 
   //통신 (프로필 이미지)
   const fetchData = async () => {
-    const url = `http://localhost:8099/profileimg?cust_id=${Cookies.get('CUST_ID')}`;
+    const url = `http://localhost:8099/profileimg?cust_id=${custId}`;
     try {
       const response = await axios.get(url);
       setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
@@ -38,6 +39,10 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
 
   useEffect(() => {
@@ -53,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
 
   useEffect(() => {
-    setIsJoinModal(true)
+    isLoggedIn && setIsJoinModal(false)
   }, [isLoggedIn])
 
   const handleCloseModal = () => {
@@ -97,28 +102,22 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
         <div className="header-logo"><a href='/'><img src={CoCo} alt="" /></a></div>
         <div className="header-buttons">
           <div className='header-buttons-div'>
-            {isLoggedIn == true ? ( //로그인 후 
-              <div>
-                <Link to="/write" className='writeicon'>
-                  <button>모집글 작성</button>
-                </Link>
-                <Link to="/mypage" className='mypageicon'>
-                  <img src={custImg} alt="" className='profileimage' />
-                </Link>
-              </div>
+            <Link to="/write" className='writeicon'>
+              <button>모집글 작성</button>
+            </Link>
+            {isLoggedIn ? ( //로그인 후 
+              <Link to="/mypage" className='mypageicon'>
+                <img src={custImg} alt="" className='profileimage' />
+              </Link>
             ) : (
-              <div className='header-buttons-div-div'>
-                <button onClick={isModalOpen ? closeModal : openModal} className='writeicon'>
-                  모집글 작성
-                </button>
-                <button onClick={isModalOpen ? closeModal : openModal} className='login'>
-                  로그인
-                </button>
-              </div>
+              // 로그인 전 
+              <button onClick={isModalOpen ? closeModal : openModal}>
+                로그인
+              </button>
 
             )}
 
-            {isJoinModal && custImg === "0" && Cookies.get('coin') === "on" && (
+            {isJoinModal && (
               <JoinModel onClose={handleJoinModelClose} setIsJoinModal={setIsJoinModal} />
             )}
 

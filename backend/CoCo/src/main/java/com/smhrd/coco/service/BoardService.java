@@ -123,49 +123,42 @@ public class BoardService {
       obj.put("D_day", dDay);
       obj.put("createCust", createCust);
 
-      jsonArray.add(obj);
-      return jsonArray;
-   }
-   
-   
-   //게시글에 지원하기
-   public int postApply(int board_id, String cust_id) {
-      return mapper.postApply(board_id,cust_id);
-   }
-   
-   
-   //게시글 지원취소하기
-   public int unPostApply(int board_id, String cust_id) {
-      return mapper.unPostApply(board_id,cust_id);
-   }
-   
-   //프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
-      public String getOrCreateProLink(int board_id) {
-         return mapper.getOrCreateProLink(board_id);
-      }
-   
-   //게시글 모집마감
-   public int postDeadline(int board_id) {
-            
-      Date date = new Date();
-      SimpleDateFormat toDay = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-      String today = toDay.format(date);
-      
-      return mapper.postDeadline(board_id, today);
-   }
-   
-   //게시글 삭제 클릭시 board_id => admin 관리자로 변경
-   public int postDelete(int board_id) {
-      return mapper.postDelete(board_id);
-   }
-   
-   
-   
-   
-   
-   
-   
-   
+		jsonArray.add(obj);
+		return jsonArray;
+	}
+
+	// 게시글에 지원시 APPLY 테이블에 정보 추가
+	public int postApply(int board_id, String sender_id) {
+		return mapper.postApply(board_id, sender_id);
+
+	}
+
+	// 게시글 지원취소하기
+	public int unPostApply(int board_id, String cust_id) {
+		return mapper.unPostApply(board_id, cust_id);
+	}
+
+
+	// 프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
+	public String getOrCreateProLink(int board_id) {
+		return mapper.getOrCreateProLink(board_id);
+	}
+
+	// 게시글 모집마감
+	public int postDeadline(int board_id) {
+
+		Date date = new Date();
+		SimpleDateFormat toDay = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String today = toDay.format(date);
+
+		return mapper.postDeadline(board_id, today);
+	}
+
+	// 게시글 삭제 클릭시 board_id => admin 관리자로 변경
+	public int postDelete(int board_id) {
+		return mapper.postDelete(board_id);
+	}
+
 /////////////////////////////////// 메서드 ////////////////////////////////////////////
    
    public String calculateDday(TB_BOARD board) {

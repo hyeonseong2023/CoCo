@@ -54,8 +54,8 @@ public interface BoardMapper {
 	// 선택한 게시물 TB_APPLY 정보 가져오기
 	public int selectPostApply(int board_id, String cust_id);
 	
-	// 게시글에 지원하기
-	public int postApply(int board_id, String cust_id);
+	// 게시글에 지원시 APPLY 테이블에 정보 추가
+	public int postApply(int board_id, String sender_id);
 	
 	// 게시글 지원취소
 	public int unPostApply(int board_id, String cust_id);

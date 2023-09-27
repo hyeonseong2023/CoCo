@@ -18,6 +18,7 @@ type FormData = {
   interests: string;
 };
 
+Cookies.remove('coin');
 type JoinModelProps = {
   onClose: () => void;
 };
@@ -86,7 +87,7 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
       console.error('데이터를 서버로 전송하는 중 오류가 발생했습니다.', error);
     }
 
-    Cookies.remove('coin');
+    Cookies.remove('CUST_IMG');
     window.location.replace("/")
   };
 
@@ -203,11 +204,11 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
 
 
   const handleStart =()=>{
+    Cookies.set('CUST_IMG', "on", { path: '/' });
     onClose();
     setWelcomeOpen(false);
     setIsJoinModal(false)
 
-    Cookies.remove('coin');
     navigator('/');
     //window.location.replace("/")
     //navigator('/');   // 메인 페이지로 이동
