@@ -21,10 +21,6 @@ const Mypage = () => {
     const url = `${process.env.REACT_APP_URL_8099}/mypage?cust_id=${loginUserId}`;
     try {
       const response = await axios.get(url);
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 83ed442 (Merge branch 'main' into lhs)
       SetData(response.data); // 나중에 바꾸겠음
     } catch (error) {
       console.error(error);
