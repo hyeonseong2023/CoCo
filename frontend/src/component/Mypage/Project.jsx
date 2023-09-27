@@ -55,7 +55,10 @@ const Project = ({ data }) => {
         {projectData.map((item, index) => (
           <div className="project-container">
             <div key={item.idex}>
-              <Link to={'/pp'} state={{ projectId: item.proId }}>
+              <Link
+                to={'/pp'}
+                state={{ projectId: item.proId, nick: data.CUST_NICK }}
+              >
                 {item.proImg ? (
                   <img
                     src={'data:image/;base64,' + item.proImg}

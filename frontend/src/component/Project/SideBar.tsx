@@ -7,11 +7,12 @@ import Cookies from 'js-cookie';
 
 const SideBar = ({
   setSelectedMenu,
+  nick,
 }: {
   setSelectedMenu: (e: string) => void;
+  nick: string;
 }) => {
   const [toggleMembers, setToggleMembers] = useState(false);
-
 
   const BOARD_ID = 1;
   // 4000
@@ -21,9 +22,12 @@ const SideBar = ({
   // 제출 버튼 클릭 시 board_id Back으로 전송
   const handleClick = async () => {
     // http://localhost:8099/webrtc 로 요청
-    axios.get(`${process.env.REACT_APP_URL_8099}/webrtc`, { params: { board_id: BOARD_ID } })
+    axios
+      .get(`${process.env.REACT_APP_URL_8099}/webrtc`, {
+        params: { board_id: BOARD_ID },
+      })
       .then(async (res) => {
-        console.log("스프링 통신 완료");
+        console.log('스프링 통신 완료');
         // res.data : 프로젝트 링크 uuid
         const roomName = res.data;
         console.log(roomName);
@@ -36,11 +40,11 @@ const SideBar = ({
         // 클라이언트 측에서 서버로부터 받은 HTTP 응답의 상태 코드를 확인하는 부분
         // 200 : 성공
         if (response.status === 200) {
-          console.log("노드 통신 완료");
+          console.log('노드 통신 완료');
 
           window.open(wrUrl, '_blank');
         } else {
-          console.error("Failed to save data");
+          console.error('Failed to save data');
         }
       })
       .catch((error) => {
