@@ -33,9 +33,11 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
     const url = `http://localhost:8099/profileimg?cust_id=${custId}`;
     try {
       const response = await axios.get(url);
-      setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
-      
-    } catch (error) {
+      if(response.data.CUST_IMG == null){
+        setCustImg(profilePicture);
+      }else {
+        setCustImg("data:image/;base64," + response.data.CUST_IMG); // 이미지파일 
+      }} catch (error) {
       console.error(error);
     }
   };

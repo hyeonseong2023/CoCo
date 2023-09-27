@@ -53,10 +53,10 @@ public class CustService {
 	// 마이페이지 (기본정보, 포트폴리오, 프로젝트)
 	public JSONObject myPage(String cust_id) {
 		System.out.println("cust_id :" + cust_id);
+		
 		// 회원 테이블(TB_CUST) - 기본정보
 		TB_CUST cust = mapper.mypageCust(cust_id);
-		//System.out.println("cust :" + cust);
-
+		
 		JSONObject obj = new JSONObject();
 
 		obj.put("CUST_ID", cust.getCust_id());
