@@ -27,6 +27,10 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
 
   const [ custImg, setCustImg] = useState(custProfileImg);
   console.log(isLoggedIn);
+
+  console.log("아이디", Cookies.get('CUST_ID'));
+  console.log("이미지", Cookies.get('CUST_IMG'));
+  
   
 
    //통신 (프로필 이미지)
