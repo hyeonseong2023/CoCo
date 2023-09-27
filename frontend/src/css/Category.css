@@ -141,3 +141,18 @@ select option:checked {
   margin-top: 30%;
   margin-right: 10px;
 }
+
+.boxA_titleA{
+  margin-bottom: 2%;
+}
+
+.category_titlemain>h5{
+  margin-top: 0%;
+}
+.category_sub1{
+  margin-left: 0.5%;
+}
+
+.category_sub2{
+  margin-right: 1%;
+}

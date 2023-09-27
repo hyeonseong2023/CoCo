@@ -42,17 +42,14 @@
 
 }
 
-.TopPostsCon>div{
-  margin-bottom: 30px;
-}
-
 .TopPostsConi{
     flex: 1; 
     text-align: right;
     display: flex;
-    align-items: center;
+    align-items: end;
+    margin-bottom: 2%;
     justify-content: flex-end;
-    margin-right: 2%;
+    font-size: 1.1rem;
 }
 
 .TopPostsConi > button{
@@ -159,28 +156,7 @@
     margin-left: 5%;
     margin-bottom: 3%;
   }
-  
 
-  .frontend-color {
-    background-color: rgba(255, 160, 160, 0.5); /* 연한 빨간색과 50% 투명도 */
-    color: #AA0000; /* 진한 빨간색 */
-  }
-  
-  .backend-color {
-    background-color: rgba(160, 255, 160, 0.5); /* 연한 녹색과 50% 투명도 */
-    color: #00AA00; /* 진한 녹색 */
-  }
-  
-  .designer-color {
-    background-color: rgba(160, 160, 255, 0.5); /* 연한 파란색과 50% 투명도 */
-    color: #0000AA; /* 진한 파란색 */
-  }
-  
-  .planner-color {
-    background-color: rgba(255, 255, 160, 0.5); /* 연한 노란색과 50% 투명도 */
-    color: #AAAA00; /* 진한 노란색 */
-  }
-  
 
   .topend1{
     width: 40px;
@@ -235,6 +211,10 @@
     
   }
 
+  .TopPostsCon>div>h5{
+    margin-top : 1%;
+  }
+
   .category_titlemain>h5{
     font-size: 1.2rem;
     color: #7d7d7d;
@@ -248,4 +228,40 @@
 
 .topend2{
   width: 100%
+}
+
+
+.frontend-color {
+  background-color: rgba(255, 160, 160, 0.5); /* 연한 빨간색과 50% 투명도 */
+  color: #AA0000; /* 진한 빨간색 */
+}
+
+.backend-color {
+  background-color: rgba(160, 255, 160, 0.5); /* 연한 녹색과 50% 투명도 */
+  color: #00AA00; /* 진한 녹색 */
+}
+
+.designer-color {
+  background-color: rgba(160, 160, 255, 0.5); /* 연한 파란색과 50% 투명도 */
+  color: #0000AA; /* 진한 파란색 */
+}
+
+.planner-color {
+  background-color: rgba(255, 255, 160, 0.5); /* 연한 노란색과 50% 투명도 */
+  color: #AAAA00; /* 진한 노란색 */
+}
+
+.ios-color{
+  background-color: #f9e7cf;
+  color: #ff9d00; 
+}
+
+.dev-color{
+  background-color: rgb(171, 228, 255);
+  color: rgb(0, 174, 255); 
+}
+
+.pm-color{
+  background-color: #f7caf2;
+  color: #800073; 
 }

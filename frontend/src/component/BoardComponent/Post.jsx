@@ -62,10 +62,26 @@ const Post = ({ data, boardData }) => {
       ? `${process.env.REACT_APP_URL_8099}/postApply`
       : `${process.env.REACT_APP_URL_8099}/unPostApply`;
 
-    await axios
-      .get(`${apiUrl}/${data}/${Cookies.get('CUST_ID')}`)
-      .then((res) => {});
+    try {
+      const res = await axios.post(apiUrl, {
+        loginUserId: loginUserId,
+        createCustId: boardData.TB_BOARD.cust_id,
+        board_id: data,
+      });
+    } catch (error) {
+      console.error('Error sending apply request: ', error);
+    }
   };
+
+  // const sendApplyRequest = async (isApply) => {
+  //   const apiUrl = !isApply
+  //     ? `${process.env.REACT_APP_URL_8099}/postApply`
+  //     : `${process.env.REACT_APP_URL_8099}/unPostApply`;
+
+  //   await axios
+  //     .get(`${apiUrl}/${data}/${Cookies.get('CUST_ID')}`)
+  //     .then((res) => {});
+  // };
 
   const toggleBmk = () => {
     sendBookmarkRequest(isEmptyBmk);
@@ -92,6 +108,7 @@ const Post = ({ data, boardData }) => {
 
   return (
     <div className="post">
+      {/* 게시글 삭제버튼 클릭시 열리는 모달 */}
       {postDeletePopup && (
         <DeleteModal
           setPostDeletePopup={setPostDeletePopup}
@@ -99,6 +116,7 @@ const Post = ({ data, boardData }) => {
         ></DeleteModal>
       )}
 
+      {/* 모집마감 버튼 클릭시 열리는 모달 */}
       {dPopupOpne && (
         <DeadlineModal
           setDPopupOpne={setDPopupOpne}
@@ -106,6 +124,7 @@ const Post = ({ data, boardData }) => {
           data={data}
         ></DeadlineModal>
       )}
+      {/* 게시글 작성자 프로필 클릭시 열리는 모달 */}
       {madalOpen && (
         <ProfileModal
           madalOpen={madalOpen}
@@ -148,7 +167,7 @@ const Post = ({ data, boardData }) => {
             </div>
           </div>
           <div className="right">
-            {/* 모집마감, 수정, 삭제 버튼 */}
+            {/* 모집마감 버튼 클릭하면 생기는 이미지*/}
             {/* style={{display: loginId === postUserId ? "none" : "block"}} */}
             <div className="rightTop">
               <img
@@ -159,6 +178,7 @@ const Post = ({ data, boardData }) => {
                   display: dDay == 0 ? 'block' : 'none',
                 }}
               />
+              {/* 게시글 삭제 버튼 */}
               <img
                 onClick={postDeleteClick}
                 alt=""
@@ -172,6 +192,7 @@ const Post = ({ data, boardData }) => {
                   // display: boardCreateId === loginUserId ? 'block' : 'none',
                 }}
               />
+              {/* 게시글 수정 버튼 */}
               <Link to="/Write" state={boardData}>
                 <img
                   alt=""
@@ -186,6 +207,7 @@ const Post = ({ data, boardData }) => {
                   }}
                 />
               </Link>
+              {/* 게시글 모집마감 버튼 */}
               <img
                 onClick={dedlinePopup}
                 alt=""
@@ -199,7 +221,7 @@ const Post = ({ data, boardData }) => {
                   // display: boardCreateId === loginUserId ? 'block' : 'none',
                 }}
               />
-              {/* 지원하기 버튼, 북마크 */}
+              {/* 북마크 버튼 */}
               <img
                 className="bmkImg"
                 src={isEmptyBmk ? blueBookmark : bookmark}
@@ -212,6 +234,7 @@ const Post = ({ data, boardData }) => {
                 }}
                 alt="bmkImg"
               />
+              {/* 지원하기 버튼 */}
               <img
                 className="applybtn"
                 src={isApply ? notApply : applyButton}

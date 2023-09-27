@@ -7,7 +7,7 @@
 	<!-- 카카오 이메일 조회 -->
 	<select id="selectEmail">
 		select count(*) from TB_CUST where CUST_ID
-		=#{CUST_ID};
+		=#{CUST_ID} and CUST_CHECK = 'Y'; 
 	</select>
 
 	<!-- 이미지 경로 가져오기 -->

@@ -188,7 +188,8 @@ const Main: React.FC<MainProps> = () => {
           pro_img: item.pro_img,
           pro_link: item.pro_link,
           pro_title: item.pro_title,
-          cust_nick: item.cust_nick
+          cust_nick: item.cust_nick,
+          skill_names: item.skill_names
         };
       });
       console.log(response);

@@ -3,6 +3,7 @@ import Select from 'react-select';
 import '../css/Category.css';
 import bookmarkIconon from '../img/Bookmarkon.png'
 import bookmarkIconoff from '../img/Bookmarkoff.png'
+import Cookies from 'js-cookie';
 
 interface CategoryOption {
   value: any;
@@ -19,6 +20,8 @@ interface CategoryBoxProps {
   onAppliedToggle: () => void;
   onMyPostsClick: () => void;
 }
+
+const custId = Cookies.get('CUST_ID');
 
 const CategoryBox: React.FC<CategoryBoxProps> = ({
   setSelectedLanguage,
@@ -127,31 +130,32 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
             />
           </div>
           <div className='category_sub2'>
-          <label>
-              <button>
-              <img
-                src={viewState === 'bookmark' ? bookmarkIconon : bookmarkIconoff}
-                alt="북마크 아이콘"
-                className='imgbtnbox'
-                onClick={() => { handleButtonClick('bookmark'); onBookmarkToggle(); }}
-              />
-              </button>
-            </label>
-            <label className='labelselect1'>
-              <button
-                onClick={() => { handleButtonClick('applied'); if (viewState !== 'applied') { onAppliedToggle(); } }}
-
-              >
-                지원한 게시글 보기
-              </button>
-            </label>
-            <label className='labelselect1'>
-              <button
-                onClick={() => { handleButtonClick('myposts'); onMyPostsClick(); }}
-              >
-                내가 쓴 게시물 보기
-              </button>
-            </label>
+            {custId && (
+              <>
+                <label>
+                  <button>
+                    <img
+                      src={viewState === 'bookmark' ? bookmarkIconon : bookmarkIconoff}
+                      alt="북마크 아이콘"
+                      className='imgbtnbox'
+                      onClick={() => { handleButtonClick('bookmark'); onBookmarkToggle(); }}
+                    />
+                  </button>
+                </label>
+                <label className='labelselect1'>
+                  <button
+                    onClick={() => { handleButtonClick('applied'); if (viewState !== 'applied') { onAppliedToggle(); } }}
+                  >
+                    지원한 게시글 보기
+                  </button>
+                </label>
+                <label className='labelselect1'>
+                  <button onClick={() => { handleButtonClick('myposts'); onMyPostsClick(); }}>
+                    내가 쓴 게시물 보기
+                  </button>
+                </label>
+              </>
+            )}
           </div>
         </div>
       </div>
