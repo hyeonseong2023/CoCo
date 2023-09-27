@@ -16,16 +16,16 @@ const SinglePage: React.FC = () => {
 
   const fetchData = async () => {
     const boardId = boardIdFromPathname;
-    console.log("싱글",`http://localhost:8099/selectpostviews/${boardIdFromPathname}`);
+    console.log("싱글", `${process.env.REACT_APP_URL_8099}/selectpostviews/${boardIdFromPathname}`);
 
     try {
-      const response = await axios.get(`http://localhost:8099/selectpostviews/${boardIdFromPathname}`, {
+      const response = await axios.get(`${process.env.REACT_APP_URL_8099}/selectpostviews/${boardIdFromPathname}`, {
         params: {
           cust_id: Cookies.get('CUST_ID'),
         },
       });
-      console.log("싱글",response);
-      
+      console.log("싱글", response);
+
       setBoardData(response.data[0]);
     } catch (error) {
       console.error("게시글 데이터를 가져오는 중 오류 발생:", error);

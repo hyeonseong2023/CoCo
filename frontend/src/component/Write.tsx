@@ -12,7 +12,7 @@ const Write = () => {
   const navigate = useNavigate();
   const boardData = location?.state as any;
   console.log("boardData!!!!!!", boardData);
-  
+
   const initialContent = boardData === null ? {
     recruitmentCount: 1,
     techStack: [] as string[],
@@ -85,8 +85,8 @@ const Write = () => {
     const positionString = selectedPosition.join(', ');
 
     const url = boardData
-    ? 'http://localhost:8099/postupdateinfor'
-    : 'http://localhost:8099/postsaveinfor';
+      ? `${process.env.REACT_APP_URL_8099}/postupdateinfor`
+      : `${process.env.REACT_APP_URL_8099}/postsaveinfor`;
 
     const formData = new FormData();
     formData.append('cust_id', Cookies.get('CUST_ID') || '');
@@ -213,7 +213,7 @@ const Write = () => {
             <div className="form-subgroup form-subgroup-spacing">
               <label htmlFor="techStack">기술 스택</label>
               <Select
-                placeholder = ""
+                placeholder=""
                 id="techStack"
                 name="techStack"
                 options={techStackOptions}

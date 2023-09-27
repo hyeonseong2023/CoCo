@@ -24,17 +24,17 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') != null);
   const navigate = useNavigate();
   const [isJoinModal, setIsJoinModal] = useState(false);
-  const [ custImg, setCustImg] = useState(custProfileImg);
+  const [custImg, setCustImg] = useState(custProfileImg);
 
   const cookies = new Cook();
 
- 
-   //통신 (프로필 이미지)
-   const fetchData = async () => {
-    const url = `http://localhost:8099/profileimg?cust_id=${Cookies.get('CUST_ID')}`;
+
+  //통신 (프로필 이미지)
+  const fetchData = async () => {
+    const url = `${process.env.REACT_APP_URL_8099}/profileimg?cust_id=${Cookies.get('CUST_ID')}`;
     try {
       const response = await axios.get(url);
-      if(response.data.CUST_IMG == null){
+      if (response.data.CUST_IMG == null) {
         setCustImg(profilePicture);
         cookies.set('CUST_IMG', profilePicture, { path: '/' });
       } else {
@@ -47,12 +47,12 @@ const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
   };
 
 
-  useEffect(()=>{   
+  useEffect(() => {
     fetchData();
-  },[])
+  }, [])
 
 
-  useEffect(()=>{
+  useEffect(() => {
     setIsJoinModal(true)
   }, [isLoggedIn])
 
