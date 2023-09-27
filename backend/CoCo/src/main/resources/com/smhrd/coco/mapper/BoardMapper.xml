@@ -91,22 +91,6 @@
 							VALUES (#{board_id}, #{sender_id});
 	</insert>
 	
-	<!-- 게시글 지원시 notice 테이블에 정보 저장 -->
-	<insert id="postApplyNotice">
-			INSERT INTO TB_NOTICE (RECEIVER_ID, NOTICE_CONTENT, BOARD_ID, SENDER_ID)
-							VALUES (#{receiver_id}, '님께서 모집 게시글에 지원했습니다.', #{board_id}, #{sender_id});
-	</insert>
-	
-	<!-- 알림 보낼때 notice 테이블 정보 가져오기 -->
-	<select id="noticeInfo" resultType="com.smhrd.coco.domain.TB_NOTICE">
-			SELECT NOTICE_CONTENT, NOTICE_DT, SENDER_ID FROM TB_NOTICE WHERE RECEIVER_ID = #{cust_id};
-	</select>
-	
-	<!-- 알림 보낼때 cust 테이블에서 사진, 닉네임 가져오기 -->
-	<select id="senderInfo" resultType="com.smhrd.coco.domain.TB_CUST">
-			SELECT CUST_NICK, CUST_IMG FROM TB_CUST WHERE CUST_ID = #{sender_id};
-	</select>
-	
 	<!-- 게시글 지원취소 -->
 	   <delete id="unPostApply">
       delete from TB_APPLY where CUST_ID = #{cust_id} and

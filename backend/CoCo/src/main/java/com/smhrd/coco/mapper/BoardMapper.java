@@ -61,9 +61,6 @@ public interface BoardMapper {
 	// 게시글에 지원시 APPLY 테이블에 정보 추가
 	public int postApply(int board_id, String sender_id);
 	
-	// 게시글 지원시 NOTICE 테이블에 정보추가
-	public int postApplyNotice(int board_id, String receiver_id, String sender_id);
-	
 	// 게시글 지원취소
 	public int unPostApply(int board_id, String cust_id);
 	
