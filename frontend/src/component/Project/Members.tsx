@@ -44,9 +44,8 @@ const Members = ({
       <div className="pro-mem-main">
         {members &&
           members.map((item) => (
-            <div>
+            <div key={item.cust_nick}>
               <img
-                key={item.cust_nick}
                 src={
                   item.cust_img
                     ? 'data:image/;base64,' + item.cust_img
