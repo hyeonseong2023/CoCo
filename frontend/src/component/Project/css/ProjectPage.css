@@ -82,3 +82,28 @@ div.vertical-line {
   padding-left: 15%;
   padding-right: 15%;
 }
+
+.proinfo-input {
+  width: 285px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+  margin-bottom: 10px;
+}
+
+.proinfo-modify {
+  background-color: #4598ff;
+  color: white;
+  font-size: 17px;
+  padding: 7px 20px;
+  border: none;
+  border-radius: 5px;
+  /* margin-top: 20px; */
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
