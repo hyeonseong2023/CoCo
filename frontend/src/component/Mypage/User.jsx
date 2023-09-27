@@ -4,15 +4,19 @@ import Select from 'react-select';
 import Cookies from 'js-cookie';
 import Cookiess from 'universal-cookie';
 import '../../css/User.css';
+import Logo from '../../img/Logo.png';
 import Git from '../../img/Git.png';
 import plus from '../../img/plus.png'
 import editBtn from '../../img/editBtn.png';
 import X from '../../img/x.png';
 import profile from '../../img/profilePicture.png';
 import { useNavigate } from 'react-router-dom';
+import Logout from '../../img/Logout.png'
 
+import link from '../../img/link.png';
 import link1 from '../../img/link1.png'; 
-
+import link2 from '../../img/link2.png'; 
+import link3 from '../../img/link3.png'; 
 
 
 
@@ -23,10 +27,8 @@ const User = ({ data }) => {
     const navigator = useNavigate();
     // const cookies = new Cookies();
     
-   
-    const mypageId = data.CUST_ID ; // 마이페이지 아이디  
-    const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디   
-
+    const userId = Cookies.get('CUST_ID'); //사용자 아이디 
+    const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디
 
     //모달창 노출 여부 
     const [modalOpen, setModalOpen] = useState(false); //회원정보수정 모달창 
@@ -207,7 +209,7 @@ const User = ({ data }) => {
     // 통신(프로필수정)
     const handleSubmit = () => {
         const formData = new FormData();
-        formData.append('cust_id', loginUserId); //아이디
+        formData.append('cust_id', userId); //아이디
         formData.append('cust_nick', modalNick); //닉네임
         formData.append('cust_position', pselected.value); //직무
         formData.append('cust_career', cselected.value); //경력
@@ -235,7 +237,7 @@ const User = ({ data }) => {
     const deleteCust =async () =>{
        
         const requestData = {
-            cust_id : loginUserId
+            cust_id : userId
           };
 
           try {
@@ -251,6 +253,7 @@ const User = ({ data }) => {
       
     }
 
+    // 로그아웃 
     const handleLogout = () => {
         Cookies.remove('CUST_ID');  // 아이디 쿠키 삭제
         Cookies.remove('CUST_IMG'); // 이미지 쿠키삭제 
@@ -267,7 +270,7 @@ const User = ({ data }) => {
             <div className='Mypage-user-container'>
 
                {/* 편집버튼 */}
-                {mypageId === loginUserId && (
+                {userId === loginUserId && (
                   <img src={editBtn} className='Mypage-user-eidt-button ' onClick={(e) => { setModalOpen(true) }} />
                 )}
 
@@ -297,11 +300,6 @@ const User = ({ data }) => {
                                  <span key={index}>{skill} &nbsp;</span>
                                 ))}
                                      </td>
-                                {/* 이미지로 보여주기 
-                                    <td className='skillImg'>
-                                    {custSkillList.map((custSkill, index) => (
-                                        <img key={index} src={process.env.PUBLIC_URL + `/skillImg/${custSkill}.svg`} alt={custSkill} />
-                                    ))} */}
                             </tr>
                             <tr>
                                 <td className='Mypage-user-table-name'>링크</td>
@@ -330,7 +328,7 @@ const User = ({ data }) => {
 
                         {/* 모달 닫기 부분  */}
                         <div className='Mypage-modal-user-close'>
-                            {/* <img className='Mypage-modal-user-img' src={Logo}></img> */}
+                            <img className='Mypage-modal-user-img' src={Logo}></img>
                             <img src={X} onClick={(e) => { setModalOpen(false); }} className="Mypage-modal-user-close-button"></img>
                         </div>
 
@@ -461,7 +459,7 @@ const User = ({ data }) => {
                     <div className='Mypage-modal-user-container'>
                         {/* 모달 닫기 부분  */}
                         <div className='Mypage-modal-user-close'>
-                            {/* <img className='Mypage-modal-user-img' src={Logo}></img> */}
+                            <img className='Mypage-modal-user-img' src={Logo}></img>
                             <img src={X} onClick={closeDeletePopup} className="Mypage-modal-user-close-button"></img>
                         </div>
                         <div className='Mypage-modal-delete-text'>

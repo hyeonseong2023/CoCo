@@ -11,6 +11,7 @@ import com.smhrd.coco.domain.TB_BOARD_IMG;
 import com.smhrd.coco.domain.TB_BOARD_SKILL;
 import com.smhrd.coco.domain.TB_BOOKMARK;
 import com.smhrd.coco.domain.TB_CUST;
+import com.smhrd.coco.domain.TB_NOTICE;
 
 @Mapper
 public interface BoardMapper {
@@ -35,6 +36,9 @@ public interface BoardMapper {
 	
 	// TB_BOARD_IMG 정보 업데이트
 	public int postUpdateImg(TB_BOARD_IMG img, int board_id);
+	
+	//게시글 작성시 APPLY 게시판 응모여부에 H(호스트)로 저장하기
+	public int postSaveApply(int board_id, String cust_id);
 
 	// 선택한 게시물 TB_BOARD 정보 가져오기
 	public TB_BOARD selectPostBoard(int board_id);
@@ -57,8 +61,17 @@ public interface BoardMapper {
 	// 게시글에 지원시 APPLY 테이블에 정보 추가
 	public int postApply(int board_id, String sender_id);
 	
+	// 게시글 지원시 NOTICE 테이블에 정보추가
+	public int postApplyNotice(int board_id, String receiver_id, String sender_id);
+	
 	// 게시글 지원취소
 	public int unPostApply(int board_id, String cust_id);
+	
+	//알림 보낼때 notice 테이블 정보 가져오기
+	public List<TB_NOTICE> noticeInfo(String cust_id);
+	
+	//알림 보낼때 발송자 정보 가져오기
+	public List<TB_CUST> senderInfo(String sender_id);
 
 	//프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
 	public String getOrCreateProLink(int board_id);

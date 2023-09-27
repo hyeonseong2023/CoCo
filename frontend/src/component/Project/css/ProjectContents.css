@@ -5,7 +5,7 @@ div.text-block-container {
   margin-bottom: 1px;
 }
 
-[contenteditable="true"]:empty:before {
+[contenteditable='true']:empty:before {
   content: attr(placeholder);
 }
 

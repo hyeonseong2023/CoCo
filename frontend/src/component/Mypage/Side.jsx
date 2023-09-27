@@ -6,7 +6,7 @@ import '../../css/Side.css';
 
 const Side = ({ data }) => {
 
-    const mypageId = data.CUST_ID ; // 마이페이지 아이디  
+    const custId = data.CUST_ID ; // 마이페이지 아이디  
     const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디   
     const [profileSwitch, setProfileSwitch] = useState("포트폴리오")
 
@@ -24,7 +24,7 @@ const Side = ({ data }) => {
             
             <div className='side-port-pro-content'>
                 <div>
-                    {profileSwitch === "포트폴리오" ? (data && <Portfolio data={data} />) : (data && mypageId=== loginUserId && <Project data={data} />)}
+                    {profileSwitch === "포트폴리오" ? (data && <Portfolio data={data} />) : (data && custId=== loginUserId && <Project data={data} />)}
                 </div>
             </div>
 

@@ -33,19 +33,24 @@ public class MainService {
 		
 		TB_CUST ImgPath = mapper.ImgPath(cust_id); 
 		
-		// 이미지 변환
-		ImageConverter<File, String> converter = new ImageToBase64();
-		File file = new File("c:\\cocoImage\\" + ImgPath.getCust_img());
+		if(ImgPath != null) {
+			// 이미지 변환
+			ImageConverter<File, String> converter = new ImageToBase64();
+			File file = new File("c:\\cocoImage\\" + ImgPath.getCust_img());
 
-		String fileStringValue = null;
-		
-		try {
-			fileStringValue = converter.convert(file);
-		} catch (IOException e) {
-			e.printStackTrace();
+			String fileStringValue = null;
+			
+			try {
+				fileStringValue = converter.convert(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			obj.put("CUST_IMG", fileStringValue);
+		} else {
+			obj.put("CUST_IMG", null); 
 		}
 		
-		obj.put("CUST_IMG", fileStringValue);
 		
 		return obj; 
 		

@@ -16,8 +16,8 @@ import Cookies from 'js-cookie';
 
 const Portfolio = ({ data }) => {
 
-  const mypageId = data.CUST_ID ; // 마이페이지 아이디  
-  const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디  
+  const custId = data.CUST_ID; // 마이페이지 아이디  
+  const loginUserId = Cookies.get('CUST_ID'); // 로그인한 아이디 
 
   //포트폴리오 데이터 Map으로 돌리기 
   const portfolioData = data.PF_TABLE.map(item => ({
@@ -107,7 +107,7 @@ const Portfolio = ({ data }) => {
   const handleSubmit = async () => {
 
     const formData = new FormData();
-    formData.append('cust_id', loginUserId);
+    formData.append('cust_id', custId);
     formData.append('pf_title', pdfTitle);
     formData.append('file', file);
 
@@ -130,7 +130,7 @@ const Portfolio = ({ data }) => {
   const handleName = async () => {
 
     const requestData = {
-      cust_id: mypageId,
+      cust_id: custId,
       pf_id: portIndex,
       pf_title: portName
     };
@@ -164,15 +164,14 @@ const Portfolio = ({ data }) => {
   return (
 
     <div>
-
       <div className='add-content'>
       {/* 포트폴리오 추가 버튼  */}
-      {mypageId === loginUserId && (
+      {custId === loginUserId && (
         <img src={addBtn} alt="PDF 선택" className='port-add-button' onClick={openAddModal} />
       )}
       </div>
 
-      { portfolioData.length == 0  && mypageId === loginUserId && (
+      { portfolioData.length == 0  && custId === loginUserId && (
         <div className = 'nullText'> 포트폴리오를 추가해주세요 </div>
       ) }
       {/* 포트폴리오 보여주는 곳 */}
@@ -183,7 +182,7 @@ const Portfolio = ({ data }) => {
               <PdfViewer pdfFile={item.pdfSrc} />
               <div className="port-text">
                 <div> <p>{item.text}</p></div>
-                {mypageId === loginUserId && <div className='item-btn'><img src={hamburger} onClick={() => { toggleMenu(index) }}></img> </div>}
+                {custId === loginUserId && <div className='item-btn'><img src={hamburger} onClick={() => { toggleMenu(index) }}></img> </div>}
                 {/* toggleMenu  포트폴리오 한개 당 햄버거 버튼 (제목수정, 삭제)  */}
                 {menuOpenIndex === index &&
                   <ui className="menu-container">
@@ -205,7 +204,7 @@ const Portfolio = ({ data }) => {
 
             {/* 모달 닫기 부분  */}
             <div className='modal-user-close'>
-              {/* <img className='port-modal-user-img' src={Logo}></img> */}
+              <img className='port-modal-user-img' src={Logo}></img>
               <img src={X} onClick={closeAddModal} className="port-modal-user-close-button"></img>
             </div>
 

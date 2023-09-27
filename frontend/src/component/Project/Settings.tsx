@@ -1,7 +1,9 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Applicant from './Applicant';
 import './css/Settings.css';
+import ProjectInfo from './ProjectInfo';
+import { ProjectContext } from './context/ProjectContext';
 
 export interface Member {
   cust_id: string;
@@ -12,6 +14,7 @@ export interface Member {
 //프로젝트 응모 수락여부 N인 유저 아이디, 닉네임, 프로필사진 ("projectapplylist")
 
 const Settings = () => {
+  const projectId = useContext(ProjectContext);
   const [applicants, setApplicants] = useState<Member[]>();
 
   useEffect(() => {
@@ -19,18 +22,23 @@ const Settings = () => {
   }, []);
 
   const fetchData = async () => {
-    const url = 'http://172.30.1.20:8099/projectapplylist';
-    const data = { board_id: 51 };
+    const url = `${process.env.REACT_APP_URL_8099}/projectapplylist`;
+    const data = { board_id: parseInt(projectId!) };
     await axios.post(url, data).then((res) => {
       setApplicants(res.data);
     });
   };
 
   return (
-    <div>
+    <div className="pro-settings-container">
       Settings
-      <div>
-        <div>지원자</div>
+      <div></div>
+      <div className="pro-setting">
+        <div>프로젝트 정보</div>
+        <div>
+          <ProjectInfo />
+        </div>
+        <div>프로젝트 지원자</div>
         <div className="applicants-container">
           {applicants &&
             applicants.map((item, index) => (

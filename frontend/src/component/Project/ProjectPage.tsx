@@ -10,7 +10,7 @@ import { ProjectProvider } from './context/ProjectContext';
 import Settings from './Settings';
 
 const ProjectPage = () => {
-  const projectId = '12345';
+  const projectId = '51';
   const [selectedMenu, setSelectedMenu] = useState('Page');
   const [initialEvents, setInitialEvent] = useState<EventInput[]>([]);
   useEffect(() => {
@@ -35,6 +35,7 @@ const ProjectPage = () => {
       <div>
         <div className="pp-container">
           <SideBar setSelectedMenu={setSelectedMenu} />
+          <div className="vertical-line"></div>
           {changeMenu(selectedMenu)}
         </div>
       </div>

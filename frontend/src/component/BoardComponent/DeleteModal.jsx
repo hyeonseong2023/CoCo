@@ -3,10 +3,12 @@ import axios from 'axios';
 
 const DeleteModal = ({ setPostDeletePopup, data }) => {
   const postDelete = async () => {
-    await axios.get(`http://localhost:8099/postdelete/${data}`).then((res) => {
-      window.location.replace(`http://localhost:3000`);
-      setPostDeletePopup(false);
-    });
+    await axios
+      .get(`http://localhost:8099/postdelete/${data.id}`)
+      .then((res) => {
+        window.location.replace(`http://localhost:3000`);
+        setPostDeletePopup(false);
+      });
   };
 
   const close = () => {
