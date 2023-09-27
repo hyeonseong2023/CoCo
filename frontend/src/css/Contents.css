@@ -146,7 +146,6 @@
   display: grid;
   grid-template-columns: repeat(2, 2fr);
   margin-left: 3%;
-  gap:10px
 }
 
 .topiconbox > div {
@@ -225,15 +224,11 @@ width: 40px;
   width: 100px;
   align-items: center;
   border-radius: 3%;
-  background-color: #4598FF;
+  background-color: rgb(0, 174, 255);
   color: aliceblue;
   text-align: center;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.topHeader-day{
-  background-color: rgb(136, 135, 135);
 }

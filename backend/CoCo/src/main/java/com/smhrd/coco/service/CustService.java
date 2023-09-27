@@ -52,10 +52,9 @@ public class CustService {
 	
 	// 마이페이지 (기본정보, 포트폴리오, 프로젝트)
 	public JSONObject myPage(String cust_id) {
-		System.out.println("cust_id :" + cust_id);
+
 		// 회원 테이블(TB_CUST) - 기본정보
 		TB_CUST cust = mapper.mypageCust(cust_id);
-		//System.out.println("cust :" + cust);
 
 		JSONObject obj = new JSONObject();
 
@@ -63,6 +62,7 @@ public class CustService {
 		obj.put("CUST_NICK", cust.getCust_nick());
 		obj.put("CUST_CAREER", cust.getCust_career());
 		obj.put("CUST_POSITION", cust.getCust_position());
+		obj.put("CUST_IMG", cust.getCust_img());
 		obj.put("CUST_GIT", cust.getCust_git());
 		obj.put("CUST_SKILL", cust.getCust_skill());
 		obj.put("CUST_LINK", cust.getCust_link());

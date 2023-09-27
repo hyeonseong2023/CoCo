@@ -1,19 +1,20 @@
-#main-Whitespace {
-  height: 8vh;
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
+
+#main-Whitespace{
+    height: 8vh;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
 }
 
-.main-div {
-  padding-left: 10%;
-  padding-right: 10%;
-  padding-top: 2%;
-  font-size: 14px;
+.main-div{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2%;
+    
 }
 
 .more-button {
   background-color: #fff;
-  color: #4598ff;
+  color: #4598FF;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -21,7 +22,7 @@
   font-size: 16px;
   transition: background-color 0.3s;
   width: 97%;
-  border: 1px solid #4598ff;
+  border: 1px solid #4598FF;
   margin-right: 1%;
 }
 

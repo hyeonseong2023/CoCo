@@ -29,8 +29,7 @@ const Main: React.FC<MainProps> = () => {
 
   // 북마크 데이터를 저장할 상태 추가
   const [bookmarkData, setBookmarkData] = useState<any[]>([]);
-  const [AppliedData, setisApplieddata] = useState<any[]>([]);
-  const [MyPostsData, setIsMyPostsData] = useState<any[]>([]);
+
   const handlePageChange = (page: number): void => {
     setCurrentPage(page);
   };
@@ -235,6 +234,8 @@ const Main: React.FC<MainProps> = () => {
 
   const handleBookmarkToggle = async (): Promise<void> => {
     setIsBookmarked(!isBookmarked);
+
+    // 북마크 토글 시 북마크 데이터 업데이트 또는 초기화
     if (isBookmarked) {
       setBookmarkData([]);
     } else {
@@ -242,15 +243,23 @@ const Main: React.FC<MainProps> = () => {
     }
   };
 
-
   const handleAppliedToggle = async (): Promise<void> => {
+<<<<<<< HEAD
     if (isApplied) {
       setisApplieddata([]);
     } else {
       await fetchDataAndUpdateState(`${process.env.REACT_APP_URL_8099}/writelist`, setisApplieddata);
     }
+=======
+    setIsApplied(!isApplied);
+    await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
+>>>>>>> parent of 83ed442 (Merge branch 'main' into lhs)
   };
 
+  const onMyPostsToggle = async (): Promise<void> => {
+    setIsMyPosts(!IsMyPosts);
+    await fetchDataAndUpdateState('http://localhost:8099/writelist', setCategoryData);
+  }
 
   //@@@@@@@@@@@@ webrtc 시작
 
@@ -292,6 +301,7 @@ const Main: React.FC<MainProps> = () => {
 
   //@@@@@@@@@@@@ webrtc 끝
 
+<<<<<<< HEAD
 
   const onMyPostsToggle = async (): Promise<void> => {
 
@@ -303,6 +313,8 @@ const Main: React.FC<MainProps> = () => {
   }
 
 
+=======
+>>>>>>> parent of 83ed442 (Merge branch 'main' into lhs)
   return (
     <div>
       <button onClick={handleClick}>webrtc</button>

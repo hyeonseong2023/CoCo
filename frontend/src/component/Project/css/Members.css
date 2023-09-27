@@ -1,25 +1,23 @@
 .pro-mem-container {
   z-index: 9999;
   position: absolute;
-  top: -20px;
-  left: 150px;
-  width: 200px;
+  left: 100px;
+  width: 300px;
   padding: 30px;
-  background-color: white;
-  box-shadow: 3px 3px 3px 3px #5e5e5e2c;
+  background-color: aliceblue;
   border-radius: 30px;
 }
 
 .pro-mem-header > img {
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
   float: right;
 }
 
 .pro-mem-main img {
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 80px;
+  width: 80px;
 }
 
 .pro-mem-main > div {
@@ -29,6 +27,6 @@
 }
 
 .pro-mem-main > div > div {
-  /* font-size: larger; */
+  font-size: larger;
   margin-left: 20px;
 }

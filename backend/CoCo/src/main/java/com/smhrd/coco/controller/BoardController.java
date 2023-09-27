@@ -66,13 +66,9 @@ public class BoardController {
 		
 		//TB_BOARD_IMG img = setBoardImg(file, board.getBoard_id());
 		//int cnt3 = service.postSaveImg(img);
-		
-		//게시글 작성시 APPLY 게시판 응모여부에 H(호스트)로 저장하기
-		int cnt4 = service.postSaveApply(board.getBoard_id(), board.getCust_id());
-		
-		
+
 		// 게시글 board, skill, img 테이블에 각각 저장 성공실패시
-		if (cnt1 > 0 && cnt2 == 0 && cnt4>0// && cnt3 > 0
+		if (cnt1 > 0 && cnt2 == 0// && cnt3 > 0
 				) {
 			System.out.println("DB 저장 성공");
 			return 1;
@@ -130,37 +126,26 @@ public class BoardController {
 
 	}
 
-	// 게시글에 지원하면 APPLY 테이블에 정보 추가-> NOTICE 테이블에 정보추가 -> 게시글 작성자에게 지원자 프로필사진, 닉네임, 지원내용 보내기.
-	@PostMapping("/postApply")
-	public int postApply(@RequestParam("board_id") int board_id, @RequestParam("loginUserId") String sender_id, 
-						  @RequestParam("createCustId") String receiver_id) {
+	// 게시글에 지원하기
+	@GetMapping("/postApply/{board_id}/{cust_id}")
+	public int postApply(@PathVariable("board_id") int board_id, @PathVariable("cust_id") String cust_id) {
+		System.out.println("게시글 지원" + board_id + cust_id);
 
-		//APPLY 테이블에 정보 추가(board_id, 지원하는 유저 아이디)
-		int cnt1 = service.postApply(board_id, sender_id);
-		
-		//NOTICE 테이블에 정보추가(알림받는 게시글작성자 receiver_id, board_id, 알림 보내는 회원 sender_id)
-		int cnt2 = service.postApplyNotice(board_id, receiver_id, sender_id);
-		
-		if (cnt1 < 0 && cnt2 < 0) {
-			System.out.println("게시글 지원 실패");
+		int cnt = service.postApply(board_id, cust_id);
+		System.out.println("게시글 지원" + cnt);
+
+		if (cnt < 0) {
+			System.out.println("DB에 지원하기 정보저장 실패");
 			return 0;
 		} else {
-			System.out.println("게시글 지원 성공");
+			System.out.println("DB에 지원하기 정보저장");
 			return 1;
 		}
-			
 	}
-//	//알림보내기. 알림발송자 프로필사진, 닉네임, 알림내용, 전송일시 보내기.(알림 받는 cust_id)
-//	@PostMapping("/notifications")
-//	public JSONArray notifications(@RequestParam("cust_id") String cust_id) {
-//		
-//		return service.notifications(cust_id);
-//		
-//	}
-//	
+
 	// 게시글 지원취소하기
-	@PostMapping("/unPostApply/")
-	public int unPostApply(@RequestParam("board_id") int board_id, @RequestParam("cust_id") String cust_id) {
+	@GetMapping("/unPostApply/{board_id}/{cust_id}")
+	public int unPostApply(@PathVariable("board_id") int board_id, @PathVariable("cust_id") String cust_id) {
 		System.out.println("게시글 취소" + board_id + cust_id);
 
 		int cnt = service.unPostApply(board_id, cust_id);
@@ -174,23 +159,6 @@ public class BoardController {
 			return 0;
 		}
 	}
-
-//	// 게시글 지원취소하기
-//	@GetMapping("/unPostApply/{board_id}/{cust_id}")
-//	public int unPostApply(@PathVariable("board_id") int board_id, @PathVariable("cust_id") String cust_id) {
-//		System.out.println("게시글 취소" + board_id + cust_id);
-//
-//		int cnt = service.unPostApply(board_id, cust_id);
-//		System.out.println("지원취소" + cnt);
-//
-//		if (cnt > 0) {
-//			System.out.println("지원취소 실패");
-//			return 1;
-//		} else {
-//			System.out.println("지원취소 성공");
-//			return 0;
-//		}
-//	}
 
 	// 프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
 	@GetMapping("/webrtc")

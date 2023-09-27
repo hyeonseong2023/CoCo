@@ -55,10 +55,10 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
         <div className="modal-overlay">
           <div className="Login-modal-content">
             <div id="logbox-container">
-              {/* <img onClick={LogoClick} src={logoimg} alt="" /> */}
-              {/* <button className="login-close-button" onClick={closePopup}>
+              <img onClick={LogoClick} src={logoimg} alt="" />
+              <button className="login-close-button" onClick={closePopup}>
                 X
-              </button> */}
+              </button>
             </div>
             <div id="loginbox-container">
               <div className='loginbox-welcome'> CoCo에 오신 것을 환영합니다!</div>
