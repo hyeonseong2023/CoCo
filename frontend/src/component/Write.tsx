@@ -11,6 +11,8 @@ const Write = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const boardData = location?.state as any;
+  console.log("boardData!!!!!!", boardData);
+  
   const initialContent = boardData === null ? {
     recruitmentCount: 1,
     techStack: [] as string[],
@@ -268,14 +270,12 @@ const Write = () => {
                 name="position"
                 options={positionOptions}
                 isMulti
-                value={selectedPosition && selectedPosition.map((value: any) => ({
-                  label: value,
-                  value: value,
-                }))}
+                value={selectedPosition && selectedPosition.map((value: any) => value.value)}
                 onChange={handlePositionChange}
                 className="custom-select"
-                placeholder = ""
+                placeholder=""
               />
+
             </div>
             <div className="form-subgroup form-subgroup-spacing">
               <label htmlFor="openTalkLink" > 오픈톡 링크</label>
