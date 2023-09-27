@@ -33,9 +33,8 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
   const [formData, setFormData] = useState<FormData>(defaultFormData);
   const [validationMessage, setValidationMessage] = useState<string>('');
 
-  // 모달을 닫는 함수
   const closeModal = () => {
-    Cookies.remove('coin'); // 쿠키 제거 
+    Cookies.remove('coin');
     onClose();
   };
 
@@ -118,16 +117,13 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
   // 경력 종류
   const careerList = [
     { value: "", name: "" },
+    { value: "신입", name: "신입" },
     { value: "1년", name: "1년" },
     { value: "2년", name: "2년" },
     { value: "3년", name: "3년" },
     { value: "4년", name: "4년" },
     { value: "5년", name: "5년" },
-    { value: "6년", name: "6년" },
-    { value: "7년", name: "7년" },
-    { value: "8년", name: "8년" },
-    { value: "9년", name: "9년" },
-    { value: "10년이상", name: "10년이상" }
+    { value: "6년이상", name: "6년이상" }
   ];
 
   //관심스택 종류 
@@ -208,7 +204,7 @@ const JoinModel = ({ onClose, setIsJoinModal }:{onClose: ()=>void, setIsJoinModa
 
     Cookies.remove('coin');
     navigator('/');
-    //window.location.replace("/")
+    window.location.replace("/")
     //navigator('/');   // 메인 페이지로 이동
   }
 
