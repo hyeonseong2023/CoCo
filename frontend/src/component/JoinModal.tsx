@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import startBtn from '../img/startBtn.png';
 import { useNavigate } from 'react-router-dom';
-import bigcoco from '../img/bigCoCo.png';
+import bigcoco from '../img/bigCoCo.png'; 
 
 type FormData = {
   nickname: string;
@@ -218,7 +218,6 @@ const JoinModel = ({ onClose, setIsJoinModal }: { onClose: () => void, setIsJoin
 
         {/* 모달 닫기 부분  */}
         <div className='join-modal-user-close'>
-          {/* <img className='join-modal-user-img' src={Logo}></img> */}
           <img src={X} className="join-modal-user-close-button" onClick={closeModal}></img>
         </div>
 
@@ -319,7 +318,7 @@ const JoinModel = ({ onClose, setIsJoinModal }: { onClose: () => void, setIsJoin
             {/* 환영인사 부분  */}
             <div className='welcome-text1'> <h1>{nick}님 축하합니다!</h1> </div>
             <div className='welcome-text2'> <h1>회원가입 되었습니다!</h1> </div>
-            <img src={Logo} className='welcome-logo'></img>
+            <img src={bigcoco} className='welcome-logo'></img>
             <img src={startBtn} className='startBtn' onClick={handleStart}></img>
           </div>
         </div>

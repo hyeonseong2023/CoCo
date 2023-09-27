@@ -97,7 +97,7 @@ const Write = () => {
     e.preventDefault();
 
     // 기술 스택을 쉼표로 구분된 문자열로 변환
-    const positionString = selectedPosition.join(', ');
+    const positionString = selectedPosition.join(',');
 
     const url = boardData
       ? 'http://localhost:8099/postupdateinfor'

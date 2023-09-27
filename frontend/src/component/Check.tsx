@@ -15,13 +15,21 @@ const Check: React.FC = () => {
         if(userData.CUST_IMG == "0"){
           cookies.set('coin',"on", { path: '/' });
         }
-        cookies.set('CUST_ID', userData.CUST_ID, { path: '/' });
-        cookies.set('CUST_IMG', userData.CUST_IMG, { path: '/' });
-        console.log("쿠키아이디" , cookies.get('CUST_ID'));
+        console.log("카카오코인" , cookies.get('coin'));
         
+        if(cookies.get('CUST_ID') === null) {
+          cookies.set('CUST_ID', userData.CUST_ID, { path: '/' });
+          cookies.set('CUST_IMG', userData.CUST_IMG, { path: '/' });
+          console.log("쿠키아이디" , cookies.get('CUST_ID'));
+        } else{
+          cookies.set('CUST_ID', cookies.get('CUST_ID'), { path: '/' });
+          cookies.set('CUST_IMG', cookies.get('CUST_IMG'), { path: '/' });
+        }
+
         navigate('/');
       })
       .catch((error) => {
+        cookies.set('coin',"on", { path: '/' });
         console.error('Error fetching data:', error);
         navigate('/');
       });

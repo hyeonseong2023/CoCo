@@ -8,22 +8,20 @@ import axios from 'axios';
 import TopPosts from './TopPosts';
 import Footer from './Footer';
 import Cookies from 'js-cookie';
-import { promises } from 'dns';
 
 type MainProps = {};
 
 const Main: React.FC<MainProps> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoryData, setCategoryData] = useState<any[]>([]);
-  const [newPageData, setNewPageData] = useState<any[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [isApplied, setIsApplied] = useState<boolean>(false);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
-  const [IsMyPosts, setIsMyPosts] = useState<boolean>(false);
+  const [isMyPosts, setIsMyPosts] = useState<boolean>(false);
   const maxEndpoint = 99;
-  const pageSize = 1;
+  const pageSize = 0;
   const initialLoad = useState<boolean>(false)[0];
 
   // 북마크 데이터를 저장할 상태 추가
@@ -34,9 +32,8 @@ const Main: React.FC<MainProps> = () => {
   const handlePageChange = (page: number): void => {
     setCurrentPage(page);
   };
-
   const handleExpandPageClick = async (): Promise<void> => {
-    if (currentPage < maxEndpoint && !isRefreshing && !isApplied && !isBookmarked) {
+    if (currentPage < maxEndpoint && !isRefreshing && !isApplied && !isBookmarked && !isMyPosts) {
       const nextPage = currentPage + 6;
       setIsRefreshing(true);
 
@@ -104,7 +101,7 @@ const Main: React.FC<MainProps> = () => {
 
     fetchData(initialRequestData);
     initialLoad && handleExpandPageClick();
-  }, [selectedLanguage, selectedPosition, currentPage, initialLoad, isBookmarked, isApplied]);
+  }, [selectedLanguage, selectedPosition, currentPage, initialLoad, isBookmarked, isApplied, isMyPosts]);
 
   const updateCategoryData = (selectedCategory: string | null) => {
     setSelectedLanguage(selectedCategory);
@@ -114,7 +111,7 @@ const Main: React.FC<MainProps> = () => {
   };
 
   const handleLoginButtonClick = (): void => {
-
+    // 로그인 버튼 클릭 핸들러
   };
 
   const fetchDataAndUpdateState = async (url: string, stateUpdater: (data: any) => void) => {
@@ -122,31 +119,39 @@ const Main: React.FC<MainProps> = () => {
       const custId = Cookies.get('CUST_ID');
       const response = await axios.get(url + `?cust_id=${custId}`);
       if (response.status === 200) {
-        const fetchedData = response.data.map((item: any) => {
-          return {
-            id: item.board_id,
-            name: item.board_title,
-            title: item.board_title,
-            content: item.board_content,
-            board_deadline: item.board_deadline,
-            board_dt: item.board_dt,
-            board_members: item.board_members,
-            board_openlink: item.board_openlink,
-            board_period: item.board_period,
-            board_position: item.board_position,
-            board_views: item.board_views,
-            cust_id: item.cust_id,
-            pro_img: item.pro_img,
-            pro_link: item.pro_link,
-            pro_title: item.pro_title,
-            cust_nick: item.cust_nick
-          };
-        });
-
-        if (fetchedData.length === 0) {
-          console.warn("No data received.");
+        let fetchedData;
+        if (url.includes('bookmark')) {
+          // 북마크로 가져올 때는 데이터가 data에 바로 들어감
+          fetchedData = response.data;
         } else {
-          stateUpdater(fetchedData);
+          // 다른 토글 버튼으로 가져올 때는 data.data에 데이터가 들어감
+          fetchedData = response.data;
+        }
+        if (fetchedData && fetchedData.length === 0) {
+          console.warn("No data received.");
+        } else if (fetchedData) { // fetchedData가 유효한 경우에만 처리
+          const processedData = fetchedData.map((item: any) => {
+            return {
+              id: item.board_id,
+              name: item.board_title,
+              title: item.board_title,
+              content: item.board_content,
+              board_deadline: item.board_deadline,
+              board_dt: item.board_dt,
+              board_members: item.board_members,
+              board_openlink: item.board_openlink,
+              board_period: item.board_period,
+              board_position: item.board_position,
+              board_views: item.board_views,
+              cust_id: item.cust_id,
+              pro_img: item.pro_img,
+              pro_link: item.pro_link,
+              pro_title: item.pro_title,
+              cust_nick: item.cust_nick
+            };
+          });
+          stateUpdater(processedData);
+          
         }
       } else {
         console.error("Data retrieval failed.");
@@ -209,21 +214,11 @@ const Main: React.FC<MainProps> = () => {
     handleExpandPageClick();
   };
 
-  useEffect(() => {
-    if (!isRefreshing) {
-      const initialRequestData = {
-        skill_name: selectedLanguage,
-        board_position: selectedPosition,
-        endpoint: currentPage
-      };
-
-      fetchData(initialRequestData);
-      initialLoad && handleExpandPageClick();
-    }
-  }, [selectedLanguage, selectedPosition, currentPage, initialLoad, isBookmarked, isApplied, isRefreshing]);
-
   const handleBookmarkToggle = async (): Promise<void> => {
     setIsBookmarked(!isBookmarked);
+    setIsApplied(false);   
+    setIsMyPosts(false);  
+
     if (isBookmarked) {
       setBookmarkData([]);
     } else {
@@ -233,68 +228,100 @@ const Main: React.FC<MainProps> = () => {
 
   const handleAppliedToggle = async (): Promise<void> => {
     setIsApplied(!isApplied);
-
+    setIsBookmarked(false); 
+    setIsMyPosts(false);   
 
     if (isApplied) {
       setData1([]);
     } else {
-      await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
+      try {
+        const custId = Cookies.get('CUST_ID');
+        const response = await axios.get(`http://localhost:8099/apply?cust_id=${custId}`);
+        if (response.status === 200) {
+          const fetchedData = response.data.map((item: any) => {
+            return {
+              id: item.board_id,
+              name: item.board_title,
+              title: item.board_title,
+              content: item.board_content,
+              board_deadline: item.board_deadline,
+              board_dt: item.board_dt,
+              board_members: item.board_members,
+              board_openlink: item.board_openlink,
+              board_period: item.board_period,
+              board_position: item.board_position,
+              board_views: item.board_views,
+              cust_id: item.cust_id,
+              pro_img: item.pro_img,
+              pro_link: item.pro_link,
+              pro_title: item.pro_title,
+              cust_nick: item.cust_nick
+            };
+          });
+
+          if (fetchedData.length === 0) {
+            console.warn("No data received.");
+          } else {
+            setData1(fetchedData);
+          }
+        } else {
+          console.error("Data retrieval failed.");
+        }
+      } catch (error) {
+        console.error("Data retrieval error:", error);
+      }
     }
-
-
   };
 
   const onMyPostsToggle = async (): Promise<void> => {
-    setIsMyPosts(!IsMyPosts);
+    setIsMyPosts(!isMyPosts);
+    setIsApplied(false);   
+    setIsBookmarked(false); 
 
-    if (IsMyPosts) {
+    if (isMyPosts) {
       setData2([]);
     } else {
-      await fetchDataAndUpdateState('http://localhost:8099/writelist', setCategoryData);
-    }
-
-  }
-
-  const BOARD_ID = 1;
-  // 4000
-  // const wrUrl = process.env.REACT_APP_URL_4000;
-  const wrUrl = 'http://localhost:4000';
-
-  // 제출 버튼 클릭 시 board_id Back으로 전송
-  const handleClick = async () => {
-    // http://localhost:8099/webrtc 로 요청
-    axios.get(`${process.env.REACT_APP_URL_8099}/webrtc`, { params: { board_id: BOARD_ID } })
-      .then(async (res) => {
-        console.log("스프링 통신 완료");
-        // res.data : 프로젝트 링크 uuid
-        const roomName = res.data;
-        console.log(roomName);
-        // 임시 유저 이름, 후에 세션의 닉네임 받아서 넣어야 함
-        const userName = Cookies.get('CUST_ID');
-        const response = await axios.post(`${wrUrl}/saveData`, {
-          roomName,
-          userName,
-        });
-        // 클라이언트 측에서 서버로부터 받은 HTTP 응답의 상태 코드를 확인하는 부분
-        // 200 : 성공
+      try {
+        const custId = Cookies.get('CUST_ID');
+        const response = await axios.get(`http://localhost:8099/writelist?cust_id=${custId}`);
         if (response.status === 200) {
-          console.log("노드 통신 완료");
+          const fetchedData = response.data.map((item: any) => {
+            return {
+              id: item.board_id,
+              name: item.board_title,
+              title: item.board_title,
+              content: item.board_content,
+              board_deadline: item.board_deadline,
+              board_dt: item.board_dt,
+              board_members: item.board_members,
+              board_openlink: item.board_openlink,
+              board_period: item.board_period,
+              board_position: item.board_position,
+              board_views: item.board_views,
+              cust_id: item.cust_id,
+              pro_img: item.pro_img,
+              pro_link: item.pro_link,
+              pro_title: item.pro_title,
+              cust_nick: item.cust_nick
+            };
+          });
 
-          window.open(wrUrl, '_blank');
+          if (fetchedData.length === 0) {
+            console.warn("No data received.");
+          } else {
+            setData2(fetchedData);
+          }
         } else {
-          console.error("Failed to save data");
+          console.error("Data retrieval failed.");
         }
-      })
-      .catch((error) => {
-        console.log('' + error);
-      });
+      } catch (error) {
+        console.error("Data retrieval error:", error);
+      }
+    }
   };
-
-  //@@@@@@@@@@@@ webrtc 끝
 
   return (
     <div>
-      <button onClick={handleClick}>webrtc</button>
       <Header onLoginButtonClick={handleLoginButtonClick} />
       <Banner />
       <TopPosts />
@@ -304,15 +331,17 @@ const Main: React.FC<MainProps> = () => {
         setSelectedPosition={setSelectedPosition}
         isBookmarked={isBookmarked}
         isApplied={isApplied}
+        isMyPosts={isMyPosts}
         onBookmarkToggle={handleBookmarkToggle}
         onAppliedToggle={handleAppliedToggle}
         onMyPostsClick={onMyPostsToggle}
       />
       <div className="contents-container">
-
-        <Contents categoryData={isBookmarked ? bookmarkData : categoryData} />
+        <Contents categoryData={
+          isMyPosts ? Data2 : (isBookmarked ? bookmarkData : (isApplied ? Data1 : categoryData))
+        } />
       </div>
-      <div className="more-button-container">
+      <div className={`more-button-container ${isMyPosts || isBookmarked || isApplied ? 'hidden' : ''}`}>
         <button
           onClick={handleMoreButtonClick}
           disabled={currentPage === maxEndpoint}
@@ -325,5 +354,4 @@ const Main: React.FC<MainProps> = () => {
     </div>
   );
 };
-
 export default Main;
