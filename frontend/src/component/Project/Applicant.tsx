@@ -1,6 +1,7 @@
 import React from 'react';
 import { Member } from './Settings';
 import axios from 'axios';
+import profileImg from '../../img/profilePicture.png';
 
 //프로젝트 응모 거절로 응모테이블에서 삭제하기 (board_id, cust_id)
 //  @PostMapping("applydecline")
@@ -52,13 +53,30 @@ const Applicant = ({
     <div className="applicant-div">
       <div>
         <img
-          src={'data:image/;base64,' + applicants[index].cust_img}
+          className="setting-profileImg"
+          src={
+            applicants[index].cust_img
+              ? 'data:image/;base64,' + applicants[index].cust_img
+              : profileImg
+          }
           alt=""
         ></img>
       </div>
-      <div>{applicants[index].cust_nick}</div>
-      <div onClick={accept}>수락</div>
-      <div onClick={decline}>거절</div>
+      <div className="setting-usernick">{applicants[index].cust_nick}</div>
+      <div onClick={accept}>
+        <img
+          className="acceptdelcine"
+          src={process.env.PUBLIC_URL + '/projectImg/accept.png'}
+          alt=""
+        ></img>
+      </div>
+      <div onClick={decline}>
+        <img
+          className="acceptdelcine"
+          src={process.env.PUBLIC_URL + '/projectImg/decline.png'}
+          alt=""
+        ></img>
+      </div>
     </div>
   );
 };

@@ -12,9 +12,6 @@ import SinglePage from './component/SinglePage';
 const App: React.FC = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/pp" element={<ProjectPage />} />
-      </Routes>
       <div className="main-div">
         <Routes>
           <Route path="/write" element={<Write />} />
@@ -26,6 +23,9 @@ const App: React.FC = () => {
           <Route path="/selectpostviews/:id" element={<SinglePage />} />
         </Routes>
       </div>
+      <Routes>
+        <Route path="/pp" element={<ProjectPage />} />
+      </Routes>
     </Router>
   );
 };
