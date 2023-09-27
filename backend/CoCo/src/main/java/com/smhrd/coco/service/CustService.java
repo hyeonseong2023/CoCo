@@ -67,6 +67,7 @@ public class CustService {
 		obj.put("CUST_SKILL", cust.getCust_skill());
 		obj.put("CUST_LINK", cust.getCust_link());
 
+		System.out.println("이미지" + cust.getCust_img());
 		if (cust.getCust_img() != null) {
 			// 이미지 변환
 			ImageConverter<File, String> converter = new ImageToBase64();
