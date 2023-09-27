@@ -23,7 +23,7 @@ const Main: React.FC<MainProps> = () => {
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [IsMyPosts, setIsMyPosts] = useState<boolean>(false);
   const maxEndpoint = 99;
-  const pageSize = 1;
+  const pageSize = 0;
   const initialLoad = useState<boolean>(false)[0];
 
   // 북마크 데이터를 저장할 상태 추가
