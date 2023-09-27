@@ -25,22 +25,24 @@ const Settings = () => {
     const url = `${process.env.REACT_APP_URL_8099}/projectapplylist`;
     const data = { board_id: parseInt(projectId!) };
     await axios.post(url, data).then((res) => {
+      if (res.data.length === 0) return;
       setApplicants(res.data);
     });
   };
 
   return (
     <div className="pro-settings-container">
-      Settings
       <div></div>
       <div className="pro-setting">
-        <div>프로젝트 정보</div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <h1 style={{ width: '800px' }}>프로젝트 정보</h1>
+        </div>
         <div>
           <ProjectInfo />
         </div>
-        <div>프로젝트 지원자</div>
+        <h1>프로젝트 지원자</h1>
         <div className="applicants-container">
-          {applicants &&
+          {applicants ? (
             applicants.map((item, index) => (
               <Applicant
                 key={item.cust_id}
@@ -48,7 +50,21 @@ const Settings = () => {
                 applicants={applicants}
                 setApplicants={setApplicants}
               />
-            ))}
+            ))
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                marginTop: '15%',
+                // alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '16px',
+              }}
+            >
+              프로젝트 지원자가 없습니다.
+            </div>
+          )}
         </div>
       </div>
     </div>
