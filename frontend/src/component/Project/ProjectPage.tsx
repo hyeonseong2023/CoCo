@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import SideBar from './SideBar';
 import Page from './Page';
 import './css/ProjectPage.css';
@@ -10,7 +11,9 @@ import { ProjectProvider } from './context/ProjectContext';
 import Settings from './Settings';
 
 const ProjectPage = () => {
-  const projectId = '51';
+  const location = useLocation();
+  const projectId = location.state.projectId.toString();
+  const nick = location.state.nick;
   const [selectedMenu, setSelectedMenu] = useState('Page');
   const [initialEvents, setInitialEvent] = useState<EventInput[]>([]);
   useEffect(() => {
@@ -34,7 +37,7 @@ const ProjectPage = () => {
     <ProjectProvider id={projectId}>
       <div>
         <div className="pp-container">
-          <SideBar setSelectedMenu={setSelectedMenu} />
+          <SideBar setSelectedMenu={setSelectedMenu} nick={nick} />
           <div className="vertical-line"></div>
           {changeMenu(selectedMenu)}
         </div>

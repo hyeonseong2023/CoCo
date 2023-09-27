@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import '../css/Contents.css';
 import { Link } from 'react-router-dom';
 import img from '../img/profilePicture.png';
-import book from '../img/Bookmarkoff.png';
+import bookmarkoff from '../img/Bookmarkoff.png';
+import bookmarkon from '../img/Bookmarkon.png';
 import viewicon from '../img/viewsIcon.png'
 
 interface CategoryData {
@@ -23,6 +24,8 @@ interface CategoryData {
   pro_title: any;
   cust_nick: any;
   skill_names: any;
+  cust_img:any;
+  bmkimg: any;
 }
 
 interface ContentsProps {
@@ -57,8 +60,7 @@ function getPositionColor(position: string) {
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
   const today = new Date();
-  console.log(categoryData);
-  
+  console.log("컨텐츠!",categoryData);
   return (
     <div>
       <div id='Contents-box'>
@@ -96,13 +98,23 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                         </td>
                       </div>
                       <div className='boxA_img'>
-                        <div><img src={img} alt="" /></div>
+
+                        <div>
+                        <img
+                src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
+                alt="이미지 출력되지 않았음"
+                className="user-img"
+              ></img>
+                        </div>
                         <div className='contentsNick'>{data.cust_nick}</div>
                       </div>
                     </div>
 
                     <div className='boxB_bookmark'>
-                      <div className='boxB_1'><img src={book} alt="" /></div>
+                      <div className='boxB_1'>
+                      {data.bmkimg == "false"? <img src={bookmarkoff} alt="" />:<img src={bookmarkon} alt="" />}
+
+                      </div>
                       <div className='boxB_2'><img src={viewicon} alt="" />{data.board_views}</div>
                     </div>
 

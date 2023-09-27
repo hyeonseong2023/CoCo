@@ -6,8 +6,10 @@ import '../css/TopPosts.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import bookmarkon from '../img/Bookmarkon.png'
+import bookmarkoff from '../img/Bookmarkoff.png'
 import img from '../img/profilePicture.png'
 import viewicon from '../img/viewsIcon.png'
+import Cookies from 'js-cookie';
 interface PostData {
   id: string;
   title: string;
@@ -16,6 +18,8 @@ interface PostData {
   pro_img: String;
   board_views: number;
   cust_nick: string;
+  cust_img:any;
+  bmkimg:any;
 }
 
 const TopPosts = () => {
@@ -27,10 +31,10 @@ const TopPosts = () => {
       fetchData();
     }
   }, [slideContents]);
-
+  const id = Cookies.get('CUST_ID');
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8099/popularlist`);
+      const response = await axios.get(`http://localhost:8099/popularlist?cust_id=${id}`);
       const fetchedData: PostData[] = response.data.map((item: any) => ({
         id: item.board_id,
         title: item.board_title,
@@ -38,8 +42,8 @@ const TopPosts = () => {
         board_position: item.board_position,
         pro_img: item.pro_img,
         board_views: item.board_views,
-        cust_nick: item.cust_nick
-
+        cust_nick: item.cust_nick,
+        bmkimg: item.bmkimg
       }));
 
       setSlideContents(fetchedData);
@@ -77,6 +81,7 @@ const TopPosts = () => {
         return 'designer-color';
       case ' IOS안드로이드':
       case 'IOS안드로이드':
+      case '안드로이드':
         return 'ios-color'
       case '데브옵스':
         case ' 데브옵스':
@@ -116,6 +121,7 @@ const TopPosts = () => {
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
+            console.log("탑!!",data);
             return (
               <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
                 <div className={contentClassName} key={index}>
@@ -128,7 +134,9 @@ const TopPosts = () => {
                       <div className='topHeader-day'>{daysDifference}일 남음</div>
                     </div>
                   )}
-                  <div className='topBody'><div className='topBody-title'>{data.title}</div><div className='topBody-bookmark'><img src={bookmarkon} alt="" /></div></div>
+                  
+                  <div className='topBody'><div className='topBody-title'>{data.title}</div><div className='topBody-bookmark'>
+                    {data.bmkimg == "true"? <img src={bookmarkon} alt="" />:<img src={bookmarkoff} alt="" />}</div></div>
                   <div className='topBody-topTail'>모집분야</div>
                   <div className='topTail'>
                     {data.board_position.split(',').map((position, positionIndex) => (
@@ -141,7 +149,15 @@ const TopPosts = () => {
                     ))}
                   </div>
                   <div className='topend'><div className='topend1'>
-                    <img src={img} alt="" /></div><div className='topend2'>{data.cust_nick}
+                  <div>
+                        <img
+                src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
+                alt="이미지 출력되지 않았음"
+                className="user-img"
+              ></img>
+                        </div>
+                        
+                        </div><div className='topend2'>{data.cust_nick}
                     </div>
                     <div className='topend3'>
                       <img src={viewicon} alt="" />{data.board_views}
