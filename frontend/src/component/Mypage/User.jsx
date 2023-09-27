@@ -74,7 +74,7 @@ const User = ({ data }) => {
 
       useEffect(()=>{
           fetchData()
-      }, [data])
+      }, [])
   
 
 
@@ -91,7 +91,7 @@ const User = ({ data }) => {
 
     // 프로필사진 
     useEffect(() => {
-        if (data.CUST_IMG == null) { //지정안했으면 기본사진 
+        if (data.CUST_IMG === null) { //지정안했으면 기본사진 
             setPhoto(profile)
         } else {
             setPhoto("data:image/;base64," + data.CUST_IMG)
@@ -102,6 +102,7 @@ const User = ({ data }) => {
     //모달창 프로필사진 가져오기 
     useEffect(() => {
         setImage(photo)
+        console.log(photo);
 
     }, [photo])
 
@@ -179,15 +180,18 @@ const User = ({ data }) => {
 
 
     //프로필사진 파일 
-    const [file, setFile] = useState();
+    
+    const [file, setFile] = useState(base64toFile(data.CUST_IMG, "file"));
+    console.log("data.CUST_IMG",file);
 
     const onChange = (e) => {
 
-        if (e.target.files[0]) {
+        if (e.target.files[0]) { 
             setFile(e.target.files[0])
         } else { //업로드 취소할 시
-           setFile(null);
+            //setFile(data.CUST_IMG)
         }
+
         //화면에 프로필 사진 표시
         const reader = new FileReader();
         reader.onload = () => {
@@ -471,6 +475,20 @@ const User = ({ data }) => {
                 </div>)}  {/* 회원탈퇴 모달 창 끝  */}
         </div >
     )
+}
+
+function base64toFile(base_data, filename) {
+
+
+        let bstr = atob(base_data),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename);
 }
 
 

@@ -48,9 +48,10 @@ public class CustController {
 	@PutMapping("/userinfoupdate") // form-data
 	public @ResponseBody String userInfoUpdate(@RequestPart(required = false, value = "cust_img1") MultipartFile file,
 			@ModelAttribute TB_CUST cust) {
-
+		
 		String newFileName = null ;
-		if (file != null && !file.isEmpty()) {
+		
+		if (file != null) {
 
 			// 이미지 이름 저장
 			newFileName = UUID.randomUUID().toString() + file.getOriginalFilename();
@@ -64,6 +65,8 @@ public class CustController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else {
+//			cust.setCust_img(null);
 		}
 
 		// 이미지 기본정보 저장
