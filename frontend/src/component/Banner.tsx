@@ -26,14 +26,14 @@ const Banner = () => {
       image: `${imgA}`,
       altText: '이미지 1',
       caption: '',
-      link: 'https://www.musinsa.com/app/',
+      link: '',
     },
     {
       image:
         `${imgB}`,
       altText: '이미지 2',
       caption: '',
-      link: 'https://www.notion.so/ko-kr',
+      link: '',
     },
     {
       image:

@@ -139,35 +139,11 @@ public class BoardService {
 
 	}
 
-	// 게시글 지원시 NOTICE 테이블에 정보추가
-	public int postApplyNotice(int board_id, String receiver_id, String sender_id) {
-		return mapper.postApplyNotice(board_id, receiver_id, sender_id);
-	}
-
 	// 게시글 지원취소하기
 	public int unPostApply(int board_id, String cust_id) {
 		return mapper.unPostApply(board_id, cust_id);
 	}
 
-//	// 알림 보내기
-//	public JSONArray notifications(String cust_id) {
-//		
-//		//알림받는 cust_id 로 notice 테이블 정보 모두 가져오기
-//		List<TB_NOTICE> noticeList = mapper.noticeInfo(cust_id);
-//		
-//		JSONArray jsonArray = new JSONArray();
-//		JSONObject obj = new JSONObject();
-//		
-//		for(TB_NOTICE noticeInfo : list) {
-//			List<TB_CUST> senderInfo = mapper.senderInfo(noticeInfo.getSENDER_ID());
-//			
-//			obj.put("noticeList", list);
-//			obj.put("TB_BOARD_SKILL", skillList);
-//			
-//		}
-//		
-//		return jsonArray;
-//		}
 
 	// 프로젝트 링크 보내기(없는지 확인하여 있다면 생성)
 	public String getOrCreateProLink(int board_id) {
