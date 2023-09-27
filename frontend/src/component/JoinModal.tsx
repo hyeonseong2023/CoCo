@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import startBtn from '../img/startBtn.png';
 import { useNavigate } from 'react-router-dom';
 
-
 type FormData = {
   nickname: string;
   job: string;
