@@ -34,7 +34,7 @@ const Post = ({ data, boardData }) => {
   const [title, setTitle] = useState(boardData.TB_BOARD.board_title);
   const [views, setViews] = useState(boardData.TB_BOARD.board_views);
   const [date, setDate] = useState(boardData.TB_BOARD.board_dt);
-  const [dDay, setDday] = useState(boardData.D_day);
+  const [dDay, setDday] = useState(boardData.D_day - 1);
   const [content, setContent] = useState(boardData.TB_BOARD.board_content);
   const [boardImg, setBoardImg] = useState(boardData.TB_BOARD_IMG?.board_IMG);
   const [custNick, setCustNick] = useState(boardData.createCust.cust_nick);
@@ -62,26 +62,10 @@ const Post = ({ data, boardData }) => {
       ? `${process.env.REACT_APP_URL_8099}/postApply`
       : `${process.env.REACT_APP_URL_8099}/unPostApply`;
 
-    try {
-      const res = await axios.post(apiUrl, {
-        loginUserId: loginUserId,
-        createCustId: boardData.TB_BOARD.cust_id,
-        board_id: data,
-      });
-    } catch (error) {
-      console.error('Error sending apply request: ', error);
-    }
+    await axios
+      .get(`${apiUrl}/${data}/${Cookies.get('CUST_ID')}`)
+      .then((res) => {});
   };
-
-  // const sendApplyRequest = async (isApply) => {
-  //   const apiUrl = !isApply
-  //     ? `${process.env.REACT_APP_URL_8099}/postApply`
-  //     : `${process.env.REACT_APP_URL_8099}/unPostApply`;
-
-  //   await axios
-  //     .get(`${apiUrl}/${data}/${Cookies.get('CUST_ID')}`)
-  //     .then((res) => {});
-  // };
 
   const toggleBmk = () => {
     sendBookmarkRequest(isEmptyBmk);
