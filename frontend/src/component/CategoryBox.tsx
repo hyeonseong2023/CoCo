@@ -16,6 +16,7 @@ interface CategoryBoxProps {
   setSelectedPosition: React.Dispatch<React.SetStateAction<string | null>>;
   isBookmarked: boolean;
   isApplied: boolean;
+  isMyPosts: boolean;
   onBookmarkToggle: () => void;
   onAppliedToggle: () => void;
   onMyPostsClick: () => void;
@@ -28,6 +29,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   setSelectedPosition,
   isBookmarked,
   isApplied,
+  isMyPosts,
   onBookmarkToggle,
   onAppliedToggle,
   onMyPostsClick,
@@ -141,15 +143,13 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
                   </button>
                 </label>
                 <label className='labelselect1'>
-                  <button
-                    onClick={() => { handleButtonClick('applied'); onAppliedToggle();  }}
-                  >
-                    지원한 게시글 보기
+                  <button onClick={() => { handleButtonClick('applied'); onAppliedToggle(); }}>
+                    {isApplied ? "전체  게시글" : "지원한 게시글"}
                   </button>
                 </label>
                 <label className='labelselect1'>
                   <button onClick={() => { handleButtonClick('myposts'); onMyPostsClick(); }}>
-                    내가 쓴 게시물 보기
+                  {isMyPosts ? "전체  게시글" : "지원한 게시글"}
                   </button>
                 </label>
               </>

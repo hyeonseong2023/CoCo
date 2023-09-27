@@ -8,22 +8,20 @@ import axios from 'axios';
 import TopPosts from './TopPosts';
 import Footer from './Footer';
 import Cookies from 'js-cookie';
-import { promises } from 'dns';
 
 type MainProps = {};
 
 const Main: React.FC<MainProps> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoryData, setCategoryData] = useState<any[]>([]);
-  const [newPageData, setNewPageData] = useState<any[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [isApplied, setIsApplied] = useState<boolean>(false);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
-  const [IsMyPosts, setIsMyPosts] = useState<boolean>(false);
+  const [isMyPosts, setIsMyPosts] = useState<boolean>(false);
   const maxEndpoint = 99;
-  const pageSize = 0;
+  const pageSize = 1;
   const initialLoad = useState<boolean>(false)[0];
 
   // 북마크 데이터를 저장할 상태 추가
@@ -36,7 +34,7 @@ const Main: React.FC<MainProps> = () => {
   };
 
   const handleExpandPageClick = async (): Promise<void> => {
-    if (currentPage < maxEndpoint && !isRefreshing && !isApplied && !isBookmarked) {
+    if (currentPage < maxEndpoint && !isRefreshing && !isApplied && !isBookmarked && !isMyPosts) {
       const nextPage = currentPage + 6;
       setIsRefreshing(true);
 
@@ -104,7 +102,7 @@ const Main: React.FC<MainProps> = () => {
 
     fetchData(initialRequestData);
     initialLoad && handleExpandPageClick();
-  }, [selectedLanguage, selectedPosition, currentPage, initialLoad, isBookmarked, isApplied]);
+  }, [selectedLanguage, selectedPosition, currentPage, initialLoad, isBookmarked, isApplied, isMyPosts]);
 
   const updateCategoryData = (selectedCategory: string | null) => {
     setSelectedLanguage(selectedCategory);
@@ -114,7 +112,7 @@ const Main: React.FC<MainProps> = () => {
   };
 
   const handleLoginButtonClick = (): void => {
-
+    // 로그인 버튼 클릭 핸들러
   };
 
   const fetchDataAndUpdateState = async (url: string, stateUpdater: (data: any) => void) => {
@@ -209,21 +207,11 @@ const Main: React.FC<MainProps> = () => {
     handleExpandPageClick();
   };
 
-  useEffect(() => {
-    if (!isRefreshing) {
-      const initialRequestData = {
-        skill_name: selectedLanguage,
-        board_position: selectedPosition,
-        endpoint: currentPage
-      };
-
-      fetchData(initialRequestData);
-      initialLoad && handleExpandPageClick();
-    }
-  }, [selectedLanguage, selectedPosition, currentPage, initialLoad, isBookmarked, isApplied, isRefreshing]);
-
   const handleBookmarkToggle = async (): Promise<void> => {
     setIsBookmarked(!isBookmarked);
+    setIsApplied(false);   // 다른 토글 상태 초기화
+    setIsMyPosts(false);   // 다른 토글 상태 초기화
+
     if (isBookmarked) {
       setBookmarkData([]);
     } else {
@@ -233,27 +221,27 @@ const Main: React.FC<MainProps> = () => {
 
   const handleAppliedToggle = async (): Promise<void> => {
     setIsApplied(!isApplied);
-
+    setIsBookmarked(false); // 다른 토글 상태 초기화
+    setIsMyPosts(false);   // 다른 토글 상태 초기화
 
     if (isApplied) {
       setData1([]);
     } else {
       await fetchDataAndUpdateState('http://localhost:8099/apply', setCategoryData);
     }
-
-
   };
 
   const onMyPostsToggle = async (): Promise<void> => {
-    setIsMyPosts(!IsMyPosts);
+    setIsMyPosts(!isMyPosts);
+    setIsApplied(false);   // 다른 토글 상태 초기화
+    setIsBookmarked(false); // 다른 토글 상태 초기화
 
-    if (IsMyPosts) {
+    if (isMyPosts) {
       setData2([]);
     } else {
       await fetchDataAndUpdateState('http://localhost:8099/writelist', setCategoryData);
     }
-
-  }
+  };
 
   const BOARD_ID = 1;
   // 4000
@@ -304,15 +292,17 @@ const Main: React.FC<MainProps> = () => {
         setSelectedPosition={setSelectedPosition}
         isBookmarked={isBookmarked}
         isApplied={isApplied}
+        isMyPosts={isMyPosts}
         onBookmarkToggle={handleBookmarkToggle}
         onAppliedToggle={handleAppliedToggle}
         onMyPostsClick={onMyPostsToggle}
       />
       <div className="contents-container">
-
-        <Contents categoryData={isBookmarked ? bookmarkData : categoryData} />
+        <Contents categoryData={
+          isMyPosts ? Data2 : (isBookmarked ? bookmarkData : (isApplied ? Data1 : categoryData))
+        } />
       </div>
-      <div className="more-button-container">
+      <div className={`more-button-container ${isMyPosts || isBookmarked || isApplied ? 'hidden' : ''}`}>
         <button
           onClick={handleMoreButtonClick}
           disabled={currentPage === maxEndpoint}
@@ -325,5 +315,4 @@ const Main: React.FC<MainProps> = () => {
     </div>
   );
 };
-
 export default Main;
