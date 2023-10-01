@@ -1,38 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/Header.css';
-import logoimg from '../img/cocoLogo.png';
 import Login from './Login';
 import JoinModel from './JoinModal';
 import Cookies from 'js-cookie';
-import img from '../img/normal.png'
-import write from '../img/writeA.png'
 import CoCo from '../img/CoCo.png'
 import profilePicture from '../img/profilePicture.png'
-
-import login from '../img/Login.png'
 import axios from 'axios';
 
 type HeaderProps = {
-  onLoginButtonClick?: () => void;
 };
 
-const Header: React.FC<HeaderProps> = ({ onLoginButtonClick }) => {
+const Header: React.FC<HeaderProps> = ({ }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const custId = Cookies.get('CUST_ID');
   const custProfileImg = Cookies.get('CUST_IMG');
   const [isLoggedIn, setIsLoggedIn] = useState(Cookies.get('CUST_ID') && Cookies.get('CUST_IMG') != "0");
   const navigate = useNavigate();
   const [isJoinModal, setIsJoinModal] = useState(Cookies.get('CUST_ID') != null && Cookies.get('CUST_IMG') == "0" && Cookies.get('coin') == "on");
-
   const [ custImg, setCustImg] = useState(custProfileImg);
 
-  console.log("아이디", Cookies.get('CUST_ID'));
-  console.log("이미지", Cookies.get('CUST_IMG'));
-  
-  
-
-   //통신 (프로필 이미지)
    const fetchData = async () => {
     const url = `http://localhost:8099/profileimg?cust_id=${custId}`;
     try {
