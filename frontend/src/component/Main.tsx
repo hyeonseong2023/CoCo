@@ -24,6 +24,8 @@ const Main: React.FC<MainProps> = () => {
   const pageSize = 0;
   const initialLoad = useState<boolean>(false)[0];
 
+  
+
   // 북마크 데이터를 저장할 상태 추가
   const [bookmarkData, setBookmarkData] = useState<any[]>([]);
   const [Data1, setData1] = useState<any[]>([]);
@@ -157,7 +159,7 @@ const Main: React.FC<MainProps> = () => {
       } else {
         console.error("Data retrieval failed.");
       }
-      console.log(response);
+
     } catch (error) {
       console.error("Data retrieval error:", error);
     }
@@ -192,7 +194,6 @@ const Main: React.FC<MainProps> = () => {
         };
 
       });
-      console.log("메인 컨텐츠",response);
 
       if (fetchedData.length === 0) {
         console.warn("No data received.");
@@ -266,7 +267,6 @@ const Main: React.FC<MainProps> = () => {
               
             };
           });
-          console.log("메인셀렉트",response);
           
           if (fetchedData.length === 0) {
             console.warn("No data received.");
