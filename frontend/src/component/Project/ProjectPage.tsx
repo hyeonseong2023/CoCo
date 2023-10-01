@@ -12,8 +12,9 @@ import Settings from './Settings';
 
 const ProjectPage = () => {
   const location = useLocation();
-  const projectId = location.state.projectId.toString();
-  const nick = location.state.nick;
+  // const projectId = location.state.projectId.toString();\
+  const projectId = '51';
+  // const nick = location.state.nick;
   const [selectedMenu, setSelectedMenu] = useState('Page');
   const [initialEvents, setInitialEvent] = useState<EventInput[]>([]);
   useEffect(() => {
@@ -37,7 +38,7 @@ const ProjectPage = () => {
     <ProjectProvider id={projectId}>
       <div>
         <div className="pp-container">
-          <SideBar setSelectedMenu={setSelectedMenu} nick={nick} />
+          <SideBar setSelectedMenu={setSelectedMenu} />
           <div className="vertical-line"></div>
           {changeMenu(selectedMenu)}
         </div>
