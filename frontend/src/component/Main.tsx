@@ -12,16 +12,14 @@ import Cookies from 'js-cookie';
 type MainProps = {};
 
 const Main: React.FC<MainProps> = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const [categoryData, setCategoryData] = useState<any[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [isApplied, setIsApplied] = useState<boolean>(false);
   const [isMyPosts, setIsMyPosts] = useState<boolean>(false);
-  const pageSize = 0;
-
-  // 북마크 데이터를 저장할 상태 추가
+  const pageSize = 6;
   const [bookmarkData, setBookmarkData] = useState<any[]>([]);
   const [Data1, setData1] = useState<any[]>([]);
   const [Data2, setData2] = useState<any[]>([]);
@@ -54,7 +52,8 @@ const Main: React.FC<MainProps> = () => {
   const fetchData = async (requestData: { skill_name?: string | null; board_position?: string | null; endpoint: any; cust_id?: any; }) => {
     try {
       requestData.endpoint = requestData.endpoint * pageSize;
-      requestData.cust_id = Cookies.get('CUST_ID');
+      requestData.skill_name = selectedLanguage;
+      requestData.board_position = selectedPosition;
       const response = await axios.post('http://localhost:8099/select', requestData);
 
       const fetchedData = response.data.map(mapData);
@@ -64,23 +63,32 @@ const Main: React.FC<MainProps> = () => {
       } else {
         setCategoryData((prevData) => [...prevData, ...fetchedData]);
       }
+
+      return response;
     } catch (error) {
       console.error("Error fetching data:", error);
+      throw error;
     }
   };
-  const handleLoadMore = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
 
+  const handleLoadMore = () => {
+    // 현재 필터링된 상태에서는 currentPage를 사용하면 안 됨
     const requestData = {
       skill_name: selectedLanguage,
       board_position: selectedPosition,
-      endpoint: currentPage + 1,
+      endpoint: (categoryData.length / pageSize + 1) || 1, // 현재 데이터 개수를 기반으로 endpoint 계산, 최소값은 1
     };
 
     fetchData(requestData);
   };
 
   useEffect(() => {
+    // currentPage가 0일 때만 초기화
+    if (selectedLanguage || selectedPosition || currentPage === 0) {
+      setCategoryData([]);
+      setCurrentPage(0);
+    }
+
     const initialRequestData = {
       skill_name: selectedLanguage,
       board_position: selectedPosition,
@@ -93,7 +101,7 @@ const Main: React.FC<MainProps> = () => {
   const updateCategoryData = (selectedCategory: string | null) => {
     setSelectedLanguage(selectedCategory);
     setSelectedPosition(selectedCategory);
-    setCurrentPage(1);
+    setCurrentPage(0); // 페이지 초기화
     setCategoryData([]);
   };
 
@@ -169,7 +177,7 @@ const Main: React.FC<MainProps> = () => {
         onAppliedToggle={handleAppliedToggle}
         onMyPostsClick={onMyPostsToggle}
       />
-          <div className="contents-container">
+      <div className="contents-container">
         <Contents categoryData={
           isMyPosts ? Data2 : (isBookmarked ? bookmarkData : (isApplied ? Data1 : categoryData))
         } />

@@ -71,7 +71,6 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
-            console.log(data);
             
             return (
               <div key={index} className="content-wrapper">
