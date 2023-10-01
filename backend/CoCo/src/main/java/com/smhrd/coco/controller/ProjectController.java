@@ -2,6 +2,7 @@ package com.smhrd.coco.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -88,6 +89,12 @@ public class ProjectController {
 		return 0;
 	}
 
+	// 알림 닉네임, 프로필사진 불러오기
+	@PostMapping("/notification")
+	public List<TB_CUST> getNotiList(@RequestBody JSONObject obj){
+		List<String> list =  (List<String>) obj.get("notiList");
+		return service.getNotiList(list);
+	}
 	
 
 }

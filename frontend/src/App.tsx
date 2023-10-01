@@ -9,7 +9,6 @@ import './App.css';
 import ProjectPage from './component/Project/ProjectPage';
 import SinglePage from './component/SinglePage';
 
-
 const App: React.FC = () => {
   return (
     <Router>

@@ -10,10 +10,12 @@ const Check: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/getUserData', { withCredentials: true });
+        const response = await axios.get('/api/getUserData', {
+          withCredentials: true,
+        });
 
-        if (response.data.CUST_IMG === "0") {
-          cookies.set('coin', "on", { path: '/' });
+        if (response.data.CUST_IMG === '0') {
+          cookies.set('coin', 'on', { path: '/' });
         }
         cookies.set('CUST_ID', response.data.CUST_ID, { path: '/' });
         cookies.set('CUST_IMG', response.data.CUST_IMG, { path: '/' });
@@ -28,11 +30,7 @@ const Check: React.FC = () => {
     fetchData();
   }, [navigate, cookies]);
 
-  return (
-    <div>
-      {}
-    </div>
-  );
+  return <div>{}</div>;
 };
 
 export default Check;
