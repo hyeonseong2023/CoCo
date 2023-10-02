@@ -72,7 +72,12 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
+<<<<<<< HEAD
 
+=======
+            console.log(data);
+            
+>>>>>>> parent of a15318a (더보기 1차 수정)
             return (
               <div key={index} className="content-wrapper">
                 <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
