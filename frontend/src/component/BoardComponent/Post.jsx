@@ -20,10 +20,6 @@ import { Link } from 'react-router-dom';
 import DeadlineModal from './DedlineModal';
 import Write from '../Write';
 import DeleteModal from './DeleteModal';
-import {
-  addNotification,
-  cancelNotification,
-} from '../Project/functions/firebaseCRUD';
 
 const Post = ({ data, boardData }) => {
   console.log(boardData);
@@ -80,23 +76,6 @@ const Post = ({ data, boardData }) => {
   const toggleApply = () => {
     sendApplyRequest(isApply);
     setIsApply(!isApply);
-    let nowDate = new Date();
-    const data = {
-      sender: loginUserId,
-      receiver: boardCreateId,
-      board_id: boardData.TB_BOARD.board_id,
-      contents: `님 께서 '${title}'게시글에 지원하였습니다.`,
-      date: nowDate.toLocaleString(),
-      checked: false,
-    };
-    if (!isApply) {
-      addNotification(`notification/${boardCreateId.split('.')[0]}`, data);
-    } else {
-      cancelNotification(
-        `notification/${boardCreateId.split('.')[0]}`,
-        data.board_id
-      );
-    }
   };
 
   const openPopup = () => {

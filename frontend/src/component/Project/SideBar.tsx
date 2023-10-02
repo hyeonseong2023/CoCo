@@ -7,10 +7,10 @@ import Cookies from 'js-cookie';
 
 const SideBar = ({
   setSelectedMenu,
-}: // nick,
-{
+  nick,
+}: {
   setSelectedMenu: (e: string) => void;
-  // nick: string;
+  nick: string;
 }) => {
   const [toggleMembers, setToggleMembers] = useState(false);
 

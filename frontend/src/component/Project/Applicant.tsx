@@ -2,8 +2,6 @@ import React from 'react';
 import { Member } from './Settings';
 import axios from 'axios';
 import profileImg from '../../img/profilePicture.png';
-import { addNotification } from './functions/firebaseCRUD';
-import Cookies from 'js-cookie';
 
 //프로젝트 응모 거절로 응모테이블에서 삭제하기 (board_id, cust_id)
 //  @PostMapping("applydecline")
@@ -30,19 +28,6 @@ const Applicant = ({
       cust_id: applicants[index].cust_id,
     };
     await axios.post(url, data).then(() => {
-      const nowDate = new Date();
-      const notiData = {
-        sender: Cookies.get('CUST_ID')!,
-        receiver: applicants[index].cust_id,
-        board_id: parseInt(projectId),
-        contents: `님 께서 프로젝트 팀원으로 수락하였습니다.`,
-        date: nowDate.toLocaleString(),
-        checked: false,
-      };
-      addNotification(
-        `notification/${applicants[index].cust_id.split('.')[0]}`,
-        notiData
-      );
       setApplicants(
         [...applicants].filter(
           (item) => item.cust_id !== applicants[index].cust_id
