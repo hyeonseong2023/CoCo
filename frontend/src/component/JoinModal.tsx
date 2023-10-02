@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import startBtn from '../img/startBtn.png';
 import { useNavigate } from 'react-router-dom';
-import bigcoco from '../img/bigCoCo.png';
+import bigcoco from '../img/bigCoCo.png'; 
 
 type FormData = {
   nickname: string;
@@ -192,7 +192,7 @@ const JoinModel = ({ onClose, setIsJoinModal }: { onClose: () => void, setIsJoin
       console.log('요청이 성공했습니다.');
       Cookies.set('CUST_IMG', "1", { path: '/' });
       console.log(Cookies.get("CUST_ID"));
-
+      
       setWelcomeOpen(true);
     } catch (error) {
       console.error('요청이 실패했습니다.', error);

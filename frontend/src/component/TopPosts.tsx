@@ -10,7 +10,6 @@ import bookmarkoff from '../img/Bookmarkoff.png'
 import img from '../img/profilePicture.png'
 import viewicon from '../img/viewsIcon.png'
 import Cookies from 'js-cookie';
-
 interface PostData {
   id: string;
   title: string;
@@ -19,8 +18,8 @@ interface PostData {
   pro_img: String;
   board_views: number;
   cust_nick: string;
-  cust_img: any;
-  bmkimg: any;
+  cust_img:any;
+  bmkimg:any;
 }
 
 const TopPosts = () => {
@@ -85,17 +84,17 @@ const TopPosts = () => {
       case '안드로이드':
         return 'ios-color'
       case '데브옵스':
-      case ' 데브옵스':
+        case ' 데브옵스':
         return 'dev-color'
       case 'PM':
         return 'pm-color'
       case '기획자':
-        return 'planner-color';
+        return 'planner-color'; // 이러한 포지션들에 대해서는 'planner-color' 클래스를 반환합니다.
       default:
-        return '';
+        return ''; // 기본값으로 빈 문자열을 반환하거나 다른 적절한 클래스를 할당하세요.
     }
   }
-
+  // 현재 날짜 가져오기
   const today = new Date();
 
   return (
@@ -122,7 +121,7 @@ const TopPosts = () => {
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
-
+            console.log("탑!!",data);
             return (
               <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
                 <div className={contentClassName} key={index}>
@@ -135,9 +134,9 @@ const TopPosts = () => {
                       <div className='topHeader-day'>{daysDifference}일 남음</div>
                     </div>
                   )}
-
+                  
                   <div className='topBody'><div className='topBody-title'>{data.title}</div><div className='topBody-bookmark'>
-                    {data.bmkimg == "true" ? <img src={bookmarkon} alt="" /> : <img src={bookmarkoff} alt="" />}</div></div>
+                    {data.bmkimg == "true"? <img src={bookmarkon} alt="" />:<img src={bookmarkoff} alt="" />}</div></div>
                   <div className='topBody-topTail'>모집분야</div>
                   <div className='topTail'>
                     {data.board_position.split(',').map((position, positionIndex) => (
@@ -150,15 +149,15 @@ const TopPosts = () => {
                     ))}
                   </div>
                   <div className='topend'><div className='topend1'>
-                    <div>
-                      <img
-                        src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
-                        alt="이미지 출력되지 않았음"
-                        className="user-img"
-                      ></img>
-                    </div>
-
-                  </div><div className='topend2'>{data.cust_nick}
+                  <div>
+                        <img
+                src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
+                alt="이미지 출력되지 않았음"
+                className="user-img"
+              ></img>
+                        </div>
+                        
+                        </div><div className='topend2'>{data.cust_nick}
                     </div>
                     <div className='topend3'>
                       <img src={viewicon} alt="" />{data.board_views}

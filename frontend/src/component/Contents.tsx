@@ -24,7 +24,7 @@ interface CategoryData {
   pro_title: any;
   cust_nick: any;
   skill_names: any;
-  cust_img: any;
+  cust_img:any;
   bmkimg: any;
 }
 
@@ -47,7 +47,7 @@ function getPositionColor(position: string) {
     case '안드로이드':
       return 'ios-color'
     case '데브옵스':
-    case ' 데브옵스':
+      case ' 데브옵스':
       return 'dev-color'
     case 'PM':
       return 'pm-color'
@@ -60,18 +60,19 @@ function getPositionColor(position: string) {
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
   const today = new Date();
+  console.log("컨텐츠!",categoryData);
   return (
     <div>
       <div id='Contents-box'>
         <div id='Contentsbox-c'>
-          {categoryData.map((data, index) => {
+          {categoryData.map((data, index) => { 
             const deadlineDate = new Date(data.board_deadline);
             const todayMillis = today.getTime();
             const deadlineMillis = deadlineDate.getTime();
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
-            
+
             return (
               <div key={index} className="content-wrapper">
                 <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
@@ -88,29 +89,22 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                       )}
                       <div className='boxA_title'>
                         <div className='boxA_titleA'>{data.title}</div>
-                        <div className="skillImg">
+                        <td className="skillImg">
                           {data.skill_names ? (
-                            <table>
-                              <tbody>
-                                {data.skill_names.map((skill: any) => (
-                                  <tr key={skill}>
-                                    <td>
-                                      <img src={process.env.PUBLIC_URL + `/skillImg/${skill}.svg`} alt={skill} />
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
+                            data.skill_names.map((skill: any) => (
+                              <img key={skill} src={process.env.PUBLIC_URL + `/skillImg/${skill}.svg`} alt={skill} />
+                            ))
                           ) : null}
-                        </div>
+                        </td>
                       </div>
                       <div className='boxA_img'>
+
                         <div>
-                          <img
-                            src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
-                            alt="이미지 출력되지 않았음"
-                            className="user-img"
-                          />
+                        <img
+                src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
+                alt="이미지 출력되지 않았음"
+                className="user-img"
+              ></img>
                         </div>
                         <div className='contentsNick'>{data.cust_nick}</div>
                       </div>
@@ -118,12 +112,10 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
 
                     <div className='boxB_bookmark'>
                       <div className='boxB_1'>
-                      <div className='topBody-bookmark'>
-                            {data.bmkimg == "true" ? <img src={bookmarkon} alt="" /> : <img src={bookmarkoff} alt="" />}</div>
+                      {data.bmkimg == "false"? <img src={bookmarkoff} alt="" />:<img src={bookmarkon} alt="" />}
+
                       </div>
                       <div className='boxB_2'><img src={viewicon} alt="" />{data.board_views}</div>
-
-                      
                     </div>
 
                     <div className='ContentsLine'></div>

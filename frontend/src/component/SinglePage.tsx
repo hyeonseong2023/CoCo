@@ -36,9 +36,12 @@ const SinglePage: React.FC = () => {
     fetchData()
   }, [])
 
+  const handleLoginButtonClick = () => {
+  };
+
   return (
     <div>
-      <Header/>
+      <Header onLoginButtonClick={handleLoginButtonClick} />
       <div className="board">
         {boardData && (
           <Post
