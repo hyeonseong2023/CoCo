@@ -41,7 +41,7 @@ const SinglePage: React.FC = () => {
 
   return (
     <div>
-      <Header onLoginButtonClick={handleLoginButtonClick} />
+      <Header/>
       <div className="board">
         {boardData && (
           <Post
