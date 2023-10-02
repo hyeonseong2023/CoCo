@@ -153,6 +153,67 @@ const updatePlanner = (path: string, data: any) => {
   set(ref(db, path), data);
 };
 
+export interface NotiInterface {
+  sender: string;
+  receiver: string;
+  board_id: number;
+  contents: string;
+  date: string;
+  checked: boolean;
+}
+
+const getNotification = (
+  path: string,
+  setNoti: (noti: NotiInterface[]) => void
+) => {
+  const dbRef = ref(db);
+  get(child(dbRef, path)).then((snapshot) => {
+    if (snapshot.exists()) {
+      setNoti(snapshot.val());
+    }
+  });
+};
+
+const onValueNotification = (
+  path: string,
+  setNoti: (noti: NotiInterface[]) => void
+) => {
+  onValue(ref(db, path), (snapshot) => {
+    setNoti(snapshot.val());
+  });
+};
+
+const addNotification = (path: string, data: NotiInterface) => {
+  const dbRef = ref(db);
+  get(child(dbRef, path)).then((snapshot) => {
+    if (snapshot.exists()) {
+      let arr: NotiInterface[] = snapshot.val();
+      arr.unshift(data);
+      set(ref(db, path), arr);
+    } else {
+      const arr = [data];
+      set(ref(db, path), arr);
+    }
+  });
+};
+
+const cancelNotification = (path: string, data: number) => {
+  const dbRef = ref(db);
+  get(child(dbRef, path)).then((snapshot) => {
+    let arr: NotiInterface[] = snapshot.val();
+    arr = arr.filter((item) => item.board_id !== data);
+    set(ref(db, path), arr);
+  });
+};
+
+const checkNotification = (path: string, data: NotiInterface[]) => {
+  update(ref(db, path), { [data[0].receiver.split('.')[0]]: data });
+};
+
+const removeNotification = (path: string, data: NotiInterface[]) => {
+  set(ref(db, path), data);
+};
+
 export {
   getContents,
   addOnValue,
@@ -167,4 +228,10 @@ export {
   updatePageStructure,
   pageStructureOnValue,
   addPage,
+  addNotification,
+  cancelNotification,
+  getNotification,
+  onValueNotification,
+  checkNotification,
+  removeNotification,
 };
