@@ -24,7 +24,7 @@ interface CategoryData {
   pro_title: any;
   cust_nick: any;
   skill_names: any;
-  cust_img:any;
+  cust_img: any;
   bmkimg: any;
 }
 
@@ -47,14 +47,14 @@ function getPositionColor(position: string) {
     case '안드로이드':
       return 'ios-color'
     case '데브옵스':
-      case ' 데브옵스':
+    case ' 데브옵스':
       return 'dev-color'
     case 'PM':
       return 'pm-color'
     case '기획자':
-      return 'planner-color'; // 이러한 포지션들에 대해서는 'planner-color' 클래스를 반환합니다.
+      return 'planner-color';
     default:
-      return ''; // 기본값으로 빈 문자열을 반환하거나 다른 적절한 클래스를 할당하세요.
+      return '';
   }
 }
 
@@ -64,14 +64,15 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
     <div>
       <div id='Contents-box'>
         <div id='Contentsbox-c'>
-          {categoryData.map((data, index) => { 
+          {categoryData.map((data, index) => {
             const deadlineDate = new Date(data.board_deadline);
             const todayMillis = today.getTime();
             const deadlineMillis = deadlineDate.getTime();
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
-
+            console.log(data);
+            
             return (
               <div key={index} className="content-wrapper">
                 <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
@@ -99,11 +100,11 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                       <div className='boxA_img'>
 
                         <div>
-                        <img
-                src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
-                alt="이미지 출력되지 않았음"
-                className="user-img"
-              ></img>
+                          <img
+                            src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
+                            alt="이미지 출력되지 않았음"
+                            className="user-img"
+                          ></img>
                         </div>
                         <div className='contentsNick'>{data.cust_nick}</div>
                       </div>
@@ -111,7 +112,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
 
                     <div className='boxB_bookmark'>
                       <div className='boxB_1'>
-                      {data.bmkimg == "false"? <img src={bookmarkoff} alt="" />:<img src={bookmarkon} alt="" />}
+                        {data.bmkimg == "false" ? <img src={bookmarkoff} alt="" /> : <img src={bookmarkon} alt="" />}
 
                       </div>
                       <div className='boxB_2'><img src={viewicon} alt="" />{data.board_views}</div>
