@@ -54,6 +54,7 @@ const Main: React.FC<MainProps> = () => {
       requestData.endpoint = requestData.endpoint * pageSize;
       requestData.skill_name = selectedLanguage;
       requestData.board_position = selectedPosition;
+      requestData.cust_id = Cookies.get('CUST_ID');
       const response = await axios.post('http://localhost:8099/select', requestData);
 
       const fetchedData = response.data.map(mapData);
@@ -122,7 +123,8 @@ const Main: React.FC<MainProps> = () => {
     pro_link: item.pro_link,
     pro_title: item.pro_title,
     cust_nick: item.cust_nick,
-    bmkimg: item.bmkimg
+    bmkimg: item.bmkimg,
+    cust_img: item.cust_img
   });
 
   const handleBookmarkToggle = async (): Promise<void> => {
