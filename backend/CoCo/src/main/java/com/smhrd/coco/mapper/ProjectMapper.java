@@ -27,8 +27,5 @@ public interface ProjectMapper {
 	
 	//프로젝트 명, 프로젝트 이미지 업데이트 (board_id)
 	public int projectInfoUpdate(String pro_img, int board_id, String pro_title);
-	
-	//알림 닉네임, 프로필 가져오기
-	public TB_CUST getNoti(String cust_id);
 
 }
