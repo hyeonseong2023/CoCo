@@ -10,13 +10,13 @@ const SideBar = ({
   setSelectedMenu,
   leader,
 }: // nick,
-  {
-    setSelectedMenu: (e: string) => void;
-    leader: string;
-    // nick: string;
-  }) => {
+{
+  setSelectedMenu: (e: string) => void;
+  leader: string;
+  // nick: string;
+}) => {
   const [toggleMembers, setToggleMembers] = useState(false);
-  // const userName = Cookies.get('CUST_ID');
+  const userId = Cookies.get('CUST_ID');
 
   const location = useLocation();
   const BOARD_ID = location.state.projectId;
@@ -85,7 +85,7 @@ const SideBar = ({
             <div>참여인원</div>
           </div>
         </div>
-        {userName === leader && (
+        {userId === leader && (
           <div
             className="pro-side-menu-container"
             onClick={() => {
