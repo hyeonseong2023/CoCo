@@ -46,7 +46,9 @@ const TopPosts = () => {
         bmkimg: item.bmkimg,
         cust_img: item.cust_img
       }));
-      console.log(fetchedData);
+
+      
+      console.log("data",fetchedData);
       
       setSlideContents(fetchedData);
 
@@ -151,7 +153,7 @@ const TopPosts = () => {
                   <div className='topend'><div className='topend1'>
                     <div>
                       <img
-                        src={data.pro_img ? 'data:image/;base64,' + data.cust_img : img}
+                        src={data.cust_img ? 'data:image/;base64,' + data.cust_img : img}
                         alt="이미지 출력되지 않았음"
                         className="user-img"
                       ></img>
