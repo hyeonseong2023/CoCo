@@ -1,13 +1,24 @@
+/* html,
+body {
+  margin: 0;
+
+  height: 100%;
+
+  overflow: hidden;
+} */
+
 .main-div {
   padding-top: 0%;
 }
 
 div.pp-container {
+  height: 100%;
   display: flex;
   flex-direction: row;
 }
 
 div.vertical-line {
+  /* height: 100%; */
   height: 100vh;
   width: 0.5px;
   background-color: rgb(233, 233, 233);
@@ -20,7 +31,6 @@ div.vertical-line {
 .pro-side-container {
   background-color: white;
   min-width: 250px;
-  height: 100vh;
   padding: 10px;
   box-sizing: border-box;
   font-size: large;
