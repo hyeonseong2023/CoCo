@@ -10,7 +10,7 @@ import com.smhrd.coco.domain.TB_CUST;
 @Mapper
 public interface ProjectMapper {
 	
-	//프로젝트 응모 수락여부 Y인 멤버들 닉네임, 프로필사진 정보 보내기
+	//프로젝트 응모 수락여부 Y, H인 멤버들 닉네임, 프로필사진 정보 보내기
 	public List<TB_CUST> projectMemberList(int board_id);
 	
 	//프로젝트 응모 수락여부 N인 유저 아이디, 닉네임, 프로필사진

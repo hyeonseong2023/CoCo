@@ -24,7 +24,7 @@ public class ProjectService {
 	@Autowired
 	private ProjectMapper mapper;
 
-	// 프로젝트 응모 수락여부 Y인 멤버들 닉네임, 프로필사진 정보 보내기
+	// 프로젝트 응모 수락여부 Y, H인 멤버들 닉네임, 프로필사진 정보 보내기
 	public List<TB_CUST> projectMemberList(int board_id) {
 		List<TB_CUST> list = mapper.projectMemberList(board_id);
 		return setCustImg(list);
