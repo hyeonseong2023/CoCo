@@ -67,15 +67,15 @@ const Project = ({ data }) => {
                   />
                 ) : (
                   <img
-                    src={process.env.PUBLIC_URL + '/projecImg/projectImg.png'}
+                    src={process.env.PUBLIC_URL + '/projectImg/projectImg.png'}
                     alt=""
                   ></img>
                 )}
+                <div>
+                  {' '}
+                  <p>{item.proTitle}</p>
+                </div>
               </Link>
-              <div>
-                {' '}
-                <p>{item.proTitle}</p>
-              </div>
             </div>
           </div>
         ))}
