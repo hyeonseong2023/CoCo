@@ -22,8 +22,8 @@ const SideBar = ({
   const BOARD_ID = location.state.projectId;
   const userName = location.state.nick;
   // 4000
-  // const wrUrl = process.env.REACT_APP_URL_4000;
-  const wrUrl = 'http://localhost:4000';
+  const wrUrl = process.env.REACT_APP_URL_4000;
+  // const wrUrl = 'http://localhost:4000';
 
   // 제출 버튼 클릭 시 board_id Back으로 전송
   const handleClick = async () => {
