@@ -7,6 +7,7 @@ div.text-block-container {
 
 [contenteditable='true']:empty:before {
   content: attr(placeholder);
+  /* -webkit-text-fill-color: rgba(55, 53, 47, 0.5); */
 }
 
 div.text-block {
@@ -17,6 +18,5 @@ div.text-block {
   caret-color: rgb(55, 53, 47);
   padding: 3px 2px;
   min-height: 1em;
-  color: rgb(55, 53, 47);
-  -webkit-text-fill-color: rgba(55, 53, 47, 0.5);
+  /* color: rgb(55, 53, 47); */
 }
