@@ -71,8 +71,7 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
             const daysDifference = Math.floor((deadlineMillis - todayMillis) / (1000 * 60 * 60 * 24));
             const isExpired = daysDifference < 0;
             const contentClassName = `top-posts-slide-content ${isExpired ? 'expired' : ''}`;
-            console.log(data);
-            
+
             return (
               <div key={index} className="content-wrapper">
                 <Link to={`selectpostviews/${data.id}`} key={index} state={data}>
@@ -89,14 +88,15 @@ const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
                       )}
                       <div className='boxA_title'>
                         <div className='boxA_titleA'>{data.title}</div>
-                        <td className="skillImg">
+                        <div className="skillImg">
                           {data.skill_names ? (
                             data.skill_names.map((skill: any) => (
                               <img key={skill} src={process.env.PUBLIC_URL + `/skillImg/${skill}.svg`} alt={skill} />
                             ))
                           ) : null}
-                        </td>
+                        </div>
                       </div>
+
                       <div className='boxA_img'>
 
                         <div>

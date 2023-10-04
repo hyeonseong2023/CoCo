@@ -3,18 +3,21 @@ import PageList from './PageList';
 import Members from './Members';
 import coco from '../../img/CoCo.png';
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import { useLocation } from 'react-router-dom';
 
 const SideBar = ({
   setSelectedMenu,
+
 }: // nick,
-{
-  setSelectedMenu: (e: string) => void;
-  // nick: string;
-}) => {
+  {
+    setSelectedMenu: (e: string) => void;
+    // nick: string;
+  }) => {
   const [toggleMembers, setToggleMembers] = useState(false);
 
-  const BOARD_ID = 1;
+  const location = useLocation();
+  const BOARD_ID = location.state.projectId;
+  const userName = location.state.nick;
   // 4000
   // const wrUrl = process.env.REACT_APP_URL_4000;
   const wrUrl = 'http://localhost:4000';
@@ -30,9 +33,7 @@ const SideBar = ({
         console.log('스프링 통신 완료');
         // res.data : 프로젝트 링크 uuid
         const roomName = res.data;
-        console.log(roomName);
-        // 임시 유저 이름, 후에 세션의 닉네임 받아서 넣어야 함
-        const userName = Cookies.get('CUST_ID');
+        console.log("roomName : ", roomName);
         const response = await axios.post(`${wrUrl}/saveData`, {
           roomName,
           userName,

@@ -206,12 +206,10 @@ async function startCapture() { // 화면 공유 시작
     const screenVideo = document.querySelector("#myFace");
     screenVideo.srcObject = captureStream;
 
-    const myStreamDiv = document.querySelector("#myStream");
-    myStreamDiv.style.width = "80%";  // 원하는 너비로 설정
-    myStreamDiv.style.height = "80%";
-
     screenVideo.onloadedmetadata = () => { // 스트림 로드 완료 시점에서 클래스 변경
       screenVideo.classList.remove('rotateY');
+      socket.emit('screen-sharing', true, roomName);
+      console.log('[Client] Sent screen sharing start event to server');
     };
     await addStreamToPeers();
   } catch (error) {
@@ -229,6 +227,8 @@ async function stopCapture() { // 화면 공유 중지
 
   myFaceVideo.onloadedmetadata = () => { // 스트림 로드 완료 시점에서 클래스 변경
     myFaceVideo.classList.add('rotateY');
+    socket.emit('screen-sharing', false, roomName);
+    console.log('[Client] Sent screen sharing stop event to server');
   };
 
   // 화면 공유 종료 후 새로운 미디어 스트림(카메라 비디오)을 PeerConnection에 추가
@@ -322,7 +322,7 @@ function writeChat(message, className = "a") { // 채팅 메세지를 화면에 
   }
 
   li.appendChild(span);
-  chatBox.prepend(li);
+  chatBox.append(li);
 }
 
 // @Leave Room
@@ -458,6 +458,14 @@ socket.on("answer", async (answer, remoteSocketId) => {
 
 socket.on("ice", async (ice, remoteSocketId) => {
   await PCObject[remoteSocketId].addIceCandidate(ice);
+});
+
+socket.on('screen-sharing', (isSharing) => {
+  if (isSharing) {
+    myFace.classList.remove('rotateY');
+  } else {
+    myFace.classList.add('rotateY');
+  }
 });
 
 socket.on("chat", (message) => {

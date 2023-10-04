@@ -319,16 +319,27 @@ main {
 
 #chatRoom #chatBox .myChat {
   opacity: 0.6;
-  background-color: #ea5936;
+  background-color: #4598FF;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 12px;
+  margin-bottom: 10px;
 }
 
 #chatRoom #chatBox .a {
   opacity: 0.6;
-  background-color: #ea5936;
+  background-color: #4598FF;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 12px;
+  margin-bottom: 10px;
 }
 
 #chatRoom #chatBox .noticeChat {
   color: #4598FF;
+  text-align: center;
+  display: block;
+  padding: 5px 0;
 }
 
 #chatRoom #chatForm {
