@@ -21,7 +21,8 @@ const ProjectInfo = () => {
     const data = { board_id: parseInt(projectId) };
     await axios.post(url, data).then((res) => {
       setProjectTitle(res.data.pro_title);
-      setProjectImg('data:image/;base64,' + res.data.pro_img);
+      res.data.pro_img &&
+        setProjectImg('data:image/;base64,' + res.data.pro_img);
       setFile(base64toFile(res.data.pro_img, '새파일'));
     });
   };

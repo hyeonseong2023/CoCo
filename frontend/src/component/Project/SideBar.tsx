@@ -4,16 +4,19 @@ import Members from './Members';
 import coco from '../../img/CoCo.png';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const SideBar = ({
   setSelectedMenu,
-
+  leader,
 }: // nick,
   {
     setSelectedMenu: (e: string) => void;
+    leader: string;
     // nick: string;
   }) => {
   const [toggleMembers, setToggleMembers] = useState(false);
+  // const userName = Cookies.get('CUST_ID');
 
   const location = useLocation();
   const BOARD_ID = location.state.projectId;
@@ -33,7 +36,9 @@ const SideBar = ({
         console.log('스프링 통신 완료');
         // res.data : 프로젝트 링크 uuid
         const roomName = res.data;
-        console.log("roomName : ", roomName);
+        console.log(roomName);
+        // 임시 유저 이름, 후에 세션의 닉네임 받아서 넣어야 함
+
         const response = await axios.post(`${wrUrl}/saveData`, {
           roomName,
           userName,
@@ -80,19 +85,21 @@ const SideBar = ({
             <div>참여인원</div>
           </div>
         </div>
-        <div
-          className="pro-side-menu-container"
-          onClick={() => {
-            setSelectedMenu('Settings');
-          }}
-        >
-          <img
-            className="pro-side-img"
-            src={process.env.PUBLIC_URL + '/projectImg/settings.png'}
-            alt=""
-          ></img>
-          <div>설정</div>
-        </div>
+        {userName === leader && (
+          <div
+            className="pro-side-menu-container"
+            onClick={() => {
+              setSelectedMenu('Settings');
+            }}
+          >
+            <img
+              className="pro-side-img"
+              src={process.env.PUBLIC_URL + '/projectImg/settings.png'}
+              alt=""
+            ></img>
+            <div>설정</div>
+          </div>
+        )}
         <div
           className="pro-side-menu-container"
           onClick={() => {
