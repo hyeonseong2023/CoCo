@@ -34,7 +34,7 @@ const Page = () => {
   const setEditable = editableContext.setEditable;
 
   useEffect(() => {
-    if (!pageStructure[pageIndex]) return;
+    if (!pageStructure || !pageStructure[pageIndex]) return;
     getContents(
       `projects/${projectId}/pageList/${pageStructure[pageIndex].id}`,
       setContents,
