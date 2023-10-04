@@ -60,7 +60,6 @@ function getPositionColor(position: string) {
 
 const Contents: React.FC<ContentsProps> = ({ categoryData }) => {
   const today = new Date();
-  console.log("컨텐츠!",categoryData);
   return (
     <div>
       <div id='Contents-box'>

@@ -28,10 +28,6 @@ const Header: React.FC<HeaderProps> = ({}) => {
 
   const [custImg, setCustImg] = useState(custProfileImg);
 
-  console.log('아이디', Cookies.get('CUST_ID'));
-  console.log('이미지', Cookies.get('CUST_IMG'));
-
-  //통신 (프로필 이미지)
   const fetchData = async () => {
     const url = `http://localhost:8099/profileimg?cust_id=${custId}`;
     try {
