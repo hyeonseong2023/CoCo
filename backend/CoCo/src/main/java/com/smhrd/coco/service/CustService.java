@@ -114,10 +114,10 @@ public class CustService {
 		// 조인 조건 : 게시글 번호(BOARD_ID)
 		// 응모 테이블(TB_APPLY) & 게시글 테이블(TB_BOARD)
 		List<TB_BOARD> project = mapper.mypageProject(cust_id);
-		
 		JSONArray PROJECT = new JSONArray();
 		
 		for (TB_BOARD pjItem : project) {
+			System.out.println("protitle");
 			
 			JSONObject pjobj = new JSONObject();
 			pjobj.put("BOARD_ID", pjItem.getBoard_id());
@@ -141,8 +141,8 @@ public class CustService {
 				pjobj.put("PRO_IMG", null);
 			}
 			
+
 			PROJECT.add(pjobj);
-			
 		}
 		
 		obj.put("PROJECT", PROJECT);

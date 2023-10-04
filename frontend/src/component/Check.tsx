@@ -8,38 +8,29 @@ const Check: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/getUserData', { withCredentials: true })
-      .then((response) => {
-        const userData = response.data;
-        console.log(response);
-        if(userData.CUST_IMG == "0"){
-          cookies.set('coin',"on", { path: '/' });
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/getUserData', {
+          withCredentials: true,
+        });
+
+        if (response.data.CUST_IMG === '0') {
+          cookies.set('coin', 'on', { path: '/' });
         }
-        console.log("카카오코인" , cookies.get('coin'));
-        
-        if(cookies.get('CUST_ID') === null) {
-          cookies.set('CUST_ID', userData.CUST_ID, { path: '/' });
-          cookies.set('CUST_IMG', userData.CUST_IMG, { path: '/' });
-          console.log("쿠키아이디" , cookies.get('CUST_ID'));
-        } else{
-          cookies.set('CUST_ID', cookies.get('CUST_ID'), { path: '/' });
-          cookies.set('CUST_IMG', cookies.get('CUST_IMG'), { path: '/' });
-        }
+        cookies.set('CUST_ID', response.data.CUST_ID, { path: '/' });
+        cookies.set('CUST_IMG', response.data.CUST_IMG, { path: '/' });
 
         navigate('/');
-      })
-      .catch((error) => {
-        cookies.set('coin',"on", { path: '/' });
+      } catch (error) {
         console.error('Error fetching data:', error);
         navigate('/');
-      });
-  }, []);
+      }
+    };
 
-  return (
-    <div>
+    fetchData();
+  }, [navigate, cookies]);
 
-    </div>
-  );
+  return <div>{}</div>;
 };
 
 export default Check;

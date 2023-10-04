@@ -32,7 +32,7 @@ const Table = ({ boardData }) => {
       <tbody>
         <tr>
           <th className="widthSize">모집인원</th>
-          <td>{member}</td>
+          <td>{member}명</td>
           <th className="widthSize">모집마감</th>
           <td>{deadLine}</td>
         </tr>

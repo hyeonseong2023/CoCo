@@ -33,16 +33,16 @@ public interface MainMapper {
 
 
 	// 최신순 게시글 가져오기 
-	public List<TB_BOARD> recentList(int endpoint); 
+	public List<TB_BOARD> recentList(String cust_id, int endpoint); 
 	
 	// 기술스택명에 맞는 최신순 게시글 가져오기
-	public List<TB_BOARD> skillList(String skill_name, int endpoint );
+	public List<TB_BOARD> skillList(String cust_id, String skill_name, int endpoint );
 	
 	// 포지션에 맞는 최신순 게시글 가져오기
-	public List<TB_BOARD> positionList(String board_position, int endpoint); 
+	public List<TB_BOARD> positionList(String cust_id,String board_position, int endpoint); 
 	
 	// 기술스택과 포지션에 맞는 최신순 게시글 가져오기 
-	public List<TB_BOARD> skillPositionList(String skill_name,String board_position, int endpoint);
+	public List<TB_BOARD> skillPositionList(String cust_id, String skill_name,String board_position, int endpoint);
 	
 	// 해당게시글 작성자의 닉네임 가져오기 
 	public String custNick(String cust_id);

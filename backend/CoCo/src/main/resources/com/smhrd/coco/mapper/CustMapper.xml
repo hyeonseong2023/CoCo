@@ -42,7 +42,7 @@
 		ON B.BOARD_ID =
 		A.BOARD_ID
 		where A.CUST_ID = #{CUST_ID}
-		and A.APPROVE_YN ='Y' ;
+		and A.APPROVE_YN IN ('Y', 'H') ;
 	</select>
 
 	<!-- 마이페이지(회원스킬) -->
