@@ -123,6 +123,11 @@ wsServer.on("connection", (socket) => {
     socket.to(remoteSocketId).emit("ice", ice, socket.id);
   });
 
+  socket.on("screen-sharing", (isSharing, roomName) => {
+    console.log(`[Server] Received screen sharing ${isSharing ? 'start' : 'stop'} event from client`);
+    socket.to(roomName).emit("screen-sharing", isSharing);
+  });
+
   socket.on("chat", (message, roomName) => {
     socket.to(roomName).emit("chat", message);
   });

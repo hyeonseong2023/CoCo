@@ -295,7 +295,7 @@ main {
   padding: 5px 10px;
 
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 
   overflow-y: auto;
   overflow-wrap: break-word;
@@ -304,22 +304,42 @@ main {
   border-top: 1px solid #b7b7b7;
 }
 
-#chatRoom #chatBox li {
+#chatRoom #chatBox li.myChatContainer {
   letter-spacing: 1px;
   margin-bottom: 7px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#chatRoom #chatBox li.aContainer {
+  letter-spacing: 1px;
+  margin-bottom: 7px;
+  display: flex;
 }
 
 #chatRoom #chatBox .myChat {
   opacity: 0.6;
+  background-color: #4598FF;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 12px;
+  margin-bottom: 10px;
 }
 
 #chatRoom #chatBox .a {
-  text-align: right;
+  opacity: 0.6;
+  background-color: #4598FF;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 12px;
+  margin-bottom: 10px;
 }
 
 #chatRoom #chatBox .noticeChat {
   color: #4598FF;
-  ;
+  text-align: center;
+  display: block;
+  padding: 5px 0;
 }
 
 #chatRoom #chatForm {

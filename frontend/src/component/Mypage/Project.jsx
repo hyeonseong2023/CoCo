@@ -17,7 +17,6 @@ const Project = ({ data }) => {
     proId: item.BOARD_ID, //게시글 아이디
     proLeader: item.PRO_LEADER,
     proTitle: item.PRO_TITLE, // 프로젝트 명
-    //  proLink : item.PRO_LINK, // 보드아이디
     proImg: item.PRO_IMG, //프로젝트 이미지
   }));
 

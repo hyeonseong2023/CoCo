@@ -205,8 +205,11 @@ async function startCapture() { // 화면 공유 시작
 
     const screenVideo = document.querySelector("#myFace");
     screenVideo.srcObject = captureStream;
+
     screenVideo.onloadedmetadata = () => { // 스트림 로드 완료 시점에서 클래스 변경
       screenVideo.classList.remove('rotateY');
+      socket.emit('screen-sharing', true, roomName);
+      console.log('[Client] Sent screen sharing start event to server');
     };
     await addStreamToPeers();
   } catch (error) {
@@ -221,8 +224,11 @@ async function stopCapture() { // 화면 공유 중지
   // 원래의 카메라 비디오로 전환
   await getMedia();
   const myFaceVideo = document.querySelector("#myFace");
+
   myFaceVideo.onloadedmetadata = () => { // 스트림 로드 완료 시점에서 클래스 변경
     myFaceVideo.classList.add('rotateY');
+    socket.emit('screen-sharing', false, roomName);
+    console.log('[Client] Sent screen sharing stop event to server');
   };
 
   // 화면 공유 종료 후 새로운 미디어 스트림(카메라 비디오)을 PeerConnection에 추가
@@ -282,15 +288,15 @@ function handleChatSubmit(event) { // 채팅 메세지 제출
 
       socket.emit("chat_file", arrayBuffer, `${nickname}: <a href="${blobUrl}" download="${file.name}">${file.name}</a>`, roomName);
 
-      writeChat(`You: <a href="${blobUrl}" download="${file.name}">${file.name}</a>`, MYCHAT_CN);
+      writeChat(`<a href="${blobUrl}" download="${file.name}">${file.name}</a>`, MYCHAT_CN);
     };
     reader.readAsArrayBuffer(file);
 
     fileInput.value = "";
   } else { // 파일 첨부가 없는 경우 (일반 메세지)
     console.log(`Sending chat to room: ${roomName}`);
-    socket.emit("chat", `${message} :${nickname}`, roomName);
-    writeChat(`You: ${message}`, MYCHAT_CN);
+    socket.emit("chat", ` ${nickname}:${message}`, roomName);
+    writeChat(`${message}`, MYCHAT_CN);
   }
 
   chatInput.value = "";
@@ -298,9 +304,11 @@ function handleChatSubmit(event) { // 채팅 메세지 제출
 
 function writeChat(message, className = "a") { // 채팅 메세지를 화면에 표시
   const li = document.createElement("li");
+  const span = document.createElement("span");
   console.log('className:', className);
   if (className) {
-    li.classList.add(className);
+    span.classList.add(className);
+    li.classList.add(className + 'Container');
   }
 
   console.log('Message:', message);
@@ -308,18 +316,13 @@ function writeChat(message, className = "a") { // 채팅 메세지를 화면에 
   const isFileMessageRegex = /<a href="(.*)" download="(.*)">(.*)<\/a>/;
 
   if (isFileMessageRegex.test(message)) {
-    li.innerHTML = message;
+    span.innerHTML = message;
   } else {
-    li.textContent = message;
+    span.textContent = message;
   }
 
-  if (isFileMessageRegex.test(message)) {
-    li.innerHTML = message;
-  } else {
-    li.textContent = message;
-  }
-
-  chatBox.prepend(li);
+  li.appendChild(span);
+  chatBox.append(li);
 }
 
 // @Leave Room
@@ -455,6 +458,14 @@ socket.on("answer", async (answer, remoteSocketId) => {
 
 socket.on("ice", async (ice, remoteSocketId) => {
   await PCObject[remoteSocketId].addIceCandidate(ice);
+});
+
+socket.on('screen-sharing', (isSharing) => {
+  if (isSharing) {
+    myFace.classList.remove('rotateY');
+  } else {
+    myFace.classList.add('rotateY');
+  }
 });
 
 socket.on("chat", (message) => {

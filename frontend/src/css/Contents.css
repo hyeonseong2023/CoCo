@@ -1,3 +1,7 @@
+.postContents>div>*>img {
+  max-width: 950px;
+}
+
 #Contents-box {
   display: flex;
   flex-wrap: wrap;
@@ -18,124 +22,128 @@
   background-color: rgb(255, 255, 255);
   margin-bottom: 20px;
   border: #D6D6D6 1px solid;
-  border-radius: 20px 20px 20px 20px; 
+  border-radius: 20px 20px 20px 20px;
 }
-.boxA_img{
+
+.boxA_img {
   margin-top: 1.5%;
 }
 
-.Contentsbox{
+.Contentsbox {
   display: flex;
 }
 
 
-.Contentsbox-A{
+.Contentsbox-A {
   width: 75%;
   margin-left: 5%;
 }
 
-.boxA_img > img{
+.boxA_img>img {
   width: 5%;
   height: 5%;
 }
 
-.boxA_dead{
+.boxA_dead {
   height: 33%;
 }
-.boxA_dead>div{
+
+.boxA_dead>div {
   margin-top: 2%;
 }
 
-.boxA_title{
+.boxA_title {
   height: 30%;
 }
 
-.boxA_title>div{
+.boxA_title>div {
   font-size: 1.3rem;
 }
-.boxA_img>div>img{
+
+.boxA_img>div>img {
   width: 4%;
 }
 
-.Contentsbox-A{
-  height: 100%;
-}
-.Contentsbox-c{
+.Contentsbox-A {
   height: 100%;
 }
 
-.Contentsbox{
+.Contentsbox-c {
   height: 100%;
 }
 
-.boxB_title{
+.Contentsbox {
+  height: 100%;
+}
+
+.boxB_title {
   margin-top: 5%;
 }
 
-.boxB_2{
+.boxB_2 {
   padding-top: 8%;
 }
 
-.boxB_bookmark{
+.boxB_bookmark {
   margin-top: 1%;
   width: 10%;
 }
 
-.Contentsbox-B{
+.Contentsbox-B {
   margin-top: 1%;
   width: 20%;
   margin-left: 3%;
 }
 
 
-.ContentsLine{
+.ContentsLine {
   background-color: rgb(221 231 233);
   width: 3px;
 }
 
-.Content-topTail{
+.Content-topTail {
   width: 25%;
 
 
 }
 
-.Content-topicon1{
+.Content-topicon1 {
   height: 10%;
   margin-top: 13%;
   margin-left: 5%;
   font-size: 1.1rem;
 }
 
-.Content-topicon2>div{
+.Content-topicon2>div {
   font-size: 1.1rem
 }
 
-.Content-topicon1{
+.Content-topicon1 {
   margin-left: 10%;
 }
 
-.Content-topicon2Sub{
+.Content-topicon2Sub {
   margin-left: 5%;
 }
 
-.Content-topicon2{
+.Content-topicon2 {
   height: 20%;
   margin-left: 5%;
   margin-top: 5%;
 }
 
-.Content-topicon2 > div{
+.Content-topicon2>div {
   width: 40%;
   height: 50%;
   width: 100%;
 }
 
-.Content-topicon2 > div{
+.Content-topicon2>div {
   margin-bottom: 5%;
 }
 
 
-.Content-topicon2 > div >div{
+.Content-topicon2>div>div {
   margin-left: 2.5%;
   margin-right: 2.5%;
   font-size: 0.945rem;
@@ -146,11 +154,11 @@
   display: grid;
   grid-template-columns: repeat(2, 2fr);
   margin-left: 3%;
-  gap:10px
+  gap: 10px
 }
 
-.topiconbox > div {
-  border-radius: 30px 30px 30px 30px; 
+.topiconbox>div {
+  border-radius: 30px 30px 30px 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -159,69 +167,70 @@
   font-size: 16px;
 }
 
-.topiconbox{
+.topiconbox {
   width: 60%;
 }
 
-.Contentsbox-A > .contentHeader > .topHeader-day{
+.Contentsbox-A>.contentHeader>.topHeader-day {
   margin-left: 0%;
   margin-bottom: 2%;
 }
 
-.boxA_img>div>img{
-width: 40px;
-    min-width: 40px;
-    min-height: 40px;
-    height: 40px;
-    overflow: hidden;
-    border-radius: 60%;
-    border: solid #ccc 1px;
+.boxA_img>div>img {
+  width: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 60%;
+  border: solid #ccc 1px;
 }
 
-.boxB_1>img{
+.boxB_1>img {
   margin-left: 50%;
 }
 
-.boxA_title{
+.boxA_title {
   padding-bottom: 3%;
 }
 
-.boxB_1{
+.boxB_1 {
   margin-top: 30%;
   margin-bottom: 47%;
 }
-.boxA_img{
+
+.boxA_img {
   display: flex;
 
   align-items: center;
 }
 
-.contentsNick{
+.contentsNick {
   margin-left: 1%;
 }
 
-.boxB_2>img{
+.boxB_2>img {
   width: 35px;
-  
+
 }
 
-.boxB_2{
+.boxB_2 {
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   margin-top: 30%;
 }
 
-.topend3 >img{
+.topend3>img {
   width: 20%;
 }
 
-.skillImg{
+.skillImg {
   width: 400px;
 
 }
 
-.topHeader-daya{
+.topHeader-daya {
   width: 100px;
   align-items: center;
   border-radius: 3%;
@@ -234,6 +243,6 @@ width: 40px;
   align-items: center;
 }
 
-.topHeader-day{
+.topHeader-day {
   background-color: rgb(136, 135, 135);
 }
