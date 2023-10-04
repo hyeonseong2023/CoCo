@@ -62,6 +62,7 @@ div.vertical-line {
 .pro-side-img {
   height: 20px;
   width: 20px;
+  cursor: pointer;
 }
 
 .pro-side-img-coco {
