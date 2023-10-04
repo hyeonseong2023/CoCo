@@ -29,7 +29,7 @@ public class ProjectController {
 	@Autowired
 	private ProjectService service;
 	
-	//프로젝트 응모 수락여부 Y인 멤버들 닉네임, 프로필사진 정보 보내기
+	//프로젝트 응모 수락여부 Y, H인 멤버들 닉네임, 프로필사진 정보 보내기
 	@PostMapping("/projectmemberlist")
 	public List<TB_CUST> projectMemberList(@RequestBody JSONObject obj) {
 		List<TB_CUST> array = service.projectMemberList((Integer)obj.get("board_id"));

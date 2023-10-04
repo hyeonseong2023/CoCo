@@ -4,13 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.coco.mapper.ProjectMapper">
 
-	<!-- 프로젝트 응모 수락여부 Y인 멤버들 닉네임, 프로필사진 정보 보내기 -->
+	<!-- 프로젝트 응모 수락여부 Y, H인 멤버들 닉네임, 프로필사진 정보 보내기 -->
 	<select id="projectMemberList" resultType="com.smhrd.coco.domain.TB_CUST">
 		SELECT C.CUST_NICK, C.CUST_IMG
 		FROM TB_BOARD B
 		INNER JOIN TB_APPLY A ON B.BOARD_ID = A.BOARD_ID
 		INNER JOIN TB_CUST C ON A.CUST_ID = C.CUST_ID
-		WHERE B.BOARD_ID = #{board_id} AND A.APPROVE_YN = 'Y';
+		WHERE B.BOARD_ID = #{board_id} AND A.APPROVE_YN IN ('H', 'Y');
 	</select>
 	
 	<!-- 프로젝트 응모 수락여부 N인 유저 아이디, 닉네임, 프로필사진 -->
