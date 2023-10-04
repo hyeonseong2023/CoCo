@@ -159,6 +159,7 @@ const Portfolio = ({ data, anotherId }) => {
             onClick={openAddModal}
           />
         )}
+        {anotherId && <div className="port-add-button"></div>}
       </div>
       {portfolioData.length == 0 && (
         <div className="nullText"> 포트폴리오를 추가해주세요 </div>

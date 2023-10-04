@@ -68,3 +68,7 @@ li.slick-active button:before {
 .banner-space{
   margin-top: 50px;
 }
+
+.postContents > div> * > img{
+  max-width: 950px;
+}
