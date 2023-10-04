@@ -43,8 +43,11 @@ const TopPosts = () => {
         pro_img: item.pro_img,
         board_views: item.board_views,
         cust_nick: item.cust_nick,
-        bmkimg: item.bmkimg
+        bmkimg: item.bmkimg,
+        cust_img: item.cust_img
       }));
+      console.log(fetchedData);
+      
       setSlideContents(fetchedData);
 
     } catch (error) {
@@ -148,7 +151,7 @@ const TopPosts = () => {
                   <div className='topend'><div className='topend1'>
                     <div>
                       <img
-                        src={data.pro_img ? 'data:image/;base64,' + data.pro_img : img}
+                        src={data.pro_img ? 'data:image/;base64,' + data.cust_img : img}
                         alt="이미지 출력되지 않았음"
                         className="user-img"
                       ></img>
