@@ -31,13 +31,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  /* 반투명한 검은 배경 */
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
-  /* 다른 요소 위에 띄우기 */
 }
 
 /* 팝업 스타일 */
