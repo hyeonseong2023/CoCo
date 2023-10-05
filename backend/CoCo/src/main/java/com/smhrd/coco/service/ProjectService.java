@@ -2,6 +2,7 @@ package com.smhrd.coco.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -72,6 +73,15 @@ public class ProjectService {
 	public int projectInfoUpdate(String pro_img, int board_id, String pro_title) {
 		return mapper.projectInfoUpdate(pro_img, board_id, pro_title);
 	}
+	
+	//알림 닉네임, 프로필사진 가져오기
+		public List<TB_CUST> getNotiList(List<String> list){
+			List<TB_CUST> notiList = new ArrayList<>();
+			for (int i = 0; i < list.size(); i++) {
+				notiList.add(mapper.getNoti(list.get(i)));
+			}
+			return setCustImg(notiList);
+		}
 	
 	
 	

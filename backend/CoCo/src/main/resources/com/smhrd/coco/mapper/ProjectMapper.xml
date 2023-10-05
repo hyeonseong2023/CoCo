@@ -41,7 +41,13 @@
 	<update id="projectInfoUpdate">
 		UPDATE TB_BOARD SET PRO_TITLE = #{pro_title}, PRO_IMG = #{pro_img} WHERE BOARD_ID = #{board_id};
 	</update>
-
+	
+	<!-- 알림 닉네임, 프로필사진 가져오기 -->
+	<select id="getNoti" resultType="com.smhrd.coco.domain.TB_CUST">
+		SELECT CUST_NICK, CUST_IMG
+		FROM TB_CUST
+		WHERE CUST_ID = #{cust_id};
+	</select>
 
 
 </mapper>

@@ -88,6 +88,12 @@ public class ProjectController {
 		return 0;
 	}
 
+	// 알림 닉네임, 프로필사진 불러오기
+		@PostMapping("/notification")
+		public List<TB_CUST> getNotiList(@RequestBody JSONObject obj){
+			List<String> list =  (List<String>) obj.get("notiList");
+			return service.getNotiList(list);
+		}
 	
 
 }
