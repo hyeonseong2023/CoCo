@@ -6,7 +6,7 @@ export const getImgUrl = (
   name: string,
   setImgUrl: (imgUrl: string) => void
 ) => {
-  getDownloadURL(ref(storage, `images/${name + id}`)).then((snapshot) => {
+  getDownloadURL(ref(storage, `images/${id + name}`)).then((snapshot) => {
     console.log('getDownloadUrl', snapshot);
 
     snapshot && setImgUrl(snapshot);

@@ -267,6 +267,32 @@ const Content = ({
     );
   };
 
+  const hrTag = () => {
+    return (
+      <div
+        onMouseOver={() => {
+          setIseHovering(true);
+        }}
+        onMouseLeave={() => {
+          setIseHovering(false);
+        }}
+        style={{ display: 'flex', height: '22px', border: 'white' }}
+      >
+        <hr style={{ width: '100%', height: '0px' }} />
+        <img
+          style={{
+            display: isHovering ? 'inline' : 'none',
+            height: '20px',
+            width: '20px',
+          }}
+          onClick={deleteFile}
+          src={process.env.PUBLIC_URL + '/projectImg/deleteFile.png'}
+          alt=""
+        ></img>
+      </div>
+    );
+  };
+
   const deleteFile = () => {
     // eslint-disable-next-line no-restricted-globals
     if (confirm('삭제하시겠습니까?')) {
@@ -317,11 +343,7 @@ const Content = ({
       case 'file':
         return <div>{fileTag()}</div>;
       case 'hr':
-        return (
-          <div>
-            <hr />
-          </div>
-        );
+        return <div>{hrTag()}</div>;
       case 'image':
         return <div>{imgTag()}</div>;
       default:
