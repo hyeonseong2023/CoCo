@@ -16,31 +16,28 @@ const Write = () => {
   const initialContent =
     boardData === null
       ? {
-          recruitmentCount: 1,
-          techStack: [] as string[],
-          duration: 1,
-          position: '',
-          startDate: new Date(),
-          endDate: new Date(),
-          openTalkLink: '',
-          deadline: '',
-          recruitmentType: '프로젝트',
-        }
+        recruitmentCount: 1,
+        techStack: [] as string[],
+        duration: 1,
+        position: [] as string[],
+        startDate: new Date(),
+        endDate: new Date(),
+        openTalkLink: '',
+        deadline: '',
+        recruitmentType: '프로젝트',
+      }
       : {
-          recruitmentCount: boardData?.TB_BOARD.board_members,
-          techStack: boardData?.TB_BOARD_SKILL,
-          duration: boardData?.TB_BOARD.board_period,
-          position: boardData?.TB_BOARD.board_position
-            .split(',')
-            .map((item: string) => {
-              return { label: item, value: item };
-            }),
-          startDate: boardData?.TB_BOARD.board_deadline,
-          endDate: boardData?.board_deadline,
-          openTalkLink: boardData?.TB_BOARD.board_openlink,
-          deadline: boardData?.TB_BOARD.board_deadline,
-          recruitmentType: '프로젝트',
-        };
+        recruitmentCount: boardData?.TB_BOARD.board_members,
+        techStack: boardData?.TB_BOARD_SKILL,
+        duration: boardData?.TB_BOARD.board_period,
+        position: boardData?.TB_BOARD.board_position,
+        startDate: boardData?.TB_BOARD.board_deadline,
+        endDate: boardData?.board_deadline,
+        openTalkLink: boardData?.TB_BOARD.board_openlink,
+        deadline: boardData?.TB_BOARD.board_deadline,
+        recruitmentType: '프로젝트',
+      };
+
   console.log(initialContent);
 
   const [selectedPosition, setSelectedPosition] = useState(

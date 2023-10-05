@@ -72,3 +72,11 @@ li.slick-active button:before {
 .postContents > div> * > img{
   max-width: 950px;
 }
+
+.top-posts-slide-content:hover {
+  background-color: rgb(242, 242, 242);
+}
+
+.Contentsbox:hover{
+  background-color: rgb(242, 242, 242);
+}
