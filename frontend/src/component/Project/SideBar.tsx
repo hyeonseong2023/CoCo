@@ -10,18 +10,18 @@ const SideBar = ({
   setSelectedMenu,
   leader,
 }: // nick,
-{
-  setSelectedMenu: (e: string) => void;
-  leader: string;
-  // nick: string;
-}) => {
+  {
+    setSelectedMenu: (e: string) => void;
+    leader: string;
+    // nick: string;
+  }) => {
   const [toggleMembers, setToggleMembers] = useState(false);
   const userId = Cookies.get('CUST_ID');
 
   const location = useLocation();
   const BOARD_ID = location.state.projectId;
-  // const userName = location.state.nick;
-  const userName = "코딩의 신";
+  const userName = location.state.nick;
+  // const userName = "코딩의 신";
   // 4000
   const wrUrl = process.env.REACT_APP_URL_4000;
   // const wrUrl = 'http://localhost:4000';
