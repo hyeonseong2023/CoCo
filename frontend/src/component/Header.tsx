@@ -104,9 +104,9 @@ const Header: React.FC<HeaderProps> = ({}) => {
         </div>
         <div className="header-buttons">
           <div className="header-buttons-div">
-            <Link to="/write" className="writeicon">
+          <div className='writeicon' onClick={handleWriteClick}>
               <button>모집글 작성</button>
-            </Link>
+          </div>
             {isLoggedIn ? ( //로그인 후
               <div>
                 <Notification custId={custId!} />

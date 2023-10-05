@@ -20,10 +20,10 @@ const Check: React.FC = () => {
         cookies.set('CUST_ID', response.data.CUST_ID, { path: '/' });
         cookies.set('CUST_IMG', response.data.CUST_IMG, { path: '/' });
 
-        navigate('/');
+        window.location.replace("/")
       } catch (error) {
         console.error('Error fetching data:', error);
-        navigate('/');
+        window.location.replace("/")
       }
     };
 

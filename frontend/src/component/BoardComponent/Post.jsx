@@ -38,7 +38,7 @@ const Post = ({ data, boardData }) => {
   const [title, setTitle] = useState(boardData.TB_BOARD.board_title);
   const [views, setViews] = useState(boardData.TB_BOARD.board_views);
   const [date, setDate] = useState(boardData.TB_BOARD.board_dt);
-  const [dDay, setDday] = useState(boardData.D_day - 1);
+  const [dDay, setDday] = useState(boardData.D_day);
   const [content, setContent] = useState(boardData.TB_BOARD.board_content);
   const [boardImg, setBoardImg] = useState(boardData.TB_BOARD_IMG?.board_IMG);
   const [custNick, setCustNick] = useState(boardData.createCust.cust_nick);
@@ -151,7 +151,9 @@ const Post = ({ data, boardData }) => {
         {/* 상단 모집기간 남은일수 */}
         <div className="image-container">
           <img src={deadline} alt="deadLine" width={80} />
-          <p className="text-on-image">{dDay}일 남음</p>
+          <p className="text-on-image">
+            {dDay <= 0 ? '마감' : `${dDay}일 남음`}
+          </p>
         </div>
 
         <div className="leftRight">
@@ -180,78 +182,81 @@ const Post = ({ data, boardData }) => {
                 className="projectDeadlineImg"
                 src={projectDeadlineImg}
                 style={{
-                  display: dDay == 0 ? 'block' : 'none',
+                  display: dDay <= 0 ? 'block' : 'none',
                 }}
               />
               {/* 게시글 삭제 버튼 */}
-              <img
-                onClick={postDeleteClick}
-                alt=""
-                className="deleteBtn"
-                src={deleteBtn}
-                style={{
-                  display:
-                    boardCreateId === loginUserId && dDay != 0
-                      ? 'block'
-                      : 'none',
-                  // display: boardCreateId === loginUserId ? 'block' : 'none',
-                }}
-              />
-              {/* 게시글 수정 버튼 */}
-              <Link to="/Write" state={boardData}>
+              <div style={{ display: dDay <= 0 && 'none' }}>
                 <img
+                  onClick={postDeleteClick}
                   alt=""
-                  className="modifyBtn"
-                  src={modifyBtn}
+                  className="deleteBtn"
+                  src={deleteBtn}
                   style={{
                     display:
-                      boardCreateId === loginUserId && dDay != 0
+                      boardCreateId === loginUserId && dDay <= 0
                         ? 'block'
                         : 'none',
                     // display: boardCreateId === loginUserId ? 'block' : 'none',
                   }}
                 />
-              </Link>
-              {/* 게시글 모집마감 버튼 */}
-              <img
-                onClick={dedlinePopup}
-                alt=""
-                className="deadlineBtn"
-                src={deadlineBtn}
-                style={{
-                  display:
-                    boardCreateId === loginUserId && dDay != 0
-                      ? 'block'
-                      : 'none',
-                  // display: boardCreateId === loginUserId ? 'block' : 'none',
-                }}
-              />
-              {/* 북마크 버튼 */}
-              <img
-                className="bmkImg"
-                src={isEmptyBmk ? blueBookmark : bookmark}
-                onClick={toggleBmk}
-                style={{
-                  display:
-                    loginUserId && boardCreateId !== loginUserId && dDay != 0
-                      ? 'block'
-                      : 'none',
-                }}
-                alt="bmkImg"
-              />
-              {/* 지원하기 버튼 */}
-              <img
-                className="applybtn"
-                src={isApply ? notApply : applyButton}
-                onClick={toggleApply}
-                style={{
-                  display:
-                    loginUserId && boardCreateId !== loginUserId && dDay != 0
-                      ? 'block'
-                      : 'none',
-                }}
-                alt="applyButton"
-              />
+                {/* 게시글 수정 버튼 */}
+                <Link to="/Write" state={boardData}>
+                  <img
+                    alt=""
+                    className="modifyBtn"
+                    src={modifyBtn}
+                    style={{
+                      display:
+                        boardCreateId === loginUserId && dDay <= 0
+                          ? 'block'
+                          : 'none',
+                      // display: boardCreateId === loginUserId ? 'block' : 'none',
+                    }}
+                  />
+                </Link>
+                {/* 게시글 모집마감 버튼 */}
+                <img
+                  onClick={dedlinePopup}
+                  alt=""
+                  className="deadlineBtn"
+                  src={deadlineBtn}
+                  style={{
+                    display:
+                      boardCreateId === loginUserId && dDay <= 0
+                        ? 'block'
+                        : 'none',
+                    // display: boardCreateId === loginUserId ? 'block' : 'none',
+                  }}
+                />
+
+                {/* 북마크 버튼 */}
+                <img
+                  className="bmkImg"
+                  src={isEmptyBmk ? blueBookmark : bookmark}
+                  onClick={toggleBmk}
+                  style={{
+                    display:
+                      loginUserId && boardCreateId !== loginUserId && dDay != 0
+                        ? 'block'
+                        : 'none',
+                  }}
+                  alt="bmkImg"
+                />
+                {/* 지원하기 버튼 */}
+                <img
+                  className="applybtn"
+                  src={isApply ? notApply : applyButton}
+                  onClick={toggleApply}
+                  style={{
+                    display:
+                      loginUserId && boardCreateId !== loginUserId && dDay != 0
+                        ? 'block'
+                        : 'none',
+                  }}
+                  alt="applyButton"
+                />
+              </div>
             </div>
             {/* 게시글 조회수, 조회수아이콘, 게시글 작성 날짜 */}
             <div className="rightBottom">

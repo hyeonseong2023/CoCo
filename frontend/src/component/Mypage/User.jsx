@@ -235,7 +235,7 @@ const User = ({ data, anotherId }) => {
   const handleLogout = () => {
     Cookies.remove('CUST_ID'); // 아이디 쿠키 삭제
     Cookies.remove('CUST_IMG'); // 이미지 쿠키삭제
-    navigator('/'); // 메인 페이지로 이동
+    window.location.replace("/")
   };
 
   return (

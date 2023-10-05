@@ -10,17 +10,18 @@ const SideBar = ({
   setSelectedMenu,
   leader,
 }: // nick,
-{
-  setSelectedMenu: (e: string) => void;
-  leader: string;
-  // nick: string;
-}) => {
+  {
+    setSelectedMenu: (e: string) => void;
+    leader: string;
+    // nick: string;
+  }) => {
   const [toggleMembers, setToggleMembers] = useState(false);
   const userId = Cookies.get('CUST_ID');
 
   const location = useLocation();
   const BOARD_ID = location.state.projectId;
   const userName = location.state.nick;
+  // const userName = "코딩의 신";
   // 4000
   const wrUrl = process.env.REACT_APP_URL_4000;
   // const wrUrl = 'http://localhost:4000';
@@ -82,7 +83,7 @@ const SideBar = ({
               src={process.env.PUBLIC_URL + '/projectImg/members.png'}
               alt=""
             ></img>
-            <div>참여인원</div>
+            <div className='cusrsor'>참여인원</div>
           </div>
         </div>
         {userId === leader && (
@@ -97,7 +98,7 @@ const SideBar = ({
               src={process.env.PUBLIC_URL + '/projectImg/settings.png'}
               alt=""
             ></img>
-            <div>설정</div>
+            <div className='cusrsor'>설정</div>
           </div>
         )}
         <div
@@ -111,7 +112,7 @@ const SideBar = ({
             src={process.env.PUBLIC_URL + '/projectImg/callendar.png'}
             alt=""
           ></img>
-          <div>일정관리</div>
+          <div className='cusrsor'>일정관리</div>
         </div>
         <div className="pro-side-menu-container" onClick={handleClick}>
           <img
@@ -119,7 +120,7 @@ const SideBar = ({
             src={process.env.PUBLIC_URL + '/projectImg/video.png'}
             alt=""
           ></img>
-          <div>화상회의</div>
+          <div className='cusrsor'>화상회의</div>
         </div>
         <div
           className="pro-side-document-container"

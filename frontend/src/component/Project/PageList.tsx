@@ -64,7 +64,7 @@ const PageList = () => {
             />
           ))}
       </DndProvider>
-      <div onClick={handleAddPage}>+ 페이지 추가</div>
+      <div onClick={handleAddPage} className='cusrsor'>+ 페이지 추가</div>
     </div>
   );
 };
