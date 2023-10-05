@@ -193,7 +193,7 @@ const Main: React.FC<MainProps> = () => {
           <div className="no-data-message"><h3>조회된 프로젝트가 없습니다!! 😂 👀</h3></div>
         )}
       </div>
-      <div className={`more-button-container ${categoryData.length <= 0||isMyPosts || isBookmarked || isApplied ? 'hidden' : ''}`}>
+      <div className={`more-button-container ${categoryData.length < 5||isMyPosts || isBookmarked || isApplied ? 'hidden' : ''}`}>
         <button className="more-button" onClick={handleLoadMore}>
           더 보기
         </button>
