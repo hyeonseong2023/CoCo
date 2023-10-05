@@ -108,8 +108,8 @@
     justify-content: center; /* 가로 가운데 정렬 */
     align-items: center; /* 세로 가운데 정렬 */
 }
-.topHeader-day{
-  background-color: rgb(136, 135, 135);
+.contentHeader>div{
+  background-color: rgb(136, 135, 135)!important;
 }
 
 
