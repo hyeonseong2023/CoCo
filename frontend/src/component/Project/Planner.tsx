@@ -108,12 +108,12 @@ const Planner = ({ initialEvents }: { initialEvents: EventInput[] }) => {
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
-            initialEvents={initialEvents} // alternatively, use the `events` setting to fetch from a feed
+            initialEvents={initialEvents}
             events={data}
             select={handleDateSelect}
-            eventContent={renderEventContent} // custom render function
+            eventContent={renderEventContent}
             eventClick={handleEventClick}
-            eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+            eventsSet={handleEvents}
           />
         </div>
       </div>

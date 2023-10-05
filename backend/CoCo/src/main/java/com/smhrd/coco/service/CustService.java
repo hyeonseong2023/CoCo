@@ -122,6 +122,7 @@ public class CustService {
 			JSONObject pjobj = new JSONObject();
 			pjobj.put("BOARD_ID", pjItem.getBoard_id());
 			pjobj.put("PRO_TITLE", pjItem.getPro_title());
+			pjobj.put("PRO_LEADER", pjItem.getCust_id());
 			pjobj.put("PRO_LINK", pjItem.getPro_link());
 			
 			// 프로젝트 이미지 

@@ -316,6 +316,12 @@ const Content = ({
         return <h3>{editableTag()}</h3>;
       case 'file':
         return <div>{fileTag()}</div>;
+      case 'hr':
+        return (
+          <div>
+            <hr />
+          </div>
+        );
       case 'image':
         return <div>{imgTag()}</div>;
       default:

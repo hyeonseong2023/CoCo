@@ -8,7 +8,7 @@ const Overlay = () => {
     throw new Error('Context must be used within a PageProvider');
   }
   const { overlayRef, overlayIndex, overlayXY } = overlayContext;
-  const itemList = ['기본', '페이지', '제목1', '제목2', '할 일 목록', '구분선'];
+  const itemList = ['기본', '제목1', '제목2', '구분선'];
   const TextItemList = styled.ul`
     transform: translate(
       0px,
