@@ -68,7 +68,7 @@ const Post = ({ data, boardData }) => {
 
     await axios
       .get(`${apiUrl}/${data}/${Cookies.get('CUST_ID')}`)
-      .then((res) => {});
+      .then((res) => { });
   };
 
   const toggleBmk = () => {
@@ -186,7 +186,9 @@ const Post = ({ data, boardData }) => {
                 }}
               />
               {/* 게시글 삭제 버튼 */}
-              <div style={{ display: dDay <= 0 && 'none' }}>
+              <div
+                style={{ display: dDay <= 0 && 'none' }}
+              >
                 <img
                   onClick={postDeleteClick}
                   alt=""
@@ -194,7 +196,7 @@ const Post = ({ data, boardData }) => {
                   src={deleteBtn}
                   style={{
                     display:
-                      boardCreateId === loginUserId && dDay <= 0
+                      boardCreateId === loginUserId
                         ? 'block'
                         : 'none',
                     // display: boardCreateId === loginUserId ? 'block' : 'none',
@@ -208,7 +210,7 @@ const Post = ({ data, boardData }) => {
                     src={modifyBtn}
                     style={{
                       display:
-                        boardCreateId === loginUserId && dDay <= 0
+                        boardCreateId === loginUserId
                           ? 'block'
                           : 'none',
                       // display: boardCreateId === loginUserId ? 'block' : 'none',
@@ -223,7 +225,7 @@ const Post = ({ data, boardData }) => {
                   src={deadlineBtn}
                   style={{
                     display:
-                      boardCreateId === loginUserId && dDay <= 0
+                      boardCreateId === loginUserId
                         ? 'block'
                         : 'none',
                     // display: boardCreateId === loginUserId ? 'block' : 'none',

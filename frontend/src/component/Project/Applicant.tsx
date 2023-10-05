@@ -52,7 +52,7 @@ const Applicant = ({
   };
 
   const decline = async () => {
-    const url = `${process.env.REACT_APP_URL_8099}/projectdecline`;
+    const url = `${process.env.REACT_APP_URL_8099}/applydecline`;
     const data = {
       board_id: parseInt(projectId),
       cust_id: applicants[index].cust_id,
