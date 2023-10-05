@@ -9,7 +9,7 @@
 		   INSERT INTO TB_BOARD (CUST_ID, BOARD_TITLE, BOARD_MEMBERS, BOARD_PERIOD, BOARD_DEADLINE,
                        BOARD_OPENLINK, BOARD_CONTENT, BOARD_VIEWS, BOARD_POSITION, PRO_TITLE, PRO_IMG, PRO_LINK)
                  VALUES (#{cust_id},#{board_title},#{board_members},#{board_period},#{board_deadline},#{board_openlink},#{board_content},
-                         #{board_views},#{board_position},#{pro_title},#{pro_img},#{pro_link});
+                         #{board_views},#{board_position},#{board_title},#{pro_img},#{pro_link});
 	</insert>
 	
 	<!-- TB_BOARD 정보 업데이트 -->
