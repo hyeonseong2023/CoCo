@@ -20,7 +20,8 @@ const SideBar = ({
 
   const location = useLocation();
   const BOARD_ID = location.state.projectId;
-  const userName = location.state.nick;
+  // const userName = location.state.nick;
+  const userName = "코딩의 신";
   // 4000
   const wrUrl = process.env.REACT_APP_URL_4000;
   // const wrUrl = 'http://localhost:4000';
