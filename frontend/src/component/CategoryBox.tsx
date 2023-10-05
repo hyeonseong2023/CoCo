@@ -46,6 +46,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   };
 
   const categoryOptions1: CategoryOption[] = [
+    { value: null, label: "선택없음" },
     { label: "javascript", value: "javascript" },
     { label: "HTML", value: "HTML" },
     { label: "CSS", value: "CSS" },
@@ -75,6 +76,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   ];
 
   const categoryOptions2: CategoryOption[] = [
+    { value: null, label: "선택없음" },
     { value: "백엔드", label: "백엔드" },
     { value: "프론트엔드", label: "프론트엔드" },
     { value: "디자이너", label: "디자이너" },
@@ -101,9 +103,12 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   const customStyles = {
     control: (provided: any) => ({
       ...provided,
-      width: 200,
+      width: 200, // 너비 조절
     }),
-
+    option: (provided: any) => ({
+      ...provided,
+      whiteSpace: 'normal', // 텍스트 줄 바꿈 허용
+    }),
   };
   return (
     <div className='category_main'>
