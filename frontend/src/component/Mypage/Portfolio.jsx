@@ -11,6 +11,7 @@ import addBtn from '../../img/addBtn.png';
 import fileSelect from '../../img/FileSelect.png';
 import hamburger from '../../img/hamburger.png';
 import Cookies from 'js-cookie';
+import Login from '../Login';
 
 const Portfolio = ({ data, anotherId }) => {
   const custId = data.CUST_ID; // 마이페이지 아이디
@@ -23,7 +24,7 @@ const Portfolio = ({ data, anotherId }) => {
     text: item.PF_TITLE, //파일이름
   }));
 
-  useEffect(() => {}, [portfolioData]);
+  useEffect(() => { }, [portfolioData]);
 
   const [addModalOpen, setAddModalOpen] = useState(false); // 포트폴리오 추가버튼 모달창 노출 여부
   const [nameModalOpen, setNameModalOpen] = useState(false); // 포트폴리오명 수정버튼 노출 여부
@@ -161,7 +162,7 @@ const Portfolio = ({ data, anotherId }) => {
         )}
         {anotherId && <div className="port-add-button"></div>}
       </div>
-      {portfolioData.length == 0 && (
+      {portfolioData.length == 0 && custId === loginUserId && (
         <div className="nullText"> 포트폴리오를 추가해주세요 </div>
       )}
       {/* 포트폴리오 보여주는 곳 */}
