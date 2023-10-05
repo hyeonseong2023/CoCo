@@ -8,6 +8,12 @@ export function addContents(
 ): ContentInterface[] {
   if (index === -1) {
     return [content].concat(contents.slice(index + 1));
+  } else if (content.tag === 'hr') {
+    return contents
+      .slice(0, index + 1)
+      .concat(content)
+      .concat(initialContent())
+      .concat(contents.slice(index + 1));
   }
   return contents
     .slice(0, index + 1)
