@@ -39,7 +39,7 @@ const FileInputBox = ({
     if (file == null || file?.type === undefined) return;
     const root = file.type.split('/')[0] === 'image' ? 'image' : 'file';
     const id = uuid();
-    const fileRef = ref(storage, `${root}s/${file.name + id}`);
+    const fileRef = ref(storage, `${root}s/${id + file.name}`);
     await uploadBytes(fileRef, file).then(() => {
       alert('업로드 완료');
     });
