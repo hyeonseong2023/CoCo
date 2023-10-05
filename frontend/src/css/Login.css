@@ -7,6 +7,19 @@
   height: 100vh;
 }
 
+.modal-overlay {
+  animation: slideIn 0.2s ease-in-out;
+  animation-fill-mode: forwards; /* 애니메이션 끝 후 상태 유지 */
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%); /* 아래에서 위로 슬라이딩 시작 위치 */
+  }
+  to {
+    transform: translateY(0); /* 화면 중앙으로 슬라이딩 */
+  }
+}
 
 
 .modal-overlay {
@@ -15,7 +28,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
