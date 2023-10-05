@@ -80,3 +80,19 @@ li.slick-active button:before {
 .Contentsbox:hover{
   background-color: rgb(242, 242, 242);
 }
+
+.no-data-message{
+  width: 100%;
+  height: 100px;
+  font-size: large;
+  text-align: center;
+  align-items: center;
+}
+
+.no-data-message>h3{
+  width: 100%;
+  margin-top: 100px;
+  font-size: large;
+  text-align: center;
+  align-items: center;
+}

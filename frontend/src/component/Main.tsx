@@ -57,8 +57,8 @@ const Main: React.FC<MainProps> = () => {
       requestData.cust_id = Cookies.get('CUST_ID');
       const response = await axios.post('http://localhost:8099/select', requestData);
 
-      console.log("mainresponse",response);
-      
+      console.log("mainresponse", response);
+
 
       const fetchedData = response.data.map(mapData);
 
@@ -185,11 +185,15 @@ const Main: React.FC<MainProps> = () => {
         onMyPostsClick={onMyPostsToggle}
       />
       <div className="contents-container">
-        <Contents categoryData={
-          isMyPosts ? Data2 : (isBookmarked ? bookmarkData : (isApplied ? Data1 : categoryData))
-        } />
+        {categoryData.length > 0 ? (
+          <Contents categoryData={
+            isMyPosts ? Data2 : (isBookmarked ? bookmarkData : (isApplied ? Data1 : categoryData))
+          } />
+        ) : (
+          <div className="no-data-message"><h3>조회된 프로젝트가 없습니다!! 😂 👀</h3></div>
+        )}
       </div>
-      <div className={`more-button-container ${isMyPosts || isBookmarked || isApplied ? 'hidden' : ''}`}>
+      <div className={`more-button-container ${categoryData.length <= 0||isMyPosts || isBookmarked || isApplied ? 'hidden' : ''}`}>
         <button className="more-button" onClick={handleLoadMore}>
           더 보기
         </button>
