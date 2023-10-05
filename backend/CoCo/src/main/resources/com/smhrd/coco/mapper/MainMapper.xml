@@ -116,7 +116,7 @@
 	<select id="applyList"
 		resultType="com.smhrd.coco.domain.TB_BOARD">
 		select * from TB_BOARD 
-		where CUST_ID NOT IN ('admin') and
+		where CUST_ID NOT IN ('admin', CUST_ID != #{cust_id} ) and
 		BOARD_ID
 		in ( select BOARD_ID
 		from TB_APPLY
