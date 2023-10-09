@@ -33,7 +33,6 @@ VARIABLE
     <tr>
         <td>라이브러리</td>
         <td>
-            <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
             <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"/>
             <img src="https://img.shields.io/badge/Axios-007CE2?style=for-the-badge&logo=axios&logoColor=white" />
         </td>
@@ -105,8 +104,8 @@ VARIABLE
 https://github.com/2023-SMHRD-SW-Fullstack-1/CoCo/assets/122369935/102eab23-dce2-4477-ab2f-9c6bfe92e581
 
 ## ⚠️ 트러블 슈팅
-![017](https://github.com/2023-SMHRD-SW-Fullstack-1/CoCo/assets/122369935/94636503-3b05-4e15-9a1c-b5d07d8e91da)
-![018](https://github.com/2023-SMHRD-SW-Fullstack-1/CoCo/assets/122369935/43817412-605c-436a-bd32-7ca014b53e16)
+![트러블슈팅1](https://github.com/2023-SMHRD-SW-Fullstack-1/CoCo/assets/122369935/94636503-3b05-4e15-9a1c-b5d07d8e91da)
+![트러블슈팅2](https://github.com/2023-SMHRD-SW-Fullstack-1/CoCo/assets/122369935/43817412-605c-436a-bd32-7ca014b53e16)
 
 ## 👥 팀원 역할
-![coco-ppt_영상뺴고-최종-021](https://github.com/2023-SMHRD-SW-Fullstack-1/CoCo/assets/122369935/305a4e1c-fee5-4c4e-9d2f-05a09481dac3)
+![팀원역할](https://github.com/2023-SMHRD-SW-Fullstack-1/CoCo/assets/122369935/305a4e1c-fee5-4c4e-9d2f-05a09481dac3)
