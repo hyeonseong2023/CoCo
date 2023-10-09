@@ -1,5 +1,9 @@
-# 👨‍👨‍👧‍👧 CoCo
+# CoCo
 ![소개](https://github.com/2023-SMHRD-SW-Fullstack-1/CoCo/assets/122369935/f8374a6c-f381-4e5f-9cfb-d78656c4d507)
+
+## 👨‍👨‍👧‍👧 팀명
+VARIABLE
+--
 
 ## 📆 프로젝트 기간
 
